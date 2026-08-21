@@ -1,0 +1,112 @@
+<!-- Design 07: Material Ripple / Onda Material -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Material Ripple Switch — Design 07</title>
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body {
+    min-height: 100vh;
+    display: grid;
+    place-items: center;
+    font-family: Roboto, "Segoe UI", system-ui, sans-serif;
+    background: #fafafa;
+    overflow-x: hidden;
+  }
+  .stage {
+    width: min(560px, 94vw);
+    padding: clamp(28px, 6vw, 60px);
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 10px 40px rgba(60,64,67,.16);
+  }
+  h1 { margin: 0; font-size: clamp(1.5rem, 4vw, 2.1rem); color: rgba(0,0,0,.87); font-weight: 500; }
+  .sub { margin: .3rem 0 2.4rem; color: rgba(0,0,0,.6); font-size: .92rem; }
+  .row { display: flex; align-items: center; justify-content: space-between; gap: 18px; padding: 14px 4px; border-bottom: 1px solid #ececec; }
+  .txt { color: rgba(0,0,0,.87); font-size: 1rem; font-weight: 400; }
+  .txt small { display: block; color: rgba(0,0,0,.6); font-size: .78rem; font-weight: 400; margin-top: 2px; }
+  .sw {
+    position: relative;
+    flex: 0 0 auto;
+    width: 52px; height: 32px;
+    background: rgba(0,0,0,.2);
+    border: none;
+    border-radius: 999px;
+    cursor: pointer;
+    padding: 0;
+    transition: background .25s ease;
+  }
+  .sw .thumb {
+    position: absolute; top: 2px; left: 2px;
+    width: 28px; height: 28px;
+    border-radius: 50%;
+    background: #fafafa;
+    box-shadow: 0 2px 4px rgba(0,0,0,.2);
+    transition: transform .25s cubic-bezier(.4,0,.2,1), background .25s ease;
+    display: grid; place-items: center;
+    overflow: hidden;
+  }
+  .sw.on { background: rgba(103, 80, 164, .5); }
+  .sw.on .thumb { transform: translateX(20px); background: #6750a4; }
+  .sw.on .thumb svg { stroke: #fff; opacity: 1; }
+  .thumb svg { width: 16px; height: 16px; stroke: rgba(0,0,0,.0); stroke-width: 2.6; fill: none; opacity: 0; transition: opacity .15s ease; }
+  .ripple {
+    position: absolute; top: 50%; left: 50%;
+    width: 0; height: 0; border-radius: 50%;
+    background: rgba(103, 80, 164, .28);
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+  }
+  .ripple.grow { animation: ripplegrow .5s ease-out forwards; }
+  @keyframes ripplegrow { to { width: 60px; height: 60px; opacity: 0; } }
+  .sw:focus-visible { outline: 3px solid rgba(103,80,164,.6); outline-offset: 4px; }
+  .hint { margin-top: 2rem; color: rgba(0,0,0,.6); font-size: .82rem; }
+  .credit { margin-top: 2.2rem; padding-top: 1rem; border-top: 1px solid #ececec; color: rgba(0,0,0,.54); font-size: .78rem; }
+  .credit a { color: #6750a4; text-decoration: none; }
+  .credit a:hover { text-decoration: underline; }
+input[type="checkbox"]:focus-visible, input[type="radio"]:focus-visible, [data-testid="toggle"]:focus-visible { outline: 2px solid #2563eb; outline-offset: 2px; } </style>
+</head>
+<body>
+<main class="stage">
+  <h1>Material Ripple</h1>
+  <p class="sub">Material Design, ink on thumb / Material Design, tinta en el pulgar</p>
+  <div class="row">
+    <span class="txt">Night light<small>reduce blue light — / reduce luz azul</small></span>
+    <button type="button" class="sw" data-testid="switch" role="switch" aria-checked="false" aria-label="Toggle night light">
+      <span class="thumb">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a9 9 0 1 0 9 9c0-.5-.04-1-.13-1.5a7 7 0 0 1-8.4-8.4C12.35 3.04 12 3 12 3z"/></svg>
+        <span class="ripple" aria-hidden="true"></span>
+      </span>
+    </button>
+  </div>
+  <div class="row">
+    <span class="txt">Auto rotate<small>when device tilts — / al inclinar el dispositivo</small></span>
+    <button type="button" class="sw" role="switch" aria-checked="true" aria-label="Toggle auto rotate">
+      <span class="thumb">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16.5 9V6.5a4.5 4.5 0 1 0-4.5 4.5v2"/></svg>
+        <span class="ripple" aria-hidden="true"></span>
+      </span>
+    </button>
+  </div>
+  <p class="hint">Click a switch — ripple included / Clic en un switch — con onda incluida</p>
+  <footer class="credit">Harley Vásquez · <a href="https://www.linkedin.com/in/harleyvasquez" target="_blank" rel="noreferrer">linkedin.com/in/harleyvasquez</a></footer>
+</main>
+<script>
+  document.querySelectorAll('.sw').forEach((sw) => {
+    if (sw.getAttribute('aria-checked') === 'true') sw.classList.add('on');
+    sw.addEventListener('click', (e) => {
+      const on = sw.getAttribute('aria-checked') === 'true';
+      sw.setAttribute('aria-checked', String(!on));
+      sw.classList.toggle('on', !on);
+      const ripple = sw.querySelector('.ripple');
+      ripple.classList.remove('grow');
+      void ripple.offsetWidth;
+      ripple.classList.add('grow');
+    });
+  });
+</script>
+</body>
+</html>

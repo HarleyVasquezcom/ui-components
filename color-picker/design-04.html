@@ -1,0 +1,98 @@
+<!-- Design 04: Wheel-ish / Rueda Cromática -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Wheel-ish — Design 04</title>
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body {
+    min-height: 100vh;
+    display: grid; place-items: center;
+    font-family: "Segoe UI", system-ui, sans-serif;
+    background: #101014;
+    overflow-x: hidden;
+  }
+  .stage {
+    width: min(560px, 94vw);
+    padding: clamp(28px, 6vw, 46px);
+    background: #17171d;
+    border: 1px solid #2b2b35;
+    border-radius: 26px;
+  }
+  h1 { margin: 0; font-size: clamp(1.6rem, 5vw, 2.1rem); color: #f4f4f5; font-weight: 800; }
+  h1 span { color: #22d3ee; }
+  .sub { margin: .4rem 0 1.8rem; color: #71717a; font-size: .95rem; }
+  .rig { display: flex; align-items: center; gap: 28px; }
+  .wheel { position: relative; width: 170px; height: 170px; flex: 0 0 auto; border-radius: 50%; background: conic-gradient(from 0deg, hsl(0,85%,55%), hsl(60,85%,55%), hsl(120,85%,55%), hsl(180,85%,55%), hsl(240,85%,55%), hsl(300,85%,55%), hsl(360,85%,55%)); box-shadow: 0 0 40px rgba(34, 211, 238, .16); }
+  .wheel::before { content: ""; position: absolute; left: 50%; top: 50%; width: 62px; height: 62px; transform: translate(-50%, -50%); border-radius: 50%; background: #17171d; }
+  .pin {
+    position: absolute; left: 50%; top: 50%;
+    width: 16px; height: 16px;
+    margin: -8px 0 0 -8px;
+    border-radius: 50%;
+    background: #fff;
+    border: 3px solid #101014;
+    box-shadow: 0 0 0 2px #22d3ee;
+    transform: rotate(calc(var(--h) * 1deg)) translateX(69px) rotate(calc(var(--h) * -1deg));
+    transition: background .12s linear;
+  }
+  .ctrl { flex: 1; min-width: 0; }
+  .lbl { display: block; margin: 0 0 8px; color: #a1a1aa; font-size: .85rem; font-weight: 700; text-transform: uppercase; letter-spacing: .1em; }
+  input[type="range"] { width: 100%; height: 34px; -webkit-appearance: none; appearance: none; background: transparent; }
+  input[type="range"]::-webkit-slider-runnable-track { height: 12px; border-radius: 999px; background: linear-gradient(to right, #ff0000, #ffff00, #00ff00, #00ffff, #0000ff, #ff00ff, #ff0000); }
+  input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; margin-top: -6px; width: 24px; height: 24px; border-radius: 50%; background: #fff; border: 3px solid #22d3ee; }
+  input[type="range"]::-moz-range-track { height: 12px; border-radius: 999px; background: linear-gradient(to right, #ff0000, #ffff00, #00ff00, #00ffff, #0000ff, #ff00ff, #ff0000); }
+  input[type="range"]::-moz-range-thumb { width: 20px; height: 20px; border-radius: 50%; background: #fff; border: 3px solid #22d3ee; }
+  input[type="range"]:focus-visible { outline: 3px solid #22d3ee; outline-offset: 4px; border-radius: 999px; }
+  .meta { margin-top: 20px; padding: 14px 16px; background: #1f1f28; border: 1px solid #2b2b35; border-radius: 14px; display: flex; justify-content: space-between; align-items: center; }
+  .meta p { margin: 0; color: #a1a1aa; }
+  .hexv { color: #22d3ee; font-family: "Cascadia Mono", Consolas, monospace; font-weight: 700; }
+  .credit { margin-top: 2rem; padding-top: 1rem; border-top: 1px solid #2b2b35; color: #52525b; font-size: .78rem; }
+  .credit a { color: #67e8f9; text-decoration: none; }
+</style>
+</head>
+<body>
+<main class="stage">
+  <h1>Wheel<span>ish</span></h1>
+  <p class="sub">A slider that rides a wheel / Un deslizador que cabalga una rueda</p>
+  <div class="rig">
+    <div class="wheel" style="--h:220" aria-hidden="true"><span class="pin" data-testid="preview"></span></div>
+    <div class="ctrl">
+      <label class="lbl" data-testid="label" for="cp-whi-04-hue">Angle — 0°…359°</label>
+      <input type="range" data-testid="hue" id="cp-whi-04-hue" min="0" max="359" value="220" step="1">
+    </div>
+  </div>
+  <div class="meta">
+    <p>Hex under the pin / Hex bajo el pin</p>
+    <p class="hexv" data-testid="hex">#3B61F5</p>
+  </div>
+  <footer class="credit">Harley Vásquez · <a href="https://www.linkedin.com/in/harleyvasquez" target="_blank" rel="noreferrer">linkedin.com/in/harleyvasquez</a></footer>
+</main>
+<script>
+  const hue = document.querySelector('[data-testid="hue"]');
+  const pin = document.querySelector('[data-testid="preview"]');
+  const hexOut = document.querySelector('[data-testid="hex"]');
+  const wheelEl = document.querySelector('.wheel');
+  function hslToHex(h, s, l) {
+    s /= 100; l /= 100;
+    const k = (n) => (n + h / 30) % 12;
+    const a = s * Math.min(l, 1 - l);
+    const f = (n) => l - a * Math.max(-1, Math.min(k(n) - 3, Math.min(9 - k(n), 1)));
+    const to = (x) => Math.round(x * 255).toString(16).padStart(2, '0');
+    return '#' + to(f(0)) + to(f(8)) + to(f(4)).toUpperCase();
+  }
+  function update() {
+    const h = Number(hue.value);
+    wheelEl.style.setProperty('--h', h);
+    const hex = hslToHex(h, 85, 55);
+    pin.style.background = hex;
+    hexOut.textContent = hex;
+  }
+  hue.addEventListener('input', update);
+  update();
+</script>
+</body>
+</html>

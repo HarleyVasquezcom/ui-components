@@ -1,0 +1,90 @@
+<!-- Design 10: Mono Gutter / Mono con Gutter -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mono Gutter Text Area — Design 10</title>
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body {
+    min-height: 100vh;
+    display: grid;
+    place-items: center;
+    font-family: ui-monospace, "Cascadia Mono", Consolas, monospace;
+    background: #1c1917;
+    overflow-x: hidden;
+  }
+  .stage {
+    width: min(620px, 94vw);
+    padding: clamp(30px, 6vw, 56px);
+    background: #292524;
+    border: 1px solid #44403c;
+    border-radius: 10px;
+    box-shadow: 0 30px 70px rgba(0,0,0,.45);
+  }
+  h1 { margin: 0; font-size: clamp(1.3rem, 4vw, 1.9rem); font-weight: 700; color: #fbbf24; letter-spacing: .06em; }
+  .sub { margin: .3rem 0 2rem; font-size: .84rem; color: #a8a29e; }
+  .lbl { display: block; margin: 0 0 8px; font-size: .78rem; color: #d6d3d1; text-transform: uppercase; letter-spacing: .18em; }
+  .grow {
+    display: flex;
+    background: #1c1917;
+    border: 1px solid #44403c;
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  .bar {
+    flex: 0 0 40px;
+    display: flex; flex-direction: column; align-items: center; gap: 8px;
+    padding: 14px 0;
+    background: #292524;
+    border-right: 3px solid #fbbf24;
+  }
+  .bar i { width: 5px; height: 5px; border-radius: 50%; background: #78716c; }
+  .area {
+    flex: 1; min-width: 0;
+    padding: 12px 14px;
+    font-family: inherit; font-size: .9rem; line-height: 1.7; color: #e7e5e4;
+    background: transparent;
+    border: none;
+    outline: none;
+    resize: vertical;
+    caret-color: #fbbf24;
+  }
+  .area::placeholder { color: #57534e; }
+  .area:focus-visible { outline: 2px solid #fbbf24; outline-offset: -2px; }
+  .ctr { display: flex; justify-content: flex-end; gap: 18px; margin-top: 10px; color: #78716c; font-size: .78rem; }
+  .ctr b { color: #fbbf24; }
+  .hint { margin-top: 1.8rem; font-size: .78rem; color: #78716c; }
+  .credit { margin-top: 2rem; padding-top: 1rem; border-top: 1px solid #44403c; color: #78716c; font-size: .75rem; }
+  .credit a { color: #fbbf24; text-decoration: none; }
+</style>
+</head>
+<body>
+<main class="stage">
+  <h1>Mono Gutter</h1>
+  <p class="sub">Amber bar, cold type / Barra ámbar, tipografía fría</p>
+  <label class="lbl" data-testid="label" for="a10">Buffer 0x0A</label>
+  <div class="grow">
+    <div class="bar" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+    <textarea class="area" id="a10" data-testid="area" aria-label="Text buffer" placeholder="0x00: write text"></textarea>
+  </div>
+  <p class="ctr"><span>chars: <b data-testid="chars">0</b></span><span>lines: <b data-testid="lines">0</b></span></p>
+  <p class="hint">Mono, amber, honest / Mono, ámbar, honesto</p>
+  <footer class="credit">Harley Vásquez · <a href="https://www.linkedin.com/in/harleyvasquez" target="_blank" rel="noreferrer">linkedin.com/in/harleyvasquez</a></footer>
+</main>
+<script>
+  const area = document.querySelector('[data-testid="area"]');
+  const chars = document.querySelector('[data-testid="chars"]');
+  const lines = document.querySelector('[data-testid="lines"]');
+  function upd() {
+    const v = area.value;
+    chars.textContent = v.length;
+    lines.textContent = v ? v.split('\n').length : 0;
+  }
+  area.addEventListener('input', upd);
+  upd();
+</script>
+</body>
+</html>

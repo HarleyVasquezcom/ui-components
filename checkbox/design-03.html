@@ -1,0 +1,97 @@
+<!-- Design 03: Flip Toggle / Interruptor Giratorio -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Flip Toggle Checkbox — Design 03</title>
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body {
+    min-height: 100vh;
+    display: grid;
+    place-items: center;
+    font-family: "Segoe UI", system-ui, sans-serif;
+    background: #f7f9fc;
+    overflow-x: hidden;
+  }
+  .stage {
+    width: min(620px, 94vw);
+    padding: clamp(28px, 6vw, 60px);
+    background: #fff;
+    border-radius: 18px;
+    box-shadow: 0 18px 50px rgba(20,40,80,.1);
+    text-align: center;
+  }
+  h1 { margin: 0; font-size: clamp(1.5rem, 4vw, 2rem); color: #1c2b45; font-weight: 650; }
+  .sub { margin: .4rem 0 2.6rem; color: #8a98b1; font-size: .92rem; }
+  .row {
+    display: flex; align-items: center; justify-content: space-between; gap: 16px;
+    max-width: 420px; margin: 0 auto 14px;
+    padding: 12px 18px;
+    background: #f6f8fb;
+    border-radius: 12px;
+    cursor: pointer;
+  }
+  .row .txt { text-align: left; color: #33415c; font-weight: 600; font-size: .95rem; }
+  .row .txt small { display: block; color: #9aa7bd; font-weight: 400; font-size: .78rem; }
+  .row input { position: absolute; opacity: 0; width: 1px; height: 1px; }
+  .track {
+    position: relative;
+    flex: 0 0 auto;
+    width: 52px; height: 30px; border-radius: 999px;
+    background: #d7dee9;
+    transition: background .25s ease;
+  }
+  .knob {
+    position: absolute; top: 3px; left: 3px;
+    width: 24px; height: 24px; border-radius: 50%;
+    background: #fff;
+    box-shadow: 0 2px 6px rgba(20,40,80,.25);
+    transition: transform .25s cubic-bezier(.6,0,.3,1);
+    display: grid; place-items: center;
+    font-size: .7rem;
+  }
+  .knob svg { width: 11px; height: 11px; stroke: #2f7dff; stroke-width: 4; fill: none; stroke-dasharray: 16; stroke-dashoffset: 16; transition: stroke-dashoffset .2s .1s ease; }
+  .row.checked .track { background: #2f7dff; }
+  .row.checked .knob { transform: translateX(22px); }
+  .row.checked .knob svg { stroke-dashoffset: 0; }
+  .row input:focus-visible ~ .track { outline: 3px solid #2f7dff; outline-offset: 3px; }
+  .row.disabled { opacity: .5; cursor: not-allowed; }
+  .hint { margin-top: 1.8rem; color: #9aa7bd; font-size: .82rem; }
+  .credit { margin-top: 2.4rem; padding-top: 1rem; border-top: 1px solid #eef1f6; color: #9aa7bd; font-size: .8rem; }
+  .credit a { color: #2f7dff; text-decoration: none; }
+  .credit a:hover { text-decoration: underline; }
+input[type="checkbox"]:focus-visible, input[type="radio"]:focus-visible, [data-testid="toggle"]:focus-visible { outline: 2px solid #2563eb; outline-offset: 2px; } </style>
+</head>
+<body>
+<main class="stage">
+  <h1>Flip Toggle</h1>
+  <p class="sub">A checkbox that flips like a switch / Un checkbox que gira como un switch</p>
+  <label class="row" data-testid="cb" for="cb-flip-a">
+    <span class="txt">Dark mode<small>flip to enable — / gira para activar</small></span>
+    <input type="checkbox" id="cb-flip-a">
+    <span class="track" data-testid="visual" aria-hidden="true">
+      <span class="knob"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7"/></svg></span>
+    </span>
+  </label>
+  <label class="row disabled" data-testid="cb-disabled" for="cb-flip-b">
+    <span class="txt">Sync across devices<small>unavailable — / no disponible</small></span>
+    <input type="checkbox" id="cb-flip-b" disabled>
+    <span class="track" aria-hidden="true">
+      <span class="knob"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7"/></svg></span>
+    </span>
+  </label>
+  <p class="hint">Click a row to flip it — / Clic en una fila para girarla</p>
+  <footer class="credit">Harley Vásquez · <a href="https://www.linkedin.com/in/harleyvasquez" target="_blank" rel="noreferrer">linkedin.com/in/harleyvasquez</a></footer>
+</main>
+<script>
+  document.querySelectorAll('.row input').forEach((input) => {
+    input.addEventListener('change', () => {
+      input.closest('.row').classList.toggle('checked', input.checked);
+    });
+  });
+</script>
+</body>
+</html>

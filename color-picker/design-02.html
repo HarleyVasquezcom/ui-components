@@ -1,0 +1,100 @@
+<!-- Design 02: Eye Dropper-ish / Estilo Gotero -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Eye Dropper-ish — Design 02</title>
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body {
+    min-height: 100vh;
+    display: grid; place-items: center;
+    font-family: Georgia, "Times New Roman", serif;
+    background: #f3f0ea;
+    overflow-x: hidden;
+  }
+  .stage {
+    width: min(540px, 94vw);
+    padding: clamp(30px, 6vw, 48px);
+    background: #fbf9f4;
+    border: 1px solid #ddd6cb;
+    border-radius: 8px;
+  }
+  h1 { margin: 0; font-size: clamp(1.6rem, 5vw, 2.1rem); color: #3f3a33; font-weight: 400; letter-spacing: .01em; }
+  .sub { margin: .4rem 0 1.8rem; color: #8c8377; font-size: .96rem; font-style: italic; }
+  .eyedrop {
+    display: flex; align-items: center; gap: 22px;
+    padding: 22px;
+    background: #f1ede4;
+    border: 1px dashed #c8bfae;
+    border-radius: 6px;
+  }
+  .probe {
+    position: relative;
+    width: 96px; height: 96px; flex: 0 0 auto;
+    border-radius: 50%;
+    box-shadow: inset 8px -8px 20px rgba(0, 0, 0, .18);
+  }
+  .probe::before {
+    content: ""; position: absolute; inset: 28px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, .35);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, .25);
+  }
+  .cap {
+    flex: 1;
+    font-size: 1.12rem; color: #57503f;
+  }
+  .cap b { font-family: "Cascadia Mono", Consolas, monospace; font-size: 1.3rem; color: #3f3a33; }
+  .lbl { display: block; margin: 26px 0 10px; color: #8c8377; font-size: .86rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; }
+  .row { display: flex; flex-wrap: wrap; gap: 10px; }
+  .sw {
+    width: 46px; height: 46px;
+    border: 2px solid #eee9df; border-radius: 50%;
+    cursor: pointer;
+    transition: transform .15s ease;
+  }
+  .sw:hover { transform: scale(1.12); }
+  .sw:focus-visible { outline: 3px solid #57503f; outline-offset: 3px; }
+  .sw.on { border-color: #3f3a33; box-shadow: 0 0 0 3px rgba(63, 58, 51, .25); }
+  .credit { margin-top: 2.2rem; padding-top: 1rem; border-top: 1px solid #ddd6cb; color: #a89f8f; font-size: .78rem; }
+  .credit a { color: #57503f; text-decoration: none; }
+</style>
+</head>
+<body>
+<main class="stage">
+  <h1>Eye Dropper</h1>
+  <p class="sub">Sampled like a pipette / Muestreado como un gotero</p>
+  <div class="eyedrop" aria-label="Picked color preview">
+    <div class="probe" data-testid="preview" style="background:#C2410C" aria-hidden="true"></div>
+    <p class="cap">Currently picked / Color capturado: <b data-testid="hex">#C2410C</b></p>
+  </div>
+  <span class="lbl" data-testid="label" id="cp-edi-02-label">Sample palette / Paleta de muestras</span>
+  <div class="row" role="group" aria-labelledby="cp-edi-02-label">
+    <button type="button" class="sw" data-testid="swatch" data-color="#C2410C" style="background:#C2410C" aria-label="Burnt orange #C2410C" aria-pressed="false"></button>
+    <button type="button" class="sw" data-testid="swatch" data-color="#A16207" style="background:#A16207" aria-label="Olive #A16207" aria-pressed="false"></button>
+    <button type="button" class="sw" data-testid="swatch" data-color="#166534" style="background:#166534" aria-label="Forest #166534" aria-pressed="false"></button>
+    <button type="button" class="sw" data-testid="swatch" data-color="#0F766E" style="background:#0F766E" aria-label="Pine #0F766E" aria-pressed="false"></button>
+    <button type="button" class="sw" data-testid="swatch" data-color="#1D4ED8" style="background:#1D4ED8" aria-label="Royal blue #1D4ED8" aria-pressed="false"></button>
+    <button type="button" class="sw" data-testid="swatch" data-color="#6D28D9" style="background:#6D28D9" aria-label="Violet #6D28D9" aria-pressed="false"></button>
+    <button type="button" class="sw" data-testid="swatch" data-color="#9F1239" style="background:#9F1239" aria-label="Burgundy #9F1239" aria-pressed="false"></button>
+    <button type="button" class="sw" data-testid="swatch" data-color="#404040" style="background:#404040" aria-label="Charcoal #404040" aria-pressed="false"></button>
+  </div>
+  <footer class="credit">Harley Vásquez · <a href="https://www.linkedin.com/in/harleyvasquez" target="_blank" rel="noreferrer">linkedin.com/in/harleyvasquez</a></footer>
+</main>
+<script>
+  const swatches = document.querySelectorAll('[data-testid="swatch"]');
+  const hexOut = document.querySelector('[data-testid="hex"]');
+  const preview = document.querySelector('[data-testid="preview"]');
+  function select(el) {
+    swatches.forEach((s) => { s.classList.toggle('on', s === el); s.setAttribute('aria-pressed', s === el ? 'true' : 'false'); });
+    hexOut.textContent = el.dataset.color;
+    preview.style.background = el.dataset.color;
+  }
+  swatches.forEach((s) => s.addEventListener('click', () => select(s)));
+  select(swatches[0]);
+</script>
+</body>
+</html>

@@ -1,0 +1,76 @@
+<!-- Design 07: Minimal Line / Línea Mínima -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Minimal Line Slider — Design 07</title>
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body {
+    min-height: 100vh;
+    display: grid;
+    place-items: center;
+    font-family: "Segoe UI", system-ui, sans-serif;
+    background: #f8fafc;
+    overflow-x: hidden;
+  }
+  .stage {
+    width: min(560px, 94vw);
+    padding: clamp(34px, 7vw, 54px);
+    background: #ffffff; border-radius: 4px;
+    box-shadow: 0 1px 0 rgba(15, 23, 42, .06);
+  }
+  h1 { margin: 0; font-size: clamp(1.5rem, 5vw, 1.9rem); color: #0f172a; font-weight: 400; letter-spacing: -.01em; }
+  .sub { margin: .4rem 0 2.4rem; color: #94a3b8; font-size: .9rem; }
+  .lbl { display: block; margin: 0 0 30px; color: #334155; font-size: .78rem; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; }
+  .sl {
+    width: 100%;
+    -webkit-appearance: none;
+    appearance: none;
+    height: 2px;
+    border: none;
+    background: linear-gradient(#0f172a, #0f172a) 0 / var(--p, 0%) 100% no-repeat #e2e8f0;
+    outline: none;
+    cursor: pointer;
+  }
+  .sl::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 14px; height: 14px;
+    border: none; border-radius: 50%;
+    background: #0f172a;
+  }
+  .sl:hover::-webkit-slider-thumb { background: #334155; }
+  .sl:focus-visible { outline: 2px solid #0f172a; outline-offset: 8px; }
+  .out { display: flex; align-items: baseline; justify-content: space-between; margin-top: 22px; border-top: 1px solid #f1f5f9; padding-top: 16px; }
+  .out span { color: #94a3b8; font-size: .8rem; letter-spacing: .1em; text-transform: uppercase; }
+  .out b { color: #0f172a; font-size: 1.6rem; font-weight: 400; }
+  .hint { margin-top: 1.8rem; color: #cbd5e1; font-size: .8rem; }
+  .credit { margin-top: 1.4rem; padding-top: 1rem; border-top: 1px solid #f1f5f9; color: #cbd5e1; font-size: .76rem; }
+  .credit a { color: #64748b; text-decoration: none; }
+</style>
+</head>
+<body>
+<main class="stage">
+  <h1>Minimal Line</h1>
+  <p class="sub">Nothing else, nothing more / Nada más, nada menos</p>
+  <label class="lbl" data-testid="label" id="lbl-sl07" for="sl07">Opacity</label>
+  <input id="sl07" class="sl" data-testid="slider" type="range" min="0" max="100" step="5" value="30">
+  <p class="out"><span>Value</span> <b data-testid="value" aria-live="polite">30</b></p>
+  <p class="hint">White space is the style / El espacio en blanco es el estilo</p>
+  <footer class="credit">Harley Vásquez · <a href="https://www.linkedin.com/in/harleyvasquez" target="_blank" rel="noreferrer">linkedin.com/in/harleyvasquez</a></footer>
+</main>
+<script>
+  const sl = document.querySelector('[data-testid="slider"]');
+  const val = document.querySelector('[data-testid="value"]');
+  function sync() {
+    val.textContent = String(sl.value);
+    sl.style.setProperty('--p', ((Number(sl.value) - Number(sl.min)) / (Number(sl.max) - Number(sl.min))) * 100 + '%');
+  }
+  sl.addEventListener('input', sync);
+  sync();
+</script>
+</body>
+</html>

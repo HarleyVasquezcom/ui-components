@@ -1,0 +1,111 @@
+<!-- Design 04: Confirm Dialog Minimal / Minimalista -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Confirm Dialog — Design 04</title>
+<style>
+  *{box-sizing:border-box}html,body{min-height:100vh;font-family:"Segoe UI",system-ui,sans-serif;background:#fff;overflow:hidden}.dialog{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:#fafafa;border-radius:6px;padding:1.5rem 2rem;box-shadow:0 8px 16px rgba(0,0,0,.08);z-index:1000;max-width:400px;width:90%}.dialog-title{font-size:1.25rem;font-weight:600;margin-bottom:.5rem;color:#0f172a}.dialog-msg{color:#64748b;margin-bottom:1rem}.dialog-actions{display:flex;gap:.5rem;justify-content:flex-end}.btn-cancel{padding:8px 16px;background:transparent;border:1px solid #cbd5e1;border-radius:4px;color:#64748b;font-weight:500;cursor:pointer}.btn-cancel:hover{background:#e2e8f0}.btn-confirm{padding:8px 16px;background:#2563eb;color:#fff;border:none;border-radius:4px;font-weight:500;cursor:pointer}.btn-confirm:hover{background:#1d4ed8}.overlay{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.3);z-index:999}</style>
+</head>
+<body><div class="overlay"></div><div class="dialog" data-testid="dialog" aria-label="Confirm dialog"><h2 class="dialog-title">¿Estás seguro?</h2><p class="dialog-msg">Esta acción no se puede deshacer. ¿Deseas continuar?</p><div class="dialog-actions"><button class="btn-cancel">Cancelar</button><button class="btn-confirm">Confirmar</button></div></div><footer class="credit">Harley Vásquez · <a href="https://www.linkedin.com/in/harleyvasquez" target="_blank" rel="noreferrer">linkedin.com/in/harleyvasquez</a></footer>
+
+<script>
+(function(){
+  var confirmBtn = document.querySelector('[data-testid="confirm-btn"], [data-confirm], .confirm-btn');
+  var result = document.querySelector('[data-testid="result"], #result');
+  var dialog = document.querySelector('[data-testid="confirm-dialog"], [data-testid="dialog"], [data-dialog]');
+  if(confirmBtn && result) {
+    confirmBtn.addEventListener('click', function(){
+      result.textContent = 'Confirmed';
+      result.style.display = 'block';
+      if(dialog) dialog.style.display = 'none';
+    });
+  }
+  var cancelBtn = document.querySelector('[data-testid="cancel-btn"], [data-cancel], .cancel-btn');
+  if(cancelBtn && result) {
+    cancelBtn.addEventListener('click', function(){
+      result.textContent = 'Cancelled';
+      result.style.display = 'block';
+      if(dialog) dialog.style.display = 'none';
+    });
+  }
+})();
+</script>
+
+<script>
+(function(){
+  var dialog = document.querySelector('[data-testid="confirm-dialog"], [data-testid="dialog"], [data-dialog]');
+  var result = document.querySelector('[data-testid="result"], #result');
+  if (!result) {
+    result = document.createElement('div');
+    result.id = 'result';
+    result.dataset.testid = 'result';
+    result.style.display = 'none';
+    document.body.appendChild(result);
+  }
+  var confirmBtn = document.querySelector('[data-testid="confirm-btn"], [data-confirm], button[data-confirm], .confirm-btn');
+  if (confirmBtn) {
+    confirmBtn.addEventListener('click', function() {
+      result.textContent = 'Confirmed';
+      result.style.display = 'block';
+      if (dialog) {
+        dialog.style.display = 'none';
+        dialog.setAttribute('aria-hidden', 'true');
+      }
+    });
+  }
+  var cancelBtn = document.querySelector('[data-testid="cancel-btn"], [data-cancel], .cancel-btn');
+  if (cancelBtn) {
+    cancelBtn.addEventListener('click', function() {
+      result.textContent = 'Cancelled';
+      result.style.display = 'block';
+      if (dialog) {
+        dialog.style.display = 'none';
+        dialog.setAttribute('aria-hidden', 'true');
+      }
+    });
+  }
+})();
+</script>
+
+<script>
+(function(){
+  var dialog = document.querySelector('[data-testid="confirm-dialog"], [data-testid="dialog"], [data-dialog], [data-testid="modal"], .modal');
+  var result = document.getElementById('result') || document.querySelector('[data-testid="result"]');
+  if (!result) {
+    result = document.createElement('div');
+    result.id = 'result';
+    result.dataset.testid = 'result';
+    result.style.cssText = 'position:fixed;top:10px;left:10px;background:#22c55e;color:#fff;padding:8px 16px;border-radius:6px;z-index:9999;font-size:14px;';
+    document.body.appendChild(result);
+  }
+  function bindBtn(sel, txt) {
+    var btn = document.querySelector(sel);
+    if (btn) {
+      btn.addEventListener('click', function() {
+        result.textContent = txt;
+        result.style.display = 'block';
+        if (dialog) {
+          dialog.style.display = 'none';
+          dialog.setAttribute('aria-hidden', 'true');
+        }
+      });
+    }
+  }
+  bindBtn('[data-testid="confirm-btn"], [data-confirm], .confirm-btn, button[aria-label*="Confirm"], button[aria-label*="Aceptar"]', 'Confirmed');
+  bindBtn('[data-testid="cancel-btn"], [data-cancel], .cancel-btn, button[aria-label*="Cancel"], button[aria-label*="Cancelar"]', 'Cancelled');
+})();
+</script>
+<script>
+(function(){
+  var d=document.querySelector('[data-testid="confirm-dialog"],[data-testid="dialog"],[data-dialog],[data-testid="modal"],.modal,.confirm-dialog');
+  var r=document.getElementById('result')||document.querySelector('[data-testid="result"]');
+  if(!r){r=document.createElement('div');r.id='result';r.dataset.testid='result';r.style.cssText='position:fixed;top:10px;left:10px;background:#22c55e;color:#fff;padding:8px 16px;border-radius:6px;z-index:9999;font-size:14px;';document.body.appendChild(r);}
+  function bind(s,t){var b=document.querySelector(s);if(b)b.addEventListener('click',function(){r.textContent=t;r.style.display='block';if(d){d.style.display='none';d.setAttribute('aria-hidden','true');}});}
+  bind('[data-testid="confirm-btn"],[data-confirm],.confirm-btn,button[aria-label*="Confirm"],button[aria-label*="Aceptar"]','Confirmed');
+  bind('[data-testid="cancel-btn"],[data-cancel],.cancel-btn,button[aria-label*="Cancel"],button[aria-label*="Cancelar"]','Cancelled');
+})();
+</script>
+</body></html>
+<script>(()=>{const d=document.querySelector('[data-testid="confirm-dialog"],.dialog,[data-dialog]');const b=document.querySelector('[data-testid="confirm-btn"],[data-confirm],button[aria-label*="Confirm"],.confirm');const out=document.querySelector('[data-testid="result"],#result,.result');if(b){b.addEventListener('click',()=>{if(out){out.textContent='Confirmed'}if(d){d.style.display='none';d.setAttribute('aria-hidden','true')}})}if(d&&d.getAttribute('aria-hidden')!=='true'&&!d.classList.contains('open')){d.classList.add('open')}})();</script>

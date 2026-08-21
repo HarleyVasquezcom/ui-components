@@ -1,0 +1,34 @@
+<!-- Design 04: Light Mode Trigger / Light Mode Tooltip -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tooltip — Design 04</title>
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body {
+    min-height: 100vh;
+    font-family: "Segoe UI", system-ui, sans-serif;
+    background: #1e293b;
+    color: #f1f5f9;
+    overflow-x: hidden;
+  }
+  .tooltip-wrapper { position: relative; display: inline-block; }
+  .tooltip-trigger { padding: 8px 16px; background: #334155; color: #f1f5f9; border-radius: 6x; font-size: .875rem; font-weight: 500; cursor: pointer; }
+  .tooltip-trigger:focus-visible { outline: 2px solid #64748b; outline-offset: 2px; }
+  .tooltip { position: absolute; bottom: 100%; left: 50%; transform: translateX(-50%) translateY(-8px); background: #334155; color: #94a3b8; padding: 8px 12px; border-radius: 8px; font-size: .75rem; line-height: 1.4; white-space: nowrap; opacity: 0; visibility: hidden; transition: opacity .2s visibility .2s; z-index: 100; }
+  .tooltip.open { opacity: 1; visibility: visible; transition: opacity .1s, visibility .1s; }
+  .credit { margin-top: 24px; padding: 12px 0; border-top: 1px solid #475569; color: #64748b; font-size: .75rem; text-align: center; }
+  @media (max-width: 480px) { .tooltip { left: 50%; transform: translateX(-50%) translateY(-4px); padding: 6px 10px; font-size: .625rem; } }
+</style>
+</head>
+<body>
+<div class="tooltip-wrapper" data-testid="tooltip" aria-label="Tooltip design" data-tooltip>
+  <button class="tooltip-trigger" aria-describedby="tt-04">Options</button>
+  <div class="tooltip" id="tt-04" role="tooltip">Choose an action</div>
+</div>
+<footer class="credit">Harley Vásquez · <a href="https://www.linkedin.com/in/harleyvasquez" target="_blank" rel="noreferrer">linkedin.com/in/harleyvasquez</a></footer>
+</body>
+</html>

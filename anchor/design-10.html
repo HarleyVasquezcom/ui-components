@@ -1,0 +1,71 @@
+<!-- Design 10: float-anchor / ancla-flotante -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Float Anchor — Design 10</title>
+  <style>
+    * { box-sizing: border-box; }
+    html, body { margin: 0; }
+    body {
+      min-height: 100vh;
+      font-family: "SF Mono", "Fira Mono", monospace;
+      background: #1a202c;
+      color: #edf2f7;
+      overflow-x: hidden;
+    }
+    .stage {
+      width: min(620px, 94vw);
+      max-width: 480px;
+      padding: 32px 24px;
+      border-radius: 8px;
+      background: #2d3748;
+      border: 1px solid #4a5568;
+      position: relative;
+      text-align: center;
+    }
+    .stage::before {
+      content: '';
+      position: absolute;
+      top: -8px; left: -8px; right: -8px; bottom: -8px;
+      border-radius: 12px;
+      border: 2px solid #4a5568;
+      z-index: -1;
+    }
+    h1 { margin: 0; font-size: clamp(1.5rem, 3vw, 1.75rem); color: #edf2f7; letter-spacing: .06em; }
+    .sub { margin: .5rem 0 1.5rem; color: #718096; font-size: .9rem; }
+    .anchor {
+      position: relative;
+      display: inline-block;
+      padding: 12px 24px;
+      font-size: 1rem;
+      font-weight: 500;
+      color: #edf2f7;
+      background: #e53e3e;
+      border: none;
+      border-radius: 6px;
+      text-decoration: none;
+      margin-top: 20px;
+      box-shadow: 0 4px 14px rgba(229,62,62,.35);
+      transition: transform .15s, box-shadow .15s;
+    }
+    .anchor:hover { transform: translateY(-2px) scale(1.02); box-shadow: 0 8px 24px rgba(229,62,62,.45); }
+    .anchor:focus-visible { outline: 3px solid #e53e3e; outline-offset: 4px; }
+    .anchor:active { transform: scale(.98); box-shadow: 0 2px 6px rgba(229,62,62,.2); }
+    .hint { margin-top: 1rem; color: #718096; font-size: .8rem; }
+    .credit { margin-top: 2rem; padding-top: 1rem; border-top: 1px solid #4a5568; color: #718096; font-size: .75rem; }
+    .credit a { color: #e53e3e; text-decoration: none; }
+    .credit a:hover { text-decoration: underline; }
+  </style>
+</head>
+<body>
+  <main class="stage">
+    <h1>Float Anchor</h1>
+    <p class="sub">Floating call to action — / Llamada flotante a la acción</p>
+    <a class="anchor" data-testid="anchor" name="float1" href="#float1" aria-label="Float anchor section">float-anchor</a>
+    <p class="hint">Rise above the content — / Sobrepasa el contenido</p>
+    <footer class="credit">Harley Vásquez · <a href="https://www.linkedin.com/in/harleyvasquez" target="_blank" rel="noreferrer">linkedin.com/in/harleyvasquez</a></footer>
+  <div id="section1" style="height: 70vh;"></div></main>
+</body>
+</html>

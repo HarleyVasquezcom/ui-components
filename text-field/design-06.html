@@ -1,0 +1,116 @@
+<!-- Design 06: Floating Label / Etiqueta Flotante -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Floating Label Text Field — Design 06</title>
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body {
+    min-height: 100vh;
+    display: grid;
+    place-items: center;
+    font-family: "Segoe UI", system-ui, sans-serif;
+    background: linear-gradient(180deg, #eef6ff, #e3edff);
+    overflow-x: hidden;
+  }
+  .stage {
+    width: min(540px, 94vw);
+    padding: clamp(32px, 7vw, 64px);
+    background: #fff;
+    border-radius: 22px;
+    box-shadow: 0 26px 70px rgba(37,99,235,.12);
+  }
+  h1 { margin: 0; font-size: clamp(1.5rem, 4.5vw, 2.1rem); color: #1e3a8a; font-weight: 700; }
+  .sub { margin: .3rem 0 2.6rem; color: #60a5fa; font-size: .92rem; }
+  .wrap { position: relative; margin-top: 6px; }
+  .lbl {
+    position: absolute; left: 14px; top: 50%;
+    transform: translateY(-50%);
+    color: #64748b; font-size: 1rem;
+    pointer-events: none;
+    transition: all .18s ease;
+    background: transparent;
+  }
+  .wrap.on .lbl, .lbl.float {
+    top: 0; transform: translateY(-50%);
+    font-size: .74rem; font-weight: 700; color: #2563eb;
+    background: #fff; padding: 0 6px; left: 10px;
+  }
+  .field {
+    width: 100%;
+    padding: 15px 16px;
+    font-size: 1rem; color: #0f172a;
+    background: #fff;
+    border: 1.5px solid #cbd5e1;
+    border-radius: 12px;
+    outline: none;
+    transition: border-color .2s ease, box-shadow .2s ease;
+  }
+  .field::placeholder { color: transparent; }
+  .field:focus { border-color: #2563eb; box-shadow: 0 0 0 4px rgba(37,99,235,.12); }
+  .field:focus-visible { outline: 2px solid #1e40af; outline-offset: 2px; }
+  .field[aria-invalid="true"] { border-color: #dc2626; }
+  .err {
+    display: none; margin-top: 8px; color: #dc2626; font-size: .8rem; font-weight: 600;
+  }
+  .err.show { display: block; }
+  .row { display: flex; align-items: center; justify-content: space-between; gap: 14px; margin-top: 22px; flex-wrap: wrap; }
+  .btn {
+    padding: 11px 26px; font-size: .92rem; font-weight: 600;
+    color: #fff; background: #2563eb;
+    border: none; border-radius: 10px; cursor: pointer;
+    box-shadow: 0 8px 18px rgba(37,99,235,.28);
+    transition: background .15s ease, transform .12s ease;
+  }
+  .btn:hover { background: #1d4ed8; transform: translateY(-1px); }
+  .btn:focus-visible { outline: 3px solid #1e40af; outline-offset: 3px; }
+  .val { margin: 0; color: #94a3b8; font-size: .88rem; }
+  .val b { color: #0f172a; font-family: ui-monospace, "Cascadia Mono", Consolas, monospace; }
+  .hint { margin-top: 2.4rem; color: #93c5fd; font-size: .8rem; }
+  .credit { margin-top: 2.2rem; padding-top: 1rem; border-top: 1px solid #eff6ff; color: #93c5fd; font-size: .78rem; }
+  .credit a { color: #2563eb; text-decoration: none; }
+  .credit a:hover { text-decoration: underline; }
+</style>
+</head>
+<body>
+<main class="stage">
+  <h1>Floating Label</h1>
+  <p class="sub">The label lifts out of the way / La etiqueta se eleva y deja paso</p>
+  <form novalidate>
+    <div class="wrap" data-testid="wrap">
+      <input class="field" type="email" id="f06" data-testid="field" aria-label="Email address" aria-describedby="err06" placeholder="you@example.com">
+      <label class="lbl" data-testid="label" for="f06">Email address</label>
+    </div>
+    <p class="err" id="err06" data-testid="error" role="alert">Enter a valid email address</p>
+    <div class="row">
+      <button class="btn" type="submit" data-testid="submit" aria-label="Submit email">Save</button>
+      <p class="val">value: <b data-testid="value" aria-live="polite"></b></p>
+    </div>
+  </form>
+  <p class="hint">Focus or fill — the label floats above / Al enfocar o escribir la etiqueta flota arriba</p>
+  <footer class="credit">Harley Vásquez · <a href="https://www.linkedin.com/in/harleyvasquez" target="_blank" rel="noreferrer">linkedin.com/in/harleyvasquez</a></footer>
+</main>
+<script>
+  const wrap = document.querySelector('[data-testid="wrap"]');
+  const field = document.querySelector('[data-testid="field"]');
+  const err = document.querySelector('[data-testid="error"]');
+  const out = document.querySelector('[data-testid="value"]');
+  const form = document.querySelector('form');
+  const EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  function setFloat() { const active = document.activeElement === field || field.value.length > 0; wrap.classList.toggle('on', active); document.querySelector('[data-testid="label"]').classList.toggle('float', active); }
+  function validate() {
+    const ok = EMAIL.test(field.value);
+    err.classList.toggle('show', !ok);
+    field.setAttribute('aria-invalid', String(!ok));
+    return ok;
+  }
+  field.addEventListener('input', () => { out.textContent = field.value; setFloat(); });
+  field.addEventListener('focus', setFloat);
+  field.addEventListener('blur', () => { setFloat(); validate(); });
+  form.addEventListener('submit', (e) => { e.preventDefault(); validate(); });
+</script>
+</body>
+</html>

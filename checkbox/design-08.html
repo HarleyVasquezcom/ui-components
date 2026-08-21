@@ -1,0 +1,124 @@
+<!-- Design 08: Gallery Check / Galería con Marca -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Gallery Check Checkbox — Design 08</title>
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body {
+    min-height: 100vh;
+    display: grid;
+    place-items: center;
+    font-family: "Segoe UI", system-ui, sans-serif;
+    background: linear-gradient(180deg, #faf6ef, #f1e9dd);
+    overflow-x: hidden;
+  }
+  .stage {
+    width: min(680px, 94vw);
+    padding: clamp(26px, 6vw, 56px);
+    background: #fffdf9;
+    border-radius: 24px;
+    box-shadow: 0 30px 70px rgba(120,90,50,.16);
+    text-align: center;
+  }
+  h1 { margin: 0; color: #4a3f2d; font-size: clamp(1.5rem, 4vw, 2.1rem); font-weight: 700; }
+  .sub { margin: .4rem 0 2.4rem; color: #a39479; font-size: .92rem; }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 150px), 1fr));
+    gap: 18px;
+  }
+  .art {
+    position: relative;
+    display: block;
+    cursor: pointer;
+    border-radius: 16px;
+    overflow: hidden;
+    border: 3px solid transparent;
+    transition: border-color .2s ease, transform .2s ease;
+  }
+  .art:hover { transform: translateY(-4px); }
+  .art.checked { border-color: #c96f3c; }
+  .art input { position: absolute; opacity: 0; width: 1px; height: 1px; }
+  .art .thumb { display: block; width: 100%; aspect-ratio: 1; }
+  .art .t1 { background: linear-gradient(135deg, #f6a85f, #e05d3f); }
+  .art .t2 { background: linear-gradient(135deg, #7fae7c, #3c6e51); }
+  .art .t3 { background: linear-gradient(135deg, #8fa8c9, #4b5d85); }
+  .art .t4 { background: linear-gradient(135deg, #e7cf8f, #b98a4e); }
+  .art .name {
+    position: absolute; left: 0; right: 0; bottom: 0;
+    padding: 8px 10px;
+    background: linear-gradient(transparent, rgba(0,0,0,.55));
+    color: #fff; font-size: .78rem; font-weight: 600; text-align: left;
+  }
+  .check-badge {
+    position: absolute; top: 8px; right: 8px;
+    width: 26px; height: 26px; border-radius: 50%;
+    background: #c96f3c; border: 2px solid #fff;
+    display: grid; place-items: center;
+    opacity: 0; transform: scale(.4) rotate(-30deg);
+    transition: all .22s cubic-bezier(.5,1.6,.4,1);
+    box-shadow: 0 4px 12px rgba(0,0,0,.3);
+  }
+  .check-badge svg { width: 14px; height: 14px; stroke: #fff; stroke-width: 3.5; fill: none; }
+  .art.checked .check-badge { opacity: 1; transform: scale(1) rotate(0deg); }
+  .art input:focus-visible ~ .check-badge { opacity: 1; outline: 3px solid #fff; outline-offset: 2px; }
+  .art.disabled { opacity: .5; cursor: not-allowed; }
+  .art.disabled:hover { transform: none; }
+  .hint { margin-top: 2rem; color: #a39479; font-size: .82rem; }
+  .credit { margin-top: 2.2rem; padding-top: 1rem; border-top: 1px solid #efe7d8; color: #a39479; font-size: .8rem; }
+  .credit a { color: #c96f3c; text-decoration: none; }
+  .credit a:hover { text-decoration: underline; }
+input[type="checkbox"]:focus-visible, input[type="radio"]:focus-visible, [data-testid="toggle"]:focus-visible { outline: 2px solid #2563eb; outline-offset: 2px; } </style>
+</head>
+<body>
+<main class="stage">
+  <h1>Gallery Check</h1>
+  <p class="sub">Pick the prints you love / Elige los prints que amas</p>
+  <div class="grid">
+    <label class="art" data-testid="cb" for="cb-g-a">
+      <input type="checkbox" id="cb-g-a">
+      <span class="thumb t1" aria-hidden="true"></span>
+      <span class="name">Ember Ridge</span>
+      <span class="check-badge" data-testid="visual" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7"/></svg></span>
+    </label>
+    <label class="art" for="cb-g-b">
+      <input type="checkbox" id="cb-g-b">
+      <span class="thumb t2" aria-hidden="true"></span>
+      <span class="name">Moss Valley</span>
+      <span class="check-badge" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7"/></svg></span>
+    </label>
+    <label class="art" for="cb-g-c">
+      <input type="checkbox" id="cb-g-c">
+      <span class="thumb t3" aria-hidden="true"></span>
+      <span class="name">Blue Hour</span>
+      <span class="check-badge" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7"/></svg></span>
+    </label>
+    <label class="art" for="cb-g-d">
+      <input type="checkbox" id="cb-g-d">
+      <span class="thumb t4" aria-hidden="true"></span>
+      <span class="name">Golden Dune</span>
+      <span class="check-badge" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7"/></svg></span>
+    </label>
+    <label class="art disabled" data-testid="cb-disabled" for="cb-g-e">
+      <input type="checkbox" id="cb-g-e" disabled>
+      <span class="thumb t1" aria-hidden="true"></span>
+      <span class="name">On Hold</span>
+      <span class="check-badge" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7"/></svg></span>
+    </label>
+  </div>
+  <p class="hint">Click an image to select it — / Clic en una imagen para seleccionarla</p>
+  <footer class="credit">Harley Vásquez · <a href="https://www.linkedin.com/in/harleyvasquez" target="_blank" rel="noreferrer">linkedin.com/in/harleyvasquez</a></footer>
+</main>
+<script>
+  document.querySelectorAll('.art input').forEach((input) => {
+    input.addEventListener('change', () => {
+      input.closest('.art').classList.toggle('checked', input.checked);
+    });
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,105 @@
+<!-- Design 01: Glass Aero / Vidrio Aéreo -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Glass Aero Button — Design 01</title>
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body {
+    min-height: 100vh;
+    display: grid;
+    place-items: center;
+    font-family: "Segoe UI", system-ui, sans-serif;
+    background: #0a0f1e;
+    overflow-x: hidden;
+  }
+  .backdrop {
+    position: fixed; inset: 0; z-index: 0;
+    background:
+      radial-gradient(60% 50% at 20% 20%, rgba(56,189,248,.22), transparent 60%),
+      radial-gradient(50% 45% at 80% 30%, rgba(167,139,250,.20), transparent 60%),
+      radial-gradient(55% 50% at 60% 85%, rgba(251,146,60,.14), transparent 60%),
+      linear-gradient(160deg, #0a0f1e, #101b33 55%, #0a0f1e);
+  }
+  .orb { position: fixed; border-radius: 50%; filter: blur(70px); opacity: .55; z-index: 0; }
+  .orb-a { width: 340px; height: 340px; left: -80px; top: -60px; background: #22d3ee; }
+  .orb-b { width: 300px; height: 300px; right: -70px; bottom: -50px; background: #a78bfa; }
+  .stage {
+    position: relative; z-index: 1;
+    width: min(620px, 94vw);
+    padding: clamp(28px, 6vw, 64px);
+    border-radius: 28px;
+    background: rgba(255,255,255,.06);
+    border: 1px solid rgba(255,255,255,.14);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    box-shadow: 0 30px 60px rgba(0,0,0,.45), inset 0 1px 0 rgba(255,255,255,.12);
+    text-align: center;
+  }
+  h1 {
+    margin: 0; font-size: clamp(1.5rem, 4vw, 2.2rem); letter-spacing: .06em;
+    background: linear-gradient(90deg, #a5f3fc, #c4b5fd, #fcd9b8);
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
+  .sub { margin: .5rem 0 2.2rem; color: #9fb3d1; font-size: .95rem; }
+  .btn {
+    position: relative;
+    display: inline-flex; align-items: center; gap: 12px;
+    padding: 16px 34px;
+    font-size: 1.05rem; font-weight: 600; letter-spacing: .04em;
+    color: #eaf6ff;
+    background: linear-gradient(135deg, rgba(255,255,255,.16), rgba(255,255,255,.05));
+    border: 1px solid rgba(255,255,255,.28);
+    border-radius: 16px;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    box-shadow: 0 10px 26px rgba(0,0,0,.35), inset 0 1px 0 rgba(255,255,255,.35);
+    cursor: pointer;
+    transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+  }
+  .btn:hover { border-color: rgba(165,243,252,.75); box-shadow: 0 14px 34px rgba(0,0,0,.45), inset 0 1px 0 rgba(255,255,255,.4); }
+  .btn:active { transform: translateY(2px) scale(.98); }
+  .btn:focus-visible { outline: 3px solid #a5f3fc; outline-offset: 4px; }
+  .btn svg { width: 20px; height: 20px; fill: #a5f3fc; }
+  .badge {
+    display: inline-grid; place-items: center;
+    min-width: 30px; height: 30px; padding: 0 8px;
+    border-radius: 999px;
+    background: linear-gradient(135deg, #22d3ee, #818cf8);
+    color: #06121f; font-weight: 700; font-size: .9rem;
+    box-shadow: 0 0 18px rgba(34,211,238,.55);
+  }
+  .hint { margin-top: 1.6rem; color: #6f85a6; font-size: .82rem; }
+  .credit {
+    margin-top: 2.4rem; padding-top: 1.2rem;
+    border-top: 1px solid rgba(255,255,255,.12);
+    color: #7c90b0; font-size: .8rem;
+  }
+  .credit a { color: #a5f3fc; text-decoration: none; }
+  .credit a:hover { text-decoration: underline; }
+</style>
+</head>
+<body>
+<div class="backdrop" aria-hidden="true"><div class="orb orb-a"></div><div class="orb orb-b"></div></div>
+<main class="stage">
+  <h1>Glass Aero</h1>
+  <p class="sub">Frosted glass with aurora light — / Vidrio esmerilado con luz aurora</p>
+  <button type="button" class="btn" data-testid="btn" aria-label="Activate glass button">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13 2 3 14h7l-1 8 10-12h-7l1-8z"/></svg>
+    <span>Activate</span>
+    <span class="badge" aria-live="polite"><b data-testid="count">0</b></span>
+  </button>
+  <p class="hint">Click to count activations — / Clic para contar activaciones</p>
+  <footer class="credit">Harley Vásquez · <a href="https://www.linkedin.com/in/harleyvasquez" target="_blank" rel="noreferrer">linkedin.com/in/harleyvasquez</a></footer>
+</main>
+<script>
+  const btn = document.querySelector('[data-testid="btn"]');
+  const count = document.querySelector('[data-testid="count"]');
+  let n = 0;
+  btn.addEventListener('click', () => { n += 1; count.textContent = n; });
+</script>
+</body>
+</html>

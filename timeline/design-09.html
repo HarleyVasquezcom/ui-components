@@ -1,0 +1,86 @@
+<!-- Design 09: Timeline Badge / Badge Timeline -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Timeline — Design 09</title>
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body {
+    min-height: 100vh;
+    font-family: "Segoe UI", system-ui, sans-serif;
+    background: #1e293b;
+    color: #f1f5f9;
+    overflow-x: hidden;
+  }
+  .timeline { width: min(90vw, 800px); margin: 0 auto; position: relative; padding-left: 30px; }
+  .timeline::before { content: ''; position: absolute; left: 16px; top: 0; bottom: 0; width: 2px; background: #3b82f6; }
+  .timeline-item { margin-bottom: 32px; position: relative; padding-left: 32px; }
+  .timeline-item::before { content: ''; position: absolute; left: -28px; top: 12px; width: 12px; height: 12px; background: #fff; border: 2px solid #3b82f6; border-radius: 50%; }
+  .timeline-item.completed::before { background: #10b981; border-color: #10b981; }
+  .timeline-item.pending::before { background: #f59e0b; border-color: #f59e0b; }
+  .timeline-dot { position: absolute; left: -28px; top: 12px; width: 12px; height: 12px; background: #fff; border: 2px solid #3b82f6; border-radius: 50%; }
+  .timeline-content { padding-left: 32px; }
+  .timeline-date { font-size: .75rem; color: #64748b; margin-bottom: 4px; }
+  .timeline-title { font-size: 1rem; font-weight: 600; color: #f1f5f9; }
+  .timeline-desc { font-size: .875rem; color: #64748b; line-height: 1.5; }
+  .timeline-nav { position: absolute; top: 0; width: 24px; height: 100%; margin-top: 32px; transform: translateX(-32px); }
+  .timeline-nav button { width: 24px; height: 24px; background: #3b82f6; border: none; border-radius: 6px; color: #fff; font-size: 1rem; cursor: pointer; }
+  .timeline-nav button:hover { background: #2563eb; }
+  .timeline-nav button:focus-visible { outline: 2px solid #64748b; outline-offset: 2px; }
+  .credit { margin-top: 32px; padding: 16px 0; border-top: 1px solid #334155; color: #64748b; font-size: .875rem; text-align: center; }
+  .credit a { color: #64748b; text-decoration: none; }
+  @media (max-width: 480px) { .timeline { padding-left: 20px; } }
+</style>
+</head>
+<body>
+<div data-testid="label" class="label">Timeline</div>
+<div class="timeline" data-testid="timeline" aria-label="Timeline design" data-timeline>
+  <div class="timeline-item completed" data-item>
+    <div class="timeline-dot"></div>
+    <div class="timeline-content">
+      <div class="timeline-date">Jan 2024</div>
+      <div class="timeline-title">Project Kickoff</div>
+      <div class="timeline-desc">Initial planning.</div>
+    </div>
+  </div>
+  <div class="timeline-item pending" data-item>
+    <div class="timeline-dot"></div>
+    <div class="timeline-content">
+      <div class="timeline-date">Feb 2024</div>
+      <div class="timeline-title">Design System</div>
+      <div class="timeline-desc">Component library.</div>
+    </div>
+  </div>
+  <div class="timeline-item completed" data-item>
+    <div class="timeline-dot"></div>
+    <div class="timeline-content">
+      <div class="timeline-date">Mar 2024</div>
+      <div class="timeline-title">Development</div>
+      <div class="timeline-desc">Core features.</div>
+    </div>
+  </div>
+  <div class="timeline-item pending" data-item>
+    <div class="timeline-dot"></div>
+    <div class="timeline-content">
+      <div class="timeline-date">Apr 2024</div>
+      <div class="timeline-title">Beta Release</div>
+      <div class="timeline-desc">Public beta.</div>
+    </div>
+  </div>
+  <div class="timeline-item completed" data-item>
+    <div class="timeline-dot"></div>
+    <div class="timeline-content">
+      <div class="timeline-date">May 2024</div>
+      <div class="timeline-title">Launch</div>
+      <div class="timeline-desc">Official launch.</div>
+    </div>
+  </div>
+  <button class="timeline-nav" data-nav-prev aria-label="Anterior hito">&larr;</button>
+  <button class="timeline-nav" data-nav-next aria-label="Siguiente hito">&rarr;</button>
+</div>
+<footer class="credit">Harley Vásquez · <a href="https://www.linkedin.com/in/harleyvasquez" target="_blank" rel="noreferrer">linkedin.com/in/harleyvasquez</a></footer>
+</body>
+</html>

@@ -1,0 +1,11 @@
+<!-- Design 09: Toast with Progress Bar / Toast con Barra de Progreso -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Toast — Design 09</title>
+<style>
+  *{box-sizing:border-box}html,body{min-height:100vh;font-family:"Segoe UI",system-ui,sans-serif;background:#f0fdf4;overflow:hidden}.toast{max-width:400px;width:100%;padding:12px 20px;border-radius:6px;background:#d1fae5;position:fixed;bottom:20px;left:50%;transform:translateX(-50%);box-shadow:0 4px 6px rgba(0,0,0,.1);z-index:9999}.toast-title{font-weight:500;margin-bottom:4px}.toast-desc{font-size:.75rem;color:#052e16;margin-top:4px}.toast-close{position:absolute;top:8px;right:8px;width:16px;height:16px;background:transparent;border:none;cursor:pointer}.toast-progress{position:absolute;bottom:0;left:0;height:3px;background:#d1fae5;width:100%;animation:progress 5s linear forwards}.credit{position:fixed;bottom:80px;left:20px;color:#64748b;font-size:.7rem}.credit a{color:#2563eb;text-decoration:none}@keyframes progress{from{width:100%}to{width:0%}}</style>
+</head>
+<body><div class="toast" data-testid="toast" aria-label="Toast notification"><span class="title">Descarga completada</span><span class="toast-close" aria-label="Cerrar"></span><div class="toast-progress"></div></div><div class="credit">Harley Vásquez · <a href="https://www.linkedin.com/in/harleyvasquez" target="_blank" rel="noreferrer">linkedin.com/in/harleyvasquez</a></div><script>(()=>{setTimeout(()=>{const toast=document.querySelector('.toast');if(toast)toast.style.display='none';},5000);})();</script></body></html>

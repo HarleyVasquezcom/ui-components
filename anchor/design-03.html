@@ -1,0 +1,59 @@
+<!-- Design 03: terminal-anchor / ancla terminal -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Terminal Anchor — Design 03</title>
+  <style>
+    * { box-sizing: border-box; }
+    html, body { margin: 0; }
+    body {
+      min-height: 100vh;
+      font-family: "SF Mono", "Fira Mono", monospace;
+      background: #0d1117;
+      color: #e6e6e6;
+      overflow-x: hidden;
+    }
+    .stage {
+      width: min(620px, 94vw);
+      padding: clamp(20px, 4vw, 48px);
+      border-radius: 8px;
+      background: #161b22;
+      border: 1px solid #30363d;
+      text-align: center;
+    }
+    h1 { margin: 0; font-size: clamp(1.5rem, 3vw, 1.8rem); letter-spacing: .1em; }
+    .sub { margin: .5rem 0 1.5rem; color: #7e858f; font-size: .85rem; }
+    .anchor {
+      display: inline-block;
+      padding: 10px 20px;
+      font-size: 1rem;
+      font-family: "SF Mono", "Fira Mono", monospace;
+      font-weight: 500;
+      color: #fff;
+      background: #30363d;
+      border: 1px solid #3a414a;
+      border-radius: 6px;
+      text-decoration: none;
+      white-space: nowrap;
+    }
+    .anchor:hover { border-color: #58a6ff; background: #21262d; }
+    .anchor:focus-visible { outline: 3px solid #58a6ff; outline-offset: 2px; }
+    .anchor:active { background: #0d1117; }
+    .hint { margin-top: 1.2rem; color: #7e858f; font-size: .8rem; }
+    .credit { margin-top: 2rem; padding-top: 1rem; border-top: 1px solid #30363d; color: #7e858f; font-size: .75rem; }
+    .credit a { color: #58a6ff; text-decoration: none; }
+    .credit a:hover { text-decoration: underline; }
+  </style>
+</head>
+<body>
+  <main class="stage">
+    <h1>Terminal Anchor</h1>
+    <p class="sub">Monospace terminal style — / Estilo monospace terminal</p>
+    <a class="anchor" data-testid="anchor" name="section1" href="#section1" aria-label="Terminal anchor section">terminal-anchor</a>
+    <p class="hint">Press Enter to activate — / Presiona Enter para activar</p>
+    <footer class="credit">Harley Vásquez · <a href="https://www.linkedin.com/in/harleyvasquez" target="_blank" rel="noreferrer">linkedin.com/in/harleyvasquez</a></footer>
+  <div id="section1" style="height: 70vh;"></div></main>
+</body>
+</html>

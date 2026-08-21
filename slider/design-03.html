@@ -1,0 +1,106 @@
+<!-- Design 03: Dual Range / Doble Manija -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dual Range Slider — Design 03</title>
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body {
+    min-height: 100vh;
+    display: grid;
+    place-items: center;
+    font-family: "Segoe UI", system-ui, sans-serif;
+    background: #2e1065;
+    overflow-x: hidden;
+  }
+  .stage {
+    width: min(560px, 94vw);
+    padding: clamp(34px, 7vw, 54px);
+    background: linear-gradient(180deg, #ffffff, #f5f3ff);
+    border-radius: 22px;
+    box-shadow: 0 30px 70px rgba(0, 0, 0, .5);
+  }
+  h1 { margin: 0; font-size: clamp(1.6rem, 5vw, 2rem); color: #4c1d95; font-weight: 800; letter-spacing: -.02em; }
+  .sub { margin: .4rem 0 2.2rem; color: #7c3aed; font-size: .95rem; }
+  .lbl { display: block; margin: 0 0 26px; color: #4c1d95; font-size: .92rem; font-weight: 700; }
+  .duo { position: relative; height: 36px; }
+  .rails {
+    position: absolute; left: 0; right: 0; top: 50%;
+    height: 8px; transform: translateY(-50%);
+    border-radius: 4px;
+    background: linear-gradient(#7c3aed, #7c3aed) 0 / var(--p, 30%) 100% no-repeat #e9d5ff;
+  }
+  .range {
+    position: absolute; left: 0; right: 0; top: 0;
+    width: 100%; height: 100%;
+    -webkit-appearance: none;
+    appearance: none;
+    background: transparent;
+    outline: none;
+    cursor: pointer;
+    pointer-events: none;
+  }
+  .range::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 24px; height: 24px;
+    border: 3px solid #ffffff; border-radius: 50%;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, .35);
+    pointer-events: auto;
+  }
+  .range-a::-webkit-slider-thumb { background: #7c3aed; }
+  .range-b::-webkit-slider-thumb { background: #db2777; }
+  .range:focus-visible::-webkit-slider-thumb { outline: 3px solid #a21caf; outline-offset: 2px; }
+  .outs { display: flex; justify-content: space-between; gap: 10px; margin-top: 16px; flex-wrap: wrap; }
+  .outs div { flex: 1; min-width: 130px; background: #f5f3ff; border: 1px solid #ddd6fe; border-radius: 10px; padding: 10px 12px; }
+  .outs span { display: block; color: #7c3aed; font-size: .72rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; }
+  .outs b { display: block; margin-top: 2px; color: #4c1d95; font-size: 1.1rem; }
+  .hint { margin-top: 2rem; color: #a78bfa; font-size: .82rem; }
+  .credit { margin-top: 1.6rem; padding-top: 1rem; border-top: 1px solid #e9d5ff; color: #a78bfa; font-size: .78rem; }
+  .credit a { color: #7c3aed; text-decoration: none; }
+</style>
+</head>
+<body>
+<main class="stage">
+  <h1>Dual Range</h1>
+  <p class="sub">Two ends, one band / Dos extremos, una banda</p>
+  <label class="lbl" data-testid="label" id="lbl-sl03" for="sl03a">Budget</label>
+  <div class="duo" data-testid="slider">
+    <div class="rails" aria-hidden="true"></div>
+    <input id="sl03a" class="range range-a" data-testid="slider-a" type="range" min="0" max="100" step="5" value="20" aria-label="Min">
+    <input id="sl03b" class="range range-b" data-testid="slider-b" type="range" min="0" max="100" step="5" value="70" aria-label="Max">
+  </div>
+  <div class="outs">
+    <div><span>Min</span><b data-testid="min-val" aria-live="polite">20</b></div>
+    <div><span>Selected</span><b data-testid="value" aria-live="polite">70</b></div>
+    <div><span>Max</span><b data-testid="max-val" aria-live="polite">70</b></div>
+  </div>
+  <p class="hint">A band between two latitudes / Una banda entre dos latitudes</p>
+  <footer class="credit">Harley Vásquez · <a href="https://www.linkedin.com/in/harleyvasquez" target="_blank" rel="noreferrer">linkedin.com/in/harleyvasquez</a></footer>
+</main>
+<script>
+  const a = document.querySelector('[data-testid="slider-a"]');
+  const b = document.querySelector('[data-testid="slider-b"]');
+  const rails = document.querySelector('.rails');
+  const minOut = document.querySelector('[data-testid="min-val"]');
+  const maxOut = document.querySelector('[data-testid="max-val"]');
+  const valOut = document.querySelector('[data-testid="value"]');
+  function rangePct(el) { return ((Number(el.value) - Number(el.min)) / (Number(el.max) - Number(el.min))) * 100; }
+  function sync() {
+    const av = Number(a.value), bv = Number(b.value);
+    if (av >= bv) { if (a === document.activeElement) b.value = Math.min(Number(b.max), av + Number(b.step)); else a.value = Math.max(Number(a.min), bv - Number(a.step)); }
+    const av2 = Number(a.value), bv2 = Number(b.value);
+    minOut.textContent = String(av2);
+    maxOut.textContent = String(bv2);
+    valOut.textContent = String(bv2);
+    rails.style.setProperty('--p', rangePct(a) + '% ' + (rangePct(b) - rangePct(a)) + '%');
+  }
+  a.addEventListener('input', sync);
+  b.addEventListener('input', sync);
+  sync();
+</script>
+</body>
+</html>

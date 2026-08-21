@@ -1,0 +1,95 @@
+<!-- Design 03: Note Paper / Papel de Notas -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Note Paper Text Area — Design 03</title>
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body {
+    min-height: 100vh;
+    display: grid;
+    place-items: center;
+    font-family: "Segoe UI", system-ui, sans-serif;
+    background: #f4ede1;
+    overflow-x: hidden;
+  }
+  .stage {
+    width: min(580px, 94vw);
+    padding: clamp(30px, 6vw, 56px);
+    background: #fffdf6;
+    border-radius: 14px;
+    box-shadow: 0 26px 60px rgba(90,70,40,.14);
+  }
+  h1 { margin: 0; font-size: clamp(1.5rem, 4.5vw, 2.1rem); color: #3b3323; font-weight: 700; }
+  .sub { margin: .3rem 0 2.2rem; color: #a6956f; font-size: .92rem; }
+  .lbl { display: block; margin: 0 0 12px; color: #6b5636; font-size: .9rem; font-weight: 700; }
+  .note {
+    position: relative;
+    padding: 46px 18px 14px 52px;
+    background:
+      linear-gradient(180deg, transparent 0, transparent 27px, #c9bdb0 27px, #c9bdb0 28px, transparent 28px),
+      repeating-linear-gradient(180deg, transparent 0 27px, #b9cdd8 27px 28px);
+    border: 1px solid #e2d5c0;
+    border-radius: 6px;
+  }
+  .note::before {
+    content: ""; position: absolute; left: 34px; top: 0; bottom: 0;
+    width: 1.5px; background: #e28f8f;
+  }
+  .note::after {
+    content: ""; position: absolute; left: 0; right: 0; top: 0; height: 30px;
+    background: linear-gradient(180deg, rgba(255,253,246,0), rgba(255,253,246,.35));
+    border-bottom: 1px solid #f0e4d2;
+    border-radius: 6px 6px 0 0;
+  }
+  .area {
+    position: relative;
+    width: 100%;
+    min-height: 150px;
+    padding: 2px 4px;
+    font-family: "Segoe UI", system-ui, sans-serif; font-size: .98rem; line-height: 28px; color: #3b3323;
+    background: transparent;
+    border: none;
+    outline: none;
+    resize: vertical;
+    caret-color: #b04a2a;
+  }
+  .area::placeholder { color: #b9a98c; }
+  .area:focus-visible { outline: 2px solid #b04a2a; outline-offset: 4px; }
+  .ctr { display: flex; justify-content: flex-end; gap: 16px; margin-top: 10px; color: #a6956f; font-size: .82rem; }
+  .ctr b { color: #6b5636; }
+  .hint { margin-top: 2rem; color: #bfb196; font-size: .82rem; }
+  .credit { margin-top: 2.2rem; padding-top: 1.1rem; border-top: 1px solid #efe4d2; color: #bfb196; font-size: .78rem; }
+  .credit a { color: #6b5636; text-decoration: none; }
+  .credit a:hover { text-decoration: underline; }
+</style>
+</head>
+<body>
+<main class="stage">
+  <h1>Note Paper</h1>
+  <p class="sub">Ruled lines, red margin / Líneas pautadas, margen rojo</p>
+  <label class="lbl" data-testid="label" for="a03">Quick note</label>
+  <div class="note">
+    <textarea class="area" id="a03" data-testid="area" aria-label="Quick note" placeholder="Write between the lines…"></textarea>
+  </div>
+  <p class="ctr"><span>chars: <b data-testid="chars">0</b></span><span>lines: <b data-testid="lines">0</b></span></p>
+  <p class="hint">Every keystroke lands on the ruled paper / Cada tecla aterriza en el papel pautado</p>
+  <footer class="credit">Harley Vásquez · <a href="https://www.linkedin.com/in/harleyvasquez" target="_blank" rel="noreferrer">linkedin.com/in/harleyvasquez</a></footer>
+</main>
+<script>
+  const area = document.querySelector('[data-testid="area"]');
+  const chars = document.querySelector('[data-testid="chars"]');
+  const lines = document.querySelector('[data-testid="lines"]');
+  function upd() {
+    const v = area.value;
+    chars.textContent = v.length;
+    lines.textContent = v ? v.split('\n').length : 0;
+  }
+  area.addEventListener('input', upd);
+  upd();
+</script>
+</body>
+</html>

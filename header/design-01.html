@@ -1,0 +1,11 @@
+<!-- Design 01: Header Sticky / Header Fijo -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Header — Design 01</title>
+<style>
+  *{box-sizing:border-box}html,body{min-height:100vh;font-family:"Segoe UI",system-ui,sans-serif;background:#f8fafc;overflow-x:hidden}.header{max-width:1200px;width:100%;padding:16px 24px;background:#fff;border-bottom:1px solid #e2e8f0;position:fixed;top:0;left:0:right:0;z-index:100}.header-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between}.logo{font-size:1.5rem;font-weight:700;color:#0f172a;text-decoration:none}.nav{display:flex;gap:16px}.nav-link{color:#64748b;font-size:.875rem;font-weight:500;text-decoration:none;transition:.2s}.nav-link:hover{color:#0f172a}.credit{margin-top:24px;padding:12px 0;border-top:1px solid #e2e8f0;color:#64748b;font-size:.75rem}.credit a{color:#2563eb;text-decoration:none}</style>
+</head>
+<body><div class="header" data-testid="header" aria-label="Header"><a class="logo" href="#" aria-label="Inicio">Inicio</a><nav class="nav"><a class="nav-link" href="#sobre">Sobre</a><a class="nav-link" href="#servicios">Servicios</a><a class="nav-link" href="#contacto">Contacto</a></nav></div><footer class="credit">Harley Vásquez · <a href="https://www.linkedin.com/in/harleyvasquez" target="_blank" rel="noreferrer">linkedin.com/in/harleyvasquez</a></footer><script>(()=>{window.addEventListener('scroll',()=>{const header=document.querySelector('.header');if(window.scrollY>80){header.style.background='#f1f5f9';header.style.boxShadow='0 4px 6px rgba(0,0,0,.1)';}else{header.style.background='fff';header.style.boxShadow='none';}});})();</script></body></html>

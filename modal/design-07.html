@@ -1,0 +1,55 @@
+<!-- Design 07: Pill Modal / Pill Modal -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Modal — Design 07</title>
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body {
+    min-height: 100vh;
+    font-family: "Segoe UI", system-ui, sans-serif;
+    background: #f8fafc;
+    color: #0f172a;
+    overflow-x: hidden;
+  }
+  .modal-overlay { position: fixed; inset: 0; background: #fff; display: flex; align-items: center; justify-content: center; z-index: 1000; }
+  .modal { background: #fff; border-radius: 50px; padding: 32px 24px; width: 90%; max-width: 400px; position: relative; box-shadow: 0 25px 50px rgba(0,0,0,0.15); animation: popIn .3s cubic-bezier(0.16,1,0.3,1); }
+  @keyframes popIn { from { transform: scale(0.9); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+  .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; padding-bottom: 24px; border-bottom: 1px solid #e2e8f0; border-radius: 50px 50px 0 0; }
+  .modal-title { font-size: 1rem; font-weight: 600; color: #1e293b; }
+  .modal-close { width: 32px; height: 32px; background: transparent; border: none; color: #64748b; font-size: 1.5rem; cursor: pointer; }
+  .modal-close:focus-visible { outline: 2px solid #64748b; outline-offset: 2px; }
+  .modal-body { color: #64748b; font-size: .875rem; line-height: 1.5; }
+  .modal-actions { display: flex; gap: 8px; margin-top: 24px; justify-content: flex-end; }
+  .modal-action { padding: 8px 16px; border-radius: 50px; font-size: .875rem; font-weight: 500; cursor: pointer; transition: background .2s; }
+  .modal-action--primary { background: #3b82f6; color: #fff; }
+  .modal-action--primary:hover { background: #2563eb; }
+  .modal-action--cancel { background: #f8fafc; color: #1e293b; border: 1px solid #e2e8f0; }
+  .modal-action--cancel:hover { background: #e2e8f0; }
+  .modal-action:focus-visible { outline: 2px solid #64748b; outline-offset: 2px; }
+  .credit { margin-top: 32px; padding: 16px 0; border-top: 1px solid #e2e8f0; color: #64748b; font-size: .875rem; text-align: center; }
+  .credit a { color: #2563eb; text-decoration: none; }
+  @media (max-width: 480px) { .modal { margin: 20px; padding: 24px 16px; } }
+</style>
+</head>
+<body>
+<div class="modal-overlay" data-modal data-testid="modal-dialog">
+  <div class="modal" data-testid="modal" role="dialog" aria-label="Confirm action" data-testid="modal-dialog">
+    <div class="modal-header" data-testid="modal-dialog">
+      <span class="modal-title">Upload complete</span>
+      <button class="modal-close" aria-label="Close modal"> data-testid="modal-close"&times;</button>
+    </div>
+    <div class="modal-body" data-testid="modal-dialog">Your file has been uploaded successfully. Would you like to view it now?</div>
+    <div class="modal-actions" data-testid="modal-dialog">
+      <button class="modal-action modal-action--cancel">Not now</button>
+      <button class="modal-action modal-action--primary">View file</button>
+    </div>
+  </div>
+</div>
+<footer class="credit">Harley Vásquez · <a href="https://www.linkedin.com/in/harleyvasquez" target="_blank" rel="noreferrer">linkedin.com/in/harleyvasquez</a></footer>
+</body>
+</html>
+<script>(()=>{const d=document.querySelector('[data-testid="modal-dialog"],.modal');const c=document.querySelector('[data-testid="modal-close"],[data-close],#close,[aria-label*="Cerrar"],[aria-label*="Close"]');if(c){c.addEventListener('click',()=>{if(d){d.style.display='none';d.setAttribute('aria-hidden','true')}})}if(d&&d.classList.contains('open')===false&&d.style.display===''&&d.getAttribute('aria-hidden')!=='true'){d.classList.add('open')}})();</script>

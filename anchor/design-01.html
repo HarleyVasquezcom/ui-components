@@ -1,0 +1,63 @@
+<!-- Design 01: soft-link / soft-enlace -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Soft Link — Design 01</title>
+  <style>
+    * { box-sizing: border-box; }
+    html, body { margin: 0; }
+    body {
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      font-family: "Segoe UI", system-ui, sans-serif;
+      background: #f8f9fa;
+      overflow-x: hidden;
+    }
+    .stage {
+      width: min(620px, 94vw);
+      padding: clamp(28px, 6vw, 64px);
+      border-radius: 16px;
+      background: rgba(255,255,255,.6);
+      border: 1px solid rgba(0,0,0,.08);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      box-shadow: 0 10px 30px rgba(0,0,0,.1);
+      text-align: center;
+    }
+    h1 { margin: 0; font-size: clamp(1.75rem, 4vw, 2.5rem); color: #2d3748; letter-spacing: .04em; }
+    .sub { margin: .8rem 0 2rem; color: #4a5568; font-size: .95rem; }
+    .anchor {
+      position: relative;
+      display: inline-block;
+      padding: 16px 24px;
+      margin: 2rem 0;
+      font-size: 1.25rem;
+      font-weight: 500;
+      color: #2b6cb0;
+      text-decoration: none;
+      border: 2px solid #2b6cb0;
+      border-radius: 10px;
+      transition: all .2s ease;
+    }
+    .anchor:hover { background: #2b6cb0; color: #fff; }
+    .anchor:focus-visible { outline: 3px solid #4299e1; outline-offset: 4px; }
+    .anchor:active { transform: scale(.98); }
+    .hint { margin-top: 1.5rem; color: #718096; font-size: .85rem; }
+    .credit { margin-top: 2.4rem; padding-top: 1.2rem; border-top: 1px solid #e2e8f0; color: #718096; font-size: .8rem; }
+    .credit a { color: #2b6cb0; text-decoration: none; }
+    .credit a:hover { text-decoration: underline; }
+  </style>
+</head>
+<body>
+  <main class="stage">
+    <h1>Soft Link</h1>
+    <p class="sub">Gentle call to action — / Llamada suave a la acción</p>
+    <a class="anchor" data-testid="anchor" name="section1" href="#section1" aria-label="Soft link section">soft-link</a>
+    <p class="hint">Click to navigate — / Haz clic para navegar</p>
+    <footer class="credit">Harley Vásquez · <a href="https://www.linkedin.com/in/harleyvasquez" target="_blank" rel="noreferrer">linkedin.com/in/harleyvasquez</a></footer>
+  <div id="section1" style="height: 70vh;"></div></main>
+</body>
+</html>

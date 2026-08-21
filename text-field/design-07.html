@@ -1,0 +1,111 @@
+<!-- Design 07: Search Like / Como Búsqueda -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Search Like Text Field — Design 07</title>
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body {
+    min-height: 100vh;
+    display: grid;
+    place-items: center;
+    font-family: "Segoe UI", system-ui, sans-serif;
+    background: radial-gradient(120% 120% at 50% 0%, #16213e, #0b1120 70%);
+    overflow-x: hidden;
+  }
+  .stage {
+    width: min(600px, 94vw);
+    padding: clamp(34px, 7vw, 60px);
+    background: rgba(30,41,59,.6);
+    border: 1px solid rgba(148,163,184,.14);
+    border-radius: 22px;
+    box-shadow: 0 30px 70px rgba(0,0,0,.5);
+  }
+  h1 { margin: 0; font-size: clamp(1.5rem, 4.5vw, 2.1rem); color: #f1f5f9; font-weight: 700; }
+  .sub { margin: .3rem 0 2.4rem; color: #64748b; font-size: .92rem; }
+  .lbl { display: block; margin: 0 0 10px; color: #cbd5e1; font-size: .88rem; font-weight: 600; }
+  .pill {
+    display: flex; align-items: center; gap: 12px;
+    background: #1e293b;
+    border: 1.5px solid #334155;
+    border-radius: 999px;
+    padding: 0 18px;
+    transition: border-color .2s ease, box-shadow .2s ease;
+  }
+  .pill svg { flex: 0 0 auto; width: 18px; height: 18px; stroke: #38bdf8; fill: none; stroke-width: 2.2; }
+  .field {
+    flex: 1; min-width: 0;
+    padding: 14px 0;
+    font-size: 1rem; color: #f8fafc;
+    background: transparent;
+    border: none; outline: none;
+    caret-color: #38bdf8;
+  }
+  .field::placeholder { color: #475569; }
+  .pill:focus-within { border-color: #38bdf8; box-shadow: 0 0 0 4px rgba(56,189,248,.15); }
+  .field:focus-visible { outline: 2px solid #38bdf8; outline-offset: 4px; }
+  .pill.has-invalid { border-color: #f87171; }
+  .err {
+    display: none; margin: 10px 0 0 18px; color: #fca5a5; font-size: .82rem; font-weight: 600;
+  }
+  .err.show { display: block; }
+  .row { display: flex; align-items: center; justify-content: space-between; gap: 14px; margin-top: 24px; flex-wrap: wrap; }
+  .btn {
+    padding: 11px 30px; font-size: .92rem; font-weight: 700; letter-spacing: .04em;
+    color: #062033; background: linear-gradient(135deg, #38bdf8, #6366f1);
+    border: none; border-radius: 999px; cursor: pointer;
+    box-shadow: 0 8px 22px rgba(56,189,248,.3);
+    transition: transform .12s ease, filter .2s ease;
+  }
+  .btn:hover { filter: brightness(1.1); transform: translateY(-1px); }
+  .btn:focus-visible { outline: 3px solid #38bdf8; outline-offset: 3px; }
+  .val { margin: 0; color: #64748b; font-size: .88rem; }
+  .val b { color: #7dd3fc; font-family: ui-monospace, "Cascadia Mono", Consolas, monospace; }
+  .hint { margin-top: 2.4rem; color: #475569; font-size: .8rem; }
+  .credit { margin-top: 2.2rem; padding-top: 1rem; border-top: 1px solid rgba(148,163,184,.12); color: #475569; font-size: .78rem; }
+  .credit a { color: #38bdf8; text-decoration: none; }
+  .credit a:hover { text-decoration: underline; }
+</style>
+</head>
+<body>
+<main class="stage">
+  <h1>Search Like</h1>
+  <p class="sub">A midnight pill for text / Una píldora nocturna para texto</p>
+  <form novalidate>
+    <label class="lbl" data-testid="label" for="f07">Email address</label>
+    <div class="pill">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M16.5 16.5L21 21"/></svg>
+      <input class="field" type="email" id="f07" data-testid="field" aria-label="Email address" aria-describedby="err07" placeholder="you@example.com">
+    </div>
+    <p class="err" id="err07" data-testid="error" role="alert">Enter a valid email address</p>
+    <div class="row">
+      <button class="btn" type="submit" data-testid="submit" aria-label="Submit email">Search</button>
+      <p class="val">value: <b data-testid="value" aria-live="polite"></b></p>
+    </div>
+  </form>
+  <p class="hint">A pill that searches for valid input / Una píldora que busca entradas válidas</p>
+  <footer class="credit">Harley Vásquez · <a href="https://www.linkedin.com/in/harleyvasquez" target="_blank" rel="noreferrer">linkedin.com/in/harleyvasquez</a></footer>
+</main>
+<script>
+  const pill = document.querySelector('.pill');
+  const field = document.querySelector('[data-testid="field"]');
+  const err = document.querySelector('[data-testid="error"]');
+  const out = document.querySelector('[data-testid="value"]');
+  const form = document.querySelector('form');
+  const EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  function validate() {
+    const ok = EMAIL.test(field.value);
+    err.classList.toggle('show', !ok);
+    pill.classList.toggle('has-invalid', !ok);
+    field.setAttribute('aria-invalid', String(!ok));
+    return ok;
+  }
+  field.addEventListener('input', () => { out.textContent = field.value; });
+  field.addEventListener('blur', validate);
+  form.addEventListener('submit', (e) => { e.preventDefault(); validate(); });
+</script>
+</body>
+</html>

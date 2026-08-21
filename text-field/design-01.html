@@ -1,0 +1,115 @@
+<!-- Design 01: Glass Input / Input de Cristal -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Glass Input Text Field — Design 01</title>
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body {
+    min-height: 100vh;
+    display: grid;
+    place-items: center;
+    font-family: "Segoe UI", system-ui, sans-serif;
+    background: linear-gradient(135deg, #eef2ff 0%, #fae8f4 55%, #e0f2fe 100%);
+    overflow-x: hidden;
+    position: relative;
+  }
+  body::before, body::after {
+    content: ""; position: fixed; border-radius: 50%; filter: blur(70px); z-index: 0;
+  }
+  body::before { width: 420px; height: 420px; left: -120px; top: -100px; background: rgba(129,140,248,.45); }
+  body::after { width: 380px; height: 380px; right: -110px; bottom: -120px; background: rgba(244,114,182,.4); }
+  .stage {
+    position: relative; z-index: 1;
+    width: min(560px, 94vw);
+    padding: clamp(28px, 6vw, 56px);
+    background: rgba(255,255,255,.55);
+    border: 1px solid rgba(255,255,255,.75);
+    border-radius: 26px;
+    box-shadow: 0 24px 60px rgba(79,70,229,.14);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+  }
+  h1 { margin: 0; font-size: clamp(1.4rem, 4vw, 2rem); color: #312e81; font-weight: 700; }
+  .sub { margin: .3rem 0 2.2rem; color: #6366f1; font-size: .9rem; }
+  .lbl { display: block; margin: 0 0 8px; color: #4338ca; font-size: .88rem; font-weight: 600; }
+  .wrap { position: relative; }
+  .field {
+    width: 100%;
+    padding: 14px 16px;
+    font-size: 1rem; color: #1e1b4b;
+    background: rgba(255,255,255,.65);
+    border: 1.5px solid rgba(99,102,241,.35);
+    border-radius: 14px;
+    outline: none;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    transition: border-color .2s ease, box-shadow .2s ease;
+  }
+  .field::placeholder { color: #a5b4fc; }
+  .field:focus { border-color: #6366f1; box-shadow: 0 0 0 4px rgba(99,102,241,.15); }
+  .field:focus-visible { outline: 2px solid #4338ca; outline-offset: 2px; }
+  .field[aria-invalid="true"] { border-color: #e11d48; box-shadow: 0 0 0 4px rgba(225,29,72,.12); }
+  .err {
+    display: none; align-items: center; gap: 6px;
+    margin-top: 8px; color: #be123c; font-size: .8rem; font-weight: 600;
+  }
+  .err.show { display: flex; }
+  .row { display: flex; align-items: center; justify-content: space-between; gap: 14px; margin-top: 20px; flex-wrap: wrap; }
+  .btn {
+    padding: 11px 26px; font-size: .92rem; font-weight: 700;
+    color: #fff; background: linear-gradient(135deg, #6366f1, #8b5cf6);
+    border: none; border-radius: 12px; cursor: pointer;
+    box-shadow: 0 8px 20px rgba(99,102,241,.35);
+    transition: transform .12s ease, box-shadow .2s ease;
+  }
+  .btn:hover { transform: translateY(-1px); box-shadow: 0 10px 24px rgba(99,102,241,.45); }
+  .btn:active { transform: translateY(0); }
+  .btn:focus-visible { outline: 3px solid #4338ca; outline-offset: 3px; }
+  .val { margin: 0; color: #3730a3; font-size: .9rem; }
+  .val b { color: #1e1b4b; font-family: ui-monospace, "Cascadia Mono", Consolas, monospace; }
+  .hint { margin-top: 2rem; color: #818cf8; font-size: .8rem; }
+  .credit { margin-top: 2rem; padding-top: 1rem; border-top: 1px solid rgba(99,102,241,.2); color: #6366f1; font-size: .78rem; }
+  .credit a { color: #4338ca; text-decoration: none; }
+  .credit a:hover { text-decoration: underline; }
+</style>
+</head>
+<body>
+<main class="stage">
+  <h1>Glass Input</h1>
+  <p class="sub">Frosted field over soft light / Campo esmerilado sobre luz suave</p>
+  <form novalidate>
+    <label class="lbl" data-testid="label" for="f01">Email address</label>
+    <div class="wrap">
+      <input class="field" type="email" id="f01" data-testid="field" aria-label="Email address" aria-describedby="err01" placeholder="you@example.com">
+    </div>
+    <p class="err" id="err01" data-testid="error" role="alert">Enter a valid email address</p>
+    <div class="row">
+      <button class="btn" type="submit" data-testid="submit" aria-label="Submit email">Save</button>
+      <p class="val">value: <b data-testid="value" aria-live="polite"></b></p>
+    </div>
+  </form>
+  <p class="hint">Type and watch the output; invalid emails show an error — / Escribe y observa la salida; un email inválido muestra el error</p>
+  <footer class="credit">Harley Vásquez · <a href="https://www.linkedin.com/in/harleyvasquez" target="_blank" rel="noreferrer">linkedin.com/in/harleyvasquez</a></footer>
+</main>
+<script>
+  const field = document.querySelector('[data-testid="field"]');
+  const err = document.querySelector('[data-testid="error"]');
+  const out = document.querySelector('[data-testid="value"]');
+  const form = document.querySelector('form');
+  const EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  function validate() {
+    const ok = EMAIL.test(field.value);
+    err.classList.toggle('show', !ok);
+    field.setAttribute('aria-invalid', String(!ok));
+    return ok;
+  }
+  field.addEventListener('input', () => { out.textContent = field.value; });
+  field.addEventListener('blur', validate);
+  form.addEventListener('submit', (e) => { e.preventDefault(); validate(); });
+</script>
+</body>
+</html>

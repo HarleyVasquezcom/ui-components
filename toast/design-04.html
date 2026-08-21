@@ -1,0 +1,11 @@
+<!-- Design 04: Warning Toast with Auto-close / Advertencia con auto-cierre -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Toast — Design 04</title>
+<style>
+  *{box-sizing:border-box}html,body{min-height:100vh;font-family:"Segoe UI",system-ui,sans-serif;background:#faf3c7;overflow:hidden}.toast{max-width:400px;width:100%;padding:12px 20px;border-radius:6px;background:#f6e05e;position:fixed;bottom:20px;left:50%;transform:translateX(-50%);box-shadow:0 4px 6px rgba(0,0,0,.1);z-index:9999}.toast-title{color:#92400e;font-weight:500;margin-bottom:4px}.toast-desc{color:#92400e;font-size:.75rem;margin-top:4px}.toast-close{position:absolute;top:8px;right:8px;width:16px;height:16px;background:transparent;border:none;cursor:pointer}.toast-progress{position:absolute;bottom:0;left:0;height:3px;background:#f6e05e;width:0%}.credit{position:fixed;bottom:80px;left:20px;color:#64748b;font-size:.7rem}.credit a{color:#2563eb;text-decoration:none}</style>
+</head>
+<body><div class="toast" data-testid="toast" aria-label="Toast notification"><span>Advertencia del sistema</span><span class="toast-close" aria-label="Cerrar"></span><div class="toast-progress" id="prog"></div></div><div class="credit">Harley Vásquez · <a href="https://www.linkedin.com/in/harleyvasquez" target="_blank" rel="noreferrer">linkedin.com/in/harleyvasquez</a></div><script>(()=>{const prog=document.getElementById('prog');let w=0;const int=setInterval(()=>{w+=1;prog.style.width=w+'%';if(w>=100){clearInterval(int);const toast=document.querySelector('.toast');if(toast)toast.style.display='none';}},50);})();</script></body></html>

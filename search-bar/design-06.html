@@ -1,0 +1,110 @@
+<!-- Design 06: Rounded Hero / Hero Redondeado -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Rounded Hero Search — Design 06</title>
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body {
+    min-height: 100vh;
+    display: grid; place-items: center;
+    font-family: "Segoe UI", system-ui, sans-serif;
+    background: #fff7ed;
+    overflow-x: hidden;
+  }
+  .stage {
+    width: min(600px, 94vw);
+    padding: clamp(32px, 7vw, 56px);
+    background: linear-gradient(160deg, #ffffff 0%, #fff7ed 100%);
+    border-radius: 40px;
+    box-shadow: 0 28px 80px rgba(154, 52, 18, .14);
+    text-align: center;
+  }
+  h1 { margin: 0; font-size: clamp(1.8rem, 5.4vw, 2.5rem); color: #7c2d12; font-weight: 800; letter-spacing: -.03em; }
+  .sub { margin: .5rem 0 1rem; color: #c2410c; font-size: .98rem; }
+  .lbl { display: block; margin: 0 0 8px; color: #9a3412; font-size: .84rem; font-weight: 700; }
+  .field { max-width: 460px; margin: 0 auto; position: relative; }
+  .inp {
+    width: 100%;
+    padding: 20px 58px 20px 26px;
+    font-family: inherit; font-size: 1.08rem; color: #431407;
+    background: #fff;
+    border: 2px solid #fed7aa;
+    border-radius: 999px;
+    outline: none;
+    box-shadow: 0 14px 34px rgba(154, 52, 18, .16);
+    transition: border-color .2s ease, box-shadow .2s ease;
+  }
+  .inp::placeholder { color: #fdba74; }
+  .inp:focus { border-color: #f97316; box-shadow: 0 14px 34px rgba(234, 88, 12, .24); }
+  .clr {
+    position: absolute; right: 8px; top: 50%; transform: translateY(-50%);
+    width: 44px; height: 44px;
+    display: grid; place-items: center;
+    background: linear-gradient(135deg, #fb923c, #ea580c); color: #fff;
+    border: none; border-radius: 50%;
+    font-size: 1.25rem; cursor: pointer;
+    transition: transform .15s ease;
+  }
+  .clr:hover { transform: translateY(-50%) scale(1.08); }
+  .clr:focus-visible { outline: 3px solid #fed7aa; outline-offset: 3px; }
+  .rows { margin: 26px auto 0; padding: 0; list-style: none; display: grid; gap: 12px; max-width: 460px; }
+  .rows li {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 16px 22px;
+    background: #fff;
+    border: 1px solid #fed7aa;
+    border-radius: 999px;
+    color: #431407; font-size: 1rem; font-weight: 600;
+    transition: transform .15s ease, border-color .15s ease;
+  }
+  .rows li:hover { transform: translateY(-2px); border-color: #fdba74; }
+  .rows li b { color: #ea580c; font-size: .82rem; background: #fff7ed; padding: 3px 10px; border-radius: 999px; }
+  .cnt { margin-top: 18px; color: #9a3412; font-size: .9rem; font-weight: 700; }
+  .kbd { display: inline-block; padding: 2px 9px; border-radius: 8px; background: #ffedd5; border: 1px solid #fed7aa; color: #9a3412; font-family: inherit; font-size: .85rem; font-weight: 700; }
+  .hint { margin-top: .5rem; color: #fdba74; font-size: .83rem; }
+  .credit { margin-top: 2.2rem; padding-top: 1rem; border-top: 1px solid #fed7aa; color: #fdba74; font-size: .8rem; }
+  .credit a { color: #ea580c; text-decoration: none; }
+  [hidden] { display: none !important; }
+</style>
+</head>
+<body>
+<main class="stage">
+  <h1>Rounded Hero</h1>
+  <p class="sub">Who do you want to find? / ¿A quién quieres encontrar?</p>
+  <label class="lbl" data-testid="label" for="sb-rh-06">Search jobs / Buscar empleos</label>
+  <div class="field">
+    <input class="inp" data-testid="search" id="sb-rh-06" type="search" placeholder="Search 10 careers…" autocomplete="off">
+    <button type="button" class="clr" data-testid="clear" aria-label="Clear search">×</button>
+  </div>
+  <ul class="rows" data-testid="results"></ul>
+  <p class="cnt" data-testid="count"></p>
+  <p class="hint">Tip: press <span class="kbd">Ctrl</span> + <span class="kbd">K</span> to focus</p>
+  <footer class="credit">Harley Vásquez · <a href="https://www.linkedin.com/in/harleyvasquez" target="_blank" rel="noreferrer">linkedin.com/in/harleyvasquez</a></footer>
+</main>
+<script>
+  const DATA = ['Architect', 'Carpenter', 'Cashier', 'Chef', 'Doctor', 'Driver', 'Engineer', 'Lawyer', 'Nurse', 'Pilot'];
+  const input = document.querySelector('[data-testid="search"]');
+  const list = document.querySelector('[data-testid="results"]');
+  const count = document.querySelector('[data-testid="count"]');
+  const clear = document.querySelector('[data-testid="clear"]');
+  function render(q) {
+    const ql = q.toLowerCase();
+    const hits = ql ? DATA.filter((t) => t.toLowerCase().includes(ql)) : DATA;
+    list.textContent = '';
+    for (const t of hits) { const li = document.createElement('li'); li.textContent = t; list.appendChild(li); }
+    count.textContent = hits.length + ' results';
+    clear.hidden = !ql;
+  }
+  input.addEventListener('input', () => render(input.value));
+  clear.addEventListener('click', () => { input.value = ''; render(''); input.focus(); });
+  window.addEventListener('keydown', (e) => {
+    if (e.ctrlKey && e.key.toLowerCase() === 'k' && document.activeElement !== input) { e.preventDefault(); input.focus(); }
+  });
+  render('');
+</script>
+</body>
+</html>

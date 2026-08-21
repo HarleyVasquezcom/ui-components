@@ -1,0 +1,97 @@
+<!-- Design 07: Mono Filter / Filtro Mono -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mono Filter Search — Design 07</title>
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body {
+    min-height: 100vh;
+    display: grid; place-items: center;
+    font-family: "Courier New", monospace;
+    background: #111315;
+    overflow-x: hidden;
+  }
+  .stage {
+    width: min(540px, 94vw);
+    padding: clamp(28px, 6vw, 46px);
+    background: #17191c;
+    border: 1px solid #2a2d32;
+    box-shadow: 8px 8px 0 #0a0b0c;
+  }
+  h1 { margin: 0; font-size: clamp(1.4rem, 4.4vw, 1.9rem); color: #e8eaed; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; }
+  .sub { margin: .5rem 0 2rem; color: #6f767e; font-size: .84rem; }
+  .lbl { display: block; margin: 0 0 10px; color: #aeb4ba; font-size: .78rem; font-weight: 700; letter-spacing: .18em; }
+  .field { position: relative; border: 1px solid #3a3f46; background: #141619; padding: 2px; }
+  .field:focus-within { border-color: #8b949e; }
+  .inp {
+    width: 100%;
+    padding: 13px 44px 13px 14px;
+    font-family: inherit; font-size: 1rem; color: #e8eaed;
+    background: transparent; border: none; outline: none;
+  }
+  .inp::placeholder { color: #565d66; }
+  .inp:focus-visible { outline: 2px solid #8b949e; outline-offset: -4px; }
+  .clr {
+    position: absolute; right: 6px; top: 50%; transform: translateY(-50%);
+    width: 32px; height: 32px;
+    display: grid; place-items: center;
+    background: #26292e; color: #9aa2ab;
+    border: 1px solid #3a3f46; border-radius: 2px;
+    font-size: 1rem; cursor: pointer;
+  }
+  .clr:hover { background: #33373d; color: #fff; }
+  .clr:focus-visible { outline: 2px solid #9aa2ab; outline-offset: 2px; }
+  .rows { margin: 20px 0 0; padding: 0; list-style: none; display: grid; gap: 0; }
+  .rows li {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 11px 6px;
+    border-bottom: 1px solid #23262b;
+    color: #c9ced4; font-size: .94rem;
+  }
+  .rows li::before { content: "#"; color: #6f767e; margin-right: 10px; }
+  .rows li:hover { background: #1d2024; }
+  .cnt { margin-top: 16px; color: #565d66; font-size: .82rem; letter-spacing: .08em; }
+  .hint { margin-top: .4rem; color: #565d66; font-size: .8rem; }
+  .credit { margin-top: 2rem; padding-top: 1rem; border-top: 1px solid #2a2d32; color: #565d66; font-size: .76rem; }
+  .credit a { color: #9aa2ab; text-decoration: none; }
+  [hidden] { display: none !important; }
+</style>
+</head>
+<body>
+<main class="stage">
+  <h1>Mono Filter</h1>
+  <p class="sub">Science terms, one typeface / Términos científicos, una tipografía</p>
+  <label class="lbl" data-testid="label" for="sb-mf-07">TERM</label>
+  <div class="field">
+    <input class="inp" data-testid="search" id="sb-mf-07" type="search" placeholder="filter…" autocomplete="off">
+    <button type="button" class="clr" data-testid="clear" aria-label="Clear search">×</button>
+  </div>
+  <ul class="rows" data-testid="results"></ul>
+  <p class="cnt" data-testid="count"></p>
+  <p class="hint">hard borders, no softness / bordes duros, sin suavidad</p>
+  <footer class="credit">Harley Vásquez · <a href="https://www.linkedin.com/in/harleyvasquez" target="_blank" rel="noreferrer">linkedin.com/in/harleyvasquez</a></footer>
+</main>
+<script>
+  const DATA = ['Cadence', 'Camera', 'Capacity', 'Carbon', 'Cascade', 'Cosmos', 'Epoch', 'Gravity', 'Laser', 'Quark'];
+  const input = document.querySelector('[data-testid="search"]');
+  const list = document.querySelector('[data-testid="results"]');
+  const count = document.querySelector('[data-testid="count"]');
+  const clear = document.querySelector('[data-testid="clear"]');
+  function render(q) {
+    const ql = q.toLowerCase();
+    const hits = ql ? DATA.filter((t) => t.toLowerCase().includes(ql)) : DATA;
+    list.textContent = '';
+    for (const t of hits) { const li = document.createElement('li'); li.textContent = t; list.appendChild(li); }
+    count.textContent = hits.length + ' results';
+    clear.hidden = !ql;
+  }
+  input.addEventListener('input', () => render(input.value));
+  clear.addEventListener('click', () => { input.value = ''; render(''); input.focus(); });
+  render('');
+</script>
+</body>
+</html>

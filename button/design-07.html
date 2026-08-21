@@ -1,0 +1,102 @@
+<!-- Design 07: Skeuo 3D Chunk / Botón 3D Esqueuomorfo -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Skeuo 3D Chunk Button — Design 07</title>
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body {
+    min-height: 100vh;
+    display: grid;
+    place-items: center;
+    font-family: "Segoe UI", system-ui, sans-serif;
+    background: linear-gradient(180deg, #3d3a4f, #2a2838);
+    overflow-x: hidden;
+  }
+  .floor {
+    position: fixed; left: 0; right: 0; bottom: 0; height: 32vh; z-index: 0;
+    background: linear-gradient(180deg, #262433, #1b1a26);
+    transform: skewY(-2deg) translateY(40%);
+  }
+  .stage {
+    position: relative; z-index: 1;
+    width: min(620px, 94vw);
+    padding: clamp(28px, 6vw, 60px);
+    background: radial-gradient(80% 60% at 50% 20%, #4a4760, #332f45 70%);
+    border-radius: 22px;
+    box-shadow: 0 30px 60px rgba(0,0,0,.55), inset 0 1px 0 rgba(255,255,255,.12);
+    text-align: center;
+  }
+  h1 { margin: 0; font-size: clamp(1.5rem, 4vw, 2.1rem); font-weight: 800; color: #ffe8c2; text-shadow: 0 3px 0 #7a4a12; letter-spacing: .02em; }
+  .sub { margin: .5rem 0 2.6rem; color: #b9a98e; font-size: .92rem; }
+  .btn {
+    position: relative;
+    display: inline-block;
+    padding: 16px 46px 18px;
+    font-family: "Segoe UI", system-ui, sans-serif;
+    font-size: 1.15rem; font-weight: 800; letter-spacing: .05em; text-transform: uppercase;
+    color: #fff7e8;
+    background: linear-gradient(180deg, #ffb03a, #f2851e 55%, #d96b0e);
+    border: none;
+    border-radius: 14px;
+    box-shadow:
+      0 8px 0 #96460a,
+      0 14px 24px rgba(0,0,0,.5),
+      inset 0 2px 0 rgba(255,255,255,.5),
+      inset 0 -6px 12px rgba(120,50,0,.35);
+    cursor: pointer;
+    transition: transform .08s ease, box-shadow .08s ease, filter .15s ease;
+    text-shadow: 0 1px 2px rgba(120,50,0,.6);
+  }
+  .btn::after {
+    content: ""; position: absolute; left: 10px; right: 10px; top: 6px; height: 40%;
+    background: linear-gradient(180deg, rgba(255,255,255,.45), rgba(255,255,255,0));
+    border-radius: 10px 10px 8px 8px;
+    pointer-events: none;
+  }
+  .btn:hover { filter: brightness(1.08); }
+  .btn:active, .btn.pressed {
+    transform: translateY(7px);
+    box-shadow:
+      0 1px 0 #96460a,
+      0 6px 14px rgba(0,0,0,.45),
+      inset 0 2px 0 rgba(255,255,255,.35);
+  }
+  .btn:focus-visible { outline: 3px solid #ffd98a; outline-offset: 4px; }
+  .btn .chip {
+    display: inline-block; margin-left: 10px; padding: 2px 12px;
+    background: rgba(0,0,0,.25); border-radius: 999px; font-size: .85rem;
+    font-variant-numeric: tabular-nums; vertical-align: middle;
+  }
+  .hint { margin-top: 2.2rem; color: #a2927a; font-size: .84rem; }
+  .credit { margin-top: 2.6rem; padding-top: 1rem; border-top: 1px solid rgba(255,255,255,.14); color: #9c8e76; font-size: .8rem; }
+  .credit a { color: #ffd98a; text-decoration: none; }
+  .credit a:hover { text-decoration: underline; }
+</style>
+</head>
+<body>
+<div class="floor" aria-hidden="true"></div>
+<main class="stage">
+  <h1>Skeuo 3D Chunk</h1>
+  <p class="sub">Push the chunky key — / Presiona la tecla robusta</p>
+  <button type="button" class="btn" data-testid="btn" aria-label="Press the 3D button">
+    Press
+    <span class="chip" aria-live="polite">x<b data-testid="count">0</b></span>
+  </button>
+  <p class="hint">Click to count presses — / Clic para contar presiones</p>
+  <footer class="credit">Harley Vásquez · <a href="https://www.linkedin.com/in/harleyvasquez" target="_blank" rel="noreferrer">linkedin.com/in/harleyvasquez</a></footer>
+</main>
+<script>
+  const btn = document.querySelector('[data-testid="btn"]');
+  const count = document.querySelector('[data-testid="count"]');
+  let n = 0;
+  btn.addEventListener('click', () => { n += 1; count.textContent = n; });
+  btn.addEventListener('pointerdown', () => btn.classList.add('pressed'));
+  btn.addEventListener('pointerup', () => btn.classList.remove('pressed'));
+  btn.addEventListener('pointerleave', () => btn.classList.remove('pressed'));
+</script>
+</body>
+</html>

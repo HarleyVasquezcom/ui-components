@@ -1,0 +1,93 @@
+<!-- Design 08: Carousel Badge / Badge Carousel -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Carousel — Design 08</title>
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body {
+    min-height: 100vh;
+    font-family: "Segoe UI", system-ui, sans-serif;
+    background: #f8fafc;
+    color: #0f172a;
+    overflow-x: hidden;
+  }
+  .carousel { width: min(90vw, 1200px); margin: 0 auto; position: relative; overflow: hidden; }
+  .slide { width: 100%; height: 400px; background: #fff; position: absolute; opacity: 0; transition: opacity 1s; }
+  .slide.active { opacity: 1; }
+  .slide img { width: 100%; height: 100%; object-fit: cover; }
+  .carousel-controls { position: absolute; top: 50%; width: 100%; transform: translateY(-50%); display: flex; justify-content: space-between; padding: 0 20px; }
+  .control { width: 30px; height: 30px; background: #e2e8f0; border: none; color: #334155; font-size: 1rem; border-radius: 50%; cursor: pointer; }
+  .control:hover { background: #cbd5e1; }
+  .control:focus-visible { outline: 2px solid #64748b; outline-offset: 2px; }
+  .indicators { position: absolute; bottom: 20px; width: 100%; display: flex; justify-content: center; gap: 4px; }
+  .indicator { width: 8px; height: 8px; background: #64748b; border: none; border-radius: 50%; cursor: pointer; transition: background .2s; }
+  .indicator.active { background: #3b82f6; }
+  .indicator:focus-visible { outline: 2px solid #64748b; outline-offset: 2px; }
+  .credit { margin-top: 32px; padding: 16px 0; border-top: 1px solid #e2e8f0; color: #64748b; font-size: .75rem; text-align: center; }
+  .credit a { color: #3b82f6; text-decoration: none; }
+  @media (max-width: 480px) { .slide { height: 300px; } }
+</style>
+</head>
+<body>
+<div class="carousel" data-testid="carousel" data-carousel aria-label="Carousel">
+  <div class="slide active"><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1200' height='400'/%3E" alt="Slide 1"></div>
+  <div class="slide"><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1200' height='400'/%3E" alt="Slide 2"></div>
+  <div class="slide"><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1200' height='400'/%3E" alt="Slide 3"></div>
+  <div class="slide"><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1200' height='400'/%3E" alt="Slide 4"></div>
+  <div class="slide"><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1200' height='400'/%3E" alt="Slide 5"></div>
+  <button class="control" data-prev aria-label="Anterior"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="18" x2="18" y2="6"/></svg></button>
+  <button class="control" data-next aria-label="Siguiente"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></svg></button>
+  <div class="indicators">
+    <button class="indicator active" data-slide="1" aria-label="Diapositiva 1"></button>
+    <button class="indicator" data-slide="2" aria-label="Diapositiva 2"></button>
+    <button class="indicator" data-slide="3" aria-label="Diapositiva 3"></button>
+    <button class="indicator" data-slide="4" aria-label="Diapositiva 4"></button>
+    <button class="indicator" data-slide="5" aria-label="Diapositiva 5"></button>
+  </div>
+</div>
+<script>
+  (() => {
+    const carousel = document.querySelector('[data-carousel]');
+    const slides = carousel.querySelectorAll('.slide');
+    const indicators = carousel.querySelectorAll('.indicator');
+    const prev = carousel.querySelector('[data-prev]');
+    const next = carousel.querySelector('[data-next]');
+    let current = 0;
+    let interval = setInterval(() => {
+      current = (current + 1) % slides.length;
+      goToSlide(current);
+    }, 3000);
+    
+    function goToSlide(n) {
+      slides.forEach((s, i) => s.classList.toggle('active', i === n));
+      indicators.forEach((i, idx) => i.classList.toggle('active', idx === n));
+    }
+    indicators.forEach(i => i.addEventListener('click', (e) => {
+      const slide = parseInt(e.target.dataset.slide);
+      goToSlide(slide - 1);
+      current = slide - 1;
+    }));
+    prev.addEventListener('click', () => {
+      current = (current - 1 + slides.length) % slides.length;
+      goToSlide(current);
+    });
+    next.addEventListener('click', () => {
+      current = (current + 1) % slides.length;
+      goToSlide(current);
+    });
+    
+    // Pause on hover
+    carousel.addEventListener('mouseenter', () => clearInterval(interval));
+    carousel.addEventListener('mouseleave', () => interval = setInterval(() => {
+      current = (current + 1) % slides.length;
+      goToSlide(current);
+    }, 3000));
+  })();
+</script>
+<footer class="credit">Harley Vásquez · <a href="https://www.linkedin.com/in/harleyvasquez" target="_blank" rel="noreferrer">linkedin.com/in/harleyvasquez</a></footer>
+</body>
+</html>

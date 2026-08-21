@@ -1,0 +1,101 @@
+<!-- Design 01: iOS-Like / Estilo iOS -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>iOS-Like Switch — Design 01</title>
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body {
+    min-height: 100vh;
+    display: grid;
+    place-items: center;
+    font-family: "Segoe UI", system-ui, sans-serif;
+    background: #f2f2f7;
+    overflow-x: hidden;
+  }
+  .stage {
+    width: min(560px, 94vw);
+    padding: clamp(28px, 6vw, 60px);
+    background: #fff;
+    border-radius: 26px;
+    box-shadow: 0 26px 70px rgba(20,30,60,.12);
+  }
+  h1 { margin: 0; font-size: clamp(1.5rem, 4vw, 2.1rem); color: #1c1c1e; font-weight: 700; }
+  .sub { margin: .3rem 0 2.4rem; color: #8e8e93; font-size: .92rem; }
+  .row {
+    display: flex; align-items: center; justify-content: space-between; gap: 18px;
+    padding: 16px 4px;
+    border-bottom: 1px solid #f0f0f3;
+  }
+  .txt { color: #1c1c1e; font-size: 1.02rem; font-weight: 500; }
+  .txt small { display: block; color: #8e8e93; font-weight: 400; font-size: .78rem; margin-top: 2px; }
+  .sw {
+    position: relative;
+    flex: 0 0 auto;
+    width: 51px; height: 31px;
+    background: #e9e9eb;
+    border: none;
+    border-radius: 999px;
+    cursor: pointer;
+    padding: 0;
+    transition: background .25s ease;
+  }
+  .sw .knob {
+    position: absolute; top: 2px; left: 2px;
+    width: 27px; height: 27px;
+    border-radius: 50%;
+    background: #fff;
+    box-shadow: 0 3px 8px rgba(0,0,0,.2), 0 0 1px rgba(0,0,0,.15);
+    transition: transform .25s cubic-bezier(.6,0,.3,1);
+  }
+  .sw.on { background: #34c759; }
+  .sw.on .knob { transform: translateX(20px); }
+  .sw:focus-visible { outline: 3px solid #34c759; outline-offset: 4px; }
+  .sw:active .knob { width: 31px; }
+  .sw:active.on .knob { transform: translateX(16px); }
+  .hint { margin-top: 2rem; color: #8e8e93; font-size: .82rem; }
+  .credit { margin-top: 2.2rem; padding-top: 1rem; border-top: 1px solid #f0f0f3; color: #8e8e93; font-size: .8rem; }
+  .credit a { color: #0a84ff; text-decoration: none; }
+  .credit a:hover { text-decoration: underline; }
+input[type="checkbox"]:focus-visible, input[type="radio"]:focus-visible, [data-testid="toggle"]:focus-visible { outline: 2px solid #2563eb; outline-offset: 2px; } </style>
+</head>
+<body>
+<main class="stage">
+  <h1>iOS-Like</h1>
+  <p class="sub">The familiar quick toggle / El interruptor rápido familiar</p>
+  <div class="row">
+    <span class="txt">Wi-Fi<small>connect to local network — / red local</small></span>
+    <button type="button" class="sw" data-testid="switch" role="switch" aria-checked="false" aria-label="Toggle Wi-Fi">
+      <span class="knob" aria-hidden="true"></span>
+    </button>
+  </div>
+  <div class="row">
+    <span class="txt">Bluetooth<small>pair devices nearby — / emparejar dispositivos</small></span>
+    <button type="button" class="sw" role="switch" aria-checked="true" aria-label="Toggle Bluetooth">
+      <span class="knob" aria-hidden="true"></span>
+    </button>
+  </div>
+  <div class="row">
+    <span class="txt">Airplane mode<small>silence all radios — / silenciar todas las radios</small></span>
+    <button type="button" class="sw" role="switch" aria-checked="false" aria-label="Toggle airplane mode">
+      <span class="knob" aria-hidden="true"></span>
+    </button>
+  </div>
+  <p class="hint">Click a switch to flip it — / Clic en un switch para cambiarlo</p>
+  <footer class="credit">Harley Vásquez · <a href="https://www.linkedin.com/in/harleyvasquez" target="_blank" rel="noreferrer">linkedin.com/in/harleyvasquez</a></footer>
+</main>
+<script>
+  document.querySelectorAll('.sw').forEach((sw) => {
+    if (sw.getAttribute('aria-checked') === 'true') sw.classList.add('on');
+    sw.addEventListener('click', () => {
+      const on = sw.getAttribute('aria-checked') === 'true';
+      sw.setAttribute('aria-checked', String(!on));
+      sw.classList.toggle('on', !on);
+    });
+  });
+</script>
+</body>
+</html>

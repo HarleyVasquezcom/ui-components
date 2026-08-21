@@ -1,0 +1,100 @@
+<!-- Design 01: List Grid Masonica / Masonic List -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>List — Design 01</title>
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body {
+    min-height: 100vh;
+    font-family: "Segoe UI", system-ui, sans-serif;
+    background: #f8fafc;
+    color: #0f172a;
+    overflow-x: hidden;
+  }
+  .list {
+    width: min(90vw, 1200px);
+    margin: 32px auto 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 16px;
+  }
+  .list-item {
+    background: #fff;
+    border-radius: 12px;
+    padding: 20px;
+    border: 1px solid #e2e8f0;
+    transition: transform .2s, box-shadow .2s;
+  }
+  .list-item:hover { transform: translateY(-4px); box-shadow: 0 8px 20px rgba(0,0,0,.08); }
+  .list-item h4 { margin: 0 0 4px; font-size: 1rem; color: #1e293b; }
+  .list-item p { margin: 0; color: #64748b; font-size: .875rem; line-height: 1.5; }
+  .list-item .tags { margin-top: 12px; display: flex; gap: 6px; flex-wrap: wrap; }
+  .list-item .tag {
+    padding: 4px 8px;
+    background: #e2e8f0;
+    border-radius: 4px;
+    font-size: .65rem;
+    color: #64748b;
+  }
+  .load-more {
+    width: min(200px, 90vw);
+    margin: 32px auto 0;
+    padding: 12px;
+    background: #1e293b;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: .875rem;
+    font-weight: 600;
+    cursor: pointer;
+    display: block;
+    text-align: center;
+  }
+  .load-more:focus-visible { outline: 3px solid #64748b; outline-offset: 2px; }
+  .load-more:disabled { background: #64748b; cursor: not-allowed; }
+  .credit { margin-top: 32px; padding: 16px 0; border-top: 1px solid #e2e8f0; color: #64748b; font-size: .875rem; text-align: center; }
+  .credit a { color: #2563eb; text-decoration: none; }
+  @media (max-width: 480px) { .list { padding: 0 8px; } }
+</style>
+</head>
+<body>
+<div class="list" data-scroll-container>
+  <article class="list-item" data-testid="list" aria-label="List design"><h4>Diseño Gráfico</h4><p>Técnicas visuales modernas.</p><div class="tags"><span class="tag">Visual</span><span class="tag">Design</span></div></article>
+  <article class="list-item"><h4>Desarrollo Web</h4><p>Fundamentos y frameworks modernos.</p><div class="tags"><span class="tag">Web</span><span class="tag">Dev</span></div></article>
+  <article class="list-item"><h4>Fotografía</h4><p>Técnicas de composición y revelado.</p><div class="tags"><span class="tag">Photo</span><span class="tag">Art</span></div></article>
+  <article class="list-item"><h4>Marketing</h4><p>Estrategias digitales y crecimiento.</p><div class="tags"><span class="tag">Digital</span><span class="tag">Strategy</span></div></article>
+  <article class="list-item"><h4>Branding</h4><p>Identidad visual y logotipos.</p><div class="tags"><span class="tag">Brand</span><span class="tag">Identity</span></div></article>
+  <article class="list-item"><h4>SEO</h4><p>Optimización para motores de búsqueda.</p><div class="tags"><span class="tag">SEO</span><span class="tag">Organic</span></div></article>
+  <article class="list-item"><h4>Contenido</h4><p>Creación y distribución multiplataforma.</p><div class="tags"><span class="tag">Content</span><span class="tag">Distribution</span></div></article>
+  <article class="list-item"><h4>UX Research</h4><p>Testing de usabilidad y investigación.</p><div class="tags"><span class="tag">UX</span><span class="tag">Research</span></div></article>
+</div>
+<button class="load-more" aria-label="Cargar más ítems" data-load-more>Cargar más <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/ data-testid="list-item"><line x1="5" y1="12" x2="19" y2="12"/ data-testid="list-item"></svg></button>
+<script>
+  (() => {
+    const button = document.querySelector('[data-load-more]');
+    const container = document.querySelector('.list');
+    let loaded = 8;
+    let total = 40;
+    button.addEventListener('click', () => {
+      const fragment = document.createDocumentFragment();
+      const labels = ['Diseño Gráfico','Desarrollo Web','Fotografía','Marketing','Branding','SEO','Contenido','UX Research'];
+      for (let i = loaded; i < Math.min(loaded + 8, total); i++) {
+        const item = document.createElement('article');
+        item.className = 'list-item';
+        item.innerHTML = `<h4>${labels[i % labels.length]}</h4><p>Artículo ${i + 1}: Descripción detallada sobre el tema seleccionado.</p><div class="tags"><span class="tag">${labels[i % labels.length]}</span><span class="tag">Category</span></div>`;
+        fragment.appendChild(item);
+      }
+      container.appendChild(fragment);
+      loaded += 8;
+      if (loaded >= total) { button.textContent = 'No hay más'; button.disabled = true; }
+    });
+  })();
+</script>
+<footer class="credit">Harley Vásquez · <a href="https://www.linkedin.com/in/harleyvasquez" target="_blank" rel="noreferrer">linkedin.com/in/harleyvasquez</a></footer>
+</body>
+</html>

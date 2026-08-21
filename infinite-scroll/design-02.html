@@ -1,0 +1,110 @@
+<!-- Design 02: Infinite Scroll con Animación de Skeletons / Skeleton Loading Animation -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Infinite Scroll — Design 02</title>
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body {
+    min-height: 100vh;
+    font-family: "Segoe UI", system-ui, sans-serif;
+    background: #fff;
+    color: #1e293b;
+    overflow-x: hidden;
+  }
+  .grid { width: min(90vw, 1200px); margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; }
+  .card {
+    background: #fff;
+    border-radius: 12px;
+    padding: 20px;
+    position: relative;
+    overflow: hidden;
+    transition: background .2s;
+  }
+  .card:hover { background: #f8fafc; }
+  .card h3 { margin: 0 0 4px; font-size: 1rem; color: #1e293b; }
+  .card p { margin: 0; color: #64748b; font-size: .875rem; line-height: 1.5; }
+  .skeleton {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: #e2e8f0;
+    z-index: 1;
+    opacity: 0;
+    transition: opacity .4s;
+  }
+  .card.loaded .skeleton { opacity: 1; }
+  .load-more {
+    width: min(200px, 90vw);
+    margin: 32px auto 0;
+    padding: 12px;
+    background: #3b82f6;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: .875rem;
+    font-weight: 600;
+    cursor: pointer;
+    display: block;
+    text-align: center;
+  }
+  .load-more:focus-visible { outline: 3px solid #64748b; outline-offset: 2px; }
+  .load-more:disabled { background: #64748b; cursor: not-allowed; }
+  .credit { margin-top: 32px; padding: 16px 0; border-top: 1px solid #e2e8f0; color: #64748b; font-size: .875rem; text-align: center; }
+  .credit a { color: #3b82f6; text-decoration: none; }
+  @media (max-width: 480px) { .grid { padding: 0 8px; } }
+</style>
+</head>
+<body>
+<div class="grid" data-scroll-container data-testid="infinite-scroll" aria-label="Infinite scroll">
+  <article class="card loaded"><skeleton class="skeleton" width="100%" height="80px"></skeleton><h3>Artículo 1</h3><p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p></article>
+  <article class="card loaded"><skeleton class="skeleton" width="100%" height="80px"></skeleton><h3>Artículo 2</h3><p>Consectetur adipisicing elit sed do eiusmod tempor.</p></article>
+  <article class="card loaded"><skeleton class="skeleton" width="100%" height="80px"></skeleton><h3>Artículo 3</h3><p>Dolor sit amet minim veniam quis nostrud exercitation.</p></article>
+  <article class="card loaded"><skeleton class="skeleton" width="100%" height="80px"></skeleton><h3>Artículo 4</h3><p>Ullamco laboris nisi ut aliquip ex ea commodo consequat.</p></article>
+  <article class="card loaded"><skeleton class="skeleton" width="100%" height="80px"></skeleton><h3>Artículo 5</h3><p>Duis aute irure dolor in reprehenderit in voluptate.</p></article>
+  <article class="card loaded"><skeleton class="skeleton" width="100%" height="80px"></skeleton><h3>Artículo 6</h3><p>Excepteur sint occaecat cupidatat non proident.</p></article>
+  <article class="card loaded"><skeleton class="skeleton" width="100%" height="80px"></skeleton><h3>Artículo 7</h3><p>Sunt in culpa qui officia deserunt mollit anim id est.</p></article>
+  <article class="card loaded"><skeleton class="skeleton" width="100%" height="80px"></skeleton><h3>Artículo 8</h3><p>Ut enim ad minim veniam quis nostrud exercitation ullamco.</p></article>
+</div>
+<button class="load-more" aria-label="Cargar más artículos" data-load-more>Cargar más <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button>
+<script>
+  (() => {
+    const button = document.querySelector('[data-load-more]');
+    const container = document.querySelector('[data-scroll-container]');
+    const skeletons = container.querySelectorAll('.skeleton');
+    let loaded = 8;
+    let total = 40;
+    button.addEventListener('click', () => {
+      for (let i = loaded; i < Math.min(loaded + 8, total); i++) {
+        const card = document.createElement('article');
+        card.className = 'card loaded';
+        card.innerHTML = `<skeleton class="skeleton" width="100%" height="80px"></skeleton><h3>Artículo ${i + 1}</h3><p>Lorem ipsum dolor sit amet consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>`;
+        container.appendChild(card);
+      }
+      skeletons.forEach((s, idx) => {
+        if (idx >= loaded - 8 && idx < loaded) s.style.opacity = '1';
+      });
+      loaded += 8;
+      if (loaded >= total) { button.textContent = 'No hay más'; button.disabled = true; }
+    });
+  })();
+</script>
+<footer class="credit">Harley Vásquez · <a href="https://www.linkedin.com/in/harleyvasquez" target="_blank" rel="noreferrer">linkedin.com/in/harleyvasquez</a></footer>
+
+<script>
+(function(){
+  var grid = document.querySelector('[data-testid="infinite-scroll"]');
+  var btn = document.querySelector('[data-load-more]');
+  if(!grid || !btn) return;
+  window.addEventListener('scroll', function(){
+    if(btn.disabled) return;
+    var rect = grid.getBoundingClientRect();
+    if(rect.bottom <= window.innerHeight + 200) btn.click();
+  });
+})();
+</script>
+</body>
+</html>

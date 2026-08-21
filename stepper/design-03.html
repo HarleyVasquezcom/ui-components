@@ -1,0 +1,86 @@
+<!-- Design 03: Round Buttons / Botones Redondos -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Round Buttons — Design 03</title>
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body {
+    min-height: 100vh;
+    display: grid;
+    place-items: center;
+    font-family: "Segoe UI", system-ui, sans-serif;
+    background: #831843;
+    overflow-x: hidden;
+  }
+  .stage {
+    width: min(480px, 94vw);
+    padding: clamp(34px, 7vw, 54px);
+    background: linear-gradient(180deg, #fdf2f8, #fce7f3);
+    border-radius: 28px;
+    box-shadow: 0 30px 70px rgba(0, 0, 0, .5);
+  }
+  h1 { margin: 0; font-size: clamp(1.6rem, 5vw, 2rem); color: #9d174d; font-weight: 800; letter-spacing: -.02em; }
+  .sub { margin: .4rem 0 2.2rem; color: #db2777; font-size: .95rem; }
+  .lbl { display: block; margin: 0 0 20px; color: #9d174d; font-size: .92rem; font-weight: 700; }
+  .stepper { display: flex; align-items: center; gap: 16px; justify-content: center; }
+  .btn {
+    width: 58px; height: 58px;
+    border: none; border-radius: 50%;
+    background: #db2777; color: #ffffff;
+    font-size: 1.5rem; font-weight: 700;
+    box-shadow: 0 6px 18px rgba(219, 39, 119, .4);
+    cursor: pointer;
+  }
+  .btn:hover { background: #be185d; }
+  .btn:active { background: #9d174d; }
+  .btn:focus-visible { outline: 3px solid #f472b6; outline-offset: 3px; }
+  .inp {
+    width: 84px; height: 64px;
+    text-align: center;
+    font-family: inherit; font-size: 1.5rem; font-weight: 800; color: #9d174d;
+    background: #ffffff; border: 3px solid #f9a8d4; border-radius: 18px;
+  }
+  .inp:focus-visible { outline: 3px solid #db2777; outline-offset: 1px; border-color: #db2777; }
+  .out { margin-top: 22px; text-align: center; color: #be185d; font-size: .88rem; }
+  .out b { color: #9d174d; font-size: 1.15rem; }
+  .hint { margin-top: 2rem; color: #f9a8d4; font-size: .82rem; }
+  .credit { margin-top: 1.6rem; padding-top: 1rem; border-top: 1px solid #fbcfe8; color: #f9a8d4; font-size: .78rem; }
+  .credit a { color: #db2777; text-decoration: none; }
+</style>
+</head>
+<body>
+<main class="stage">
+  <h1>Round Buttons</h1>
+  <p class="sub">Circles of joy / Círculos de alegría</p>
+  <label class="lbl" data-testid="label" id="lbl-st03" for="inp-st03">Guests</label>
+  <div class="stepper" data-testid="stepper">
+    <button type="button" class="btn" data-testid="dec" aria-label="Decrease">−</button>
+    <input id="inp-st03" class="inp" data-testid="input" type="text" inputmode="numeric" maxlength="2" aria-label="Guests" value="5">
+    <button type="button" class="btn" data-testid="inc" aria-label="Increase">+</button>
+  </div>
+  <p class="out"><span>Party size</span> <b data-testid="value" aria-live="polite">5</b></p>
+  <p class="hint">Pink balloons, counted / Globos rosados, contados</p>
+  <footer class="credit">Harley Vásquez · <a href="https://www.linkedin.com/in/harleyvasquez" target="_blank" rel="noreferrer">linkedin.com/in/harleyvasquez</a></footer>
+</main>
+<script>
+  const inp = document.querySelector('[data-testid="input"]');
+  const val = document.querySelector('[data-testid="value"]');
+  const inc = document.querySelector('[data-testid="inc"]');
+  const dec = document.querySelector('[data-testid="dec"]');
+  let n = 5;
+  const clamp = (x) => Math.max(0, Math.min(10, Math.round(x)));
+  function render() { inp.value = String(n); val.textContent = String(n); }
+  inc.addEventListener('click', () => { n = clamp(n + 1); render(); });
+  dec.addEventListener('click', () => { n = clamp(n - 1); render(); });
+  inp.addEventListener('input', () => {
+    n = clamp(parseInt(inp.value, 10) || 0);
+    render();
+  });
+  render();
+</script>
+</body>
+</html>

@@ -1,0 +1,109 @@
+<!-- Design 01: Drag Drop Hero / Hero de Arrastre -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Drag Drop Hero — Design 01</title>
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body {
+    min-height: 100vh;
+    display: grid;
+    place-items: center;
+    font-family: "Segoe UI", system-ui, sans-serif;
+    background: #312e81;
+    overflow-x: hidden;
+  }
+  .stage { width: min(540px, 94vw); padding: clamp(34px, 7vw, 54px); background: #ffffff; border-radius: 24px; box-shadow: 0 30px 70px rgba(0, 0, 0, .5); }
+  h1 { margin: 0; font-size: clamp(1.7rem, 5vw, 2.2rem); color: #312e81; font-weight: 800; letter-spacing: -.02em; }
+  .sub { margin: .4rem 0 2.2rem; color: #818cf8; font-size: .95rem; }
+  .lbl { display: block; margin: 0 0 16px; color: #4338ca; font-size: .92rem; font-weight: 700; }
+  .dz {
+    display: grid; place-items: center; gap: 8px;
+    padding: 44px 24px;
+    text-align: center;
+    background: #eef2ff; border: 3px dashed #c7d2fe; border-radius: 20px;
+    cursor: pointer;
+  }
+  .dz:hover { background: #e0e7ff; border-color: #818cf8; }
+  .dz:focus-within { outline: 3px solid #6366f1; outline-offset: 3px; }
+  .dz .ic { font-size: 2.2rem; }
+  .dz p { margin: 0; color: #4338ca; font-weight: 700; }
+  .dz small { color: #6d28d9; }
+  .list { margin-top: 18px; display: grid; gap: 10px; }
+  .li { display: flex; align-items: center; gap: 12px; padding: 12px 14px; background: #eef2ff; border-radius: 12px; }
+  .li .nm { flex: 1; color: #312e81; font-weight: 700; font-size: .95rem; }
+  .li .sz { color: #6d28d9; font-size: .82rem; }
+  .rm {
+    border: none; background: #6366f1; color: #fff;
+    padding: 8px 14px; border-radius: 8px; font-size: .82rem; font-weight: 700; cursor: pointer;
+  }
+  .rm:hover { background: #4f46e5; }
+  .rm:focus-visible { outline: 3px solid #818cf8; outline-offset: 2px; }
+  .empty { margin-top: 18px; text-align: center; color: #a5b4fc; font-size: .85rem; }
+  .hint { margin-top: 2rem; color: #a5b4fc; font-size: .82rem; }
+  .credit { margin-top: 1.6rem; padding-top: 1rem; border-top: 1px solid #e0e7ff; color: #a5b4fc; font-size: .78rem; }
+  .credit a { color: #6366f1; text-decoration: none; }
+</style>
+</head>
+<body>
+<main class="stage">
+  <h1>Drag Drop Hero</h1>
+  <p class="sub">Drop it like it's hot / Suéltalo como si fuera caliente</p>
+  <label class="lbl" data-testid="label" id="lbl-fu01">Attachment</label>
+  <div class="dz" data-testid="dropzone" aria-label="File uploader">
+    <span class="ic" aria-hidden="true">⬆</span>
+    <p>Drop your file here</p>
+    <small>or click to browse</small>
+    <input data-testid="file-input" type="file" aria-label="Upload file" aria-describedby="lbl-fu01" hidden>
+  </div>
+  <p class="empty" data-testid="empty">
+<div data-testid="file-name" style="display:none"></div>Nothing uploaded yet · Nada cargado aún</p>
+  <ul class="list" data-testid="list" hidden></ul>
+  <p class="hint">Big, friendly, indigo / Grande, amable, índigo</p>
+  <footer class="credit">Harley Vásquez · <a href="https://www.linkedin.com/in/harleyvasquez" target="_blank" rel="noreferrer">linkedin.com/in/harleyvasquez</a></footer>
+</main>
+<script>
+  const input = document.querySelector('[data-testid="file-input"]');
+  const list = document.querySelector('[data-testid="list"]');
+  const empty = document.querySelector('[data-testid="empty"]');
+  const dz = document.querySelector('[data-testid="dropzone"]');
+  dz.addEventListener('click', () => input.click());
+  function fmt(n) {
+    if (n >= 1024 * 1024) return (n / (1024 * 1024)).toFixed(1) + ' MB';
+    if (n >= 1024) return (n / 1024).toFixed(1) + ' KB';
+    return n + ' B';
+  }
+  input.addEventListener('change', () => {
+    list.textContent = '';
+    for (const f of input.files) {
+      const li = document.createElement('li');
+      li.className = 'li';
+      const nm = document.createElement('span');
+      nm.className = 'nm';
+      nm.textContent = f.name;
+      const sz = document.createElement('span');
+      sz.className = 'sz';
+      sz.textContent = fmt(f.size);
+      const rm = document.createElement('button');
+      rm.type = 'button';
+      rm.className = 'rm';
+      rm.dataset.testid = 'remove';
+      rm.textContent = 'Remove';
+      rm.addEventListener('click', () => {
+        li.remove();
+        input.value = '';
+        list.hidden = list.children.length === 0;
+        empty.hidden = list.children.length > 0;
+      });
+      li.append(nm, sz, rm);
+      list.appendChild(li);
+    }
+    list.hidden = list.children.length === 0;
+    empty.hidden = list.children.length > 0;
+  });
+</script>
+</body>
+</html>

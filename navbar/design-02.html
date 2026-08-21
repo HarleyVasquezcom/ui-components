@@ -1,0 +1,102 @@
+<!-- Design 02: Minimal Links / Enlaces Mínimos -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Minimal Links — Design 02</title>
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body { font-family: Georgia, "Times New Roman", serif; background: #fdfcfa; min-height: 100vh; overflow-x: hidden; }
+  .nav {
+    display: flex; align-items: center; justify-content: space-between; gap: 16px;
+    padding: 22px clamp(16px, 5vw, 60px);
+    background: #fdfcfa;
+    border-bottom: 1px solid #e7e2d8;
+  }
+  .brand { color: #2b2620; font-size: 1.2rem; letter-spacing: .02em; }
+  .brand em { color: #8a7f6d; }
+  .links { display: flex; gap: 30px; list-style: none; margin: 0; padding: 0; }
+  .links a {
+    position: relative;
+    color: #6d6351; text-decoration: none; font-size: .98rem;
+    padding: 4px 0;
+  }
+  .links a::after {
+    content: ""; position: absolute; left: 0; bottom: -2px;
+    width: 100%; height: 1px; background: #2b2620;
+    transform: scaleX(0); transform-origin: left;
+    transition: transform .2s ease;
+  }
+  .links a:hover { color: #2b2620; }
+  .links a:hover::after { transform: scaleX(1); }
+  .links a:focus-visible { outline: 3px solid #b7a88d; outline-offset: 4px; }
+  .links a.active { color: #2b2620; font-style: italic; }
+  .links a.active::after { transform: scaleX(1); }
+  .burger {
+    display: none;
+    width: 44px; height: 44px;
+    background: none; border: 1px solid #c9c0ac; border-radius: 6px;
+    color: #2b2620; font-size: 1.2rem; cursor: pointer;
+  }
+  .burger:focus-visible { outline: 3px solid #b7a88d; outline-offset: 3px; }
+  .mobile { display: none; flex-direction: column; gap: 2px; padding: 12px clamp(16px, 5vw, 60px); background: #f8f5ee; border-bottom: 1px solid #e7e2d8; }
+  .mobile.open { display: flex; }
+  .mobile a { padding: 12px 6px; color: #6d6351; text-decoration: none; font-size: 1rem; border-bottom: 1px dotted #d8d0bd; }
+  .mobile a:hover { color: #2b2620; }
+  .mobile a:focus-visible { outline: 3px solid #b7a88d; outline-offset: 2px; }
+  .mobile a.active { color: #2b2620; font-style: italic; }
+  main { padding: clamp(70px, 14vw, 130px) clamp(16px, 5vw, 60px); color: #6d6351; max-width: 720px; }
+  main h1 { color: #2b2620; margin: 0 0 12px; font-size: clamp(1.8rem, 5.5vw, 2.6rem); font-weight: 400; }
+  main p { line-height: 1.8; }
+  .credit { padding: 18px clamp(16px, 5vw, 60px); border-top: 1px solid #e7e2d8; color: #b7a88d; font-size: .78rem; }
+  .credit a { color: #5c5341; text-decoration: none; }
+  @media (max-width: 480px) { .links { display: none; } .burger { display: block; } }
+</style>
+</head>
+<body>
+<header>
+  <nav class="nav" aria-label="Main / Principal">
+    <div class="brand">The <em>Folio</em></div>
+    <ul class="links">
+      <li><a href="#" data-testid="link" aria-current="page" class="active">Home</a></li>
+      <li><a href="#" data-testid="link">Works</a></li>
+      <li><a href="#" data-testid="link">Journal</a></li>
+      <li><a href="#" data-testid="link">About</a></li>
+      <li><a href="#" data-testid="link">Contact</a></li>
+    </ul>
+    <button type="button" class="burger" data-testid="burger" aria-expanded="false" aria-controls="nb-ml-02-m">☰</button>
+  </nav>
+  <div class="mobile" id="nb-ml-02-m" data-testid="mobile">
+    <a href="#" data-testid="link" aria-current="page" class="active">Home</a>
+    <a href="#" data-testid="link">Works</a>
+    <a href="#" data-testid="link">Journal</a>
+    <a href="#" data-testid="link">About</a>
+    <a href="#" data-testid="link">Contact</a>
+  </div>
+</header>
+<main>
+  <h1>Minimal Links</h1>
+  <p>Editorial serif, dotted rules, italic active / Serif editorial, reglas punteadas, activo en cursiva.</p>
+  <p>The active page is the only one underlined / La página activa es la única subrayada.</p>
+</main>
+<footer class="credit">Harley Vásquez · <a href="https://www.linkedin.com/in/harleyvasquez" target="_blank" rel="noreferrer">linkedin.com/in/harleyvasquez</a></footer>
+<script>
+  const links = document.querySelectorAll('[data-testid="link"]');
+  const burger = document.querySelector('[data-testid="burger"]');
+  const mobile = document.querySelector('[data-testid="mobile"]');
+  links.forEach((l) => l.addEventListener('click', (e) => {
+    e.preventDefault();
+    links.forEach((x) => { x.classList.remove('active'); x.removeAttribute('aria-current'); });
+    l.classList.add('active'); l.setAttribute('aria-current', 'page');
+    mobile.classList.remove('open'); burger.setAttribute('aria-expanded', 'false');
+  }));
+  burger.addEventListener('click', () => {
+    const open = burger.getAttribute('aria-expanded') === 'true';
+    burger.setAttribute('aria-expanded', open ? 'false' : 'true');
+    mobile.classList.toggle('open', !open);
+  });
+</script>
+</body>
+</html>

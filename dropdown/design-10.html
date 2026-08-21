@@ -1,0 +1,140 @@
+<!-- Design 10: Animated List / Lista Animada -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Animated List Dropdown — Design 10</title>
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body {
+    min-height: 100vh;
+    display: grid;
+    place-items: center;
+    font-family: "Segoe UI", system-ui, sans-serif;
+    background: #fdf2f8;
+    overflow-x: hidden;
+  }
+  .stage {
+    width: min(500px, 94vw);
+    padding: clamp(36px, 8vw, 72px);
+    background: #fff;
+    border-radius: 18px;
+    box-shadow: 0 24px 60px rgba(190, 24, 93, .1);
+  }
+  h1 { margin: 0; font-size: clamp(1.6rem, 5vw, 2.2rem); color: #1f2937; font-weight: 800; letter-spacing: -.02em; }
+  .sub { margin: .4rem 0 2.6rem; color: #f0a5c4; font-size: .95rem; }
+  .lbl { display: block; margin: 0 0 12px; color: #4b5563; font-size: .92rem; font-weight: 700; }
+  .wrap { position: relative; }
+  .trg {
+    width: 100%;
+    display: flex; align-items: center; justify-content: space-between; gap: 10px;
+    padding: 16px 20px;
+    font-family: inherit; font-size: 1.04rem; font-weight: 700; color: #fff;
+    background: linear-gradient(135deg, #ec4899 0%, #a21caf 100%);
+    border: none;
+    border-radius: 999px;
+    cursor: pointer;
+    box-shadow: 0 14px 30px rgba(190, 24, 93, .3);
+    transition: transform .15s ease, box-shadow .15s ease;
+  }
+  .trg:hover { transform: translateY(-2px); box-shadow: 0 18px 36px rgba(190, 24, 93, .38); }
+  .trg[aria-expanded="true"] { transform: translateY(-2px); }
+  .trg:focus-visible { outline: 3px solid #a21caf; outline-offset: 3px; }
+  .trg .arr { font-size: 1rem; transition: transform .25s cubic-bezier(.4, 0, .2, 1); }
+  .trg[aria-expanded="true"] .arr { transform: rotate(180deg); }
+  .lst {
+    position: absolute; left: 0; right: 0; top: calc(100% + 14px);
+    margin: 0; padding: 8px;
+    list-style: none;
+    background: #fff;
+    border: 1px solid #fce7f3;
+    border-radius: 18px;
+    box-shadow: 0 24px 50px rgba(190, 24, 93, .16);
+    transform-origin: top center;
+    z-index: 5;
+  }
+  [hidden] { display: none !important; }
+  .lst:not([hidden]) { animation: pop .28s cubic-bezier(.34, 1.56, .64, 1); }
+  @keyframes pop {
+    from { opacity: 0; transform: scale(.9) translateY(-8px); }
+    to { opacity: 1; transform: scale(1) translateY(0); }
+  }
+  .opt {
+    padding: 13px 16px;
+    font-size: .98rem; font-weight: 600; color: #6b7280;
+    border-radius: 12px;
+    cursor: pointer;
+    opacity: 0;
+    transition: background .12s ease, color .12s ease, opacity .25s ease;
+  }
+  .lst:not([hidden]) .opt { animation: rise .25s ease forwards; }
+  .lst:not([hidden]) .opt:nth-child(1) { animation-delay: .03s; }
+  .lst:not([hidden]) .opt:nth-child(2) { animation-delay: .06s; }
+  .lst:not([hidden]) .opt:nth-child(3) { animation-delay: .09s; }
+  .lst:not([hidden]) .opt:nth-child(4) { animation-delay: .12s; }
+  .lst:not([hidden]) .opt:nth-child(5) { animation-delay: .15s; }
+  @keyframes rise {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .opt:hover, .opt.hl { background: #fdf2f8; color: #9d174d; }
+  .opt.checked { color: #be185d; font-weight: 800; }
+  .opt.checked::after { content: " ✓"; }
+  .opt:focus-visible { outline: 2px solid #be185d; outline-offset: -2px; }
+  .selout { display: flex; align-items: center; justify-content: space-between; gap: 14px; margin-top: 28px; flex-wrap: wrap; }
+  .selout span { color: #f0a5c4; font-size: .88rem; }
+  .selout b { color: #1f2937; font-weight: 800; }
+  .hint { margin-top: 2.2rem; color: #fbcfe8; font-size: .82rem; }
+  .credit { margin-top: 2.2rem; padding-top: 1.2rem; border-top: 1px solid #fce7f3; color: #f0a5c4; font-size: .78rem; }
+  .credit a { color: #be185d; text-decoration: none; }
+  .credit a:hover { text-decoration: underline; }
+</style>
+</head>
+<body>
+<main class="stage">
+  <h1>Animated List</h1>
+  <p class="sub">Options float in one by one / Las opciones entran flotando una a una</p>
+  <label class="lbl" data-testid="label" id="lbl-d10">Plan</label>
+  <div class="wrap">
+    <button type="button" class="trg" data-testid="trigger" role="combobox" aria-haspopup="listbox" aria-expanded="false" aria-controls="lst10" aria-labelledby="lbl-d10">
+      <span data-testid="cur">Pro</span>
+      <span class="arr" aria-hidden="true">▾</span>
+    </button>
+    <ul class="lst" id="lst10" data-testid="list" role="listbox" aria-label="Plan" hidden>
+      <li class="opt" data-testid="option-1" role="option" tabindex="-1">Starter</li>
+      <li class="opt" data-testid="option-2" role="option" tabindex="-1">Hobby</li>
+      <li class="opt" data-testid="option-3" role="option" tabindex="-1">Pro</li>
+      <li class="opt" data-testid="option-4" role="option" tabindex="-1">Business</li>
+      <li class="opt" data-testid="option-5" role="option" tabindex="-1">Enterprise</li>
+    </ul>
+  </div>
+  <p class="selout"><span>selected:</span> <b data-testid="selected" aria-live="polite">Pro</b></p>
+  <p class="hint">Delight in the details / El deleite está en los detalles</p>
+  <footer class="credit">Harley Vásquez · <a href="https://www.linkedin.com/in/harleyvasquez" target="_blank" rel="noreferrer">linkedin.com/in/harleyvasquez</a></footer>
+</main>
+<script>
+  const trigger = document.querySelector('[data-testid="trigger"]');
+  const list = document.querySelector('[data-testid="list"]');
+  const cur = document.querySelector('[data-testid="cur"]');
+  const selected = document.querySelector('[data-testid="selected"]');
+  const opts = Array.from(document.querySelectorAll('[data-testid^="option-"]'));
+  const DATA = opts.map((o) => o.textContent.trim());
+  let open = false, curI = 2, hl = 0;
+  function paint() { opts.forEach((el, j) => el.classList.toggle('hl', j === hl)); }
+  function setOpen(v) { open = v; list.hidden = !v; trigger.setAttribute('aria-expanded', String(v)); }
+  function openList(kbd) { hl = kbd ? 0 : curI; setOpen(true); paint(); }
+  function setSel(j) { curI = j; cur.textContent = DATA[j]; selected.textContent = DATA[j]; opts.forEach((el, i) => el.classList.toggle('checked', i === j)); }
+  trigger.addEventListener('click', () => { open ? setOpen(false) : openList(); });
+  opts.forEach((el, j) => el.addEventListener('click', () => { setSel(j); setOpen(false); }));
+  trigger.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowDown') { e.preventDefault(); if (!open) openList(true); else { hl = Math.min(hl + 1, opts.length - 1); paint(); } }
+    else if (e.key === 'ArrowUp') { e.preventDefault(); if (open) { hl = Math.max(hl - 1, 0); paint(); } }
+    else if (e.key === 'Enter') { e.preventDefault(); if (open) { setSel(hl); setOpen(false); } }
+    else if (e.key === 'Escape') { e.preventDefault(); if (open) setOpen(false); }
+  });
+  setSel(2);
+</script>
+</body>
+</html>

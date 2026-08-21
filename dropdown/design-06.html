@@ -1,0 +1,118 @@
+<!-- Design 06: Minimal Caret / Caret Mínimo -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Minimal Caret Dropdown — Design 06</title>
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body {
+    min-height: 100vh;
+    display: grid;
+    place-items: center;
+    font-family: "Segoe UI", system-ui, sans-serif;
+    background: #ffffff;
+    overflow-x: hidden;
+  }
+  .stage {
+    width: min(480px, 94vw);
+    padding: clamp(36px, 8vw, 72px) clamp(8px, 4vw, 24px);
+  }
+  h1 { margin: 0; font-size: clamp(1.6rem, 5vw, 2.2rem); color: #111827; font-weight: 700; letter-spacing: -.01em; }
+  .sub { margin: .4rem 0 2.8rem; color: #9ca3af; font-size: .95rem; }
+  .lbl { display: block; margin: 0 0 10px; color: #4b5563; font-size: .9rem; font-weight: 600; }
+  .wrap { position: relative; }
+  .trg {
+    width: 100%;
+    display: flex; align-items: center; justify-content: space-between; gap: 10px;
+    padding: 14px 2px 12px;
+    font-family: inherit; font-size: 1.06rem; font-weight: 500; color: #111827;
+    background: transparent;
+    border: none;
+    border-bottom: 2px solid #d1d5db;
+    border-radius: 0;
+    cursor: pointer;
+    transition: border-color .15s ease;
+  }
+  .trg:hover { border-bottom-color: #111827; }
+  .trg[aria-expanded="true"] { border-bottom-color: #2563eb; }
+  .trg:focus-visible { outline: 2px solid #2563eb; outline-offset: 6px; }
+  .trg .arr { color: #6b7280; font-size: .8rem; transition: transform .2s ease; }
+  .trg[aria-expanded="true"] .arr { transform: rotate(180deg); }
+  .lst {
+    position: absolute; left: 0; right: 0; top: calc(100% + 4px);
+    margin: 0; padding: 0;
+    list-style: none;
+    background: #fff;
+    z-index: 5;
+  }
+  [hidden] { display: none !important; }
+  .opt {
+    padding: 14px 2px;
+    font-size: 1rem; font-weight: 400; color: #374151;
+    border-bottom: 1px solid #e5e7eb;
+    border-radius: 0;
+    cursor: pointer;
+    transition: color .12s ease, padding-left .12s ease;
+  }
+  .opt:hover, .opt.hl { color: #2563eb; padding-left: 6px; }
+  .opt.checked { font-weight: 700; color: #111827; }
+  .opt.checked::after { content: " ✓"; color: #2563eb; }
+  .opt:focus-visible { outline: 2px solid #2563eb; outline-offset: -2px; }
+  .selout { display: flex; align-items: center; justify-content: space-between; gap: 14px; margin-top: 34px; flex-wrap: wrap; }
+  .selout span { color: #9ca3af; font-size: .88rem; }
+  .selout b { color: #111827; font-weight: 700; }
+  .hint { margin-top: 2.4rem; color: #d1d5db; font-size: .82rem; }
+  .credit { margin-top: 2.4rem; padding-top: 1.2rem; border-top: 1px solid #e5e7eb; color: #9ca3af; font-size: .78rem; }
+  .credit a { color: #2563eb; text-decoration: none; }
+  .credit a:hover { text-decoration: underline; }
+</style>
+</head>
+<body>
+<main class="stage">
+  <h1>Minimal Caret</h1>
+  <p class="sub">Nothing but a line and a caret / Solo una línea y un caret</p>
+  <label class="lbl" data-testid="label" id="lbl-d06">Plan</label>
+  <div class="wrap">
+    <button type="button" class="trg" data-testid="trigger" role="combobox" aria-haspopup="listbox" aria-expanded="false" aria-controls="lst06" aria-labelledby="lbl-d06">
+      <span data-testid="cur">Pro</span>
+      <span class="arr" aria-hidden="true">▾</span>
+    </button>
+    <ul class="lst" id="lst06" data-testid="list" role="listbox" aria-label="Plan" hidden>
+      <li class="opt" data-testid="option-1" role="option" tabindex="-1">Starter</li>
+      <li class="opt" data-testid="option-2" role="option" tabindex="-1">Hobby</li>
+      <li class="opt" data-testid="option-3" role="option" tabindex="-1">Pro</li>
+      <li class="opt" data-testid="option-4" role="option" tabindex="-1">Business</li>
+      <li class="opt" data-testid="option-5" role="option" tabindex="-1">Enterprise</li>
+    </ul>
+  </div>
+  <p class="selout"><span>selected:</span> <b data-testid="selected" aria-live="polite">Pro</b></p>
+  <p class="hint">Quiet, crisp, fast / Silencioso, nítido, rápido</p>
+  <footer class="credit">Harley Vásquez · <a href="https://www.linkedin.com/in/harleyvasquez" target="_blank" rel="noreferrer">linkedin.com/in/harleyvasquez</a></footer>
+</main>
+<script>
+  const trigger = document.querySelector('[data-testid="trigger"]');
+  const list = document.querySelector('[data-testid="list"]');
+  const cur = document.querySelector('[data-testid="cur"]');
+  const selected = document.querySelector('[data-testid="selected"]');
+  const opts = Array.from(document.querySelectorAll('[data-testid^="option-"]'));
+  const DATA = opts.map((o) => o.textContent.trim());
+  let open = false, curI = 2, hl = 0;
+  function paint() { opts.forEach((el, j) => el.classList.toggle('hl', j === hl)); }
+  function setOpen(v) { open = v; list.hidden = !v; trigger.setAttribute('aria-expanded', String(v)); }
+  function openList(kbd) { hl = kbd ? 0 : curI; setOpen(true); paint(); }
+  function setSel(j) { curI = j; cur.textContent = DATA[j]; selected.textContent = DATA[j]; opts.forEach((el, i) => el.classList.toggle('checked', i === j)); }
+  trigger.addEventListener('click', () => { open ? setOpen(false) : openList(); });
+  opts.forEach((el, j) => el.addEventListener('click', () => { setSel(j); setOpen(false); }));
+  trigger.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowDown') { e.preventDefault(); if (!open) openList(true); else { hl = Math.min(hl + 1, opts.length - 1); paint(); } }
+    else if (e.key === 'ArrowUp') { e.preventDefault(); if (open) { hl = Math.max(hl - 1, 0); paint(); } }
+    else if (e.key === 'Enter') { e.preventDefault(); if (open) { setSel(hl); setOpen(false); } }
+    else if (e.key === 'Escape') { e.preventDefault(); if (open) setOpen(false); }
+  });
+  setSel(2);
+</script>
+</body>
+</html>

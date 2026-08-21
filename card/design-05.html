@@ -1,0 +1,62 @@
+<!-- Design 05: Card Dark / Dark Card -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Card — Design 05</title>
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body {
+    min-height: 100vh;
+    font-family: "Segoe UI", system-ui, sans-serif;
+    background: #0f172a;
+    color: #f1f5f9;
+    overflow-x: hidden;
+  }
+  .card {
+    background: #1e293b;
+    border-radius: 16px;
+    padding: 32px;
+    position: relative;
+  }
+  .card::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0; height: 1px;
+    background: rgba(255,255,255,.1);
+  }
+  .card h3 { margin: 0 0 8px; font-size: 1.25rem; color: #f1f5f9; }
+  .card p { margin: 0; color: #94a3b8; font-size: .875rem; line-height: 1.5; }
+  .card-link {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 10px 20px;
+    background: #3b82f6;
+    color: #fff;
+    border-radius: 8px;
+    font-size: .875rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: background .15s;
+  }
+  .card-link:hover { background: #2563e6; }
+  .card-link:focus-visible { outline: 2px solid #64748b; outline-offset: 2px; }
+  .grid { width: min(95vw, 1100px); margin: 40px auto 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; }
+  .credit { margin-top: 32px; padding: 16px 0; border-top: 1px solid #334155; color: #64748b; font-size: .75rem; text-align: center; }
+  .credit a { color: #64748b; text-decoration: none; }
+  @media (max-width: 480px) { .grid { padding: 0 8px; } }
+</style>
+</head>
+<body>
+<div class="grid">
+  <article class="card" id="card-1" data-testid="card" aria-label="Card design"><h3>Diseño Gráfico Moderno</h3><p>Técnicas actuales de diseño visual con herramientas profesionales.</p><a class="card-link" href="#card-1" data-testid="card-link">Leer más →</a></article>
+  <article class="card"><h3>Desarrollo Web Completo</h3><p>Cursos desde HTML básico hasta deployment profesional.</p><a class="card-link" href="#card-1" data-testid="card-link">Leer más →</a></article>
+  <article class="card"><h3>Fotografía de Autor</h3><p>Galería de obras originales con técnicas avanzadas.</p><a class="card-link" href="#card-1" data-testid="card-link">Leer más →</a></article>
+  <article class="card"><h3>Marketing Digital</h3><p>Estrategias para crecimiento orgánico y paid media.</p><a class="card-link" href="#card-1" data-testid="card-link">Leer más →</a></article>
+  <article class="card"><h3>Branding Personal</h3><p>Construye tu identidad visual única.</p><a class="card-link" href="#card-1" data-testid="card-link">Leer más →</a></article>
+</div>
+<footer class="credit">Harley Vásquez · <a href="https://www.linkedin.com/in/harleyvasquez" target="_blank" rel="noreferrer">linkedin.com/in/harleyvasquez</a></footer>
+</body>
+</html>

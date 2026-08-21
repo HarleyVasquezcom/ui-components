@@ -1,0 +1,105 @@
+<!-- Design 06: Minimal Rule / Regla Mínima -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Minimal Rule Checkbox — Design 06</title>
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body {
+    min-height: 100vh;
+    display: grid;
+    place-items: center;
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    background: #f4f4f2;
+    overflow-x: hidden;
+  }
+  .stage {
+    width: min(560px, 94vw);
+    padding: clamp(30px, 7vw, 70px) clamp(24px, 6vw, 60px);
+    background: #f4f4f2;
+    border-top: 1px solid #cfcfc9;
+    border-bottom: 1px solid #cfcfc9;
+  }
+  h1 { margin: 0; font-size: clamp(1.4rem, 4vw, 2rem); font-weight: 300; letter-spacing: .22em; color: #262626; text-transform: uppercase; }
+  .sub { margin: .6rem 0 3rem; color: #999993; font-size: .84rem; letter-spacing: .06em; }
+  .list { list-style: none; margin: 0; padding: 0; }
+  .row {
+    display: flex; align-items: center; justify-content: space-between; gap: 20px;
+    padding: 18px 2px;
+    border-bottom: 1px solid #dcdcd6;
+    cursor: pointer;
+    transition: background .2s ease;
+  }
+  .row:hover { background: #fafaf7; }
+  .row input { position: absolute; opacity: 0; width: 1px; height: 1px; }
+  .txt { color: #3a3a36; font-size: 1rem; font-weight: 400; letter-spacing: .02em; }
+  .txt .label { font-size: .7rem; letter-spacing: .28em; color: #b0b0a8; text-transform: uppercase; display: block; margin-bottom: 2px; }
+  .rule {
+    position: relative;
+    flex: 0 0 auto;
+    width: 46px; height: 46px;
+    border: 1px solid #d8d8d2;
+    border-radius: 50%;
+    transition: border-color .25s ease, transform .25s ease;
+  }
+  .rule::before {
+    content: "";
+    position: absolute; inset: 8px;
+    border-radius: 50%;
+    background: #262626;
+    transform: scale(0);
+    transition: transform .25s cubic-bezier(.5,1.5,.4,1);
+  }
+  .row.checked .rule { border-color: #262626; transform: rotate(180deg); }
+  .row.checked .rule::before { transform: scale(1); }
+  .row input:focus-visible ~ .rule { outline: 2px solid #262626; outline-offset: 5px; }
+  .row.disabled { opacity: .35; cursor: not-allowed; }
+  .row.disabled:hover { background: transparent; }
+  .hint { margin-top: 2.6rem; font-size: .78rem; color: #b0b0a8; letter-spacing: .1em; }
+  .credit { margin-top: 2.2rem; padding-top: 1.2rem; border-top: 1px solid #dcdcd6; font-size: .75rem; color: #b0b0a8; letter-spacing: .04em; }
+  .credit a { color: #595950; text-decoration: none; }
+  .credit a:hover { text-decoration: underline; }
+input[type="checkbox"]:focus-visible, input[type="radio"]:focus-visible, [data-testid="toggle"]:focus-visible { outline: 2px solid #2563eb; outline-offset: 2px; } </style>
+</head>
+<body>
+<main class="stage">
+  <h1>Minimal Rule</h1>
+  <p class="sub">A single line, a quiet dot / Una sola línea, un punto silencioso</p>
+  <ul class="list">
+    <li>
+      <label class="row" data-testid="cb" for="cb-mr-a">
+        <input type="checkbox" id="cb-mr-a">
+        <span class="txt"><span class="label">01</span>Morning digest</span>
+        <span class="rule" data-testid="visual" aria-hidden="true"></span>
+      </label>
+    </li>
+    <li>
+      <label class="row" for="cb-mr-b">
+        <input type="checkbox" id="cb-mr-b">
+        <span class="txt"><span class="label">02</span>Weekly report</span>
+        <span class="rule" aria-hidden="true"></span>
+      </label>
+    </li>
+    <li>
+      <label class="row disabled" data-testid="cb-disabled" for="cb-mr-c">
+        <input type="checkbox" id="cb-mr-c" disabled>
+        <span class="txt"><span class="label">03</span>Insights</span>
+        <span class="rule" aria-hidden="true"></span>
+      </label>
+    </li>
+  </ul>
+  <p class="hint">CLICK A ROW TO TOGGLE</p>
+  <footer class="credit">Harley Vásquez · <a href="https://www.linkedin.com/in/harleyvasquez" target="_blank" rel="noreferrer">linkedin.com/in/harleyvasquez</a></footer>
+</main>
+<script>
+  document.querySelectorAll('.row input').forEach((input) => {
+    input.addEventListener('change', () => {
+      input.closest('.row').classList.toggle('checked', input.checked);
+    });
+  });
+</script>
+</body>
+</html>

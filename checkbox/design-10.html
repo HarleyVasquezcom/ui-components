@@ -1,0 +1,113 @@
+<!-- Design 10: Mono Box / Caja Monoespaciada -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mono Box Checkbox — Design 10</title>
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body {
+    min-height: 100vh;
+    display: grid;
+    place-items: center;
+    font-family: "IBM Plex Mono", "Cascadia Mono", "Consolas", monospace;
+    background: #111418;
+    color: #c9d4dc;
+    overflow-x: hidden;
+  }
+  .stage {
+    width: min(600px, 94vw);
+    padding: clamp(24px, 6vw, 56px);
+    background: #171b21;
+    border: 1px solid #2a313b;
+    border-radius: 2px;
+  }
+  .topbar {
+    display: flex; justify-content: space-between; align-items: center;
+    padding-bottom: 12px; margin-bottom: 20px;
+    border-bottom: 1px dashed #2a313b;
+    font-size: .75rem; color: #5c6a78;
+  }
+  .topbar .dots span { display: inline-block; width: 9px; height: 9px; border-radius: 50%; margin-right: 4px; }
+  .topbar .dots .r { background: #e06c75; } .topbar .dots .y { background: #d19a66; } .topbar .dots .g { background: #98c379; }
+  h1 { margin: 0; font-size: clamp(1.2rem, 3.5vw, 1.7rem); font-weight: 700; color: #d19a66; }
+  .sub { margin: .3rem 0 1.8rem; font-size: .78rem; color: #5c6a78; }
+  .row {
+    display: flex; align-items: center; gap: 14px;
+    padding: 12px 14px;
+    margin-bottom: 12px;
+    background: #1c2129;
+    border: 1px solid #2a313b;
+    cursor: pointer;
+    transition: border-color .15s ease;
+  }
+  .row:hover { border-color: #3d4754; }
+  .row input { position: absolute; opacity: 0; width: 1px; height: 1px; }
+  .box {
+    flex: 0 0 auto;
+    width: 24px; height: 24px;
+    border: 2px solid #48525f;
+    display: grid; place-items: center;
+    font-size: .95rem;
+    transition: border-color .15s ease, color .15s ease;
+  }
+  .box .check { opacity: 0; color: #98c379; transition: opacity .12s ease; }
+  .row.checked .box { border-color: #98c379; }
+  .row.checked .box .check { opacity: 1; }
+  .row input:focus-visible ~ .box { outline: 2px solid #61afef; outline-offset: 3px; }
+  .row .txt { font-size: .85rem; color: #c9d4dc; }
+  .row .txt .state { color: #5c6a78; margin-left: 8px; }
+  .row.checked .txt .state { color: #98c379; }
+  .row.disabled { opacity: .4; cursor: not-allowed; }
+  .status {
+    margin-top: 18px; padding: 10px 14px;
+    background: #111418; border: 1px solid #2a313b;
+    font-size: .78rem; color: #98c379;
+  }
+  .status b { color: #61afef; }
+  .hint { margin-top: 1.4rem; font-size: .75rem; color: #5c6a78; }
+  .credit { margin-top: 2rem; padding-top: 1rem; border-top: 1px dashed #2a313b; font-size: .72rem; color: #5c6a78; }
+  .credit a { color: #61afef; text-decoration: none; }
+input[type="checkbox"]:focus-visible, input[type="radio"]:focus-visible, [data-testid="toggle"]:focus-visible { outline: 2px solid #2563eb; outline-offset: 2px; } </style>
+</head>
+<body>
+<main class="stage">
+  <div class="topbar"><span class="dots"><span class="r"></span><span class="y"></span><span class="g"></span></span><span>settings.cfg</span><span>mono-box v1.0</span></div>
+  <h1>Mono Box</h1>
+  <p class="sub">type-checked configuration — / configuración con verificación de tipo</p>
+  <label class="row" data-testid="cb" for="cb-mb-a">
+    <input type="checkbox" id="cb-mb-a">
+    <span class="box" data-testid="visual" aria-hidden="true"><span class="check">✓</span></span>
+    <span class="txt">verbose<span class="state">[ off ]</span></span>
+  </label>
+  <label class="row" for="cb-mb-b">
+    <input type="checkbox" id="cb-mb-b">
+    <span class="box" aria-hidden="true"><span class="check">✓</span></span>
+    <span class="txt">auto-save<span class="state">[ off ]</span></span>
+  </label>
+  <label class="row disabled" data-testid="cb-disabled" for="cb-mb-c">
+    <input type="checkbox" id="cb-mb-c" disabled>
+    <span class="box" aria-hidden="true"><span class="check">✓</span></span>
+    <span class="txt">safe-mode<span class="state">[ lock ]</span></span>
+  </label>
+  <p class="status" id="status" aria-live="polite"><b>&gt;</b> no flags set</p>
+  <p class="hint">click a row to flip its flag — / clic en una fila para cambiar su flag</p>
+  <footer class="credit">Harley Vásquez · <a href="https://www.linkedin.com/in/harleyvasquez" target="_blank" rel="noreferrer">linkedin.com/in/harleyvasquez</a></footer>
+</main>
+<script>
+  const status = document.getElementById('status');
+  const rows = Array.from(document.querySelectorAll('.row:not(.disabled)'));
+  rows.forEach((row) => {
+    const input = row.querySelector('input');
+    input.addEventListener('change', () => {
+      row.classList.toggle('checked', input.checked);
+      row.querySelector('.state').textContent = input.checked ? '[ on ]' : '[ off ]';
+      const on = rows.filter((r) => r.querySelector('input').checked).length;
+      status.innerHTML = '<b>&gt;</b> flags set: ' + on;
+    });
+  });
+</script>
+</body>
+</html>

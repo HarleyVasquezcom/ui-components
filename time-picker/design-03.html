@@ -1,0 +1,146 @@
+<!-- Design 03: Analog Dial / Esfera Análoga -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Analog Dial Time Picker — Design 03</title>
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body {
+    min-height: 100vh;
+    display: grid;
+    place-items: center;
+    font-family: Georgia, "Times New Roman", serif;
+    background: #faf6ef;
+    overflow-x: hidden;
+  }
+  .stage { width: min(480px, 94vw); padding: clamp(34px, 8vw, 60px); background: #fffdf8; border: 1px solid #efe6d4; border-radius: 4px; box-shadow: 0 20px 50px rgba(120, 84, 40, .12); }
+  h1 { margin: 0; font-size: clamp(1.7rem, 5vw, 2.2rem); color: #3d2c1a; font-weight: 400; letter-spacing: .01em; }
+  .sub { margin: .4rem 0 2.2rem; color: #b09a76; font-size: .95rem; font-style: italic; }
+  .lbl { display: block; margin: 0 0 10px; color: #5f4a2e; font-size: .95rem; font-weight: 700; letter-spacing: .04em; }
+  .wrap { position: relative; }
+  .trg {
+    width: 100%;
+    display: flex; align-items: center; justify-content: space-between; gap: 12px;
+    padding: 14px 16px;
+    font-family: "Consolas", "Courier New", monospace; font-size: 1.5rem; font-weight: 700; color: #3d2c1a; letter-spacing: .1em;
+    background: #fdfaf3; border: 1.5px solid #e4d5b9; border-radius: 2px;
+    cursor: pointer;
+  }
+  .trg:hover { border-color: #c98d3a; }
+  .trg[aria-expanded="true"] { border-color: #c98d3a; box-shadow: inset 0 -3px 0 #c98d3a; }
+  .trg:focus-visible { outline: 3px solid #c98d3a; outline-offset: 2px; }
+  .trg .arr { color: #c98d3a; font-size: 1rem; font-family: Georgia, serif; transition: transform .2s ease; }
+  .trg[aria-expanded="true"] .arr { transform: rotate(180deg); }
+  .pop {
+    position: absolute; left: 0; right: 0; top: calc(100% + 12px);
+    background: #fffdf8; border: 1px solid #e4d5b9; box-shadow: 0 20px 44px rgba(120, 84, 40, .14);
+    padding: 22px; z-index: 5; text-align: center;
+  }
+  [hidden] { display: none !important; }
+  .face { position: relative; width: 150px; height: 150px; margin: 0 auto 18px; border-radius: 50%; background: #fdfaf3; border: 1.5px solid #d9c6a3; }
+  .face::before { content: ""; position: absolute; inset: 12px; border: 1px solid #e9dcc3; border-radius: 50%; }
+  .tk { position: absolute; left: 50%; top: 12px; width: 1px; height: 5px; background: #b09a76; transform-origin: 50% 63px; }
+  .hand { position: absolute; left: calc(50% - 2px); top: calc(50% - 44px); width: 4px; height: 44px; background: #3d2c1a; border-radius: 3px; transform-origin: 50% 100%; transition: transform .25s ease; }
+  .hand.m { background: #c98d3a; height: 58px; top: calc(50% - 58px); width: 2px; left: calc(50% - 1px); }
+  .hub { position: absolute; left: 50%; top: 50%; width: 10px; height: 10px; margin: -5px 0 0 -5px; background: #c98d3a; border-radius: 50%; }
+  .row { display: flex; align-items: center; justify-content: center; gap: 10px; }
+  .col { display: flex; flex-direction: column; align-items: center; gap: 5px; }
+  .col label { font-size: .68rem; letter-spacing: .16em; text-transform: uppercase; color: #b09a76; }
+  .dig {
+    width: 72px; padding: 10px 6px;
+    font-family: "Consolas", "Courier New", monospace; font-size: 1.6rem; font-weight: 700; text-align: center; color: #3d2c1a;
+    background: #fdfaf3; border: 1.5px solid #e4d5b9; border-radius: 2px; outline: none;
+  }
+  .dig:focus { border-color: #c98d3a; }
+  .dig:focus-visible { outline: 3px solid #c98d3a; outline-offset: 1px; }
+  .sep { color: #b09a76; font-size: 1.5rem; padding-bottom: 14px; }
+  .tip { margin: 16px 0 0; color: #b09a76; font-size: .8rem; font-style: italic; }
+  .selout { display: flex; align-items: center; justify-content: space-between; gap: 14px; margin-top: 26px; flex-wrap: wrap; }
+  .selout span { color: #b09a76; font-size: .88rem; font-style: italic; }
+  .selout b { color: #3d2c1a; font-family: "Consolas", "Courier New", monospace; letter-spacing: .08em; }
+  .hint { margin-top: 2rem; color: #d9c6a3; font-size: .82rem; font-style: italic; }
+  .credit { margin-top: 2rem; padding-top: 1.1rem; border-top: 1px solid #efe6d4; color: #b09a76; font-size: .78rem; }
+  .credit a { color: #c98d3a; text-decoration: none; }
+</style>
+</head>
+<body>
+<main class="stage">
+  <h1>Analog Dial</h1>
+  <p class="sub">Old clock, honest time / Reloj antiguo, hora honesta</p>
+  <label class="lbl" data-testid="label" id="lbl-tp03">Time</label>
+  <div class="wrap">
+    <button type="button" class="trg" data-testid="trigger" aria-haspopup="dialog" aria-expanded="false" aria-controls="pop03" aria-labelledby="lbl-tp03">
+      <span data-testid="value" aria-live="polite">10:30</span>
+      <span class="arr" aria-hidden="true">↕</span>
+    </button>
+    <div class="pop" id="pop03" data-testid="popup" role="dialog" aria-label="Pick a time" hidden>
+      <div class="face" aria-hidden="true">
+        <span class="tk" style="transform: rotate(30deg)"></span><span class="tk" style="transform: rotate(60deg)"></span>
+        <span class="tk" style="transform: rotate(120deg)"></span><span class="tk" style="transform: rotate(150deg)"></span>
+        <span class="tk" style="transform: rotate(210deg)"></span><span class="tk" style="transform: rotate(240deg)"></span>
+        <span class="tk" style="transform: rotate(300deg)"></span><span class="tk" style="transform: rotate(330deg)"></span>
+        <div class="hand" id="hhand"></div>
+        <div class="hand m" id="mhand"></div>
+        <div class="hub"></div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <label for="h03">Hour</label>
+          <input class="dig" id="h03" data-testid="hour-in" type="text" inputmode="numeric" maxlength="2" aria-label="Hour" value="10">
+        </div>
+        <span class="sep" aria-hidden="true">:</span>
+        <div class="col">
+          <label for="m03">Minutes</label>
+          <input class="dig" id="m03" data-testid="min-in" type="text" inputmode="numeric" maxlength="2" aria-label="Minutes" value="30">
+        </div>
+      </div>
+      <p class="tip">The hands follow your fingers / Las agujas siguen tus dedos</p>
+    </div>
+  </div>
+  <p class="selout"><span>wound up:</span> <b data-testid="display" aria-live="polite">10:30</b></p>
+  <p class="hint">Analog soul, digital brain / Alma análoga, cerebro digital</p>
+  <footer class="credit">Harley Vásquez · <a href="https://www.linkedin.com/in/harleyvasquez" target="_blank" rel="noreferrer">linkedin.com/in/harleyvasquez</a></footer>
+</main>
+<script>
+  const trigger = document.querySelector('[data-testid="trigger"]');
+  const popup = document.querySelector('[data-testid="popup"]');
+  const value = document.querySelector('[data-testid="value"]');
+  const display = document.querySelector('[data-testid="display"]');
+  const hIn = document.querySelector('[data-testid="hour-in"]');
+  const mIn = document.querySelector('[data-testid="min-in"]');
+  const hhand = document.getElementById('hhand');
+  const mhand = document.getElementById('mhand');
+  let h = 10, m = 30;
+  const clamp = (n, a, b) => Math.max(a, Math.min(b, n));
+  const pad = (n) => String(n).padStart(2, '0');
+  function paint() {
+    const t = pad(h) + ':' + pad(m);
+    value.textContent = t;
+    display.textContent = t;
+    hhand.style.transform = 'rotate(' + ((h % 12) * 30 + m * 0.5) + 'deg)';
+    mhand.style.transform = 'rotate(' + (m * 6) + 'deg)';
+    if (hIn !== document.activeElement) hIn.value = pad(h);
+    if (mIn !== document.activeElement) mIn.value = pad(m);
+  }
+  hIn.addEventListener('input', () => { const n = parseInt(hIn.value, 10); if (!isNaN(n)) h = clamp(n, 0, 23); paint(); });
+  hIn.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowUp') { e.preventDefault(); h = (h + 1) % 24; paint(); }
+    if (e.key === 'ArrowDown') { e.preventDefault(); h = (h + 23) % 24; paint(); }
+  });
+  mIn.addEventListener('input', () => { const n = parseInt(mIn.value, 10); if (!isNaN(n)) m = clamp(n, 0, 59); paint(); });
+  mIn.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowUp') { e.preventDefault(); m = (m + 1) % 60; paint(); }
+    if (e.key === 'ArrowDown') { e.preventDefault(); m = (m + 59) % 60; paint(); }
+  });
+  trigger.addEventListener('click', () => {
+    popup.hidden = !popup.hidden;
+    trigger.setAttribute('aria-expanded', String(!popup.hidden));
+    if (!popup.hidden) hIn.focus();
+  });
+  paint();
+</script>
+</body>
+</html>

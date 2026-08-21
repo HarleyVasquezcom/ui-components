@@ -1,0 +1,31 @@
+<!-- Design 02: Avatar Bordered / Bordered Avatar -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Avatar — Design 02</title>
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body {
+    min-height: 100vh;
+    font-family: "Segoe UI", system-ui, sans-serif;
+    background: #e2e8f0;
+    color: #334155;
+    overflow-x: hidden;
+  }
+  .avatar { width: 80px; height: 80px; border-radius: 50%; background: #fff; color: #1e293b; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; font-weight: 600; border: 3px solid #e2e8f0; box-shadow: 0 2px 8px rgba(0,0,0,0.05); transition: border-color .2s; }
+  .avatar:hover { border-color: #2563eb; }
+  .avatar:focus-visible { outline: 2px solid #64748b; outline-offset: 4px; }
+  .avatar[data-state="online"]::after { content: ''; position: absolute; bottom: 4px; right: 4px; width: 12px; height: 12px; background: #10b981; border: 3px solid #fff; border-radius: 50%; box-shadow: 0 0 0 2px #e2e8f0; }
+  .credit { margin-top: 32px; padding: 16px 0; border-top: 1px solid #e2e8f0; color: #64748b; font-size: .875rem; text-align: center; }
+  .credit a { color: #2563eb; text-decoration: none; }
+  @media (max-width: 480px) { .avatar { width: 60px; height: 60px; font-size: 1.25rem; } }
+</style>
+</head>
+<body>
+<div class="avatar" data-testid="avatar" aria-label="Avatar design" data-avatar>HS</div>
+<footer class="credit">Harley Vásquez · <a href="https://www.linkedin.com/in/harleyvasquez" target="_blank" rel="noreferrer">linkedin.com/in/harleyvasquez</a></footer>
+</body>
+</html>

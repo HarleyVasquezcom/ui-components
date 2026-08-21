@@ -1,0 +1,149 @@
+<!-- Design 05: Glass Bar / Barra de Cristal -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Glass Bar — Design 05</title>
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body { font-family: "Segoe UI", system-ui, sans-serif; min-height: 100vh; background: linear-gradient(135deg, #0f172a 0%, #312e81 55%, #7c3aed 100%); overflow-x: hidden; }
+  .nav {
+    position: sticky; top: 16px; z-index: 50;
+    width: min(1080px, 94vw);
+    margin: 16px auto 0;
+    display: flex; align-items: center; justify-content: space-between; gap: 14px;
+    padding: 12px 22px;
+    background: rgba(255, 255, 255, .12);
+    border: 1px solid rgba(255, 255, 255, .28);
+    border-radius: 999px;
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    box-shadow: 0 18px 44px rgba(0, 0, 0, .35);
+  }
+  .brand { display: flex; align-items: center; gap: 10px; color: #fff; font-weight: 800; font-size: 1.05rem; }
+  .brand .log { width: 26px; height: 26px; border-radius: 50%; background: linear-gradient(135deg, #fbbf24, #f43f5e); }
+  .links { display: flex; gap: 4px; list-style: none; margin: 0; padding: 0; }
+  .links a {
+    display: block; padding: 9px 16px;
+    color: #e9e9ff; text-decoration: none; font-size: .9rem; font-weight: 600;
+    border-radius: 999px;
+    transition: background .15s ease, color .15s ease;
+  }
+  .links a:hover { background: rgba(255, 255, 255, .16); color: #fff; }
+  .links a:focus-visible { outline: 3px solid #fbbf24; outline-offset: 2px; }
+  .links a.active { background: #fff; color: #312e81; }
+  .wrap { position: relative; }
+  .dropbtn {
+    display: block; padding: 9px 16px;
+    color: #e9e9ff; background: none; border: none; border-radius: 999px;
+    font-family: inherit; font-size: .9rem; font-weight: 600; cursor: pointer;
+  }
+  .dropbtn:hover { background: rgba(255, 255, 255, .16); color: #fff; }
+  .dropbtn:focus-visible { outline: 3px solid #fbbf24; outline-offset: 2px; }
+  .dropbtn .chev { display: inline-block; margin-left: 6px; transition: transform .15s ease; }
+  .dropbtn[aria-expanded="true"] .chev { transform: rotate(180deg); }
+  .menu {
+    position: absolute; top: calc(100% + 10px); right: 0;
+    min-width: 200px;
+    padding: 8px;
+    background: rgba(255, 255, 255, .94);
+    border-radius: 16px;
+    box-shadow: 0 20px 44px rgba(0, 0, 0, .4);
+    display: none;
+  }
+  .menu.open { display: block; }
+  .menu a { display: block; padding: 10px 14px; color: #1e1b4b; text-decoration: none; font-size: .88rem; font-weight: 600; border-radius: 10px; }
+  .menu a:hover { background: #eef2ff; }
+  .menu a:focus-visible { outline: 3px solid #7c3aed; outline-offset: 2px; }
+  .burger {
+    display: none;
+    width: 42px; height: 42px;
+    background: rgba(255, 255, 255, .16); border: 1px solid rgba(255, 255, 255, .35); border-radius: 50%;
+    color: #fff; font-size: 1.1rem; cursor: pointer;
+  }
+  .burger:hover { background: rgba(255, 255, 255, .26); }
+  .burger:focus-visible { outline: 3px solid #fbbf24; outline-offset: 2px; }
+  .mobile {
+    display: none; flex-direction: column; gap: 6px;
+    width: min(1080px, 94vw);
+    margin: 8px auto 0;
+    padding: 12px;
+    background: rgba(255, 255, 255, .14);
+    border: 1px solid rgba(255, 255, 255, .28);
+    border-radius: 20px;
+    backdrop-filter: blur(16px);
+  }
+  .mobile.open { display: flex; }
+  .mobile a { padding: 12px 16px; color: #fff; text-decoration: none; font-size: .94rem; font-weight: 600; border-radius: 12px; }
+  .mobile a:hover { background: rgba(255, 255, 255, .16); }
+  .mobile a:focus-visible { outline: 3px solid #fbbf24; outline-offset: 2px; }
+  .mobile a.active { background: #fff; color: #312e81; }
+  main { padding: clamp(90px, 18vh, 160px) 20px; color: #ddd6fe; max-width: 760px; margin: 0 auto; }
+  main h1 { color: #fff; margin: 0 0 12px; font-size: clamp(1.9rem, 6vw, 2.8rem); }
+  main p { line-height: 1.8; }
+  .credit { padding: 18px 24px; color: #c4b5fd; font-size: .78rem; text-align: center; }
+  .credit a { color: #fbbf24; text-decoration: none; }
+  @media (max-width: 480px) { .links, .wrap { display: none; } .burger { display: block; } }
+</style>
+</head>
+<body>
+<header>
+  <nav class="nav" aria-label="Main / Principal">
+    <div class="brand"><span class="log" aria-hidden="true"></span>Lumen</div>
+    <ul class="links">
+      <li><a href="#" data-testid="link" aria-current="page" class="active">Home</a></li>
+      <li><a href="#" data-testid="link">Pricing</a></li>
+      <li class="wrap">
+        <button type="button" class="dropbtn" data-testid="drop" aria-expanded="false" aria-haspopup="true">Services <span class="chev" aria-hidden="true">▾</span></button>
+        <div class="menu" data-testid="menu">
+          <a href="#" data-testid="link">Design Systems</a>
+          <a href="#" data-testid="link">Frontend Lab</a>
+          <a href="#" data-testid="link">Audits</a>
+        </div>
+      </li>
+      <li><a href="#" data-testid="link">Blog</a></li>
+      <li><a href="#" data-testid="link">Contact</a></li>
+    </ul>
+    <button type="button" class="burger" data-testid="burger" aria-expanded="false" aria-controls="nb-gb-05-m">☰</button>
+  </nav>
+  <div class="mobile" id="nb-gb-05-m" data-testid="mobile">
+    <a href="#" data-testid="link" aria-current="page" class="active">Home</a>
+    <a href="#" data-testid="link">Pricing</a>
+    <a href="#" data-testid="link">Services</a>
+    <a href="#" data-testid="link">Blog</a>
+    <a href="#" data-testid="link">Contact</a>
+  </div>
+</header>
+<main>
+  <h1>Glass Bar</h1>
+  <p>A floating frosted capsule over a deep gradient / Una cápsula esmerilada flotante sobre un degradado profundo.</p>
+  <p>Active link turns solid white / El enlace activo se vuelve blanco sólido.</p>
+</main>
+<footer class="credit">Harley Vásquez · <a href="https://www.linkedin.com/in/harleyvasquez" target="_blank" rel="noreferrer">linkedin.com/in/harleyvasquez</a></footer>
+<script>
+  const links = document.querySelectorAll('[data-testid="link"]');
+  const drop = document.querySelector('[data-testid="drop"]');
+  const menu = document.querySelector('[data-testid="menu"]');
+  const burger = document.querySelector('[data-testid="burger"]');
+  const mobile = document.querySelector('[data-testid="mobile"]');
+  links.forEach((l) => l.addEventListener('click', (e) => {
+    e.preventDefault();
+    links.forEach((x) => { x.classList.remove('active'); x.removeAttribute('aria-current'); });
+    l.classList.add('active'); l.setAttribute('aria-current', 'page');
+    mobile.classList.remove('open'); burger.setAttribute('aria-expanded', 'false');
+  }));
+  drop.addEventListener('click', () => {
+    const open = drop.getAttribute('aria-expanded') === 'true';
+    drop.setAttribute('aria-expanded', open ? 'false' : 'true');
+    menu.classList.toggle('open', !open);
+  });
+  burger.addEventListener('click', () => {
+    const open = burger.getAttribute('aria-expanded') === 'true';
+    burger.setAttribute('aria-expanded', open ? 'false' : 'true');
+    mobile.classList.toggle('open', !open);
+  });
+</script>
+</body>
+</html>

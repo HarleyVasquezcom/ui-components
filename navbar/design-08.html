@@ -1,0 +1,153 @@
+<!-- Design 08: Underline Slide / Deslizamiento Subrayado -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Underline Slide — Design 08</title>
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body { font-family: "Segoe UI", system-ui, sans-serif; background: #fff; min-height: 100vh; overflow-x: hidden; }
+  .nav {
+    display: flex; align-items: center; justify-content: space-between; gap: 16px;
+    padding: 18px clamp(16px, 5vw, 60px);
+    background: #fff;
+    border-bottom: 1px solid #f0f0f0;
+  }
+  .brand { color: #111827; font-weight: 800; font-size: 1.1rem; }
+  .links { display: flex; gap: 6px; list-style: none; margin: 0; padding: 0; }
+  .links a {
+    display: block; padding: 10px 16px;
+    color: #4b5563; text-decoration: none; font-size: .92rem; font-weight: 600;
+    position: relative;
+  }
+  .links a::after {
+    content: ""; position: absolute; left: 16px; right: 16px; bottom: 4px;
+    height: 3px; border-radius: 2px;
+    background: linear-gradient(90deg, #f97316, #ef4444);
+    transform: scaleX(0); transform-origin: left;
+    transition: transform .25s ease;
+  }
+  .links a:hover { color: #111827; }
+  .links a:hover::after { transform: scaleX(1); }
+  .links a:focus-visible { outline: 3px solid #fdba74; outline-offset: 2px; border-radius: 6px; }
+  .links a.active { color: #111827; }
+  .links a.active::after { transform: scaleX(1); }
+  .wrap { position: relative; }
+  .dropbtn {
+    display: block; padding: 10px 16px;
+    color: #4b5563; background: none; border: none; border-radius: 6px;
+    font-family: inherit; font-size: .92rem; font-weight: 600; cursor: pointer;
+    position: relative;
+  }
+  .dropbtn::after {
+    content: ""; position: absolute; left: 16px; right: 16px; bottom: 4px;
+    height: 3px; border-radius: 2px;
+    background: linear-gradient(90deg, #f97316, #ef4444);
+    transform: scaleX(0); transform-origin: left;
+    transition: transform .25s ease;
+  }
+  .dropbtn:hover { color: #111827; }
+  .dropbtn:hover::after { transform: scaleX(1); }
+  .dropbtn:focus-visible { outline: 3px solid #fdba74; outline-offset: 2px; }
+  .dropbtn .chev { margin-left: 6px; transition: transform .15s ease; display: inline-block; }
+  .dropbtn[aria-expanded="true"] .chev { transform: rotate(180deg); }
+  .menu {
+    position: absolute; top: calc(100% + 8px); left: 0;
+    min-width: 180px;
+    padding: 8px;
+    background: #fff;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    box-shadow: 0 18px 40px rgba(0, 0, 0, .1);
+    display: none;
+  }
+  .menu.open { display: block; }
+  .menu a { display: block; padding: 10px 14px; color: #4b5563; text-decoration: none; font-size: .88rem; font-weight: 600; border-radius: 8px; }
+  .menu a:hover { background: #f9fafb; color: #111827; }
+  .menu a:focus-visible { outline: 3px solid #fdba74; outline-offset: 2px; }
+  .burger {
+    display: none;
+    width: 42px; height: 42px;
+    background: #fff; border: 1px solid #e5e7eb; border-radius: 9px;
+    color: #111827; font-size: 1.1rem; cursor: pointer;
+  }
+  .burger:hover { background: #f9fafb; }
+  .burger:focus-visible { outline: 3px solid #fdba74; outline-offset: 2px; }
+  .mobile {
+    display: none; flex-direction: column; gap: 4px;
+    padding: 12px clamp(16px, 5vw, 60px);
+    background: #fff; border-bottom: 1px solid #f0f0f0;
+  }
+  .mobile.open { display: flex; }
+  .mobile a { padding: 13px 16px; color: #4b5563; text-decoration: none; font-size: .94rem; font-weight: 600; border-radius: 8px; }
+  .mobile a:hover { background: #f9fafb; color: #111827; }
+  .mobile a:focus-visible { outline: 3px solid #fdba74; outline-offset: 2px; }
+  .mobile a.active { color: #ea580c; background: #fff7ed; }
+  main { padding: clamp(70px, 14vw, 130px) clamp(16px, 5vw, 60px); color: #6b7280; max-width: 700px; }
+  main h1 { color: #111827; margin: 0 0 12px; font-size: clamp(1.7rem, 5.4vw, 2.4rem); }
+  main p { line-height: 1.8; }
+  .credit { padding: 18px clamp(16px, 5vw, 60px); border-top: 1px solid #f0f0f0; color: #9ca3af; font-size: .78rem; }
+  .credit a { color: #ea580c; text-decoration: none; }
+  @media (max-width: 480px) { .links, .wrap { display: none; } .burger { display: block; } }
+</style>
+</head>
+<body>
+<header>
+  <nav class="nav" aria-label="Main / Principal">
+    <div class="brand">Slideshow</div>
+    <ul class="links">
+      <li><a href="#" data-testid="link" aria-current="page" class="active">Home</a></li>
+      <li><a href="#" data-testid="link">Templates</a></li>
+      <li class="wrap">
+        <button type="button" class="dropbtn" data-testid="drop" aria-expanded="false" aria-haspopup="true">Team <span class="chev" aria-hidden="true">▾</span></button>
+        <div class="menu" data-testid="menu">
+          <a href="#" data-testid="link">About us</a>
+          <a href="#" data-testid="link">Careers</a>
+          <a href="#" data-testid="link">Press</a>
+        </div>
+      </li>
+      <li><a href="#" data-testid="link">Pricing</a></li>
+      <li><a href="#" data-testid="link">Help</a></li>
+    </ul>
+    <button type="button" class="burger" data-testid="burger" aria-expanded="false" aria-controls="nb-us-08-m">☰</button>
+  </nav>
+  <div class="mobile" id="nb-us-08-m" data-testid="mobile">
+    <a href="#" data-testid="link" aria-current="page" class="active">Home</a>
+    <a href="#" data-testid="link">Templates</a>
+    <a href="#" data-testid="link">Team</a>
+    <a href="#" data-testid="link">Pricing</a>
+    <a href="#" data-testid="link">Help</a>
+  </div>
+</header>
+<main>
+  <h1>Underline Slide</h1>
+  <p>An orange gradient line slides under the active item / Una línea degradada naranja se desliza bajo el elemento activo.</p>
+</main>
+<footer class="credit">Harley Vásquez · <a href="https://www.linkedin.com/in/harleyvasquez" target="_blank" rel="noreferrer">linkedin.com/in/harleyvasquez</a></footer>
+<script>
+  const links = document.querySelectorAll('[data-testid="link"]');
+  const drop = document.querySelector('[data-testid="drop"]');
+  const menu = document.querySelector('[data-testid="menu"]');
+  const burger = document.querySelector('[data-testid="burger"]');
+  const mobile = document.querySelector('[data-testid="mobile"]');
+  links.forEach((l) => l.addEventListener('click', (e) => {
+    e.preventDefault();
+    links.forEach((x) => { x.classList.remove('active'); x.removeAttribute('aria-current'); });
+    l.classList.add('active'); l.setAttribute('aria-current', 'page');
+    mobile.classList.remove('open'); burger.setAttribute('aria-expanded', 'false');
+  }));
+  drop.addEventListener('click', () => {
+    const open = drop.getAttribute('aria-expanded') === 'true';
+    drop.setAttribute('aria-expanded', open ? 'false' : 'true');
+    menu.classList.toggle('open', !open);
+  });
+  burger.addEventListener('click', () => {
+    const open = burger.getAttribute('aria-expanded') === 'true';
+    burger.setAttribute('aria-expanded', open ? 'false' : 'true');
+    mobile.classList.toggle('open', !open);
+  });
+</script>
+</body>
+</html>

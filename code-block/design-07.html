@@ -1,0 +1,11 @@
+<!-- Design 07: Code Block Dark Minimal / Oscuro Minimalista -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Code Block — Design 07</title>
+<style>
+  *{box-sizing:border-box}html,body{min-height:100vh;font-family:"Segoe UI",system-ui,sans-serif;background:#0a0a0f;color:#e0e7ff;overflow:hidden}.code{max-width:800px;width:100%;padding:30px 20px;border:none}.code pre{background:#0a0a0f;border:none;padding:20px;overflow:auto;font-family:"SF Mono",Monospace;font-size:.85rem;line-height:1.6;color:#e0e7ff;margin:0}.code .keyword{color:#7f9fcf;font-weight:600}.code .string{color:#a3e4d7}.code .comment{color:#566379;font-style:italic}.code .number{color:#e9c062}.credit{margin-top:20px;padding:8px 0;border-top:1px solid:#1e1e24;color:#64748b;font-size:.7rem}.credit a{color:#2563eb;text-decoration:none}</style>
+</head>
+<body><div class="code" data-testid="code-block" aria-label="Code block"><pre><span class="line"><span class="keyword">let</span> <span class="title">total</span> <span class="operator">=</span> <span class="number">0</span></span><span class="line"></span><span class="line"><span class="keyword">for</span> <span class="parameter">let</span> i <span class="operator">=</span> <span class="number">0</span>; i < <span class="number">5</span>; i++</span></span><span class="line"></span><span class="line"><span class="keyword">total</span> <span class="operator">+=</span> i<span class="punctuation">;</span> </span><span class="line"></pre></div><footer class="credit">Harley Vásquez · <a href="https://www.linkedin.com/in/harleyvasquez" target="_blank" rel="noreferrer">linkedin.com/in/harleyvasquez</a></footer><script>(()=>{const pre=document.querySelector('pre code');if(!pre)return;let c=pre.textContent;const kw=/\b(const|let|var|function|return|if|else|for|of|while|new|import|export|class|async|await|try|catch)\b/g;let out='',last=0,m;const esc=x=>x.replace(/&/g,'&amp;').replace(/</g,'&lt;');while((m=kw.exec(c))){out+=esc(c.slice(last,m.index));out+='<span class="kw">'+m[0]+'</span>';last=m.index+m[0].length}out+=esc(c.slice(last));pre.innerHTML='<span class="line">'+(out||'&nbsp;')+'</span>'})();</script></body></html>

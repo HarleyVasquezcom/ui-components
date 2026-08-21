@@ -1,0 +1,118 @@
+<!-- Design 07: Grid Pill / Pill Grid -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Grid — Design 07</title>
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body {
+    min-height: 100vh;
+    font-family: "Segoe UI", system-ui, sans-serif;
+    background: #f8fafc;
+    color: #0f172a;
+    overflow-x: hidden;
+  }
+  .grid {
+    width: min(95vw, 1300px);
+    margin: 32px auto 0;
+    padding: 0 16px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+    gap: 20px;
+  }
+  .grid-item {
+    background: #fff;
+    border-radius: 16px;
+    padding: 28px 24px;
+    position: relative;
+  }
+  .grid-item .pills {
+    display: flex;
+    gap: 6px;
+    margin: 16px 0 0;
+    flex-wrap: wrap;
+  }
+  .grid-item .pill {
+    padding: 4px 8px;
+    background: #e2e8f0;
+    border-radius: 20px;
+    font-size: .65rem;
+    color: #64748b;
+  }
+  .grid-item h3 { margin: 0 0 8px; font-size: 1.1rem; color: #1e293b; }
+  .grid-item p { margin: 0; color: #64748b; font-size: .8rem; line-height: 1.5; }
+  .load-more {
+    width: min(180px, 90vw);
+    margin: 24px auto 0;
+    padding: 10px;
+    background: #1e293b;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: .75rem;
+    font-weight: 600;
+    cursor: pointer;
+    display: block;
+    text-align: center;
+  }
+  .load-more:focus-visible { outline: 3px solid #64748b; outline-offset: 2px; }
+  .load-more:disabled { background: #64748b; cursor: not-allowed; }
+  .credit { margin-top: 32px; padding: 16px 0; border-top: 1px solid #e2e8f0; color: #64748b; font-size: .75rem; text-align: center; }
+  .credit a { color: #3b82f6; text-decoration: none; }
+  @media (max-width: 480px) { .grid { padding: 0 8px; } }
+</style>
+</head>
+<body>
+<button data-toggle aria-label="Toggle grid" style="margin:8px;padding:8px 16px;background:#1e293b;color:#fff;border:none;border-radius:6px;cursor:pointer;font-size:14px">Toggle</button>
+<div class="grid" data-testid="grid" aria-label="Responsive grid" data-scroll-container>
+  <article class="grid-item"><h3>Diseño Gráfico Moderno</h3><p>Técnicas actuales de diseño visual con herramientas profesionales.</p><div class="pills"><span class="pill">Design</span><span class="pill">UI</span><span class="pill">Figma</span></div></article>
+  <article class="grid-item"><h3>Desarrollo Web Completo</h3><p>Cursos desde HTML básico hasta deployment profesional.</p><div class="pills"><span class="pill">Web</span><span class="pill">HTML</span><span class="pill">CSS</span></div></article>
+  <article class="grid-item"><h3>Fotografía de Autor</h3><p>Galería de obras originales con técnicas avanzadas.</p><div class="pills"><span class="pill">Photo</span><span class="pill">Portfolio</span><span class="pill">Gallery</span></div></article>
+  <article class="grid-item"><h3>Marketing Digital</h3><p>Estrategias para crecimiento orgánico y paid media.</p><div class="pills"><span class="pill">Digital</span><span class="pill">Ads</span><span class="pill">SEO</span></div></article>
+  <article class="grid-item"><h3>Branding Personal</h3><p>Construye tu identidad visual única.</p><div class="pills"><span class="pill">Brand</span><span class="pill">Identity</span><span class="pill">Style</span></div></article>
+  <article class="grid-item"><h3>SEO Técnico</h3><p>Optimización para motores de búsqueda avanzada.</p><div class="pills"><span class="pill">SEO</span><span class="pill">Organic</span><span class="pill">Rank</span></div></article>
+  <article class="grid-item"><h3>Contenido Multimedia</h3><p>Video, audio y gráficos interactivos.</p><div class="pills"><span class="pill">Media</span><span class="pill">Video</span><span class="pill">Audio</span></div></article>
+  <article class="grid-item"><h3>UX Research</h3><p>Investigación de usuario y testing de usabilidad.</p><div class="pills"><span class="pill">UX</span><span class="pill">Research</span><span class="pill">Usability</span></div></article>
+</div>
+<button class="load-more" aria-label="Cargar más ítems" data-load-more>Cargar más <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button>
+<script>
+  (() => {
+    const button = document.querySelector('[data-load-more]');
+    const container = document.querySelector('.grid');
+    let loaded = 8;
+    let total = 40;
+    button.addEventListener('click', () => {
+      const labels = ['Diseño Gráfico Moderno','Desarrollo Web Completo','Fotografía de Autor','Marketing Digital','Branding Personal','SEO Técnico','Contenido Multimedia','UX Research'];
+      const pillLabels = [['Design','UI','Figma'],['Web','HTML','CSS'],['Photo','Portfolio','Gallery'],['Digital','Ads','SEO'],['Brand','Identity','Style'],['SEO','Organic','Rank'],['Media','Video','Audio'],['UX','Research','Usability']];
+      for (let i = loaded; i < Math.min(loaded + 8, total); i++) {
+        const item = document.createElement('article');
+        item.className = 'grid-item';
+        item.innerHTML = `<h3>${labels[i % labels.length]}</h3><p>Artículo ${i + 1}: Descripción detallada sobre el tema seleccionado.</p><div class="pills">${pillLabels[i % pillLabels.length].map(p => `<span class="pill">${p}</span>`).join('')}</div>`;
+        container.appendChild(item);
+      }
+      loaded += 8;
+      if (loaded >= total) { button.textContent = 'No hay más'; button.disabled = true; }
+    });
+  })();
+</script>
+<footer class="credit">Harley Vásquez · <a href="https://www.linkedin.com/in/harleyvasquez" target="_blank" rel="noreferrer">linkedin.com/in/harleyvasquez</a></footer>
+
+<script>
+(function(){
+  var btn = document.querySelector('[data-toggle]');
+  var grid = document.querySelector('[data-testid="grid"]');
+  if(!btn || !grid) return;
+  btn.addEventListener('click', function() {
+    var children = grid.children;
+    for(var i=0; i<children.length; i++) {
+      children[i].style.display = children[i].style.display === 'none' ? '' : 'none';
+    }
+  });
+})();
+</script>
+</body>
+</html>

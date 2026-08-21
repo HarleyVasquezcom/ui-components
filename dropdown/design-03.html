@@ -1,0 +1,122 @@
+<!-- Design 03: Pill Menu / Menú Píldora -- data-testid="menu">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pill Menu Dropdown — Design 03</title>
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body {
+    min-height: 100vh;
+    display: grid;
+    place-items: center;
+    font-family: "Segoe UI", system-ui, sans-serif;
+    background: linear-gradient(160deg, #fdf4ff, #f5f3ff 55%, #ede9fe);
+    overflow-x: hidden;
+  }
+  .stage {
+    width: min(520px, 94vw);
+    padding: clamp(32px, 7vw, 60px);
+    background: #fff;
+    border-radius: 30px;
+    box-shadow: 0 26px 70px rgba(147,51,234,.14);
+  }
+  h1 { margin: 0; font-size: clamp(1.5rem, 4.5vw, 2.1rem); color: #581c87; font-weight: 700; }
+  .sub { margin: .3rem 0 2.4rem; color: #c084fc; font-size: .92rem; font-weight: 600; }
+  .lbl { display: block; margin: 0 0 12px; color: #7e22ce; font-size: .9rem; font-weight: 700; }
+  .wrap { position: relative; }
+  .trg {
+    width: 100%;
+    display: flex; align-items: center; justify-content: space-between; gap: 10px;
+    padding: 14px 22px;
+    font-family: inherit; font-size: 1rem; font-weight: 600; color: #6b21a8;
+    background: #f5f3ff;
+    border: 2px solid #ddd6fe;
+    border-radius: 999px;
+    cursor: pointer;
+    transition: border-color .2s ease, box-shadow .2s ease;
+  }
+  .trg:hover { border-color: #c4b5fd; }
+  .trg[aria-expanded="true"] { border-color: #a855f7; box-shadow: 0 0 0 5px rgba(168,85,247,.14); }
+  .trg:focus-visible { outline: 3px solid #a855f7; outline-offset: 3px; }
+  .trg .dot { width: 10px; height: 10px; border-radius: 50%; background: #a855f7; transition: transform .2s ease; }
+  .trg[aria-expanded="true"] .dot { transform: rotate(90deg); }
+  .lst {
+    position: absolute; left: 0; right: 0; top: calc(100% + 10px);
+    margin: 0; padding: 10px;
+    list-style: none;
+    background: #fff;
+    border: 2px solid #ddd6fe;
+    border-radius: 22px;
+    box-shadow: 0 20px 44px rgba(147,51,234,.16);
+    z-index: 5;
+  }
+  [hidden] { display: none !important; }
+  .opt {
+    padding: 11px 16px;
+    font-size: .95rem; font-weight: 600; color: #6b21a8;
+    border-radius: 999px;
+    cursor: pointer;
+    transition: background .15s ease;
+  }
+  .opt:hover, .opt.hl { background: #f5f3ff; }
+  .opt.hl { outline: 2px solid #c4b5fd; outline-offset: -2px; }
+  .opt.checked { background: linear-gradient(90deg, #a855f7, #8b5cf6); color: #fff; }
+  .opt:focus-visible { outline: 2px solid #a855f7; outline-offset: -2px; }
+  .selout { display: flex; align-items: center; justify-content: space-between; gap: 14px; margin-top: 22px; flex-wrap: wrap; }
+  .selout span { color: #c4b5fd; font-size: .88rem; }
+  .selout b { color: #7e22ce; font-weight: 700; }
+  .hint { margin-top: 2rem; color: #d8b4fe; font-size: .82rem; }
+  .credit { margin-top: 2.2rem; padding-top: 1rem; border-top: 1px solid #f5f3ff; color: #c4b5fd; font-size: .78rem; }
+  .credit a { color: #a855f7; text-decoration: none; }
+  .credit a:hover { text-decoration: underline; }
+</style>
+</head>
+<body>
+<main class="stage">
+  <h1>Pill Menu</h1>
+  <p class="sub">Soft pills for soft choices / Píldoras suaves para elecciones suaves</p>
+  <label class="lbl" data-testid="label" id="lbl-d03">Size</label>
+  <div class="wrap">
+    <button type="button" class="trg" data-testid="trigger" role="combobox" aria-haspopup="listbox" aria-expanded="false" aria-controls="lst03" aria-labelledby="lbl-d03">
+      <span data-testid="cur">Medium</span>
+      <span class="dot" aria-hidden="true"></span>
+    </button>
+    <ul class="lst" id="lst03" data-testid="list" role="listbox" aria-label="Size" hidden>
+      <li class="opt" data-testid="option-1" role="option" tabindex="-1">Small</li>
+      <li class="opt" data-testid="option-2" role="option" tabindex="-1">Medium</li>
+      <li class="opt" data-testid="option-3" role="option" tabindex="-1">Large</li>
+      <li class="opt" data-testid="option-4" role="option" tabindex="-1">Extra Large</li>
+      <li class="opt" data-testid="option-5" role="option" tabindex="-1">Double XL</li>
+    </ul>
+  </div>
+  <p class="selout"><span>selected:</span> <b data-testid="selected" aria-live="polite">Medium</b></p>
+  <p class="hint">Everything is a pill, even the menu / Todo es una píldora, hasta el menú</p>
+  <footer class="credit">Harley Vásquez · <a href="https://www.linkedin.com/in/harleyvasquez" target="_blank" rel="noreferrer">linkedin.com/in/harleyvasquez</a></footer>
+</main>
+<script>
+  const trigger = document.querySelector('[data-testid="trigger"]');
+  const list = document.querySelector('[data-testid="list"]');
+  const cur = document.querySelector('[data-testid="cur"]');
+  const selected = document.querySelector('[data-testid="selected"]');
+  const opts = Array.from(document.querySelectorAll('[data-testid^="option-"]'));
+  const DATA = opts.map((o) => o.textContent.trim());
+  let open = false, curI = 1, hl = 0;
+  function paint() { opts.forEach((el, j) => el.classList.toggle('hl', j === hl)); }
+  function setOpen(v) { open = v; list.hidden = !v; trigger.setAttribute('aria-expanded', String(v)); }
+  function openList(kbd) { hl = kbd ? 0 : curI; setOpen(true); paint(); }
+  function setSel(j) { curI = j; cur.textContent = DATA[j]; selected.textContent = DATA[j]; opts.forEach((el, i) => el.classList.toggle('checked', i === j)); }
+  trigger.addEventListener('click', () => { open ? setOpen(false) : openList(); });
+  opts.forEach((el, j) => el.addEventListener('click', () => { setSel(j); setOpen(false); }));
+  trigger.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowDown') { e.preventDefault(); if (!open) openList(true); else { hl = Math.min(hl + 1, opts.length - 1); paint(); } }
+    else if (e.key === 'ArrowUp') { e.preventDefault(); if (open) { hl = Math.max(hl - 1, 0); paint(); } }
+    else if (e.key === 'Enter') { e.preventDefault(); if (open) { setSel(hl); setOpen(false); } }
+    else if (e.key === 'Escape') { e.preventDefault(); if (open) setOpen(false); }
+  });
+  setSel(1);
+</script>
+</body>
+</html>

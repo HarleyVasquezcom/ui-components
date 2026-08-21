@@ -1,0 +1,163 @@
+<!-- Design 08: Mono Grid / Grilla Mono -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mono Grid Date Picker — Design 08</title>
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body {
+    min-height: 100vh;
+    display: grid;
+    place-items: center;
+    font-family: "Consolas", "Cascadia Mono", monospace;
+    background: #101418;
+    overflow-x: hidden;
+  }
+  .stage {
+    width: min(440px, 94vw);
+    padding: clamp(32px, 8vw, 60px);
+    background: #151a20;
+    border: 1px solid #262e38;
+    border-radius: 6px;
+  }
+  h1 { margin: 0; font-size: clamp(1.45rem, 5vw, 1.9rem); color: #e2e8f0; font-weight: 700; }
+  .sub { margin: .4rem 0 2.4rem; color: #556070; font-size: .88rem; }
+  .lbl { display: block; margin: 0 0 10px; color: #cbd5e1; font-size: .82rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; }
+  .wrap { position: relative; }
+  .trg {
+    width: 100%;
+    display: flex; align-items: center; justify-content: space-between; gap: 10px;
+    padding: 13px 14px;
+    font-family: inherit; font-size: .96rem; font-weight: 700; color: #e2e8f0;
+    background: #1a2029;
+    border: 1px solid #2c3542;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: border-color .15s ease, background .15s ease;
+  }
+  .trg:hover { border-color: #facc15; }
+  .trg[aria-expanded="true"] { border-color: #facc15; background: #20262f; }
+  .trg:focus-visible { outline: 2px solid #facc15; outline-offset: 2px; }
+  .trg .arr { color: #facc15; font-size: .85rem; transition: transform .2s ease; }
+  .trg[aria-expanded="true"] .arr { transform: rotate(180deg); }
+  .cal {
+    position: absolute; left: 0; right: 0; top: calc(100% + 8px);
+    background: #1a2029;
+    border: 1px solid #2c3542;
+    border-radius: 4px;
+    padding: 12px;
+    z-index: 5;
+  }
+  [hidden] { display: none !important; }
+  .cal-head { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 10px; }
+  .cal-head b { font-size: .88rem; font-weight: 700; color: #e2e8f0; }
+  .cal-head button {
+    width: 28px; height: 28px;
+    font-family: inherit; font-size: .9rem; color: #facc15;
+    background: #20262f;
+    border: 1px solid #2c3542;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  .cal-head button:hover { border-color: #facc15; }
+  .cal-head button:focus-visible { outline: 2px solid #facc15; outline-offset: 1px; }
+  .wds { display: grid; grid-template-columns: repeat(7, 1fr); gap: 2px; margin-bottom: 4px; }
+  .wds span { text-align: center; font-size: .62rem; font-weight: 700; color: #556070; padding: 3px 0; }
+  .grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 2px; }
+  .grid .ghost { padding: 7px 0; }
+  .day {
+    padding: 7px 0;
+    font-family: inherit; font-size: .84rem; font-weight: 400; color: #94a3b8;
+    background: transparent;
+    border: 1px solid transparent;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: color .1s ease, border-color .1s ease, background .1s ease;
+  }
+  .day:hover { color: #facc15; border-color: #2c3542; }
+  .day.is-today { border-color: #facc15; color: #facc15; }
+  .day.selected { background: #facc15; color: #101418; font-weight: 700; border-color: #facc15; }
+  .day:focus-visible { outline: 2px solid #facc15; outline-offset: 1px; }
+  .selout { display: flex; align-items: center; justify-content: space-between; gap: 14px; margin-top: 24px; flex-wrap: wrap; }
+  .selout span { color: #556070; font-size: .8rem; }
+  .selout b { color: #facc15; font-weight: 700; }
+  .hint { margin-top: 2rem; color: #2c3542; font-size: .76rem; }
+  .credit { margin-top: 2rem; padding-top: 1.1rem; border-top: 1px solid #262e38; color: #556070; font-size: .74rem; }
+  .credit a { color: #facc15; text-decoration: none; }
+  .credit a:hover { text-decoration: underline; }
+</style>
+</head>
+<body>
+<main class="stage">
+  <h1>Mono Grid</h1>
+  <p class="sub">Terminal order, amber accent / Orden de terminal, acento ámbar</p>
+  <label class="lbl" data-testid="label" id="lbl-dp08">Date</label>
+  <div class="wrap">
+    <button type="button" class="trg" data-testid="trigger" aria-haspopup="dialog" aria-expanded="false" aria-controls="cal08" aria-labelledby="lbl-dp08">
+      <span data-testid="cur">17</span>
+      <span class="arr" aria-hidden="true">▾</span>
+    </button>
+    <div class="cal" id="cal08" data-testid="cal" role="dialog" aria-label="Pick a date" hidden>
+      <div class="cal-head">
+        <button type="button" data-testid="prev-m" aria-label="Previous month">‹</button>
+        <b data-testid="month-label">August 2026</b>
+        <button type="button" data-testid="next-m" aria-label="Next month">›</button>
+      </div>
+      <div class="wds" aria-hidden="true">
+        <span>Su</span><span>Mo</span><span>Tu</span><span>We</span><span>Th</span><span>Fr</span><span>Sa</span>
+      </div>
+      <div class="grid" data-testid="grid"></div>
+    </div>
+  </div>
+  <p class="selout"><span>selected:</span> <b data-testid="date-out" aria-live="polite">Aug 17, 2026</b></p>
+  <p class="hint">Exactly one width / Exactamente un ancho</p>
+  <footer class="credit">Harley Vásquez · <a href="https://www.linkedin.com/in/harleyvasquez" target="_blank" rel="noreferrer">linkedin.com/in/harleyvasquez</a></footer>
+</main>
+<script>
+  const today = new Date();
+  const trigger = document.querySelector('[data-testid="trigger"]');
+  const cal = document.querySelector('[data-testid="cal"]');
+  const cur = document.querySelector('[data-testid="cur"]');
+  const monthLabel = document.querySelector('[data-testid="month-label"]');
+  const grid = document.querySelector('[data-testid="grid"]');
+  const dateOut = document.querySelector('[data-testid="date-out"]');
+  const nextM = document.querySelector('[data-testid="next-m"]');
+  const prevM = document.querySelector('[data-testid="prev-m"]');
+  let view = new Date(today.getFullYear(), today.getMonth(), 1);
+  let sel = today;
+  const p = (n) => String(n).padStart(2, '0');
+  const iso = (d) => `${d.getFullYear()}-${p(d.getMonth() + 1)}-${p(d.getDate())}`;
+  const fmt = (d) => d.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
+  const ym = (d) => d.toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
+  cur.textContent = String(today.getDate());
+  dateOut.textContent = fmt(today);
+  function open() { cal.hidden = false; trigger.setAttribute('aria-expanded', 'true'); render(); }
+  function close() { cal.hidden = true; trigger.setAttribute('aria-expanded', 'false'); }
+  function render() {
+    monthLabel.textContent = ym(view);
+    grid.innerHTML = '';
+    const startPad = new Date(view.getFullYear(), view.getMonth(), 1).getDay();
+    const dim = new Date(view.getFullYear(), view.getMonth() + 1, 0).getDate();
+    for (let i = 0; i < startPad; i++) {
+      const g = document.createElement('span'); g.className = 'ghost'; grid.appendChild(g);
+    }
+    for (let d = 1; d <= dim; d++) {
+      const day = new Date(view.getFullYear(), view.getMonth(), d);
+      const b = document.createElement('button');
+      b.type = 'button'; b.className = 'day'; b.dataset.date = iso(day); b.textContent = String(d);
+      b.setAttribute('aria-label', fmt(day));
+      if (iso(day) === iso(today)) b.classList.add('is-today');
+      if (iso(day) === iso(sel)) b.classList.add('selected');
+      b.addEventListener('click', () => { sel = day; dateOut.textContent = fmt(day); close(); render(); });
+      grid.appendChild(b);
+    }
+  }
+  trigger.addEventListener('click', () => (cal.hidden ? open() : close()));
+  nextM.addEventListener('click', () => { view = new Date(view.getFullYear(), view.getMonth() + 1, 1); render(); });
+  prevM.addEventListener('click', () => { view = new Date(view.getFullYear(), view.getMonth() - 1, 1); render(); });
+</script>
+</body>
+</html>

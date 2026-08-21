@@ -1,0 +1,49 @@
+<!-- Design 06: Modal Overlay Popover / Modal Overlay Popover -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Popover — Design 06</title>
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body {
+    min-height: 100vh;
+    font-family: "Segoe UI", system-ui, sans-serif;
+    background: #f8fafc;
+    color: #0f172a;
+    overflow-x: hidden;
+  }
+  .popover-wrapper{ position: relative; display:inline-block; min-height:40px;min-width:120px;}
+  .popover-trigger { padding: 8px 16px; background: #fff; border-radius: 6px; font-size: .875rem; font-weight: 500; cursor: pointer; }
+  .popover-trigger:focus-visible { outline: 2px solid #64748b; outline-offset: 2px; }
+  .popover { position: absolute; top: 100%; left: 50%; transform: translateX(-50%) translateY(8px); background: #fff; border-radius: 12px; padding: 16px 20px; min-width: 200px; box-shadow: 0 20px 40px rgba(0,0,0,0.15); z-index: 100; opacity: 0; visibility: hidden; transition: opacity .2s visibility .2s; }
+  .popover.open { opacity: 1; visibility: visible; transition: opacity .1s, visibility .1s; }
+  .popover-arrow { position: absolute; top: -8px; left: 50%; transform: translateX(-50%); width: 0; height: 0; border-left: 8px solid #fff; border-top: 8px solid transparent; border-bottom: 8px solid transparent; }
+  .popover-content { color: #64748b; font-size: .875rem; line-height: 1.5; }
+  .popover-action { margin-top: 16px; padding-top: 16px; border-top: 1px solid #e2e8f0; display: flex; justify-content: flex-end; gap: 8px; }
+  .popover-action button { padding: 6px 12px; border-radius: 6px; font-size: .75rem; cursor: pointer; }
+  .popover-action button:hover { background: #f8fafc; }
+  .popover-action button:focus-visible { outline: 2px solid #64748b; outline-offset: 2px; }
+  .credit { margin-top: 32px; padding: 16px 0; border-top: 1px solid #e2e8f0; color: #64748b; font-size: .875rem; text-align: center; }
+  .credit a { color: #2563eb; text-decoration: none; }
+  @media (max-width: 480px) { .popover { min-width: 160px; padding: 12px; } }
+</style>
+</head>
+<body>
+<div class="popover-wrapper" data-popover aria-label="Popover" style="display:block;min-width:120px;min-height:40px;">
+  <button class="popover-trigger" aria-haspopup="true" aria-expanded="false" aria-label="Options" data-testid="popover-trigger">Options</button>
+  <div class="popover" data-testid="popover" aria-label="Popover design" role="tooltip">
+    <div class="popover-arrow"></div>
+    <div class="popover-content">Choose an action</div>
+    <div class="popover-action">
+      <button aria-label="Copy">Copy</button>
+      <button aria-label="Edit">Edit</button>
+    </div>
+  </div>
+</div>
+<footer class="credit">Harley Vásquez · <a href="https://www.linkedin.com/in/harleyvasquez" target="_blank" rel="noreferrer">linkedin.com/in/harleyvasquez</a></footer>
+</body>
+</html>
+<script>(()=>{const b=document.querySelector('[data-testid="popover-trigger"],[aria-haspopup],.info,.btn,[data-popover]');const p=document.querySelector('[data-testid="popover"],.popover,.pop,.pop-panel,[data-popover-panel]');if(!b||!p)return;p.style.position='absolute';const show=v=>{p.style.display=v?'block':'none'};b.addEventListener('mouseenter',()=>show(true));b.addEventListener('mouseleave',()=>show(false));p.style.visibility="visible";p.style.opacity="1";})();</script>

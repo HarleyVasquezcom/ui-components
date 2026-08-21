@@ -1,0 +1,116 @@
+<!-- Design 10: Gradient Border / Borde Degradado -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Gradient Border Radio — Design 10</title>
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body {
+    min-height: 100vh;
+    display: grid;
+    place-items: center;
+    font-family: "Segoe UI", system-ui, sans-serif;
+    background: #0d0f1a;
+    overflow-x: hidden;
+  }
+  .stage {
+    width: min(620px, 94vw);
+    padding: clamp(28px, 6vw, 60px);
+    background: #141828;
+    border-radius: 26px;
+    box-shadow: 0 40px 100px rgba(0,0,0,.65);
+  }
+  h1 { margin: 0; font-size: clamp(1.5rem, 4vw, 2.1rem); color: #eef1ff; font-weight: 700; letter-spacing: .02em; }
+  .sub { margin: .3rem 0 2.4rem; color: #7c86ad; font-size: .92rem; }
+  .group { border: none; margin: 0; padding: 0; display: grid; gap: 14px; }
+  legend { font-size: .76rem; letter-spacing: .22em; text-transform: uppercase; color: #7c86ad; margin-bottom: 6px; padding: 0; }
+  .opt {
+    position: relative;
+    display: flex; align-items: center; gap: 16px;
+    padding: 16px 20px;
+    background: #191e31;
+    border-radius: 16px;
+    cursor: pointer;
+    isolation: isolate;
+    transition: transform .18s ease;
+  }
+  .opt::before {
+    content: "";
+    position: absolute; inset: 0; z-index: -1;
+    border-radius: inherit;
+    padding: 2px;
+    background: linear-gradient(90deg, #22d3ee, #a78bfa 50%, #f472b6);
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    mask-composite: exclude;
+    opacity: 0;
+    transition: opacity .25s ease;
+  }
+  .opt:hover { transform: translateY(-2px); }
+  .opt:hover::before { opacity: .45; }
+  .opt.selected::before { opacity: 1; box-shadow: 0 0 30px rgba(167,139,250,.25); }
+  .opt input { position: absolute; opacity: 0; width: 1px; height: 1px; }
+  .dot {
+    flex: 0 0 auto;
+    width: 20px; height: 20px; border-radius: 50%;
+    border: 2px solid #3a4260;
+    display: grid; place-items: center;
+    transition: border-color .2s ease;
+  }
+  .dot::after {
+    content: "";
+    width: 9px; height: 9px; border-radius: 50%;
+    background: linear-gradient(135deg, #22d3ee, #a78bfa);
+    transform: scale(0);
+    transition: transform .22s cubic-bezier(.5,1.6,.4,1);
+  }
+  .opt.selected .dot { border-color: #a78bfa; }
+  .opt.selected .dot::after { transform: scale(1); box-shadow: 0 0 10px rgba(167,139,250,.8); }
+  .opt input:focus-visible ~ .dot { outline: 3px solid #a78bfa; outline-offset: 4px; }
+  .opt .txt { color: #d5dbf2; font-weight: 600; font-size: .98rem; }
+  .opt .txt small { display: block; color: #7c86ad; font-weight: 400; font-size: .78rem; }
+  .hint { margin-top: 1.8rem; color: #5b6588; font-size: .82rem; }
+  .credit { margin-top: 2.2rem; padding-top: 1rem; border-top: 1px solid #232a44; color: #5b6588; font-size: .8rem; }
+  .credit a { color: #a78bfa; text-decoration: none; }
+  .credit a:hover { text-decoration: underline; }
+input[type="checkbox"]:focus-visible, input[type="radio"]:focus-visible, [data-testid="toggle"]:focus-visible { outline: 2px solid #2563eb; outline-offset: 2px; } </style>
+</head>
+<body>
+<main class="stage">
+  <h1>Gradient Border</h1>
+  <p class="sub">The winning edge glows / El borde ganador brilla</p>
+  <fieldset class="group" data-testid="group">
+    <legend>Theme</legend>
+    <label class="opt" data-idx="0">
+      <input type="radio" name="theme" value="aurora" checked
+      <span class="dot" aria-hidden="true"></span>
+      <span class="txt">Aurora<small>cyan to violet — / cian a violeta</small></span>
+    </label>
+    <label class="opt" data-idx="1">
+      <input type="radio" name="theme" value="ember"
+      <span class="dot" aria-hidden="true"></span>
+      <span class="txt">Ember<small>orange to pink — / naranja a rosa</small></span>
+    </label>
+    <label class="opt" data-idx="2">
+      <input type="radio" name="theme" value="forest"
+      <span class="dot" aria-hidden="true"></span>
+      <span class="txt">Forest<small>lime to teal — / lima a verde azulado</small></span>
+    </label>
+  </fieldset>
+  <p class="hint">Click an option to frame it — / Clic para enmarcar una opción</p>
+  <footer class="credit">Harley Vásquez · <a href="https://www.linkedin.com/in/harleyvasquez" target="_blank" rel="noreferrer">linkedin.com/in/harleyvasquez</a></footer>
+</main>
+<script>
+  const group = document.querySelector('[data-testid="group"]');
+  group.addEventListener('change', (e) => {
+    if (e.target.type !== 'radio') return;
+    group.querySelectorAll('.opt').forEach((opt) => opt.classList.remove('selected'));
+    e.target.closest('.opt').classList.add('selected');
+  });
+</script>
+</body>
+</html>

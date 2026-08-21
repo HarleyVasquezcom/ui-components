@@ -1,0 +1,108 @@
+<!-- Design 02: Dashed Zone / Zona de Guiones -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dashed Zone — Design 02</title>
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body {
+    min-height: 100vh;
+    display: grid;
+    place-items: center;
+    font-family: "Segoe UI", system-ui, sans-serif;
+    background: #14532d;
+    overflow-x: hidden;
+  }
+  .stage { width: min(540px, 94vw); padding: clamp(34px, 7vw, 54px); background: #f7fee7; border-radius: 10px; box-shadow: 0 30px 70px rgba(0, 0, 0, .5); }
+  h1 { margin: 0; font-size: clamp(1.7rem, 5vw, 2.1rem); color: #166534; font-weight: 800; }
+  .sub { margin: .4rem 0 2.2rem; color: #65a30d; font-size: .95rem; }
+  .lbl { display: block; margin: 0 0 16px; color: #166534; font-size: .92rem; font-weight: 700; }
+  .dz {
+    display: grid; place-items: center; gap: 6px;
+    padding: 40px 24px;
+    text-align: center;
+    background: #ffffff; border: 2px dashed #84cc16; border-radius: 6px;
+    cursor: pointer;
+  }
+  .dz:hover { background: #ecfccb; }
+  .dz:focus-within { outline: 3px solid #65a30d; outline-offset: 3px; }
+  .dz p { margin: 0; color: #3f6212; font-weight: 700; }
+  .dz small { color: #84cc16; }
+  .list { margin-top: 18px; display: grid; gap: 8px; list-style: none; padding: 0; }
+  .li { display: flex; align-items: center; gap: 12px; padding: 10px 12px; background: #ecfccb; border: 1px solid #d9f99d; border-radius: 6px; }
+  .li .nm { flex: 1; color: #166534; font-weight: 700; font-size: .93rem; }
+  .li .sz { color: #4d7c0f; font-size: .8rem; }
+  .rm {
+    border: 1px solid #65a30d; background: #fff; color: #3f6212;
+    padding: 6px 12px; border-radius: 6px; font-size: .8rem; font-weight: 700; cursor: pointer;
+  }
+  .rm:hover { background: #f7fee7; }
+  .rm:focus-visible { outline: 3px solid #84cc16; outline-offset: 2px; }
+  .empty { margin-top: 18px; text-align: center; color: #a3e635; font-size: .85rem; }
+  .hint { margin-top: 2rem; color: #bef264; font-size: .82rem; }
+  .credit { margin-top: 1.6rem; padding-top: 1rem; border-top: 1px solid #d9f99d; color: #bef264; font-size: .78rem; }
+  .credit a { color: #4d7c0f; text-decoration: none; }
+</style>
+</head>
+<body>
+<main class="stage">
+  <h1>Dashed Zone</h1>
+  <p class="sub">The classic dashed invitation / La clásica invitación punteada</p>
+  <label class="lbl" data-testid="label" id="lbl-fu02">File</label>
+  <div class="dz" data-testid="dropzone" aria-label="File uploader">
+    <p>📄 Choose / pick a file</p>
+    <small>Click here to browse</small>
+    <input data-testid="file-input" type="file" aria-label="Upload file" aria-describedby="lbl-fu02" hidden>
+  </div>
+  <p class="empty" data-testid="empty">
+<div data-testid="file-name" style="display:none"></div>No file chosen · Ningún archivo elegido</p>
+  <ul class="list" data-testid="list" hidden></ul>
+  <p class="hint">Lime fields, honest dash / Campos lima, guiones honestos</p>
+  <footer class="credit">Harley Vásquez · <a href="https://www.linkedin.com/in/harleyvasquez" target="_blank" rel="noreferrer">linkedin.com/in/harleyvasquez</a></footer>
+</main>
+<script>
+  const input = document.querySelector('[data-testid="file-input"]');
+  const list = document.querySelector('[data-testid="list"]');
+  const empty = document.querySelector('[data-testid="empty"]');
+  const dz = document.querySelector('[data-testid="dropzone"]');
+  dz.addEventListener('click', () => input.click());
+  function fmt(n) {
+    if (n >= 1024 * 1024) return (n / (1024 * 1024)).toFixed(1) + ' MB';
+    if (n >= 1024) return (n / 1024).toFixed(1) + ' KB';
+    return n + ' B';
+  }
+  input.addEventListener('change', () => {
+    list.textContent = '';
+    for (const f of input.files) {
+      const li = document.createElement('li');
+      li.className = 'li';
+      const nm = document.createElement('span');
+      nm.className = 'nm';
+      nm.textContent = f.name;
+      const sz = document.createElement('span');
+      sz.className = 'sz';
+      sz.textContent = fmt(f.size);
+      const rm = document.createElement('button');
+      rm.type = 'button';
+      rm.className = 'rm';
+      rm.dataset.testid = 'remove';
+      rm.textContent = 'X';
+      rm.setAttribute('aria-label', 'Remove ' + f.name);
+      rm.addEventListener('click', () => {
+        li.remove();
+        input.value = '';
+        list.hidden = list.children.length === 0;
+        empty.hidden = list.children.length > 0;
+      });
+      li.append(nm, sz, rm);
+      list.appendChild(li);
+    }
+    list.hidden = list.children.length === 0;
+    empty.hidden = list.children.length > 0;
+  });
+</script>
+</body>
+</html>

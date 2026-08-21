@@ -1,0 +1,60 @@
+<!-- Design 08: section-jump / salto-sección -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Section Jump — Design 08</title>
+  <style>
+    * { box-sizing: border-box; }
+    html, body { margin: 0; }
+    body {
+      min-height: 100vh;
+      font-family: "Inter", system-ui, sans-serif;
+      background: #ffffff;
+      overflow-x: hidden;
+    }
+    .stage {
+      width: min(620px, 94vw);
+      padding: clamp(24px, 5vw, 56px);
+      border-radius: 16px;
+      background: linear-gradient(135deg, #ffffff 0%, #f7fafc 100%);
+      border: 2px solid #e2e8f0;
+      box-shadow: 0 0 0 1px #cbd5e0;
+      text-align: center;
+    }
+    h1 { margin: 0; font-size: clamp(1.8rem, 4vw, 2.5rem); color: #2d3748; letter-spacing: .04em; }
+    .sub { margin: .8rem 0 2rem; color: #4a5568; font-size: .95rem; }
+    .anchor {
+      position: relative;
+      display: inline-block;
+      padding: 16px 32px;
+      font-size: 1.15rem;
+      font-weight: 600;
+      color: #2d3748;
+      background: #fff;
+      border: 2px solid #63b3ed;
+      border-radius: 10px;
+      text-decoration: none;
+      box-shadow: 0 2px 6px rgba(99,179,237,.15);
+      transition: border-color .18s, box-shadow .18s, transform .18s;
+    }
+    .anchor:hover { border-color: #63b3ed; box-shadow: 0 4px 14px rgba(99,179,237,.25); transform: translateY(-2px); }
+    .anchor:focus-visible { outline: 3px solid #63b3ed; outline-offset: 4px; }
+    .anchor:active { border-color: #4a9fc6; transform: scale(.98); }
+    .hint { margin-top: 1.5rem; color: #718096; font-size: .85rem; }
+    .credit { margin-top: 2.4rem; padding-top: 1.2rem; border-top: 1px solid #e2e8f0; color: #718096; font-size: .8rem; }
+    .credit a { color: #63b3ed; text-decoration: none; }
+    .credit a:hover { text-decoration: underline; }
+  </style>
+</head>
+<body>
+  <main class="stage">
+    <h1>Section Jump</h1>
+    <p class="sub">Quick navigation to content — / Navegación rápida a contenido</p>
+    <a class="anchor" data-testid="anchor" name="jump1" href="#jump1" aria-label="Section jump section">section-jump</a>
+    <p class="hint">Jump to section — / Saltar a sección</p>
+    <footer class="credit">Harley Vásquez · <a href="https://www.linkedin.com/in/harleyvasquez" target="_blank" rel="noreferrer">linkedin.com/in/harleyvasquez</a></footer>
+  <div id="section1" style="height: 70vh;"></div></main>
+</body>
+</html>

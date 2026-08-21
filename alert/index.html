@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Alert — 10 Designs / Alerta · 10 diseños</title>
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body { font-family: "Segoe UI", system-ui, sans-serif; background: #0e1116; color: #e6ecf5; min-height: 100vh; }
+  header { padding: 28px 20px 18px; text-align: center; }
+  h1 { margin: 0; font-size: clamp(1.4rem, 4vw, 2rem); }
+  .sub { color: #7f8ba3; font-size: .9rem; margin-top: 6px; }
+  .nav { display: flex; align-items: center; justify-content: center; gap: 14px; padding: 0 14px 18px; flex-wrap: wrap; }
+  .nav button {
+    padding: 10px 22px; font-size: .95rem; font-weight: 700;
+    background: #192231; color: #e6ecf5;
+    border: 1px solid #2b3a52; border-radius: 10px; cursor: pointer;
+    transition: background .15s ease, transform .1s ease;
+  }
+  .nav button:hover { background: #23324a; }
+  .nav button:active { transform: scale(.97); }
+  .nav button:focus-visible { outline: 3px solid #63b3ff; outline-offset: 3px; }
+  .counter { font-size: .85rem; color: #7f8ba3; min-width: 120px; text-align: center; }
+  .frame-wrap { max-width: 1000px; margin: 0 auto; padding: 0 14px 8px; }
+  iframe { width: 100%; height: min(76vh, 640px); border: 1px solid #2b3a52; border-radius: 14px; background: #12161d; }
+  .links { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 150px), 1fr)); gap: 10px; max-width: 1000px; margin: 0 auto; padding: 16px 14px 26px; }
+  .links a {
+    display: block; padding: 10px 12px; text-decoration: none;
+    background: #161d2b; color: #aab6cc;
+    border: 1px solid #23324a; border-radius: 10px;
+    font-size: .82rem; text-align: center;
+    transition: background .15s ease, color .15s ease, transform .12s ease;
+  }
+  .links a:hover { background: #23324a; color: #fff; transform: translateY(-2px); }
+  .links a.active { background: #2f5e8f; color: #fff; border-color: #63b3ff; }
+  .links a:focus-visible { outline: 3px solid #63b3ff; outline-offset: 3px; }
+  footer { text-align: center; padding: 18px 14px 34px; color: #5a657c; font-size: .82rem; border-top: 1px solid #192231; }
+  footer a { color: #63b3ff; text-decoration: none; }
+</style>
+</head>
+<body>
+<header>
+  <h1>Alert — 10 Designs</h1>
+  <p class="sub">Alerta · 10 diseños · Harley Vásquez</p>
+</header>
+<nav class="nav" aria-label="Design navigation">
+  <button type="button" data-testid="prev" id="prevBtn" aria-label="Previous design">← Prev</button>
+  <span class="counter" id="counter" aria-live="polite">design 01 / 10</span>
+  <button type="button" data-testid="next" id="nextBtn" aria-label="Next design">Next →</button>
+</nav>
+<div class="frame-wrap">
+  <iframe id="frame" data-testid="frame" title="Alert — 10 Designs design preview"></iframe>
+</div>
+<nav class="links" id="links" aria-label="All designs">
+  <a href="design-01.html" data-i="1">01 · Info Alert</a>
+  <a href="design-02.html" data-i="2">02 · Warning Alert</a>
+  <a href="design-03.html" data-i="3">03 · Error Alert</a>
+  <a href="design-04.html" data-i="4">04 · Success Alert</a>
+  <a href="design-05.html" data-i="5">05 · Alert with Close Button</a>
+  <a href="design-06.html" data-i="6">06 · Alert with Timeout</a>
+  <a href="design-07.html" data-i="7">07 · Alert Dismissible</a>
+  <a href="design-08.html" data-i="8">08 · Alert inline</a>
+  <a href="design-09.html" data-i="9">09 · Alert with Icon Right</a>
+  <a href="design-10.html" data-i="10">10 · Alert with Description List</a>
+</nav>
+<footer>Harley Vásquez · <a href="https://www.linkedin.com/in/harleyvasquez" target="_blank" rel="noreferrer">linkedin.com/in/harleyvasquez</a></footer>
+<script>
+  const frame = document.getElementById('frame');
+  const prevBtn = document.getElementById('prevBtn');
+  const nextBtn = document.getElementById('nextBtn');
+  const counter = document.getElementById('counter');
+  const links = Array.from(document.querySelectorAll('#links a'));
+  let cur = 1;
+  function go(i) {
+    cur = ((i - 1) % 10 + 10) % 10 + 1;
+    frame.src = 'design-' + String(cur).padStart(2, '0') + '.html';
+    counter.textContent = 'design ' + String(cur).padStart(2, '0') + ' / 10';
+    links.forEach((a) => a.classList.toggle('active', Number(a.dataset.i) === cur));
+  }
+  prevBtn.addEventListener('click', () => go(cur - 1));
+  nextBtn.addEventListener('click', () => go(cur + 1));
+  links.forEach((a) => a.addEventListener('click', (e) => { e.preventDefault(); go(Number(a.dataset.i)); }));
+  go(1);
+</script>
+</body>
+</html>

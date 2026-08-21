@@ -1,0 +1,79 @@
+<!-- Design 06: Gradient Track / Pista Degradada -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Gradient Track Slider — Design 06</title>
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body {
+    min-height: 100vh;
+    display: grid;
+    place-items: center;
+    font-family: "Segoe UI", system-ui, sans-serif;
+    background: #3b0764;
+    overflow-x: hidden;
+  }
+  .stage {
+    width: min(560px, 94vw);
+    padding: clamp(34px, 7vw, 54px);
+    background: #1e1b4b; border-radius: 24px;
+    box-shadow: 0 30px 70px rgba(0, 0, 0, .5);
+  }
+  h1 { margin: 0; font-size: clamp(1.6rem, 5vw, 2rem); color: #f0abfc; font-weight: 800; letter-spacing: -.02em; }
+  .sub { margin: .4rem 0 2.2rem; color: #a78bfa; font-size: .95rem; }
+  .lbl { display: block; margin: 0 0 26px; color: #e9d5ff; font-size: .92rem; font-weight: 700; }
+  .sl {
+    width: 100%;
+    -webkit-appearance: none;
+    appearance: none;
+    height: 10px;
+    border: none;
+    border-radius: 5px;
+    background: linear-gradient(90deg, #a855f7, #ec4899) 0 / var(--p, 0%) 100% no-repeat #312e81;
+    outline: none;
+    cursor: pointer;
+  }
+  .sl::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 24px; height: 24px;
+    border: 3px solid #f0abfc; border-radius: 50%;
+    background: #7c3aed;
+    box-shadow: 0 0 16px rgba(168, 85, 247, .8);
+  }
+  .sl:hover::-webkit-slider-thumb { background: #a21caf; }
+  .sl:focus-visible { outline: 3px solid #f0abfc; outline-offset: 6px; }
+  .scale { margin-top: 10px; height: 6px; border-radius: 3px; background: linear-gradient(90deg, #a855f7, #ec4899); opacity: .9; }
+  .out { display: flex; align-items: center; justify-content: space-between; margin-top: 14px; color: #a78bfa; font-size: .88rem; }
+  .out b { color: #f0abfc; font-size: 1.1rem; }
+  .hint { margin-top: 2rem; color: #6d28d9; font-size: .82rem; }
+  .credit { margin-top: 1.6rem; padding-top: 1rem; border-top: 1px solid #312e81; color: #6d28d9; font-size: .78rem; }
+  .credit a { color: #f0abfc; text-decoration: none; }
+</style>
+</head>
+<body>
+<main class="stage">
+  <h1>Gradient Track</h1>
+  <p class="sub">Violet to pink, one sweep / Violeta a rosa, un barrido</p>
+  <label class="lbl" data-testid="label" id="lbl-sl06" for="sl06">Hue</label>
+  <input id="sl06" class="sl" data-testid="slider" type="range" min="0" max="100" step="5" value="50">
+  <div class="scale" aria-hidden="true"></div>
+  <p class="out"><span>Position</span> <b data-testid="value" aria-live="polite">50</b></p>
+  <p class="hint">A spectrum on a rail / Un espectro sobre un riel</p>
+  <footer class="credit">Harley Vásquez · <a href="https://www.linkedin.com/in/harleyvasquez" target="_blank" rel="noreferrer">linkedin.com/in/harleyvasquez</a></footer>
+</main>
+<script>
+  const sl = document.querySelector('[data-testid="slider"]');
+  const val = document.querySelector('[data-testid="value"]');
+  function sync() {
+    val.textContent = String(sl.value);
+    sl.style.setProperty('--p', ((Number(sl.value) - Number(sl.min)) / (Number(sl.max) - Number(sl.min))) * 100 + '%');
+  }
+  sl.addEventListener('input', sync);
+  sync();
+</script>
+</body>
+</html>

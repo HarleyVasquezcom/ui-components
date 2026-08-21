@@ -1,0 +1,152 @@
+<!-- Design 04: Terminal Menu / Menú Terminal -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Terminal Menu — Design 04</title>
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body { font-family: "Cascadia Mono", Consolas, monospace; background: #0b0f0c; min-height: 100vh; overflow-x: hidden; }
+  .stage { overflow: hidden; }
+  .termbar {
+    margin: -24px -56px 0 0;
+    height: 30px;
+    background: #1a221c;
+    border-bottom: 1px solid #243226;
+    border-radius: 10px 10px 0 0;
+    display: flex; align-items: center; gap: 6px;
+    padding: 0 14px;
+    position: relative;
+    z-index: 2;
+  }
+  .termbar .dot { width: 12px; height: 12px; border-radius: 50%; }
+  .termbar .dot.r { background: #4c5b4f; }
+  .termbar .dot.y { background: #4c5b4f; }
+  .termbar .dot.g { background: #4c5b4f; }
+  .termbar .title { color: #4c7a5a; font-size: .74rem; margin-left: 10px; letter-spacing: .06em; }
+  .win { width: min(760px, 94vw); margin: 40px auto; border: 1px solid #243226; border-radius: 10px; padding: 0 56px 0 34px; background: #10160f; }
+  .nav { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; padding: 18px 0 10px; }
+  .brand { color: #6fbf73; font-weight: 700; font-size: .98rem; }
+  .brand::before { content: "$ "; color: #2e7d32; }
+  .links { display: flex; gap: 8px; list-style: none; margin: 0 0 0 14px; padding: 0; flex-wrap: wrap; }
+  .links a {
+    display: block; padding: 8px 14px;
+    color: #9ab59d; text-decoration: none; font-size: .9rem;
+    border: 1px solid transparent; border-radius: 5px;
+  }
+  .links a::before { content: "./"; color: #4c7a5a; }
+  .links a:hover { color: #d6e8d8; background: #18221a; }
+  .links a:focus-visible { outline: 3px solid #6fbf73; outline-offset: 2px; }
+  .links a.active { color: #10160f; background: #6fbf73; }
+  .links a.active::before { color: #10160f; }
+  .wrap { position: relative; }
+  .dropbtn {
+    display: block; padding: 8px 14px;
+    color: #9ab59d; background: none; border: 1px solid transparent; border-radius: 5px;
+    font-family: inherit; font-size: .9rem; cursor: pointer;
+  }
+  .dropbtn::before { content: "./"; color: #4c7a5a; }
+  .dropbtn:hover { color: #d6e8d8; background: #18221a; }
+  .dropbtn:focus-visible { outline: 3px solid #6fbf73; outline-offset: 2px; }
+  .menu {
+    position: absolute; top: calc(100% + 6px); left: 0;
+    min-width: 200px;
+    background: #14221a;
+    border: 1px solid #2e7d32;
+    border-radius: 6px;
+    box-shadow: 0 14px 34px rgba(0, 0, 0, .55);
+    display: none;
+    padding: 6px;
+  }
+  .menu.open { display: block; }
+  .menu a { display: block; padding: 8px 12px; color: #9ab59d; text-decoration: none; font-size: .86rem; border-radius: 4px; }
+  .menu a::before { content: "› "; color: #2e7d32; }
+  .menu a:hover { background: #1d3324; color: #d6e8d8; }
+  .menu a:focus-visible { outline: 3px solid #6fbf73; outline-offset: 2px; }
+  .burger {
+    display: none;
+    margin-left: auto;
+    width: 42px; height: 42px;
+    background: #14221a; border: 1px solid #2e7d32; border-radius: 5px;
+    color: #6fbf73; font-size: 1rem; cursor: pointer;
+  }
+  .burger:hover { background: #1d3324; }
+  .burger:focus-visible { outline: 3px solid #6fbf73; outline-offset: 2px; }
+  .mobile { display: none; flex-direction: column; gap: 4px; padding: 8px 0 16px; border-top: 1px dashed #1a2b1d; }
+  .mobile.open { display: flex; }
+  .mobile a { padding: 10px 12px; color: #9ab59d; text-decoration: none; font-size: .9rem; border-radius: 4px; }
+  .mobile a::before { content: "$ cd "; color: #2e7d32; }
+  .mobile a:hover { background: #18221a; color: #d6e8d8; }
+  .mobile a:focus-visible { outline: 3px solid #6fbf73; outline-offset: 2px; }
+  .mobile a.active { color: #10160f; background: #6fbf73; }
+  main { padding: 40px clamp(16px, 4vw, 40px) 60px; color: #4c7a5a; max-width: 700px; }
+  main h1 { color: #6fbf73; margin: 0 0 10px; font-size: clamp(1.4rem, 4.4vw, 2rem); }
+  main p { line-height: 1.8; color: #6f8f72; }
+  .credit { padding: 18px clamp(16px, 4vw, 40px); border-top: 1px solid #1a2b1d; color: #4c7a5a; font-size: .76rem; }
+  .credit a { color: #6fbf73; text-decoration: none; }
+  @media (max-width: 480px) { .links, .wrap { display: none; } .burger { display: block; } }
+</style>
+</head>
+<body>
+<div class="stage">
+  <div class="win">
+    <div class="termbar" aria-hidden="true"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="title">tux@dev: ~/site</span></div>
+    <nav class="nav" aria-label="Main / Principal">
+      <span class="brand">cd /home</span>
+      <ul class="links">
+        <li><a href="#" data-testid="link" aria-current="page" class="active">home</a></li>
+        <li><a href="#" data-testid="link">blog</a></li>
+        <li class="wrap">
+          <button type="button" class="dropbtn" data-testid="drop" aria-expanded="false" aria-haspopup="true">docs</button>
+          <div class="menu" data-testid="menu">
+            <a href="#" data-testid="link">man-pages</a>
+            <a href="#" data-testid="link">tutorials</a>
+            <a href="#" data-testid="link">faq</a>
+          </div>
+        </li>
+        <li><a href="#" data-testid="link">about</a></li>
+        <li><a href="#" data-testid="link">contact</a></li>
+      </ul>
+      <button type="button" class="burger" data-testid="burger" aria-expanded="false" aria-controls="nb-tm-04-m">☰</button>
+    </nav>
+    <div class="mobile" id="nb-tm-04-m" data-testid="mobile">
+      <a href="#" data-testid="link" aria-current="page" class="active">home</a>
+      <a href="#" data-testid="link">blog</a>
+      <a href="#" data-testid="link">docs</a>
+      <a href="#" data-testid="link">about</a>
+      <a href="#" data-testid="link">contact</a>
+    </div>
+  </div>
+  <main>
+    <h1>Terminal Menu</h1>
+    <p>$ ./navigate --style=terminal — a navbar as a running shell / una barra de navegación como una shell en ejecución.</p>
+  </main>
+  <footer class="credit">Harley Vásquez · <a href="https://www.linkedin.com/in/harleyvasquez" target="_blank" rel="noreferrer">linkedin.com/in/harleyvasquez</a></footer>
+</div>
+<script>
+  const links = document.querySelectorAll('[data-testid="link"]');
+  const drop = document.querySelector('[data-testid="drop"]');
+  const menu = document.querySelector('[data-testid="menu"]');
+  const burger = document.querySelector('[data-testid="burger"]');
+  const mobile = document.querySelector('[data-testid="mobile"]');
+  links.forEach((l) => l.addEventListener('click', (e) => {
+    e.preventDefault();
+    links.forEach((x) => { x.classList.remove('active'); x.removeAttribute('aria-current'); });
+    l.classList.add('active'); l.setAttribute('aria-current', 'page');
+    mobile.classList.remove('open'); burger.setAttribute('aria-expanded', 'false');
+  }));
+  drop.addEventListener('click', () => {
+    const open = drop.getAttribute('aria-expanded') === 'true';
+    drop.setAttribute('aria-expanded', open ? 'false' : 'true');
+    menu.classList.toggle('open', !open);
+  });
+  burger.addEventListener('click', () => {
+    const open = burger.getAttribute('aria-expanded') === 'true';
+    burger.setAttribute('aria-expanded', open ? 'false' : 'true');
+    mobile.classList.toggle('open', !open);
+  });
+</script>
+</body>
+</html>

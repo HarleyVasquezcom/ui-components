@@ -1,0 +1,112 @@
+<!-- Design 03: Choice Cards / Tarjetas de Elección -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Choice Cards Radio — Design 03</title>
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body {
+    min-height: 100vh;
+    display: grid;
+    place-items: center;
+    font-family: "Segoe UI", system-ui, sans-serif;
+    background: #f7f6f3;
+    overflow-x: hidden;
+  }
+  .stage {
+    width: min(700px, 94vw);
+    padding: clamp(26px, 6vw, 56px);
+    background: #fbfaf7;
+    border-radius: 20px;
+    box-shadow: 0 24px 60px rgba(60,50,30,.12);
+  }
+  h1 { margin: 0; font-size: clamp(1.5rem, 4vw, 2.1rem); color: #2e2a22; font-weight: 700; }
+  .sub { margin: .3rem 0 2rem; color: #a39a86; font-size: .92rem; }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 170px), 1fr));
+    gap: 14px;
+  }
+  .opt {
+    position: relative;
+    display: block;
+    padding: 22px 18px 18px;
+    background: #fff;
+    border: 2px solid #e5e0d2;
+    border-radius: 14px;
+    cursor: pointer;
+    transition: border-color .2s ease, transform .2s ease, box-shadow .2s ease;
+  }
+  .opt:hover { transform: translateY(-3px); border-color: #cfc7b2; }
+  .opt input { position: absolute; opacity: 0; width: 1px; height: 1px; }
+  .opt .ico { font-size: 1.7rem; display: block; margin-bottom: 10px; }
+  .opt .name { display: block; color: #3a352b; font-weight: 700; font-size: 1rem; }
+  .opt .price { display: block; color: #9c937d; font-size: .8rem; margin-top: 3px; }
+  .opt .corner {
+    position: absolute; top: 10px; right: 10px;
+    width: 22px; height: 22px; border-radius: 50%;
+    border: 2px solid #d8d2c2;
+    display: grid; place-items: center;
+    transition: all .2s ease;
+  }
+  .opt .corner::after {
+    content: ""; width: 10px; height: 10px; border-radius: 50%;
+    background: #d97706;
+    transform: scale(0);
+    transition: transform .2s cubic-bezier(.5,1.6,.4,1);
+  }
+  .opt.selected { border-color: #d97706; box-shadow: 0 12px 30px rgba(217,119,6,.16); }
+  .opt.selected .corner { border-color: #d97706; }
+  .opt.selected .corner::after { transform: scale(1); }
+  .opt input:focus-visible ~ .corner { outline: 3px solid #d97706; outline-offset: 3px; }
+  .hint { margin-top: 1.8rem; color: #a39a86; font-size: .82rem; }
+  .sr-only { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+  .credit { margin-top: 2.2rem; padding-top: 1rem; border-top: 1px solid #ece7d9; color: #a39a86; font-size: .8rem; }
+  .credit a { color: #d97706; text-decoration: none; }
+  .credit a:hover { text-decoration: underline; }
+input[type="checkbox"]:focus-visible, input[type="radio"]:focus-visible, [data-testid="toggle"]:focus-visible { outline: 2px solid #2563eb; outline-offset: 2px; } </style>
+</head>
+<body>
+<main class="stage">
+  <h1>Choice Cards</h1>
+  <p class="sub">Compare, then commit — / Compara y decide</p>
+  <fieldset class="grid" data-testid="group" style="border:none;margin:0;padding:0;">
+    <legend class="sr-only">Tier</legend>
+    <label class="opt" data-idx="0">
+      <input type="radio" name="tier" value="basic" checked
+      <span class="corner" aria-hidden="true"></span>
+      <span class="ico" aria-hidden="true">🌱</span>
+      <span class="name">Basic</span>
+      <span class="price">$0 — for hobby projects</span>
+    </label>
+    <label class="opt" data-idx="1">
+      <input type="radio" name="tier" value="growth"
+      <span class="corner" aria-hidden="true"></span>
+      <span class="ico" aria-hidden="true">🚀</span>
+      <span class="name">Growth</span>
+      <span class="price">$19/mo — for teams</span>
+    </label>
+    <label class="opt" data-idx="2">
+      <input type="radio" name="tier" value="scale"
+      <span class="corner" aria-hidden="true"></span>
+      <span class="ico" aria-hidden="true">🏢</span>
+      <span class="name">Scale</span>
+      <span class="price">$49/mo — for companies</span>
+    </label>
+  </fieldset>
+  <p class="hint">Click a card to select it — / Clic en una tarjeta para elegirla</p>
+  <footer class="credit">Harley Vásquez · <a href="https://www.linkedin.com/in/harleyvasquez" target="_blank" rel="noreferrer">linkedin.com/in/harleyvasquez</a></footer>
+</main>
+<script>
+  const group = document.querySelector('[data-testid="group"]');
+  group.addEventListener('change', (e) => {
+    if (e.target.type !== 'radio') return;
+    group.querySelectorAll('.opt').forEach((opt) => opt.classList.remove('selected'));
+    e.target.closest('.opt').classList.add('selected');
+  });
+</script>
+</body>
+</html>

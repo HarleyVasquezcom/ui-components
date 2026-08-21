@@ -1,0 +1,92 @@
+<!-- Design 08: Gradient Spectrum / Espectro Degradado -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Gradient Spectrum — Design 08</title>
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body {
+    min-height: 100vh;
+    display: grid; place-items: center;
+    font-family: "Segoe UI", system-ui, sans-serif;
+    background: linear-gradient(180deg, #1a1033 0%, #0d0821 100%);
+    overflow-x: hidden;
+  }
+  .stage {
+    width: min(580px, 94vw);
+    padding: clamp(28px, 6vw, 46px);
+    background: rgba(20, 12, 44, .75);
+    border: 1px solid rgba(167, 139, 250, .35);
+    border-radius: 24px;
+    backdrop-filter: blur(8px);
+  }
+  h1 { margin: 0; font-size: clamp(1.6rem, 5vw, 2.1rem); color: #ede9fe; font-weight: 800; }
+  h1 span { background: linear-gradient(90deg, #a78bfa, #22d3ee); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .sub { margin: .4rem 0 1.8rem; color: #a78bfa; font-size: .94rem; }
+  .lbl { display: block; margin: 0 0 10px; color: #c4b5fd; font-size: .85rem; font-weight: 700; text-transform: uppercase; letter-spacing: .1em; }
+  .track {
+    height: 22px;
+    border-radius: 999px;
+    background: linear-gradient(to right, #ff0044, #ff8800, #ffee00, #44ff00, #00ffee, #0066ff, #8800ff, #ff00aa);
+    box-shadow: 0 0 26px rgba(139, 92, 246, .4);
+    position: relative;
+  }
+  input[type="range"] { width: 100%; height: 40px; margin: -26px 0 0; -webkit-appearance: none; appearance: none; background: transparent; }
+  input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 30px; height: 30px; border-radius: 50%; background: #fff; border: 3px solid #7c3aed; box-shadow: 0 4px 14px rgba(0, 0, 0, .5); }
+  input[type="range"]::-moz-range-thumb { width: 26px; height: 26px; border-radius: 50%; background: #fff; border: 3px solid #7c3aed; box-shadow: 0 4px 14px rgba(0, 0, 0, .5); }
+  input[type="range"]:focus-visible { outline: 3px solid #22d3ee; outline-offset: 4px; border-radius: 999px; }
+  .row { display: flex; align-items: center; gap: 18px; margin-top: 18px; }
+  .chip { width: 58px; height: 58px; border-radius: 16px; border: 2px solid #a78bfa; box-shadow: 0 8px 20px rgba(0, 0, 0, .45); transition: background .12s linear; }
+  .read { flex: 1; text-align: right; }
+  .read p { margin: 0; }
+  .hx { font-family: "Cascadia Mono", Consolas, monospace; font-size: 1.15rem; font-weight: 700; color: #e9d5ff; }
+  .nm { color: #a78bfa; font-size: .84rem; }
+  .credit { margin-top: 2rem; padding-top: 1rem; border-top: 1px solid rgba(167, 139, 250, .3); color: #7c6fa8; font-size: .78rem; }
+  .credit a { color: #a78bfa; text-decoration: none; }
+</style>
+</head>
+<body>
+<main class="stage">
+  <h1>Gradient <span>Spectrum</span></h1>
+  <p class="sub">Slide across the spectrum / Desliza por el espectro</p>
+  <label class="lbl" data-testid="label" for="cp-gs-08-hue">Spectrum position — posición del espectro</label>
+  <div class="track" aria-hidden="true"></div>
+  <input type="range" data-testid="hue" id="cp-gs-08-hue" min="0" max="359" value="150" step="1">
+  <div class="row">
+    <div class="chip" data-testid="preview" style="background:hsl(150,85%,55%)" aria-hidden="true"></div>
+    <div class="read">
+      <p class="hx" data-testid="hex">#1FD64B</p>
+      <p class="nm" data-testid="name">Spring green</p>
+    </div>
+  </div>
+  <footer class="credit">Harley Vásquez · <a href="https://www.linkedin.com/in/harleyvasquez" target="_blank" rel="noreferrer">linkedin.com/in/harleyvasquez</a></footer>
+</main>
+<script>
+  const hue = document.querySelector('[data-testid="hue"]');
+  const preview = document.querySelector('[data-testid="preview"]');
+  const hexOut = document.querySelector('[data-testid="hex"]');
+  const name = document.querySelector('[data-testid="name"]');
+  const NAMES = ['Red', 'Orange', 'Yellow', 'Chartreuse', 'Green', 'Spring green', 'Cyan', 'Azure', 'Blue', 'Violet', 'Magenta', 'Rose'];
+  function hslToHex(h, s, l) {
+    s /= 100; l /= 100;
+    const k = (n) => (n + h / 30) % 12;
+    const a = s * Math.min(l, 1 - l);
+    const f = (n) => l - a * Math.max(-1, Math.min(k(n) - 3, Math.min(9 - k(n), 1)));
+    const to = (x) => Math.round(x * 255).toString(16).padStart(2, '0');
+    return '#' + to(f(0)) + to(f(8)) + to(f(4)).toUpperCase();
+  }
+  function update() {
+    const h = Number(hue.value);
+    const hex = hslToHex(h, 85, 55);
+    preview.style.background = 'hsl(' + h + ', 85%, 55%)';
+    hexOut.textContent = hex;
+    name.textContent = NAMES[Math.floor(h / 30) % 12];
+  }
+  hue.addEventListener('input', update);
+  update();
+</script>
+</body>
+</html>

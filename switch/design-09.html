@@ -1,0 +1,101 @@
+<!-- Design 09: Brutal Big / Grande Brutalista -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Brutal Big Switch — Design 09</title>
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body {
+    min-height: 100vh;
+    display: grid;
+    place-items: center;
+    font-family: "Arial Black", "Segoe UI", sans-serif;
+    background: repeating-linear-gradient(45deg, #f2efe6 0 26px, #e9e5d8 26px 52px);
+    overflow-x: hidden;
+  }
+  .stage {
+    width: min(600px, 94vw);
+    padding: clamp(26px, 6vw, 58px);
+    background: #fff;
+    border: 4px solid #111;
+    box-shadow: 8px 8px 0 #111;
+    text-align: center;
+  }
+  h1 { margin: 0; font-size: clamp(1.6rem, 5vw, 2.5rem); text-transform: uppercase; color: #111; letter-spacing: -.01em; }
+  .sub { margin: .4rem 0 2.6rem; font-family: "Segoe UI", sans-serif; font-size: .86rem; font-weight: 600; color: #555; }
+  .sw {
+    position: relative;
+    width: min(240px, 80vw);
+    height: 84px;
+    background: #111;
+    border: 4px solid #111;
+    cursor: pointer;
+    padding: 0;
+    box-shadow: 6px 6px 0 #555;
+    transition: box-shadow .1s ease, transform .1s ease;
+  }
+  .sw:active { transform: translate(3px, 3px); box-shadow: 2px 2px 0 #555; }
+  .sw .cover {
+    position: absolute; top: 6px; bottom: 6px; left: 6px;
+    width: calc(50% - 12px);
+    background: #ffd23f;
+    border: 3px solid #111;
+    display: grid; place-items: center;
+    font-size: 1.1rem; font-weight: 900; letter-spacing: .06em;
+    color: #111;
+    transition: transform .22s cubic-bezier(.6,0,.3,1), background .22s ease, color .22s ease;
+  }
+  .sw:not(.on) { background: #fff; }
+  .sw:not(.on) .cover { background: #e63946; color: #fff; }
+  .sw.on .cover { transform: translateX(100%); background: #2fbf71; color: #fff; }
+  .sw .side {
+    position: absolute; top: 0; bottom: 0; width: 50%;
+    display: grid; place-items: center;
+    font-family: "Arial Black", "Segoe UI", sans-serif;
+    font-size: 1.3rem; letter-spacing: .1em;
+    pointer-events: none;
+  }
+  .sw .no { left: 0; color: #fff; }
+  .sw .yes { right: 0; color: #fff; }
+  .sw:not(.on) .no { color: #111; }
+  .sw:focus-visible { outline: 4px dashed #111; outline-offset: 6px; }
+  .caption { margin-top: 24px; font-size: .78rem; letter-spacing: .24em; color: #555; text-transform: uppercase; font-family: "Segoe UI", sans-serif; font-weight: 700; }
+  .hint { margin-top: 1.4rem; font-family: "Segoe UI", sans-serif; font-size: .82rem; font-weight: 600; color: #777; }
+  .credit { margin-top: 2.2rem; padding-top: 1rem; border-top: 3px solid #111; font-family: "Courier New", monospace; font-size: .78rem; font-weight: 700; color: #333; }
+  .credit a { color: #111; }
+input[type="checkbox"]:focus-visible, input[type="radio"]:focus-visible, [data-testid="toggle"]:focus-visible { outline: 2px solid #2563eb; outline-offset: 2px; } </style>
+</head>
+<body>
+<main class="stage">
+  <h1>Brutal Big</h1>
+  <p class="sub">No subtlety. Only yes or no / Sin sutilezas. Solo sí o no</p>
+  <button type="button" class="sw" data-testid="switch" role="switch" aria-checked="false" aria-label="Toggle destructive mode">
+    <span class="cover" aria-hidden="true">NO</span>
+    <span class="side no" aria-hidden="true">NO</span>
+    <span class="side yes" aria-hidden="true">YES</span>
+  </button>
+  <p class="caption" id="caption">DESTRUCTIVE MODE: OFF</p>
+  <p class="hint">Click it. Be sure. / Haz clic. Está seguro.</p>
+  <footer class="credit">Harley Vásquez · <a href="https://www.linkedin.com/in/harleyvasquez" target="_blank" rel="noreferrer">linkedin.com/in/harleyvasquez</a></footer>
+</main>
+<script>
+  const sw = document.querySelector('[data-testid="switch"]');
+  const caption = document.getElementById('caption');
+  function render() {
+    const on = sw.getAttribute('aria-checked') === 'true';
+    sw.classList.toggle('on', on);
+    caption.textContent = 'DESTRUCTIVE MODE: ' + (on ? 'ON' : 'OFF');
+    sw.querySelector('.cover').textContent = on ? 'YES' : 'NO';
+  }
+  sw.addEventListener('click', () => {
+    const on = sw.getAttribute('aria-checked') === 'true';
+    sw.setAttribute('aria-checked', String(!on));
+    render();
+  });
+  render();
+</script>
+</body>
+</html>

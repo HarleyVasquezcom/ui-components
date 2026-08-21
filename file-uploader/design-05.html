@@ -1,0 +1,107 @@
+<!-- Design 05: Minimal Button / Botón Mínimo -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Minimal Button — Design 05</title>
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body {
+    min-height: 100vh;
+    display: grid;
+    place-items: center;
+    font-family: "Segoe UI", system-ui, sans-serif;
+    background: #f8fafc;
+    overflow-x: hidden;
+  }
+  .stage { width: min(500px, 94vw); padding: clamp(36px, 7vw, 56px); background: #ffffff; border-radius: 4px; box-shadow: 0 1px 0 rgba(15, 23, 42, .07); }
+  h1 { margin: 0; font-size: clamp(1.5rem, 5vw, 1.9rem); color: #0f172a; font-weight: 400; }
+  .sub { margin: .4rem 0 2.4rem; color: #94a3b8; font-size: .9rem; }
+  .lbl { display: block; margin: 0 0 18px; color: #334155; font-size: .78rem; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; }
+  .dz { cursor: pointer; display: inline-block; }
+  .dz:focus-within { outline: 2px solid #0f172a; outline-offset: 3px; }
+  .btn {
+    display: flex; align-items: center; gap: 8px;
+    padding: 10px 18px;
+    border: 1px solid #cbd5e1; border-radius: 6px;
+    background: #ffffff; color: #0f172a;
+    font-family: inherit; font-size: .9rem; font-weight: 600;
+    cursor: pointer;
+  }
+  .btn:hover { border-color: #0f172a; }
+  .btn:focus-visible { outline: 2px solid #0f172a; outline-offset: 2px; }
+  .list { margin-top: 16px; display: grid; gap: 8px; list-style: none; padding: 0; }
+  .li { display: flex; align-items: center; gap: 10px; padding: 8px 4px; border-bottom: 1px solid #f1f5f9; }
+  .li .nm { flex: 1; color: #0f172a; font-weight: 500; font-size: .92rem; }
+  .li .sz { color: #94a3b8; font-size: .8rem; }
+  .rm {
+    border: none; background: none; color: #64748b;
+    padding: 4px 8px; border-radius: 4px; font-size: .8rem; cursor: pointer; text-decoration: underline;
+  }
+  .rm:hover { color: #0f172a; }
+  .rm:focus-visible { outline: 2px solid #0f172a; outline-offset: 2px; }
+  .empty { margin-top: 16px; color: #cbd5e1; font-size: .85rem; }
+  .hint { margin-top: 2rem; color: #cbd5e1; font-size: .8rem; }
+  .credit { margin-top: 1.4rem; padding-top: 1rem; border-top: 1px solid #f1f5f9; color: #cbd5e1; font-size: .76rem; }
+  .credit a { color: #64748b; text-decoration: none; }
+</style>
+</head>
+<body>
+<main class="stage">
+  <h1>Minimal Button</h1>
+  <p class="sub">A whisper of an uploader / Un susurro de subidor</p>
+  <label class="lbl" data-testid="label" id="lbl-fu05">File</label>
+  <div class="dz" data-testid="dropzone" aria-label="File uploader">
+    <button type="button" class="btn" data-testid="file-input-wrap">⬆ Upload</button>
+    <input data-testid="file-input" type="file" aria-label="Upload file" aria-describedby="lbl-fu05" hidden>
+  </div>
+  <p class="empty" data-testid="empty">
+<div data-testid="file-name" style="display:none"></div>No file selected / Sin archivo seleccionado</p>
+  <ul class="list" data-testid="list" hidden></ul>
+  <p class="hint">Small footprint, quiet presence / Huella pequeña, presencia silenciosa</p>
+  <footer class="credit">Harley Vásquez · <a href="https://www.linkedin.com/in/harleyvasquez" target="_blank" rel="noreferrer">linkedin.com/in/harleyvasquez</a></footer>
+</main>
+<script>
+  const input = document.querySelector('[data-testid="file-input"]');
+  const list = document.querySelector('[data-testid="list"]');
+  const empty = document.querySelector('[data-testid="empty"]');
+  const dz = document.querySelector('[data-testid="dropzone"]');
+  dz.addEventListener('click', () => input.click());
+  function fmt(n) {
+    if (n >= 1024 * 1024) return (n / (1024 * 1024)).toFixed(1) + ' MB';
+    if (n >= 1024) return (n / 1024).toFixed(1) + ' KB';
+    return n + ' B';
+  }
+  input.addEventListener('change', () => {
+    list.textContent = '';
+    for (const f of input.files) {
+      const li = document.createElement('li');
+      li.className = 'li';
+      const nm = document.createElement('span');
+      nm.className = 'nm';
+      nm.textContent = f.name;
+      const sz = document.createElement('span');
+      sz.className = 'sz';
+      sz.textContent = fmt(f.size);
+      const rm = document.createElement('button');
+      rm.type = 'button';
+      rm.className = 'rm';
+      rm.dataset.testid = 'remove';
+      rm.textContent = 'remove';
+      rm.addEventListener('click', () => {
+        li.remove();
+        input.value = '';
+        list.hidden = list.children.length === 0;
+        empty.hidden = list.children.length > 0;
+      });
+      li.append(nm, sz, rm);
+      list.appendChild(li);
+    }
+    list.hidden = list.children.length === 0;
+    empty.hidden = list.children.length > 0;
+  });
+</script>
+</body>
+</html>

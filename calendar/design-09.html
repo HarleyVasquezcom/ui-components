@@ -1,0 +1,51 @@
+<!-- Design 09: Calendar Badge / Badge Calendar -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Calendar — Design 09</title>
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body {
+    min-height: 100vh;
+    font-family: "Segoe UI", system-ui, sans-serif;
+    background: #1e293b;
+    color: #f1f5f9;
+    overflow-x: hidden;
+  }
+  .calendar { width: min(90vw, 400px); margin: 20px auto; padding: 16px; background: #3b82f6; color: #fff; border-radius: 8px; box-shadow: 0 2px 8px rgba(59,130,246,0.3); }
+  .calendar-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; padding-bottom: 12px; border-bottom: 1px solid #2563eb; }
+  .calendar-title { font-size: .875rem; font-weight: 600; color: #fff; }
+  .calendar-nav button { width: 28px; height: 28px; background: #2563eb; border: none; border-radius: 50; color: #fff; font-size: .875rem; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+  .calendar-nav button:hover { background: #1d4ed8; }
+  .calendar-nav button:focus-visible { outline: 2px solid #64748b; outline-offset: 2px; }
+  .calendar-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 2px; margin: 4px 0; }
+  .calendar-grid .day { padding: 4px 2px; border-radius: 4px; text-align: center; font-size: .65rem; cursor: pointer; transition: background .2s; }
+  .calendar-grid .day:hover:not(.disabled):not(.current) { background: #2563eb; }
+  .calendar-grid .day.current { background: #fff; color: #3b82f6; }
+  .calendar-grid .day.weekend { color: #f87171; }
+  .calendar-grid .day.other-month { color: #60a5fa; background: transparent; }
+  .credit { margin-top: 24px; padding: 12px 0; border-top: 1px solid #64748b; color: #64748b; font-size: .75rem; text-align: center; }
+  .credit a { color: #64748b; text-decoration: none; }
+  @media (max-width: 480px) { .calendar { margin: 8px; padding: 10px; } }
+</style>
+</head>
+<body>
+<div class="calendar" data-testid="calendar" aria-label="Calendar design" data-calendar>
+  <div class="calendar-header">
+    <span class="calendar-title">September 2024</span>
+    <div class="calendar-nav"><button data-nav-prev>&lsaquo;</button><button data-nav-next data-next> data-testid="next" data-next&rsaquo;</button></div>
+  </div>
+  <div class="calendar-grid">
+    <div class="day weekend other-month" data-testid="month">Sun</div><div class="day other-month" data-testid="month">Mon</div><div class="day other-month" data-testid="month">Tue</div><div class="day other-month" data-testid="month">Wed</div><div class="day other-month" data-testid="month">Thu</div><div class="day other-month" data-testid="month">Fri</div><div class="day current">Sat</div>
+    <div class="day current">1</div><div class="day current">2</div><div class="day current">3</div><div class="day current">4</div><div class="day current">5</div><div class="day current">6</div><div class="day current">7</div>
+    <div class="day current">8</div><div class="day current">9</div><div class="day current">10</div><div class="day current">11</div><div class="day current">12</div><div class="day current">13</div><div class="day current">14</div>
+    <div class="day current">15</div><div class="day current">16</div><div class="day current">17</div><div class="day current">18</div><div class="day current">19</div><div class="day current">20</div><div class="day current">21</div>
+    <div class="day current">22</div><div class="day current">23</div><div class="day current">24</div><div class="day current">25</div><div class="day current">26</div><div class="day current">27</div><div class="day current">28</div><div class="day current">29</div><div class="day current">30</div>
+  </div>
+</div>
+<footer class="credit">Harley Vásquez · <a href="https://www.linkedin.com/in/harleyvasquez" target="_blank" rel="noreferrer">linkedin.com/in/harleyvasquez</a></footer>
+</body>
+</html>

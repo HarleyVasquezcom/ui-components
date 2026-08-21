@@ -1,0 +1,123 @@
+<!-- Design 04: LED Terminal / Terminal con LED -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>LED Terminal Switch — Design 04</title>
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body {
+    min-height: 100vh;
+    display: grid;
+    place-items: center;
+    font-family: "Cascadia Mono", "Consolas", "Courier New", monospace;
+    background: #0a0d0b;
+    color: #86efac;
+    overflow-x: hidden;
+  }
+  .stage {
+    width: min(620px, 94vw);
+    padding: clamp(24px, 6vw, 56px);
+    background: #101611;
+    border: 1px solid #24402c;
+    box-shadow: 0 0 60px rgba(40,255,110,.05);
+    overflow: hidden;
+  }
+  .termbar {
+    display: flex; justify-content: space-between;
+    padding: 8px 12px; margin: -24px -56px 0 0;
+    background: #0a0d0a; border-bottom: 1px solid #24402c;
+    font-size: .75rem; color: #5f9c73;
+  }
+  .termbar b { color: #86efac; }
+  h1 { margin: 1.4rem 0 .2rem; font-size: clamp(1.2rem, 3.5vw, 1.7rem); color: #86efac; letter-spacing: .1em; text-transform: uppercase; }
+  .sub { margin: 0 0 1.8rem; font-size: .8rem; color: #679b78; }
+  .row { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 12px 0; border-bottom: 1px dashed #1c2e22; }
+  .txt { font-size: .9rem; color: #bfd6c6; }
+  .sw {
+    position: relative;
+    width: 90px; height: 36px;
+    background: #0a0d0a;
+    border: 1px solid #2c4a38;
+    border-radius: 3px;
+    cursor: pointer;
+    padding: 0;
+  }
+  .sw::after {
+    content: "PWR";
+    position: absolute; left: 0; right: 0; top: 50%;
+    transform: translateY(-50%);
+    text-align: center;
+    font-size: .58rem; letter-spacing: .3em;
+    color: #5f9c73;
+    pointer-events: none;
+  }
+  .led-row { position: absolute; top: 6px; bottom: 6px; left: 8px; display: flex; gap: 4px; }
+  .led {
+    width: 6px; border-radius: 2px;
+    background: #1c2e22;
+    transition: background .25s ease, box-shadow .25s ease;
+  }
+  .sw.on { border-color: #3a8a58; }
+  .sw.on .led { background: #86efac; box-shadow: 0 0 8px rgba(134,239,172,.9); }
+  .sw.on .led:nth-child(2) { animation: chase .5s linear infinite; }
+  .sw.off .led:nth-child(2) { animation: none; }
+  @keyframes chase { 50% { background: #2c4a38; box-shadow: none; } }
+  .sw:focus-visible { outline: 2px solid #86efac; outline-offset: 3px; }
+  .led-row.off-anim .led:nth-child(1) { animation: out 0s linear; }
+  .readout { margin-top: 18px; padding: 10px 14px; background: #0a0d0a; border: 1px solid #1c2e22; font-size: .78rem; }
+  .readout b { color: #86efac; }
+  .readout .dim { color: #4c7a5d; }
+  .hint { margin-top: 1.3rem; font-size: .75rem; color: #4c7a5d; }
+  .credit { margin-top: 2rem; padding-top: .9rem; border-top: 1px dashed #1c2e22; font-size: .74rem; color: #4c7a5d; }
+  .credit a { color: #86efac; text-decoration: none; }
+  .blink { animation: blink 1.1s step-end infinite; }
+  @keyframes blink { 50% { opacity: 0; } }
+input[type="checkbox"]:focus-visible, input[type="radio"]:focus-visible, [data-testid="toggle"]:focus-visible { outline: 2px solid #2563eb; outline-offset: 2px; } </style>
+</head>
+<body>
+<main class="stage">
+  <div class="termbar"><span><b>▲</b> power.sys</span><span>kernel-6.1</span></div>
+  <h1>LED Terminal</h1>
+  <p class="sub">power status — / estado de energía</p>
+  <div class="row">
+    <span class="txt">main power</span>
+    <button type="button" class="sw" data-testid="switch" role="switch" aria-checked="false" aria-label="Toggle main power">
+      <span class="led-row" aria-hidden="true"><span class="led"></span><span class="led"></span><span class="led"></span></span>
+    </button>
+  </div>
+  <div class="row">
+    <span class="txt">backup battery</span>
+    <button type="button" class="sw" role="switch" aria-checked="true" aria-label="Toggle backup battery">
+      <span class="led-row" aria-hidden="true"><span class="led"></span><span class="led"></span><span class="led"></span></span>
+    </button>
+  </div>
+  <p class="readout" aria-live="polite" id="readout"><b>&gt;</b> main power: <b>off</b> <span class="blink">_</span></p>
+  <p class="hint">click a switch to flip the leds — / clic en un switch para cambiar los leds</p>
+  <footer class="credit">Harley Vásquez · <a href="https://www.linkedin.com/in/harleyvasquez" target="_blank" rel="noreferrer">linkedin.com/in/harleyvasquez</a></footer>
+</main>
+<script>
+  const readout = document.getElementById('readout');
+  const main = document.querySelector('[data-testid="switch"]');
+  function render(sw) {
+    const on = sw.getAttribute('aria-checked') === 'true';
+    sw.classList.toggle('on', on);
+    sw.classList.toggle('off', !on);
+    if (sw === main) {
+      readout.innerHTML = '<b>&gt;</b> main power: <b>' + (on ? 'on' : 'off') + '</b> <span class="blink">_</span>';
+    }
+  }
+  document.querySelectorAll('.sw').forEach((sw) => {
+    if (sw.getAttribute('aria-checked') === 'true') sw.classList.add('on');
+    sw.addEventListener('click', () => {
+      const on = sw.getAttribute('aria-checked') === 'true';
+      sw.setAttribute('aria-checked', String(!on));
+      render(sw);
+    });
+  });
+  render(main);
+</script>
+</body>
+</html>

@@ -1,0 +1,122 @@
+<!-- Design 05: Palette Cards / Tarjetas de Paleta -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Palette Cards — Design 05</title>
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body {
+    min-height: 100vh;
+    display: grid; place-items: center;
+    font-family: "Segoe UI", system-ui, sans-serif;
+    background: #fdfdfb;
+    overflow-x: hidden;
+  }
+  .stage {
+    width: min(600px, 94vw);
+    padding: clamp(28px, 6vw, 46px);
+    background: #fff;
+    border: 1px solid #ecece4;
+    border-radius: 18px;
+    box-shadow: 0 20px 50px rgba(41, 37, 36, .06);
+  }
+  h1 { margin: 0; font-size: clamp(1.6rem, 5vw, 2rem); color: #292524; font-weight: 800; }
+  .sub { margin: .4rem 0 1.8rem; color: #a8a29e; font-size: .94rem; }
+  .cards { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
+  .cd {
+    display: flex; align-items: center; gap: 12px;
+    padding: 10px;
+    background: #fafaf7;
+    border: 2px solid #ecece4;
+    border-radius: 14px;
+    cursor: pointer;
+    text-align: left;
+    font-family: inherit;
+    transition: border-color .15s ease, transform .15s ease;
+  }
+  .cd:hover { transform: translateY(-2px); }
+  .cd:focus-visible { outline: 3px solid #57534e; outline-offset: 2px; }
+  .cd.on { border-color: #292524; background: #f5f5f0; }
+  .ch { width: 44px; height: 44px; border-radius: 10px; flex: 0 0 auto; }
+  .nm { color: #44403c; font-size: .95rem; font-weight: 700; }
+  .hx { color: #a8a29e; font-family: "Cascadia Mono", Consolas, monospace; font-size: .82rem; }
+  .editbox { display: flex; align-items: center; gap: 10px; margin-top: 24px; padding: 14px 16px; background: #fafaf7; border: 2px solid #e7e5e4; border-radius: 14px; }
+  .editbox label { color: #57534e; font-size: .9rem; font-weight: 700; }
+  .hexin {
+    flex: 1; min-width: 0;
+    padding: 10px 12px;
+    font-family: "Cascadia Mono", Consolas, monospace; font-size: 1rem;
+    color: #292524; background: #fff;
+    border: 2px solid #d6d3d1; border-radius: 10px;
+    outline: none;
+  }
+  .hexin:focus { border-color: #57534e; }
+  .hexin:focus-visible { outline: 3px solid #d6d3d1; outline-offset: 2px; }
+  .pvl {
+    width: 46px; height: 46px; border-radius: 10px; flex: 0 0 auto;
+    border: 2px solid #e7e5e4;
+  }
+  .note { margin-top: 10px; color: #a8a29e; font-size: .82rem; }
+  .credit { margin-top: 2rem; padding-top: 1rem; border-top: 1px solid #ecece4; color: #a8a29e; font-size: .78rem; }
+  .credit a { color: #57534e; text-decoration: none; }
+</style>
+</head>
+<body>
+<main class="stage">
+  <h1>Palette Cards</h1>
+  <p class="sub">A deck of colors / Una baraja de colores</p>
+  <div class="cards" role="group" aria-label="Palette cards selection">
+    <button type="button" class="cd" data-testid="swatch" data-color="#B91C1C" aria-pressed="false"><span class="ch" style="background:#B91C1C"></span><span><span class="nm">Scarlet</span><br><span class="hx">#B91C1C</span></span></button>
+    <button type="button" class="cd" data-testid="swatch" data-color="#C2410C" aria-pressed="false"><span class="ch" style="background:#C2410C"></span><span><span class="nm">Ember</span><br><span class="hx">#C2410C</span></span></button>
+    <button type="button" class="cd" data-testid="swatch" data-color="#A16207" aria-pressed="false"><span class="ch" style="background:#A16207"></span><span><span class="nm">Ochre</span><br><span class="hx">#A16207</span></span></button>
+    <button type="button" class="cd" data-testid="swatch" data-color="#15803D" aria-pressed="false"><span class="ch" style="background:#15803D"></span><span><span class="nm">Moss</span><br><span class="hx">#15803D</span></span></button>
+    <button type="button" class="cd" data-testid="swatch" data-color="#0F766E" aria-pressed="false"><span class="ch" style="background:#0F766E"></span><span><span class="nm">Lagoon</span><br><span class="hx">#0F766E</span></span></button>
+    <button type="button" class="cd" data-testid="swatch" data-color="#1D4ED8" aria-pressed="false"><span class="ch" style="background:#1D4ED8"></span><span><span class="nm">Cobalt</span><br><span class="hx">#1D4ED8</span></span></button>
+    <button type="button" class="cd" data-testid="swatch" data-color="#6D28D9" aria-pressed="false"><span class="ch" style="background:#6D28D9"></span><span><span class="nm">Amethyst</span><br><span class="hx">#6D28D9</span></span></button>
+    <button type="button" class="cd" data-testid="swatch" data-color="#9F1239" aria-pressed="false"><span class="ch" style="background:#9F1239"></span><span><span class="nm">Plum</span><br><span class="hx">#9F1239</span></span></button>
+  </div>
+  <div class="editbox">
+    <label class="lbl" data-testid="label" for="cp-pc-05-hex">Edit hex / Editar hex</label>
+    <input class="hexin" data-testid="hex-in" id="cp-pc-05-hex" type="text" value="#B91C1C" spellcheck="false" maxlength="7" aria-describedby="cp-pc-05-note">
+    <span class="pvl" data-testid="preview" style="background:#B91C1C" aria-hidden="true"></span>
+  </div>
+  <p class="note" id="cp-pc-05-note">Type any valid #RRGGBB to preview it live. / Escribe un #RRGGBB válido para previsualizarlo en vivo.</p>
+  <footer class="credit">Harley Vásquez · <a href="https://www.linkedin.com/in/harleyvasquez" target="_blank" rel="noreferrer">linkedin.com/in/harleyvasquez</a></footer>
+</main>
+<script>
+  const cards = document.querySelectorAll('[data-testid="swatch"]');
+  const preview = document.querySelector('[data-testid="preview"]');
+  const hexIn = document.querySelector('[data-testid="hex-in"]');
+  let lastValid = '#B91C1C';
+  const sel = document.createElement('p');
+  sel.className = 'note';
+  sel.setAttribute('data-testid', 'hex');
+  sel.style.marginTop = '0.5rem';
+  sel.style.color = '#57534e';
+  sel.style.fontWeight = '700';
+  sel.style.fontFamily = '"Cascadia Mono", Consolas, monospace';
+  sel.textContent = 'Current / Actual: #B91C1C';
+  document.querySelector('.editbox').after(sel);
+  function applyHex(hex) {
+    hex = String(hex).trim().toUpperCase();
+    if (!/^#[0-9A-F]{6}$/.test(hex)) return false;
+    sel.textContent = 'Current / Actual: ' + hex;
+    preview.style.background = hex;
+    lastValid = hex;
+    cards.forEach((c) => { const on = c.dataset.color.toUpperCase() === hex; c.classList.toggle('on', on); c.setAttribute('aria-pressed', on ? 'true' : 'false'); });
+    return true;
+  }
+  function selectCard(c) {
+    applyHex(c.dataset.color);
+    hexIn.value = c.dataset.color;
+  }
+  cards.forEach((c) => c.addEventListener('click', () => selectCard(c)));
+  hexIn.addEventListener('input', () => { if (!applyHex(hexIn.value)) preview.style.background = lastValid; });
+  hexIn.addEventListener('change', () => { hexIn.value = applyHex(hexIn.value) ? hexIn.value : lastValid; });
+  applyHex('#B91C1C');
+</script>
+</body>
+</html>

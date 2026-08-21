@@ -1,0 +1,116 @@
+<!-- Design 02: Cosmic Orbit / Órbita Cósmica -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cosmic Orbit Switch — Design 02</title>
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body {
+    min-height: 100vh;
+    display: grid;
+    place-items: center;
+    font-family: "Segoe UI", system-ui, sans-serif;
+    background: radial-gradient(60% 50% at 50% 20%, #141b3d, #05060f 75%);
+    overflow-x: hidden;
+  }
+  .stars { position: fixed; inset: 0; pointer-events: none;
+    background-image:
+      radial-gradient(1px 1px at 15% 25%, #fff, transparent),
+      radial-gradient(1px 1px at 75% 30%, #fff, transparent),
+      radial-gradient(1.5px 1.5px at 50% 70%, #fff, transparent),
+      radial-gradient(1px 1px at 30% 80%, #fff, transparent),
+      radial-gradient(1px 1px at 85% 65%, #fff, transparent);
+  }
+  .stage {
+    position: relative;
+    width: min(580px, 94vw);
+    padding: clamp(28px, 6vw, 60px);
+    background: rgba(13,17,38,.85);
+    border: 1px solid #232c55;
+    border-radius: 30px;
+    box-shadow: 0 40px 90px rgba(0,0,0,.7);
+    text-align: center;
+  }
+  h1 { margin: 0; font-size: clamp(1.5rem, 4vw, 2.1rem); color: #dfe6ff; font-weight: 600; letter-spacing: .05em; }
+  .sub { margin: .4rem 0 2.4rem; color: #6f7bab; font-size: .9rem; }
+  .row { display: flex; align-items: center; justify-content: center; gap: 22px; margin-bottom: 26px; }
+  .txt { color: #c3cbf0; font-weight: 500; font-size: .98rem; min-width: 130px; text-align: left; }
+  .txt small { display: block; color: #6f7bab; font-weight: 400; font-size: .75rem; }
+  .sw {
+    position: relative;
+    width: 84px; height: 46px;
+    background: radial-gradient(circle at 35% 30%, #232c55, #141a3a 70%);
+    border: 1px solid #2f3a6b;
+    border-radius: 999px;
+    cursor: pointer;
+    padding: 0;
+    transition: border-color .3s ease, box-shadow .3s ease;
+  }
+  .sw .orbit-ring {
+    position: absolute; inset: 5px;
+    border: 1px dashed #3a4784;
+    border-radius: 999px;
+  }
+  .sw .moon {
+    position: absolute; top: 5px; left: 5px;
+    width: 34px; height: 34px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 30%, #8f9bd6, #3a4784 70%);
+    display: grid; place-items: center;
+    font-size: .8rem;
+    transition: transform .35s cubic-bezier(.6,0,.3,1), background .3s ease, box-shadow .3s ease;
+  }
+  .sw .moon::after {
+    content: ""; position: absolute; inset: 0; border-radius: 50%;
+    background: radial-gradient(circle at 35% 30%, #fff9d6, #ffd86b 60%, #e08a1e);
+    opacity: 0;
+    transition: opacity .3s ease;
+  }
+  .sw.on { border-color: #ffd86b; box-shadow: 0 0 26px rgba(255,216,107,.25), inset 0 0 14px rgba(255,216,107,.12); }
+  .sw.on .moon { transform: translateX(38px); }
+  .sw.on .moon::after { opacity: 1; }
+  .sw.on .orbit-ring { border-color: #7a6a35; }
+  .sw:focus-visible { outline: 3px solid #ffd86b; outline-offset: 4px; }
+  .hint { margin-top: 1.6rem; color: #4d587f; font-size: .8rem; }
+  .credit { margin-top: 2.2rem; padding-top: 1rem; border-top: 1px solid #1c2450; color: #4d587f; font-size: .78rem; }
+  .credit a { color: #9db4ff; text-decoration: none; }
+  .credit a:hover { text-decoration: underline; }
+input[type="checkbox"]:focus-visible, input[type="radio"]:focus-visible, [data-testid="toggle"]:focus-visible { outline: 2px solid #2563eb; outline-offset: 2px; } </style>
+</head>
+<body>
+<div class="stars" aria-hidden="true"></div>
+<main class="stage">
+  <h1>Cosmic Orbit</h1>
+  <p class="sub">Flip a switch, move a moon / Cambia un switch, mueve una luna</p>
+  <div class="row">
+    <span class="txt">Rocket<small>launch sequence — / secuencia de lanzamiento</small></span>
+    <button type="button" class="sw" data-testid="switch" role="switch" aria-checked="false" aria-label="Toggle rocket engine">
+      <span class="orbit-ring" aria-hidden="true"></span>
+      <span class="moon" aria-hidden="true"></span>
+    </button>
+  </div>
+  <div class="row">
+    <span class="txt">Solar<small>collector panels — / paneles solares</small></span>
+    <button type="button" class="sw" role="switch" aria-checked="true" aria-label="Toggle solar panels">
+      <span class="orbit-ring" aria-hidden="true"></span>
+      <span class="moon" aria-hidden="true"></span>
+    </button>
+  </div>
+  <p class="hint">Click to fire the engine — / Clic para encender el motor</p>
+  <footer class="credit">Harley Vásquez · <a href="https://www.linkedin.com/in/harleyvasquez" target="_blank" rel="noreferrer">linkedin.com/in/harleyvasquez</a></footer>
+</main>
+<script>
+  document.querySelectorAll('.sw').forEach((sw) => {
+    if (sw.getAttribute('aria-checked') === 'true') sw.classList.add('on');
+    sw.addEventListener('click', () => {
+      const on = sw.getAttribute('aria-checked') === 'true';
+      sw.setAttribute('aria-checked', String(!on));
+      sw.classList.toggle('on', !on);
+    });
+  });
+</script>
+</body>
+</html>

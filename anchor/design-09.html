@@ -1,0 +1,63 @@
+<!-- Design 09: quiz-anchor / ancla-quiz -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Quiz Anchor — Design 09</title>
+  <style>
+    * { box-sizing: border-box; }
+    html, body { margin: 0; }
+    body {
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      font-family: "Segoe UI", system-ui, sans-serif;
+      background: #fafff3;
+      color: #2d5a27;
+      overflow-x: hidden;
+    }
+    .stage {
+      width: min(620px, 94vw);
+      padding: clamp(28px, 6vw, 64px);
+      border-radius: 16px;
+      background: #fff;
+      border: 1px solid #e2f0d9;
+      box-shadow: 0 4px 20px rgba(45,90,40,.1);
+      text-align: center;
+    }
+    h1 { margin: 0; font-size: clamp(1.75rem, 4vw, 2.25rem); color: #1a202c; letter-spacing: .04em; }
+    .sub { margin: .8rem 0 2rem; color: #4a5568; font-size: .95rem; }
+    .anchor {
+      position: relative;
+      display: inline-block;
+      padding: 14px 28px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: #fff;
+      background: linear-gradient(135deg, #38a169 0%, #2f855a 51%, #38a169 100%);
+      border: none;
+      border-radius: 8px;
+      text-decoration: none;
+      box-shadow: 0 4px 14px rgba(56,161,105,.35);
+      transition: transform .18s ease, box-shadow .18s ease;
+    }
+    .anchor:hover { transform: translateY(-3px) scale(1.02); box-shadow: 0 8px 24px rgba(56,161,105,.45); }
+    .anchor:focus-visible { outline: 3px solid #38a169; outline-offset: 4px; }
+    .anchor:active { transform: scale(.98); box-shadow: 0 2px 6px rgba(56,161,105,.2); }
+    .hint { margin-top: 1.5rem; color: #718096; font-size: .85rem; }
+    .credit { margin-top: 2.4rem; padding-top: 1.2rem; border-top: 1px solid #e2f0d9; color: #718096; font-size: .8rem; }
+    .credit a { color: #38a169; text-decoration: none; }
+    .credit a:hover { text-decoration: underline; }
+  </style>
+</head>
+<body>
+  <main class="stage">
+    <h1>Quiz Anchor</h1>
+    <p class="sub"> knowledge check anchor — / Ancla de verificación de conocimiento</p>
+    <a class="anchor" data-testid="anchor" name="quiz1" href="#quiz1" aria-label="Quiz anchor section">quiz-anchor</a>
+    <p class="hint">Answer the call — / Responde la llamada</p>
+    <footer class="credit">Harley Vásquez · <a href="https://www.linkedin.com/in/harleyvasquez" target="_blank" rel="noreferrer">linkedin.com/in/harleyvasquez</a></footer>
+  <div id="section1" style="height: 70vh;"></div></main>
+</body>
+</html>

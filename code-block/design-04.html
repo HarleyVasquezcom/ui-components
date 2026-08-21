@@ -1,0 +1,54 @@
+<!-- Design 04: Gradient Fence / Gradient Fence -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Code Block — Design 04</title>
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body {
+    min-height: 100vh;
+    font-family: "Segoe UI", system-ui, sans-serif;
+    background: #e2e8f0;
+    color: #334155;
+    overflow-x: hidden;
+  }
+  .code-block { width: min(90vw, 800px); margin: 40px auto; background: #fff; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 6px rgba(0,0,0,0.1); border: 1px solid #e2e8f0; }
+  .code-header { display: flex; justify-content: space-between; align-items: center; padding: 10px 16x16; border-bottom: 1px solid #e2e8f0; background: #f8fafc; }
+  .code-title { font-size: .75rem; font-weight: 600; color: #1e293b; }
+  .code-actions { display: flex; gap: 6px; }
+  .code-action { width: 28px; height: 28px; background: #f8fafc; border: 1px solid #cbd5e1; border-radius: 50; color: #64748b; font-size: .75rem; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: background .2s; }
+  .code-action:hover { background: #e2e8f0; }
+  .code-action:focus-visible { outline: 2px solid #64748b; outline-offset: 2px; }
+  .code-content { padding: 16px; font-family: "Fira Code", "Source Code Pro", monospace; font-size: .8rem; line-height: 1.6; color: #1e293b; white-space: pre; }
+  .code-line { padding: 4px 0; border-bottom: 1px solid #f8fafc; }
+  .code-line:last-child { border-bottom: none; }
+  .code-line-num { width: 30px; color: #94a3b8; user-select: none; -webkit-user-select: none; font-family: "Menlo", "Monaco", monospace; font-size: .7rem; }
+  .code-line-content { color: #1e293b; }
+  .credit { margin-top: 24px; padding: 12px 0; border-top: 1px solid #e2e8f0; color: #64748b; font-size: .75rem; text-align: center; }
+  .credit a { color: #3b82f6; text-decoration: none; }
+  @media (max-width: 480px) { .code-block { margin: 20px; } }
+</style>
+</head>
+<body>
+<div class="code-block" data-testid="code-block" aria-label="Code block" data-code-block>
+  <div class="code-header">
+    <span class="code-title">component.jsx</span>
+    <div class="code-actions">
+      <button class="code-action" data-copy aria-label="Copy code"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15l-7-7 7 7"/></svg></button>
+      <button class="code-action" data-select aria-label="Select all"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="6" y="6" width="12" height="12" rx="2" ry="2"/></svg></button>
+    </div>
+  </div>
+  <div class="code-content" data-testid="code">
+    <div class="code-line"><span class="code-line-num">1</span><span class="code-line-content">import React from 'react';</span></div>
+    <div class="code-line"><span class="code-line-num">2</span><span class="code-line-content">import styled from 'styled-components';</span></div>
+    <div class="code-line"><span class="code-line-num">3</span><span class="code-line-content">const Button = styled.button</span></div>
+    <div class="code-line"><span class="code-line-num">4</span><span class="code-line-content">font-size: 1rem; padding: 8px 16px; background: #3b82f6; color: #fff; border: none; border-radius: 4px; cursor: pointer;</span></div>
+    <div class="code-line"><span class="code-line-num">5</span><span class="code-line-content">export default Button;</span></div>
+  </div>
+</div>
+<footer class="credit">Harley Vásquez · <a href="https://www.linkedin.com/in/harleyvasquez" target="_blank" rel="noreferrer">linkedin.com/in/harleyvasquez</a></footer>
+</body>
+</html>

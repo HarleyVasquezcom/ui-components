@@ -1,0 +1,107 @@
+<!-- Design 08: Infinite Scroll con Tarjetas de Estadísticas / Stats Cards Infinite Scroll -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Infinite Scroll — Design 08</title>
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body {
+    min-height: 100vh;
+    font-family: "Segoe UI", system-ui, sans-serif;
+    background: #f8fafc;
+    color: #0f172a;
+    overflow-x: hidden;
+  }
+  .grid { width: min(95vw, 1100px); margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 16px; }
+  .card {
+    background: #fff;
+    border-radius: 12px;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 1px 4px rgba(0,0,0,.04);
+    position: relative;
+  }
+  .card .number {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #1e293b;
+    margin: 4px 0;
+    display: block;
+  }
+  .card .label { color: #64748b; font-size: .75rem; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; display: block; }
+  .card .desc { color: #94a3b8; font-size: .75rem; }
+  .load-more {
+    width: min(180px, 95vw);
+    margin: 24px auto 0;
+    padding: 10px;
+    background: #3b82f6;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: .75rem;
+    font-weight: 600;
+    cursor: pointer;
+    display: block;
+    text-align: center;
+  }
+  .load-more:focus-visible { outline: 3px solid #64748b; outline-offset: 2px; }
+  .load-more:disabled { background: #64748b; cursor: not-allowed; }
+  .credit { margin-top: 32px; padding: 16px 0; border-top: 1px solid #e2e8f0; color: #64748b; font-size: .75rem; text-align: center; }
+  .credit a { color: #3b82f6; text-decoration: none; }
+  @media (max-width: 480px) { .grid { padding: 0 8px; } }
+</style>
+</head>
+<body>
+<div class="grid" data-scroll-container data-testid="infinite-scroll" aria-label="Infinite scroll">
+  <article class="card"><div class="number">1,234</div><div class="label">Usuarios</div><div class="desc">Activos este mes</div></article>
+  <article class="card"><div class="number">987</div><div class="label">Suscripciones</div><div class="desc">Nuevas esta semana</div></article>
+  <article class="card"><div class="number">5,678</div><div class="label">Publicaciones</div><div class="desc">Total en la plataforma</div></article>
+  <article class="card"><div class="number">2,345</div><div class="label">Comentarios</div><div class="desc">Generados hoy</div></article>
+  <article class="card"><div class="number">789</div><div class="label">Compartidos</div><div class="desc">En redes sociales</div></article>
+  <article class="card"><div class="number">3,456</div><div class="label">Descargas</div><div class="desc">Archivos obtenidos</div></article>
+  <article class="card"><div class="number">1,111</div><div class="label">Reseñas</div><div class="desc">Calificaciones recibidas</div></article>
+  <article class="card"><div class="number">678</div><div class="label">Seguidores</div><div class="desc">Nuevos ganados</div></article>
+</div>
+<button class="load-more" aria-label="Cargar más artículos" data-load-more>Cargar más <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button>
+<script>
+  (() => {
+    const button = document.querySelector('[data-load-more]');
+    const container = document.querySelector('[data-scroll-container]');
+    let loaded = 8;
+    let total = 40;
+    button.addEventListener('click', () => {
+      const fragment = document.createDocumentFragment();
+      const labels = ['Usuarios','Suscripciones','Publicaciones','Comentarios','Compartidos','Descargas','Reseñas','Seguidores'];
+      const descs = ['Activos este mes','Nuevas esta semana','Total en la plataforma','Generados hoy','En redes sociales','Archivos obtenidos','Calificaciones recibidas','Nuevos ganados'];
+      for (let i = loaded; i < Math.min(loaded + 8, total); i++) {
+        const card = document.createElement('article');
+        card.className = 'card';
+        card.innerHTML = `<div class="number">${Math.floor(Math.random() * 5000 + 1000)}</div><div class="label">${labels[i % labels.length]}</div><div class="desc">${descs[i % descs.length]}</p>`;
+        fragment.appendChild(card);
+      }
+      container.appendChild(fragment);
+      loaded += 8;
+      if (loaded >= total) { button.textContent = 'No hay más'; button.disabled = true; }
+    });
+  })();
+</script>
+<footer class="credit">Harley Vásquez · <a href="https://www.linkedin.com/in/harleyvasquez" target="_blank" rel="noreferrer">linkedin.com/in/harleyvasquez</a></footer>
+
+<script>
+(function(){
+  var grid = document.querySelector('[data-testid="infinite-scroll"]');
+  var btn = document.querySelector('[data-load-more]');
+  if(!grid || !btn) return;
+  window.addEventListener('scroll', function(){
+    if(btn.disabled) return;
+    var rect = grid.getBoundingClientRect();
+    if(rect.bottom <= window.innerHeight + 200) btn.click();
+  });
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,160 @@
+<!-- Design 02: Minimal Inline / Inline Mínimo -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Minimal Inline Date Picker — Design 02</title>
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body {
+    min-height: 100vh;
+    display: grid;
+    place-items: center;
+    font-family: "Segoe UI", system-ui, sans-serif;
+    background: #fafafa;
+    overflow-x: hidden;
+  }
+  .stage {
+    width: min(400px, 94vw);
+    padding: clamp(32px, 8vw, 56px) clamp(8px, 4vw, 28px);
+  }
+  h1 { margin: 0; font-size: clamp(1.5rem, 5vw, 2rem); color: #18181b; font-weight: 600; letter-spacing: -.01em; }
+  .sub { margin: .4rem 0 2.2rem; color: #a1a1aa; font-size: .95rem; }
+  .lbl { display: block; margin: 0 0 8px; color: #3f3f46; font-size: .88rem; font-weight: 600; }
+  .wrap { position: relative; }
+  .trg {
+    width: 100%;
+    display: flex; align-items: center; justify-content: space-between; gap: 10px;
+    padding: 10px 2px 8px;
+    font-family: inherit; font-size: 1.02rem; font-weight: 500; color: #18181b;
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid #d4d4d8;
+    border-radius: 0;
+    cursor: pointer;
+    transition: border-color .15s ease;
+  }
+  .trg:hover { border-bottom-color: #18181b; }
+  .trg[aria-expanded="true"] { border-bottom-color: #a1a1aa; }
+  .trg:focus-visible { outline: 2px solid #27272a; outline-offset: 6px; }
+  .trg .arr { color: #71717a; font-size: .78rem; transition: transform .2s ease; }
+  .trg[aria-expanded="true"] .arr { transform: rotate(180deg); }
+  .cal {
+    position: absolute; left: 0; right: 0; top: calc(100% + 6px);
+    background: #fff;
+    padding: 8px 2px 2px;
+    z-index: 5;
+  }
+  [hidden] { display: none !important; }
+  .cal-head { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 10px; }
+  .cal-head b { font-size: .9rem; font-weight: 600; color: #27272a; }
+  .cal-head button {
+    width: 28px; height: 28px;
+    font-size: .95rem; color: #71717a;
+    background: transparent;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+  }
+  .cal-head button:hover { background: #f4f4f5; color: #18181b; }
+  .cal-head button:focus-visible { outline: 2px solid #27272a; outline-offset: 1px; }
+  .wds { display: grid; grid-template-columns: repeat(7, 1fr); gap: 2px; margin-bottom: 2px; }
+  .wds span { text-align: center; font-size: .66rem; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: #a1a1aa; padding: 3px 0; }
+  .grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 2px; }
+  .grid .ghost { padding: 7px 0; }
+  .day {
+    padding: 7px 0;
+    font-family: inherit; font-size: .84rem; font-weight: 400; color: #52525b;
+    background: transparent;
+    border: none;
+    border-radius: 0;
+    cursor: pointer;
+    transition: background .1s ease;
+  }
+  .day:hover { background: #f4f4f5; }
+  .day.is-today { font-weight: 700; color: #18181b; }
+  .day.selected { background: #27272a; color: #fff; font-weight: 700; }
+  .day:focus-visible { outline: 2px solid #27272a; outline-offset: 0; }
+  .selout { display: flex; align-items: center; justify-content: space-between; gap: 14px; margin-top: 20px; flex-wrap: wrap; }
+  .selout span { color: #a1a1aa; font-size: .85rem; }
+  .selout b { color: #18181b; font-weight: 600; }
+  .hint { margin-top: 2rem; color: #d4d4d8; font-size: .82rem; }
+  .credit { margin-top: 2rem; padding-top: 1.1rem; border-top: 1px solid #e4e4e7; color: #a1a1aa; font-size: .78rem; }
+  .credit a { color: #27272a; text-decoration: none; }
+  .credit a:hover { text-decoration: underline; }
+</style>
+</head>
+<body>
+<main class="stage">
+  <h1>Minimal Inline</h1>
+  <p class="sub">Open by default, quietly / Abierto por defecto, en silencio</p>
+  <label class="lbl" data-testid="label" id="lbl-dp02">Date</label>
+  <div class="wrap">
+    <button type="button" class="trg" data-testid="trigger" aria-haspopup="dialog" aria-expanded="true" aria-controls="cal02" aria-labelledby="lbl-dp02">
+      <span data-testid="cur">17</span>
+      <span class="arr" aria-hidden="true">▾</span>
+    </button>
+    <div class="cal" id="cal02" data-testid="cal" role="dialog" aria-label="Pick a date">
+      <div class="cal-head">
+        <button type="button" data-testid="prev-m" aria-label="Previous month">‹</button>
+        <b data-testid="month-label">August 2026</b>
+        <button type="button" data-testid="next-m" aria-label="Next month">›</button>
+      </div>
+      <div class="wds" aria-hidden="true">
+        <span>Su</span><span>Mo</span><span>Tu</span><span>We</span><span>Th</span><span>Fr</span><span>Sa</span>
+      </div>
+      <div class="grid" data-testid="grid"></div>
+    </div>
+  </div>
+  <p class="selout"><span>selected:</span> <b data-testid="date-out" aria-live="polite">Aug 17, 2026</b></p>
+  <p class="hint">Always visible, never in the way / Siempre visible, nunca estorba</p>
+  <footer class="credit">Harley Vásquez · <a href="https://www.linkedin.com/in/harleyvasquez" target="_blank" rel="noreferrer">linkedin.com/in/harleyvasquez</a></footer>
+</main>
+<script>
+  const today = new Date();
+  const trigger = document.querySelector('[data-testid="trigger"]');
+  const cal = document.querySelector('[data-testid="cal"]');
+  const cur = document.querySelector('[data-testid="cur"]');
+  const monthLabel = document.querySelector('[data-testid="month-label"]');
+  const grid = document.querySelector('[data-testid="grid"]');
+  const dateOut = document.querySelector('[data-testid="date-out"]');
+  const nextM = document.querySelector('[data-testid="next-m"]');
+  const prevM = document.querySelector('[data-testid="prev-m"]');
+  let view = new Date(today.getFullYear(), today.getMonth(), 1);
+  let sel = today;
+  const p = (n) => String(n).padStart(2, '0');
+  const iso = (d) => `${d.getFullYear()}-${p(d.getMonth() + 1)}-${p(d.getDate())}`;
+  const fmt = (d) => d.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
+  const ym = (d) => d.toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
+  cur.textContent = String(today.getDate());
+  dateOut.textContent = fmt(today);
+  function open() { cal.hidden = false; trigger.setAttribute('aria-expanded', 'true'); render(); }
+  function close() { cal.hidden = true; trigger.setAttribute('aria-expanded', 'false'); }
+  function render() {
+    monthLabel.textContent = ym(view);
+    grid.innerHTML = '';
+    const startPad = new Date(view.getFullYear(), view.getMonth(), 1).getDay();
+    const dim = new Date(view.getFullYear(), view.getMonth() + 1, 0).getDate();
+    for (let i = 0; i < startPad; i++) {
+      const g = document.createElement('span'); g.className = 'ghost'; grid.appendChild(g);
+    }
+    for (let d = 1; d <= dim; d++) {
+      const day = new Date(view.getFullYear(), view.getMonth(), d);
+      const b = document.createElement('button');
+      b.type = 'button'; b.className = 'day'; b.dataset.date = iso(day); b.textContent = String(d);
+      b.setAttribute('aria-label', fmt(day));
+      if (iso(day) === iso(today)) b.classList.add('is-today');
+      if (iso(day) === iso(sel)) b.classList.add('selected');
+      b.addEventListener('click', () => { sel = day; dateOut.textContent = fmt(day); close(); render(); });
+      grid.appendChild(b);
+    }
+  }
+  trigger.addEventListener('click', () => { if (cal.hidden) open(); });
+  nextM.addEventListener('click', () => { view = new Date(view.getFullYear(), view.getMonth() + 1, 1); render(); });
+  prevM.addEventListener('click', () => { view = new Date(view.getFullYear(), view.getMonth() - 1, 1); render(); });
+  render();
+</script>
+</body>
+</html>

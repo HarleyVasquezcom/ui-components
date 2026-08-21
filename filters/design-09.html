@@ -1,0 +1,124 @@
+<!-- Design 09: Color Filter / Filtro de Color -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Color Filter — Design 09</title>
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body {
+    min-height: 100vh;
+    display: grid; place-items: center;
+    font-family: "Segoe UI", system-ui, sans-serif;
+    background: #fff1f2;
+    overflow-x: hidden;
+  }
+  .stage {
+    width: min(620px, 94vw);
+    padding: clamp(26px, 6vw, 44px);
+    background: #fff;
+    border-radius: 22px;
+    box-shadow: 0 24px 60px rgba(190, 18, 60, .1);
+  }
+  h1 { margin: 0; font-size: clamp(1.5rem, 4.8vw, 2rem); color: #4c0519; font-weight: 800; }
+  h1 span { color: #e11d48; }
+  .sub { margin: .4rem 0 1.6rem; color: #be123c; font-size: .94rem; }
+  .lbl { display: block; margin: 0 0 12px; color: #9f1239; font-size: .82rem; font-weight: 700; text-transform: uppercase; letter-spacing: .1em; }
+  .dots { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 18px; }
+  .dot {
+    width: 42px; height: 42px;
+    border-radius: 50%;
+    border: 3px solid #fff;
+    box-shadow: 0 0 0 2px #fda4af;
+    cursor: pointer;
+    transition: transform .15s ease;
+  }
+  .dot:hover { transform: scale(1.12); }
+  .dot:focus-visible { outline: 3px solid #be123c; outline-offset: 3px; }
+  .dot.on { box-shadow: 0 0 0 3px #be123c; transform: scale(1.1); }
+  .bar { display: flex; gap: 10px; margin-bottom: 16px; }
+  .btn { padding: 9px 18px; border: 2px solid #fda4af; border-radius: 10px; background: #fff; color: #9f1239; font-family: inherit; font-size: .87rem; font-weight: 700; cursor: pointer; }
+  .btn:hover { background: #fff1f2; }
+  .btn:focus-visible { outline: 3px solid #fda4af; outline-offset: 2px; }
+  .btn.solid { background: #e11d48; border-color: #e11d48; color: #fff; }
+  .cnt { margin: 0 0 12px; color: #be123c; font-weight: 700; font-size: .96rem; }
+  .list { margin: 0; padding: 0; list-style: none; display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+  .list li { display: flex; align-items: center; gap: 12px; padding: 12px 14px; background: #fff1f2; border: 1px solid #fecdd3; border-radius: 12px; color: #4c0519; font-size: .92rem; }
+  .list li .mini { width: 22px; height: 22px; border-radius: 6px; flex: 0 0 auto; border: 1px solid #fda4af; }
+  .list li small { margin-left: auto; color: #be123c; font-family: "Cascadia Mono", Consolas, monospace; font-size: .78rem; }
+  .empty { grid-column: 1 / -1; color: #fda4af; text-align: center; padding: 16px; }
+  .credit { margin-top: 2rem; padding-top: 1rem; border-top: 1px solid #ffe4e6; color: #fda4af; font-size: .78rem; }
+  .credit a { color: #be123c; text-decoration: none; }
+  @media (max-width: 480px) { .list { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<main class="stage">
+  <h1>Color <span>Filter</span></h1>
+  <p class="sub">Pick a color, shrink the shelf / Elige un color, reduce el estante</p>
+  <span class="lbl" data-testid="label" id="fl-cf-09-label">Shirt color / Color de camiseta</span>
+  <div class="dots" role="group" aria-labelledby="fl-cf-09-label">
+    <button type="button" class="dot on" data-testid="dot" data-color="White" style="background:#ffffff" aria-label="White shirts" aria-pressed="true"></button>
+    <button type="button" class="dot" data-testid="dot" data-color="Black" style="background:#171717" aria-label="Black shirts" aria-pressed="false"></button>
+    <button type="button" class="dot" data-testid="dot" data-color="Red" style="background:#dc2626" aria-label="Red shirts" aria-pressed="false"></button>
+    <button type="button" class="dot" data-testid="dot" data-color="Blue" style="background:#2563eb" aria-label="Blue shirts" aria-pressed="false"></button>
+    <button type="button" class="dot" data-testid="dot" data-color="Green" style="background:#16a34a" aria-label="Green shirts" aria-pressed="false"></button>
+    <button type="button" class="dot" data-testid="dot" data-color="Yellow" style="background:#eab308" aria-label="Yellow shirts" aria-pressed="false"></button>
+  </div>
+  <div class="bar">
+    <button type="button" class="btn solid" data-testid="clear" aria-label="Clear all filters">Clear all / Limpiar todo</button>
+    <button type="button" class="btn" data-testid="reset" aria-label="Reset filters">Reset</button>
+  </div>
+  <p class="cnt" data-testid="count">Showing: 6</p>
+  <ul class="list" data-testid="list"></ul>
+  <footer class="credit">Harley Vásquez · <a href="https://www.linkedin.com/in/harleyvasquez" target="_blank" rel="noreferrer">linkedin.com/in/harleyvasquez</a></footer>
+</main>
+<script>
+  const SHIRTS = [
+    { t: 'Classic Tee', c: 'White' }, { t: 'Polo Sierra', c: 'Black' },
+    { t: 'V-Neck Breeze', c: 'White' }, { t: 'Henley Loom', c: 'Blue' },
+    { t: 'Sunset Tee', c: 'Red' }, { t: 'Urban Tee', c: 'Black' },
+    { t: 'Meadow Tee', c: 'Green' }, { t: 'Noon Tee', c: 'Yellow' },
+    { t: 'Coast Polo', c: 'Blue' }, { t: 'Berry Tee', c: 'Red' }
+  ];
+  const dots = document.querySelectorAll('[data-testid="dot"]');
+  const list = document.querySelector('[data-testid="list"]');
+  const count = document.querySelector('[data-testid="count"]');
+  const clear = document.querySelector('[data-testid="clear"]');
+  const reset = document.querySelector('[data-testid="reset"]');
+  function render() {
+    const active = [...dots].filter((d) => d.classList.contains('on')).map((d) => d.dataset.color);
+    const hits = active.length ? SHIRTS.filter((s) => active.includes(s.c)) : SHIRTS;
+    list.textContent = '';
+    for (const s of hits) {
+      const li = document.createElement('li');
+      const mini = document.createElement('span'); mini.className = 'mini'; mini.style.background = COLORS[s.c];
+      li.textContent = s.t;
+      li.prepend(mini);
+      li.appendChild(Object.assign(document.createElement('small'), { textContent: s.c }));
+      list.appendChild(li);
+    }
+    if (!hits.length) { const li = document.createElement('li'); li.className = 'empty'; li.textContent = 'Nothing in that color / Nada en ese color'; list.appendChild(li); }
+    count.textContent = 'Showing: ' + hits.length;
+  }
+  const COLORS = { White: '#ffffff', Black: '#171717', Red: '#dc2626', Blue: '#2563eb', Green: '#16a34a', Yellow: '#eab308' };
+  dots.forEach((d) => d.addEventListener('click', () => { d.classList.toggle('on'); d.setAttribute('aria-pressed', d.classList.contains('on') ? 'true' : 'false'); render(); }));
+  clear.addEventListener('click', () => { dots.forEach((d) => { d.classList.remove('on'); d.setAttribute('aria-pressed', 'false'); }); render(); });
+  reset.addEventListener('click', () => { dots.forEach((d, i) => { const on = i === 0; d.classList.toggle('on', on); d.setAttribute('aria-pressed', on ? 'true' : 'false'); }); render(); });
+  render();
+</script>
+
+<script>
+(function(){
+  var filters = document.querySelectorAll('[data-testid="filter"], [data-testid="check"], [data-testid="pill"]');
+  filters.forEach(function(f){
+    f.addEventListener('click', function(){
+      f.classList.toggle('active');
+    });
+  });
+})();
+</script>
+</body>
+</html>

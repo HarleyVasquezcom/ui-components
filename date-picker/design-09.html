@@ -1,0 +1,169 @@
+<!-- Design 09: Festival Colors / Colores Festival -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Festival Colors Date Picker — Design 09</title>
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body {
+    min-height: 100vh;
+    display: grid;
+    place-items: center;
+    font-family: "Segoe UI", system-ui, sans-serif;
+    background: linear-gradient(160deg, #fef3c7 0%, #fce7f3 50%, #dbeafe 100%);
+    overflow-x: hidden;
+  }
+  .stage {
+    width: min(440px, 94vw);
+    padding: clamp(32px, 8vw, 60px);
+    background: #fff;
+    border-radius: 24px;
+    box-shadow: 0 26px 70px rgba(180, 83, 9, .16);
+  }
+  h1 { margin: 0; font-size: clamp(1.6rem, 5vw, 2.2rem); color: #451a03; font-weight: 800; letter-spacing: -.02em;
+    background: linear-gradient(90deg, #ea580c, #db2777, #7c3aed);
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
+  .sub { margin: .4rem 0 2.4rem; color: #b45309; font-size: .94rem; }
+  .lbl { display: block; margin: 0 0 10px; color: #7c2d12; font-size: .9rem; font-weight: 700; }
+  .wrap { position: relative; }
+  .trg {
+    width: 100%;
+    display: flex; align-items: center; justify-content: space-between; gap: 10px;
+    padding: 14px 18px;
+    font-family: inherit; font-size: 1.05rem; font-weight: 800; color: #fff;
+    background: linear-gradient(90deg, #f97316, #ec4899, #8b5cf6);
+    border: none;
+    border-radius: 16px;
+    cursor: pointer;
+    box-shadow: 0 12px 26px rgba(219, 39, 119, .3);
+    transition: transform .15s ease, box-shadow .15s ease;
+  }
+  .trg:hover { transform: translateY(-1px); box-shadow: 0 16px 32px rgba(219, 39, 119, .38); }
+  .trg:focus-visible { outline: 3px solid #db2777; outline-offset: 3px; }
+  .trg .arr { font-size: .9rem; transition: transform .2s ease; }
+  .trg[aria-expanded="true"] .arr { transform: rotate(180deg); }
+  .cal {
+    position: absolute; left: 0; right: 0; top: calc(100% + 12px);
+    background: #fff;
+    border: 1px solid #fde68a;
+    border-radius: 20px;
+    box-shadow: 0 22px 48px rgba(180, 83, 9, .2);
+    padding: 16px;
+    z-index: 5;
+  }
+  [hidden] { display: none !important; }
+  .cal-head { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 12px; }
+  .cal-head b { font-size: .95rem; font-weight: 800; color: #78350f; }
+  .cal-head button {
+    width: 32px; height: 32px;
+    font-size: 1.05rem; color: #db2777;
+    background: #fdf2f8;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: transform .1s ease;
+  }
+  .cal-head button:hover { transform: scale(1.08); }
+  .cal-head button:focus-visible { outline: 2px solid #db2777; outline-offset: 2px; }
+  .wds { display: grid; grid-template-columns: repeat(7, 1fr); gap: 3px; margin-bottom: 6px; }
+  .wds span { text-align: center; font-size: .64rem; font-weight: 800; letter-spacing: .05em; text-transform: uppercase; color: #f59e0b; padding: 4px 0; }
+  .grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 3px; }
+  .grid .ghost { padding: 8px 0; }
+  .day {
+    padding: 8px 0;
+    font-family: inherit; font-size: .86rem; font-weight: 800; color: #78716c;
+    background: transparent;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: transform .1s ease, background .1s ease, color .1s ease;
+  }
+  .day:nth-child(7n+1) { color: #ef4444; }
+  .day:hover { background: #fef3c7; transform: scale(1.1); }
+  .day.is-today { box-shadow: inset 0 0 0 2px #f59e0b; }
+  .day.selected { background: linear-gradient(135deg, #f97316, #db2777); color: #fff; transform: scale(1.12); }
+  .day:focus-visible { outline: 2px solid #db2777; outline-offset: 2px; }
+  .selout { display: flex; align-items: center; justify-content: space-between; gap: 14px; margin-top: 26px; flex-wrap: wrap; }
+  .selout span { color: #d97706; font-size: .88rem; }
+  .selout b { color: #451a03; font-weight: 800; }
+  .hint { margin-top: 2.2rem; color: #fcd34d; font-size: .82rem; }
+  .credit { margin-top: 2.2rem; padding-top: 1.2rem; border-top: 1px solid #fde68a; color: #d97706; font-size: .78rem; }
+  .credit a { color: #db2777; text-decoration: none; }
+  .credit a:hover { text-decoration: underline; }
+</style>
+</head>
+<body>
+<main class="stage">
+  <h1>Festival Colors</h1>
+  <p class="sub">Every pick feels like a party / Cada elección se siente como una fiesta</p>
+  <label class="lbl" data-testid="label" id="lbl-dp09">Date</label>
+  <div class="wrap">
+    <button type="button" class="trg" data-testid="trigger" aria-haspopup="dialog" aria-expanded="false" aria-controls="cal09" aria-labelledby="lbl-dp09">
+      <span data-testid="cur">17</span>
+      <span class="arr" aria-hidden="true">▾</span>
+    </button>
+    <div class="cal" id="cal09" data-testid="cal" role="dialog" aria-label="Pick a date" hidden>
+      <div class="cal-head">
+        <button type="button" data-testid="prev-m" aria-label="Previous month">‹</button>
+        <b data-testid="month-label">August 2026</b>
+        <button type="button" data-testid="next-m" aria-label="Next month">›</button>
+      </div>
+      <div class="wds" aria-hidden="true">
+        <span>Su</span><span>Mo</span><span>Tu</span><span>We</span><span>Th</span><span>Fr</span><span>Sa</span>
+      </div>
+      <div class="grid" data-testid="grid"></div>
+    </div>
+  </div>
+  <p class="selout"><span>selected:</span> <b data-testid="date-out" aria-live="polite">Aug 17, 2026</b></p>
+  <p class="hint">Bold by design / Audaz por diseño</p>
+  <footer class="credit">Harley Vásquez · <a href="https://www.linkedin.com/in/harleyvasquez" target="_blank" rel="noreferrer">linkedin.com/in/harleyvasquez</a></footer>
+</main>
+<script>
+  const today = new Date();
+  const trigger = document.querySelector('[data-testid="trigger"]');
+  const cal = document.querySelector('[data-testid="cal"]');
+  const cur = document.querySelector('[data-testid="cur"]');
+  const monthLabel = document.querySelector('[data-testid="month-label"]');
+  const grid = document.querySelector('[data-testid="grid"]');
+  const dateOut = document.querySelector('[data-testid="date-out"]');
+  const nextM = document.querySelector('[data-testid="next-m"]');
+  const prevM = document.querySelector('[data-testid="prev-m"]');
+  let view = new Date(today.getFullYear(), today.getMonth(), 1);
+  let sel = today;
+  const p = (n) => String(n).padStart(2, '0');
+  const iso = (d) => `${d.getFullYear()}-${p(d.getMonth() + 1)}-${p(d.getDate())}`;
+  const fmt = (d) => d.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
+  const ym = (d) => d.toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
+  cur.textContent = String(today.getDate());
+  dateOut.textContent = fmt(today);
+  function open() { cal.hidden = false; trigger.setAttribute('aria-expanded', 'true'); render(); }
+  function close() { cal.hidden = true; trigger.setAttribute('aria-expanded', 'false'); }
+  function render() {
+    monthLabel.textContent = ym(view);
+    grid.innerHTML = '';
+    const startPad = new Date(view.getFullYear(), view.getMonth(), 1).getDay();
+    const dim = new Date(view.getFullYear(), view.getMonth() + 1, 0).getDate();
+    for (let i = 0; i < startPad; i++) {
+      const g = document.createElement('span'); g.className = 'ghost'; grid.appendChild(g);
+    }
+    for (let d = 1; d <= dim; d++) {
+      const day = new Date(view.getFullYear(), view.getMonth(), d);
+      const b = document.createElement('button');
+      b.type = 'button'; b.className = 'day'; b.dataset.date = iso(day); b.textContent = String(d);
+      b.setAttribute('aria-label', fmt(day));
+      if (iso(day) === iso(today)) b.classList.add('is-today');
+      if (iso(day) === iso(sel)) b.classList.add('selected');
+      b.addEventListener('click', () => { sel = day; dateOut.textContent = fmt(day); close(); render(); });
+      grid.appendChild(b);
+    }
+  }
+  trigger.addEventListener('click', () => (cal.hidden ? open() : close()));
+  nextM.addEventListener('click', () => { view = new Date(view.getFullYear(), view.getMonth() + 1, 1); render(); });
+  prevM.addEventListener('click', () => { view = new Date(view.getFullYear(), view.getMonth() - 1, 1); render(); });
+</script>
+</body>
+</html>

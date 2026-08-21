@@ -1,0 +1,37 @@
+<!-- Design 03: Success / Success Progress Bar -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Progress Bar — Design 03</title>
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body {
+    min-height: 100vh;
+    font-family: "Segoe UI", system-ui, sans-serif;
+    background: #f8fafc;
+    color: #0f172a;
+    overflow-x: hidden;
+  }
+  .progress-wrapper { height: 200px; display: flex; align-items: center; justify-content: center; position: relative; }
+  .progress-label { position: absolute; bottom: -24px; color: #64748b; font-size: .75rem; text-align: center; width: 100%; }
+  .progress-bar { width: 60%; height: 24px; background: #e2e8f0; border-radius: 12px; overflow: hidden; position: relative; }
+  .progress-fill { height: 100%; width: 60%; background: #10b981; transition: width 1s ease; }
+  .progress-text { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: #fff; font-size: .875rem; font-weight: 500; text-shadow: 0 1px 2px rgba(0,0,0,0.3); }
+  .credit { margin-top: 32px; padding: 16px 0; border-top: 1px solid #e2e8f0; color: #64748b; font-size: .875rem; text-align: center; }
+  .credit a { color: #2563eb; text-decoration: none; }
+</style>
+</head>
+<body>
+<div class="progress-wrapper" data-testid="progress-bar" aria-label="Progress bar">
+  <div class="progress-bar">
+    <div class="progress-fill" style="width: 60%" data-value="50"></div>
+    <div class="progress-text">60%</div>
+  </div>
+</div>
+<footer class="credit">Harley Vásquez · <a href="https://www.linkedin.com/in/harleyvasquez" target="_blank" rel="noreferrer">linkedin.com/in/harleyvasquez</a></footer>
+<div class="progress-label" data-testid="label">Progress</div>
+</body>
+</html>

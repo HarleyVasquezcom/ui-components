@@ -1,0 +1,11 @@
+<!-- Design 09: Code Block Dracula / Dracula -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Code Block — Design 09</title>
+<style>
+  *{box-sizing:border-box}html,body{min-height:100vh;font-family:"Roboto Mono",monospace;background:#282a36;color:#f8f8f2;overflow:hidden}.code{max-width:800px;width:100%;padding:30px 20px;border:none}.code pre{background:#282a36;border:none;padding:20px 0;overflow:auto;font-family:"Roboto Mono",monospace;font-size:.8rem;line-height:1.6;color:#f8f8f2;margin:0}.code .keyword{color:#bd93f9;font-weight:600}.code .string{color:#ff79c6}.code .comment{color:#6272a4;font-style:italic}.code .number{color:#f1fa8c}.credit{margin-top:20px;padding:8px 0;border-top:1px solid:#44475a;color:#64748b;font-size:.7rem}.credit a{color:#2563eb;text-decoration:none}</style>
+</head>
+<body><div class="code" data-testid="code-block" aria-label="Code block"><pre><span class="line"><span class="keyword">import</span> <span class="title">json</span></span><span class="line"></span><span class="line"><span class="keyword">data</span> <span class="operator">=</span> <span class="keyword">json</span><span class="punctuation">.</span><span class="function">loads</span><span class="punctuation">(</span><span class="string">'{"key":"value"}'</span><span class="punctuation">)</span></span><span class="line"></pre></div><footer class="credit">Harley Vásquez · <a href="https://www.linkedin.com/in/harleyvasquez" target="_blank" rel="noreferrer">linkedin.com/in/harleyvasquez</a></footer><script>(()=>{const pre=document.querySelector('pre code');if(!pre)return;let c=pre.textContent;const kw=/\b(const|let|var|function|return|if|else|for|of|while|new|import|export|class|async|await|try|catch)\b/g;let out='',last=0,m;const esc=x=>x.replace(/&/g,'&amp;').replace(/</g,'&lt;');while((m=kw.exec(c))){out+=esc(c.slice(last,m.index));out+='<span class="kw">'+m[0]+'</span>';last=m.index+m[0].length}out+=esc(c.slice(last));pre.innerHTML='<span class="line">'+(out||'&nbsp;')+'</span>'})();</script></body></html>

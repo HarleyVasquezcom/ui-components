@@ -1,0 +1,99 @@
+<!-- Design 05: Infinite Scroll con Cards Minimalistas / Minimalist Cards Infinite Scroll -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Infinite Scroll — Design 05</title>
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body {
+    min-height: 100vh;
+    font-family: "Segoe UI", system-ui, sans-serif;
+    background: #f8fafc;
+    color: #0f172a;
+    overflow-x: hidden;
+  }
+  .grid { width: min(90vw, 1100px); margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; }
+  .card {
+    background: #fff;
+    border-radius: 8px;
+    padding: 16px;
+    border: 1px solid #e2e8f0;
+    transition: border-color .2s, box-shadow .2s;
+  }
+  .card:hover { border-color: #3b82f6; box-shadow: 0 2px 6px rgba(59,130,246,.15); }
+  .card h4 { margin: 0 0 4px; font-size: .875rem; color: #1e293b; }
+  .card p { margin: 0; color: #64748b; font-size: .75rem; line-height: 1.4; }
+  .load-more {
+    width: min(180px, 90vw);
+    margin: 24px auto 0;
+    padding: 10px;
+    background: #1e293b;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: .75rem;
+    font-weight: 600;
+    cursor: pointer;
+    display: block;
+    text-align: center;
+  }
+  .load-more:focus-visible { outline: 3px solid #64748b; outline-offset: 2px; }
+  .load-more:disabled { background: #64748b; cursor: not-allowed; }
+  .credit { margin-top: 32px; padding: 16px 0; border-top: 1px solid #e2e8f0; color: #64748b; font-size: .75rem; text-align: center; }
+  .credit a { color: #3b82f6; text-decoration: none; }
+  @media (max-width: 480px) { .grid { padding: 0 8px; } }
+</style>
+</head>
+<body>
+<div class="grid" data-scroll-container data-testid="infinite-scroll" aria-label="Infinite scroll">
+  <article class="card"><h4>Diseño Gráfico</h4><p>Técnicas visuales modernas.</p></article>
+  <article class="card"><h4>Desarrollo Web</h4><p>Fundamentos y frameworks.</p></article>
+  <article class="card"><h4>Fotografía</h4><p>Técnicas de composición.</p></article>
+  <article class="card"><h4>Marketing</h4><p>Estrategias digitales.</p></article>
+  <article class="card"><h4>Branding</h4><p>Identidad visual.</p></article>
+  <article class="card"><h4>SEO</h4><p>Optimización web.</p></article>
+  <article class="card"><h4>Contenido</h4><p>Creación y distribución.</p></article>
+  <article class="card"><h4>UX Research</h4><p>Testing de usabilidad.</p></article>
+</div>
+<button class="load-more" aria-label="Cargar más artículos" data-load-more>Cargar más <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button>
+<script>
+  (() => {
+    const button = document.querySelector('[data-load-more]');
+    const container = document.querySelector('[data-scroll-container]');
+    let loaded = 8;
+    let total = 40;
+    button.addEventListener('click', () => {
+      const fragment = document.createDocumentFragment();
+      const labels = ['Diseño Gráfico','Desarrollo Web','Fotografía','Marketing','Branding','SEO','Contenido','UX Research'];
+      for (let i = loaded; i < Math.min(loaded + 8, total); i++) {
+        const card = document.createElement('article');
+        card.className = 'card';
+        card.innerHTML = `<h4>${labels[i % labels.length]}</h4><p>Artículo ${i + 1}: Descripción detallada sobre el tema seleccionado.</p>`;
+        fragment.appendChild(card);
+      }
+      container.appendChild(fragment);
+      loaded += 8;
+      if (loaded >= total) { button.textContent = 'No hay más'; button.disabled = true; }
+    });
+  })();
+</script>
+<footer class="credit">Harley Vásquez · <a href="https://www.linkedin.com/in/harleyvasquez" target="_blank" rel="noreferrer">linkedin.com/in/harleyvasquez</a></footer>
+
+<script>
+(function(){
+  var grid = document.querySelector('[data-testid="infinite-scroll"]');
+  var btn = document.querySelector('[data-load-more]');
+  if(!grid || !btn) return;
+  window.addEventListener('scroll', function(){
+    if(btn.disabled) return;
+    var rect = grid.getBoundingClientRect();
+    if(rect.bottom <= window.innerHeight + 200) btn.click();
+  });
+})();
+</script>
+</body>
+</html>

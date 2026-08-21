@@ -1,0 +1,3529 @@
+{
+  "gallery": {
+    "generatedBy": "tests/gallery-gen.mjs",
+    "templateVersion": 1
+  },
+  "components": [
+    {
+      "slug": "button",
+      "sprint": 1,
+      "nameEN": "button",
+      "hook": "[data-testid=\"btn\"]",
+      "nameTarget": "[data-testid=\"btn\"]",
+      "focusTarget": "[data-testid=\"btn\"]",
+      "designs": [
+        {
+          "n": 1,
+          "nameEN": "Glass Aero",
+          "nameES": "Vidrio Aéreo"
+        },
+        {
+          "n": 2,
+          "nameEN": "Neumorph Soft",
+          "nameES": "Neumorfismo Suave"
+        },
+        {
+          "n": 3,
+          "nameEN": "Neo Brutalist",
+          "nameES": "Neo Brutalista"
+        },
+        {
+          "n": 4,
+          "nameEN": "Terminal Pulse",
+          "nameES": "Terminal con Pulso"
+        },
+        {
+          "n": 5,
+          "nameEN": "Gradient Mesh",
+          "nameES": "Malla de Degradado"
+        },
+        {
+          "n": 6,
+          "nameEN": "Outline Draft",
+          "nameES": "Contorno en Boceto"
+        },
+        {
+          "n": 7,
+          "nameEN": "Skeuo 3D Chunk",
+          "nameES": "Botón 3D Esqueuomorfo"
+        },
+        {
+          "n": 8,
+          "nameEN": "Pill Bokeh",
+          "nameES": "Píldora Bokeh"
+        },
+        {
+          "n": 9,
+          "nameEN": "Editorial Sharp",
+          "nameES": "Editorial Afilado"
+        },
+        {
+          "n": 10,
+          "nameEN": "Neon Void",
+          "nameES": "Vacío Neón"
+        }
+      ]
+    },
+    {
+      "slug": "checkbox",
+      "sprint": 1,
+      "nameEN": "checkbox",
+      "hook": "[data-testid=\"cb\"]",
+      "nameTarget": "[data-testid=\"cb\"] input",
+      "focusTarget": "[data-testid=\"cb\"] input",
+      "designs": [
+        {
+          "n": 1,
+          "nameEN": "Iris Check",
+          "nameES": "Marca Iris"
+        },
+        {
+          "n": 2,
+          "nameEN": "Select-a-Card",
+          "nameES": "Elige una Tarjeta"
+        },
+        {
+          "n": 3,
+          "nameEN": "Flip Toggle",
+          "nameES": "Interruptor Giratorio"
+        },
+        {
+          "n": 4,
+          "nameEN": "Squircle Ink",
+          "nameES": "Tinta en Esquirculo"
+        },
+        {
+          "n": 5,
+          "nameEN": "Terminal [x]",
+          "nameES": "Terminal con Corchetes"
+        },
+        {
+          "n": 6,
+          "nameEN": "Minimal Rule",
+          "nameES": "Regla Mínima"
+        },
+        {
+          "n": 7,
+          "nameEN": "Filled Plate",
+          "nameES": "Placa Rellena"
+        },
+        {
+          "n": 8,
+          "nameEN": "Gallery Check",
+          "nameES": "Galería con Marca"
+        },
+        {
+          "n": 9,
+          "nameEN": "Scale Flick",
+          "nameES": "Chasquido con Escala"
+        },
+        {
+          "n": 10,
+          "nameEN": "Mono Box",
+          "nameES": "Caja Monoespaciada"
+        }
+      ]
+    },
+    {
+      "slug": "radio",
+      "sprint": 1,
+      "nameEN": "radio",
+      "hook": "[data-testid=\"group\"]",
+      "nameTarget": "[data-testid=\"group\"] input[type=\"radio\"]",
+      "focusTarget": "[data-testid=\"group\"] input[type=\"radio\"]",
+      "designs": [
+        {
+          "n": 1,
+          "nameEN": "Native Revisit",
+          "nameES": "Nativo Revisitado"
+        },
+        {
+          "n": 2,
+          "nameEN": "Pill Group",
+          "nameES": "Grupo de Píldoras"
+        },
+        {
+          "n": 3,
+          "nameEN": "Choice Cards",
+          "nameES": "Tarjetas de Elección"
+        },
+        {
+          "n": 4,
+          "nameEN": "Dial Knob",
+          "nameES": "Perilla Giratoria"
+        },
+        {
+          "n": 5,
+          "nameEN": "Orbit Moons",
+          "nameES": "Lunas Orbitales"
+        },
+        {
+          "n": 6,
+          "nameEN": "Minimal Dot",
+          "nameES": "Punto Mínimo"
+        },
+        {
+          "n": 7,
+          "nameEN": "Tick Mark",
+          "nameES": "Marca de Verificación"
+        },
+        {
+          "n": 8,
+          "nameEN": "Big Touch",
+          "nameES": "Gran Área Táctil"
+        },
+        {
+          "n": 9,
+          "nameEN": "Mono Brackets",
+          "nameES": "Corchetes Monospace"
+        },
+        {
+          "n": 10,
+          "nameEN": "Gradient Border",
+          "nameES": "Borde Degradado"
+        }
+      ]
+    },
+    {
+      "slug": "switch",
+      "sprint": 1,
+      "nameEN": "switch",
+      "hook": "[data-testid=\"switch\"]",
+      "nameTarget": "[data-testid=\"switch\"]",
+      "focusTarget": "[data-testid=\"switch\"]",
+      "designs": [
+        {
+          "n": 1,
+          "nameEN": "iOS-Like",
+          "nameES": "Estilo iOS"
+        },
+        {
+          "n": 2,
+          "nameEN": "Cosmic Orbit",
+          "nameES": "Órbita Cósmica"
+        },
+        {
+          "n": 3,
+          "nameEN": "Split Label",
+          "nameES": "Etiqueta Dividida"
+        },
+        {
+          "n": 4,
+          "nameEN": "LED Terminal",
+          "nameES": "Terminal con LED"
+        },
+        {
+          "n": 5,
+          "nameEN": "Traffic Light",
+          "nameES": "Semáforo"
+        },
+        {
+          "n": 6,
+          "nameEN": "Feather Outline",
+          "nameES": "Pluma de Contorno"
+        },
+        {
+          "n": 7,
+          "nameEN": "Material Ripple",
+          "nameES": "Onda Material"
+        },
+        {
+          "n": 8,
+          "nameEN": "Minimal Slider",
+          "nameES": "Deslizador Mínimo"
+        },
+        {
+          "n": 9,
+          "nameEN": "Brutal Big",
+          "nameES": "Grande Brutalista"
+        },
+        {
+          "n": 10,
+          "nameEN": "Magnetic Hover",
+          "nameES": "Imán al Hover"
+        }
+      ]
+    },
+    {
+      "slug": "date-picker",
+      "sprint": 2,
+      "nameEN": "date picker",
+      "hook": "[data-testid=\"trigger\"]",
+      "nameTarget": "[data-testid=\"trigger\"]",
+      "focusTarget": "[data-testid=\"trigger\"]",
+      "contrastLabel": "[data-testid=\"label\"]",
+      "designFlags": {
+        "4": {
+          "dualMonth": true
+        }
+      },
+      "designs": [
+        {
+          "n": 1,
+          "nameEN": "Calendar Grid",
+          "nameES": "Grilla de Calendario"
+        },
+        {
+          "n": 2,
+          "nameEN": "Minimal Inline",
+          "nameES": "Inline Mínimo"
+        },
+        {
+          "n": 3,
+          "nameEN": "Terminal Date",
+          "nameES": "Fecha Terminal"
+        },
+        {
+          "n": 4,
+          "nameEN": "Dual Month",
+          "nameES": "Mes Doble"
+        },
+        {
+          "n": 5,
+          "nameEN": "Compact Popover",
+          "nameES": "Popover Compacto"
+        },
+        {
+          "n": 6,
+          "nameEN": "Slate Minimal",
+          "nameES": "Pizarra Mínima"
+        },
+        {
+          "n": 7,
+          "nameEN": "Rounded Modern",
+          "nameES": "Moderno Redondeado"
+        },
+        {
+          "n": 8,
+          "nameEN": "Mono Grid",
+          "nameES": "Grilla Mono"
+        },
+        {
+          "n": 9,
+          "nameEN": "Festival Colors",
+          "nameES": "Colores Festival"
+        },
+        {
+          "n": 10,
+          "nameEN": "Editor Underline",
+          "nameES": "Subrayado de Editor"
+        }
+      ]
+    },
+    {
+      "slug": "dropdown",
+      "sprint": 2,
+      "nameEN": "dropdown",
+      "hook": "[data-testid=\"trigger\"]",
+      "nameTarget": "[data-testid=\"trigger\"]",
+      "focusTarget": "[data-testid=\"trigger\"]",
+      "contrastLabel": "[data-testid=\"label\"]",
+      "designFlags": {
+        "1": {
+          "nativeSelect": true
+        }
+      },
+      "designs": [
+        {
+          "n": 1,
+          "nameEN": "Custom Select Native",
+          "nameES": "Select Nativo Personalizado"
+        },
+        {
+          "n": 2,
+          "nameEN": "Listbox Custom",
+          "nameES": "Listbox Personalizado"
+        },
+        {
+          "n": 3,
+          "nameEN": "Pill Menu",
+          "nameES": "Menú Píldora"
+        },
+        {
+          "n": 4,
+          "nameEN": "Searchable Select",
+          "nameES": "Select con Búsqueda"
+        },
+        {
+          "n": 5,
+          "nameEN": "Mega Simple",
+          "nameES": "Mega Simple"
+        },
+        {
+          "n": 6,
+          "nameEN": "Minimal Caret",
+          "nameES": "Caret Mínimo"
+        },
+        {
+          "n": 7,
+          "nameEN": "Card Options",
+          "nameES": "Opciones en Tarjeta"
+        },
+        {
+          "n": 8,
+          "nameEN": "Dark Popover",
+          "nameES": "Popover Oscuro"
+        },
+        {
+          "n": 9,
+          "nameEN": "Sectioned List",
+          "nameES": "Lista por Secciones"
+        },
+        {
+          "n": 10,
+          "nameEN": "Animated List",
+          "nameES": "Lista Animada"
+        }
+      ]
+    },
+    {
+      "slug": "text-area",
+      "sprint": 2,
+      "nameEN": "text area",
+      "hook": "[data-testid=\"area\"]",
+      "nameTarget": "[data-testid=\"area\"]",
+      "focusTarget": "[data-testid=\"area\"]",
+      "contrastLabel": "[data-testid=\"label\"]",
+      "designs": [
+        {
+          "n": 1,
+          "nameEN": "Editorial Sheet",
+          "nameES": "Hoja Editorial"
+        },
+        {
+          "n": 2,
+          "nameEN": "Terminal Mono",
+          "nameES": "Mono Terminal"
+        },
+        {
+          "n": 3,
+          "nameEN": "Note Paper",
+          "nameES": "Papel de Notas"
+        },
+        {
+          "n": 4,
+          "nameEN": "Glass Panel",
+          "nameES": "Panel de Cristal"
+        },
+        {
+          "n": 5,
+          "nameEN": "Code Editor",
+          "nameES": "Editor de Código"
+        },
+        {
+          "n": 6,
+          "nameEN": "Minimal Line",
+          "nameES": "Línea Mínima"
+        },
+        {
+          "n": 7,
+          "nameEN": "Bordered Plate",
+          "nameES": "Placa con Borde"
+        },
+        {
+          "n": 8,
+          "nameEN": "Draft Document",
+          "nameES": "Documento Borrador"
+        },
+        {
+          "n": 9,
+          "nameEN": "Soft Field",
+          "nameES": "Campo Suave"
+        },
+        {
+          "n": 10,
+          "nameEN": "Mono Gutter",
+          "nameES": "Mono con Gutter"
+        }
+      ]
+    },
+    {
+      "slug": "text-field",
+      "sprint": 2,
+      "nameEN": "text field",
+      "hook": "[data-testid=\"field\"]",
+      "nameTarget": "[data-testid=\"field\"]",
+      "focusTarget": "[data-testid=\"field\"]",
+      "contrastLabel": "[data-testid=\"label\"]",
+      "designFlags": {
+        "6": {
+          "floating": true
+        }
+      },
+      "designs": [
+        {
+          "n": 1,
+          "nameEN": "Glass Input",
+          "nameES": "Input de Cristal"
+        },
+        {
+          "n": 2,
+          "nameEN": "Line Only",
+          "nameES": "Solo Línea"
+        },
+        {
+          "n": 3,
+          "nameEN": "Filled Plate",
+          "nameES": "Placa Rellena"
+        },
+        {
+          "n": 4,
+          "nameEN": "Terminal Prompt",
+          "nameES": "Prompt de Terminal"
+        },
+        {
+          "n": 5,
+          "nameEN": "Underline Animated",
+          "nameES": "Subrayado Animado"
+        },
+        {
+          "n": 6,
+          "nameEN": "Floating Label",
+          "nameES": "Etiqueta Flotante"
+        },
+        {
+          "n": 7,
+          "nameEN": "Search Like",
+          "nameES": "Como Búsqueda"
+        },
+        {
+          "n": 8,
+          "nameEN": "Mono Editorial",
+          "nameES": "Mono Editorial"
+        },
+        {
+          "n": 9,
+          "nameEN": "Gradient Border",
+          "nameES": "Borde Degradado"
+        },
+        {
+          "n": 10,
+          "nameEN": "Icon Inline",
+          "nameES": "Icono En Línea"
+        }
+      ]
+    },
+    {
+      "slug": "file-uploader",
+      "sprint": 3,
+      "nameEN": "file uploader",
+      "hook": "[data-testid=\"dropzone\"]",
+      "nameTarget": "[data-testid=\"dropzone\"]",
+      "focusTarget": "[data-testid=\"dropzone\"]",
+      "contrastLabel": "[data-testid=\"label\"]",
+      "designFlags": {
+        "6": {
+          "progress": true
+        },
+        "10": {
+          "progress": true
+        }
+      },
+      "designs": [
+        {
+          "n": 1,
+          "nameEN": "Drag Drop Hero",
+          "nameES": "Hero de Arrastre"
+        },
+        {
+          "n": 2,
+          "nameEN": "Dashed Zone",
+          "nameES": "Zona de Guiones"
+        },
+        {
+          "n": 3,
+          "nameEN": "List with Remove",
+          "nameES": "Lista con Quitar"
+        },
+        {
+          "n": 4,
+          "nameEN": "Card Grid",
+          "nameES": "Rejilla de Tarjetas"
+        },
+        {
+          "n": 5,
+          "nameEN": "Minimal Button",
+          "nameES": "Botón Mínimo"
+        },
+        {
+          "n": 6,
+          "nameEN": "Drop Zone Gradient",
+          "nameES": "Zona Degradada"
+        },
+        {
+          "n": 7,
+          "nameEN": "Compact Inline",
+          "nameES": "Inline Compacto"
+        },
+        {
+          "n": 8,
+          "nameEN": "Dark Panel",
+          "nameES": "Panel Oscuro"
+        },
+        {
+          "n": 9,
+          "nameEN": "Terminal Drop",
+          "nameES": "Drop Terminal"
+        },
+        {
+          "n": 10,
+          "nameEN": "Progress Inline",
+          "nameES": "Progreso en Línea"
+        }
+      ]
+    },
+    {
+      "slug": "slider",
+      "sprint": 3,
+      "nameEN": "slider",
+      "hook": "[data-testid=\"slider\"]",
+      "nameTarget": "input[type=\"range\"]",
+      "focusTarget": "input[type=\"range\"]",
+      "contrastLabel": "[data-testid=\"label\"]",
+      "designFlags": {
+        "3": {
+          "dual": true
+        },
+        "4": {
+          "marks": true
+        },
+        "5": {
+          "vertical": true
+        },
+        "10": {
+          "marks": true
+        }
+      },
+      "designs": [
+        {
+          "n": 1,
+          "nameEN": "Classic Range",
+          "nameES": "Range Clásico"
+        },
+        {
+          "n": 2,
+          "nameEN": "Filled Track",
+          "nameES": "Pista Rellena"
+        },
+        {
+          "n": 3,
+          "nameEN": "Dual Range",
+          "nameES": "Doble Manija"
+        },
+        {
+          "n": 4,
+          "nameEN": "Step Dots",
+          "nameES": "Puntos de Paso"
+        },
+        {
+          "n": 5,
+          "nameEN": "Vertical Trim",
+          "nameES": "Afilada Vertical"
+        },
+        {
+          "n": 6,
+          "nameEN": "Gradient Track",
+          "nameES": "Pista Degradada"
+        },
+        {
+          "n": 7,
+          "nameEN": "Minimal Line",
+          "nameES": "Línea Mínima"
+        },
+        {
+          "n": 8,
+          "nameEN": "Bubble Value",
+          "nameES": "Valor Burbuja"
+        },
+        {
+          "n": 9,
+          "nameEN": "Dark Track",
+          "nameES": "Pista Oscura"
+        },
+        {
+          "n": 10,
+          "nameEN": "Ramp Marks",
+          "nameES": "Marcas de Rampa"
+        }
+      ]
+    },
+    {
+      "slug": "stepper",
+      "sprint": 3,
+      "nameEN": "stepper",
+      "hook": "[data-testid=\"stepper\"]",
+      "nameTarget": "[data-testid=\"input\"]",
+      "focusTarget": "[data-testid=\"input\"]",
+      "contrastLabel": "[data-testid=\"label\"]",
+      "designs": [
+        {
+          "n": 1,
+          "nameEN": "Classic Plus Minus",
+          "nameES": "Más Menos Clásico"
+        },
+        {
+          "n": 2,
+          "nameEN": "Pill Adjacent",
+          "nameES": "Píldora Adyacente"
+        },
+        {
+          "n": 3,
+          "nameEN": "Round Buttons",
+          "nameES": "Botones Redondos"
+        },
+        {
+          "n": 4,
+          "nameEN": "Terminal Step",
+          "nameES": "Paso Terminal"
+        },
+        {
+          "n": 5,
+          "nameEN": "Minimal Split",
+          "nameES": "División Mínima"
+        },
+        {
+          "n": 6,
+          "nameEN": "Bordered Sheet",
+          "nameES": "Hoja con Borde"
+        },
+        {
+          "n": 7,
+          "nameEN": "Gradient Buttons",
+          "nameES": "Botones Degradados"
+        },
+        {
+          "n": 8,
+          "nameEN": "Mono Counter",
+          "nameES": "Contador Mono"
+        },
+        {
+          "n": 9,
+          "nameEN": "Icon Square",
+          "nameES": "Cuadro Icono"
+        },
+        {
+          "n": 10,
+          "nameEN": "Ghost Inline",
+          "nameES": "Fantasma en Línea"
+        }
+      ]
+    },
+    {
+      "slug": "time-picker",
+      "sprint": 3,
+      "nameEN": "time picker",
+      "hook": "[data-testid=\"trigger\"]",
+      "nameTarget": "[data-testid=\"trigger\"]",
+      "focusTarget": "[data-testid=\"trigger\"]",
+      "contrastLabel": "[data-testid=\"label\"]",
+      "designFlags": {
+        "5": {
+          "amPm": true
+        },
+        "10": {
+          "amPm": true
+        }
+      },
+      "designs": [
+        {
+          "n": 1,
+          "nameEN": "Rolling Dial",
+          "nameES": "Dial Giratorio"
+        },
+        {
+          "n": 2,
+          "nameEN": "Split Flap Digits",
+          "nameES": "Dígitos de Flap Dividido"
+        },
+        {
+          "n": 3,
+          "nameEN": "Analog Dial",
+          "nameES": "Esfera Análoga"
+        },
+        {
+          "n": 4,
+          "nameEN": "Digital Readout",
+          "nameES": "Lectura Digital"
+        },
+        {
+          "n": 5,
+          "nameEN": "Clock Face 12h",
+          "nameES": "Esfera 12h"
+        },
+        {
+          "n": 6,
+          "nameEN": "Minimal Inline",
+          "nameES": "Inline Mínimo"
+        },
+        {
+          "n": 7,
+          "nameEN": "Dark Popover",
+          "nameES": "Popover Oscuro"
+        },
+        {
+          "n": 8,
+          "nameEN": "Terminal Time",
+          "nameES": "Hora Terminal"
+        },
+        {
+          "n": 9,
+          "nameEN": "Slate Split",
+          "nameES": "División Pizarra"
+        },
+        {
+          "n": 10,
+          "nameEN": "Gradient Wheel",
+          "nameES": "Rueda Degradada"
+        }
+      ]
+    },
+    {
+      "slug": "color-picker",
+      "sprint": 4,
+      "nameEN": "color picker",
+      "hook": "[data-testid=\"hex\"]",
+      "nameTarget": "[data-testid=\"swatch\"], [data-testid=\"hue\"]",
+      "focusTarget": "[data-testid=\"swatch\"], [data-testid=\"hue\"]",
+      "contrastLabel": "[data-testid=\"label\"]",
+      "designFlags": {
+        "3": {
+          "hue": true
+        },
+        "4": {
+          "hue": true
+        },
+        "5": {
+          "hexin": true
+        },
+        "7": {
+          "hexin": true
+        },
+        "8": {
+          "hue": true
+        },
+        "9": {
+          "hexin": true
+        }
+      },
+      "designs": [
+        {
+          "n": 1,
+          "nameEN": "Swatch Grid",
+          "nameES": "Rejilla de Muestras"
+        },
+        {
+          "n": 2,
+          "nameEN": "Eye Dropper-ish",
+          "nameES": "Estilo Gotero"
+        },
+        {
+          "n": 3,
+          "nameEN": "Hue Slider",
+          "nameES": "Deslizador de Tono"
+        },
+        {
+          "n": 4,
+          "nameEN": "Wheel-ish",
+          "nameES": "Rueda Cromática"
+        },
+        {
+          "n": 5,
+          "nameEN": "Palette Cards",
+          "nameES": "Tarjetas de Paleta"
+        },
+        {
+          "n": 6,
+          "nameEN": "Minimal Squares",
+          "nameES": "Cuadrados Mínimos"
+        },
+        {
+          "n": 7,
+          "nameEN": "Dark Dropper",
+          "nameES": "Gotero Oscuro"
+        },
+        {
+          "n": 8,
+          "nameEN": "Gradient Spectrum",
+          "nameES": "Espectro Degradado"
+        },
+        {
+          "n": 9,
+          "nameEN": "Mono Outline",
+          "nameES": "Contorno Mono"
+        },
+        {
+          "n": 10,
+          "nameEN": "Glass Swatches",
+          "nameES": "Muestras de Cristal"
+        }
+      ]
+    },
+    {
+      "slug": "filters",
+      "sprint": 4,
+      "nameEN": "filters",
+      "hook": "[data-testid=\"count\"]",
+      "nameTarget": "[data-testid=\"check\"], [data-testid=\"pill\"], [data-testid=\"range\"], [data-testid=\"toggle\"], [data-testid=\"dot\"]",
+      "focusTarget": "[data-testid=\"check\"], [data-testid=\"pill\"], [data-testid=\"range\"], [data-testid=\"toggle\"], [data-testid=\"dot\"]",
+      "contrastLabel": "[data-testid=\"label\"]",
+      "designFlags": {
+        "2": {
+          "control": "pill",
+          "clear": true
+        },
+        "3": {
+          "control": "range",
+          "clear": true
+        },
+        "4": {
+          "control": "toggle"
+        },
+        "7": {
+          "control": "pill"
+        },
+        "9": {
+          "control": "dot",
+          "clear": true
+        }
+      },
+      "designs": [
+        {
+          "n": 1,
+          "nameEN": "Checkbox List",
+          "nameES": "Lista de Casillas"
+        },
+        {
+          "n": 2,
+          "nameEN": "Pill Chips",
+          "nameES": "Chips de Píldora"
+        },
+        {
+          "n": 3,
+          "nameEN": "Slider Range",
+          "nameES": "Rango Deslizante"
+        },
+        {
+          "n": 4,
+          "nameEN": "Toggle Rows",
+          "nameES": "Filas Interruptor"
+        },
+        {
+          "n": 5,
+          "nameEN": "Accordion Counts",
+          "nameES": "Acordeón con Conteos"
+        },
+        {
+          "n": 6,
+          "nameEN": "Dark Panel",
+          "nameES": "Panel Oscuro"
+        },
+        {
+          "n": 7,
+          "nameEN": "Card Grid",
+          "nameES": "Rejilla de Tarjetas"
+        },
+        {
+          "n": 8,
+          "nameEN": "Minimal Checks",
+          "nameES": "Casillas Mínimas"
+        },
+        {
+          "n": 9,
+          "nameEN": "Color Filter",
+          "nameES": "Filtro de Color"
+        },
+        {
+          "n": 10,
+          "nameEN": "Terminal Tail",
+          "nameES": "Cola de Terminal"
+        }
+      ]
+    },
+    {
+      "slug": "navbar",
+      "sprint": 4,
+      "nameEN": "navbar",
+      "hook": "[data-testid=\"link\"]",
+      "nameTarget": "[data-testid=\"link\"]",
+      "focusTarget": "[data-testid=\"link\"]",
+      "contrastLabel": ".brand",
+      "designFlags": {
+        "1": {
+          "dropdown": true
+        },
+        "4": {
+          "dropdown": true
+        },
+        "5": {
+          "dropdown": true
+        },
+        "8": {
+          "dropdown": true
+        },
+        "9": {
+          "dropdown": true
+        }
+      },
+      "designs": [
+        {
+          "n": 1,
+          "nameEN": "Sticky Glow",
+          "nameES": "Pegajoso Resplandor"
+        },
+        {
+          "n": 2,
+          "nameEN": "Minimal Links",
+          "nameES": "Enlaces Mínimos"
+        },
+        {
+          "n": 3,
+          "nameEN": "Pill Tabs",
+          "nameES": "Pestañas Píldora"
+        },
+        {
+          "n": 4,
+          "nameEN": "Terminal Menu",
+          "nameES": "Menú Terminal"
+        },
+        {
+          "n": 5,
+          "nameEN": "Glass Bar",
+          "nameES": "Barra de Cristal"
+        },
+        {
+          "n": 6,
+          "nameEN": "Dark Lines",
+          "nameES": "Líneas Oscuras"
+        },
+        {
+          "n": 7,
+          "nameEN": "Centered Logo",
+          "nameES": "Logo Centrado"
+        },
+        {
+          "n": 8,
+          "nameEN": "Underline Slide",
+          "nameES": "Deslizamiento Subrayado"
+        },
+        {
+          "n": 9,
+          "nameEN": "Corporate Clean",
+          "nameES": "Corporativo Limpio"
+        },
+        {
+          "n": 10,
+          "nameEN": "Mono Badges",
+          "nameES": "Insignias Mono"
+        }
+      ]
+    },
+    {
+      "slug": "search-bar",
+      "sprint": 4,
+      "nameEN": "search bar",
+      "hook": "[data-testid=\"search\"]",
+      "nameTarget": "[data-testid=\"search\"]",
+      "focusTarget": "[data-testid=\"search\"]",
+      "contrastLabel": "[data-testid=\"label\"]",
+      "designFlags": {
+        "2": {
+          "escape": true
+        },
+        "4": {
+          "slash": true
+        },
+        "6": {
+          "ctrlk": true
+        },
+        "8": {
+          "escape": true
+        },
+        "9": {
+          "escape": true
+        }
+      },
+      "designs": [
+        {
+          "n": 1,
+          "nameEN": "Magic Glow",
+          "nameES": "Resplandor Mágico"
+        },
+        {
+          "n": 2,
+          "nameEN": "Minimal Underline",
+          "nameES": "Subrayado Mínimo"
+        },
+        {
+          "n": 3,
+          "nameEN": "Pill Together",
+          "nameES": "Píldora Juntos"
+        },
+        {
+          "n": 4,
+          "nameEN": "Terminal Find",
+          "nameES": "Búsqueda Terminal"
+        },
+        {
+          "n": 5,
+          "nameEN": "Glass Overlay",
+          "nameES": "Cristal Overlay"
+        },
+        {
+          "n": 6,
+          "nameEN": "Rounded Hero",
+          "nameES": "Hero Redondeado"
+        },
+        {
+          "n": 7,
+          "nameEN": "Mono Filter",
+          "nameES": "Filtro Mono"
+        },
+        {
+          "n": 8,
+          "nameEN": "Dark Spotlight",
+          "nameES": "Foco Oscuro"
+        },
+        {
+          "n": 9,
+          "nameEN": "Editor Search",
+          "nameES": "Búsqueda Editor"
+        },
+        {
+          "n": 10,
+          "nameEN": "Gradient Edge",
+          "nameES": "Borde Degradado"
+        }
+      ]
+    },
+    {
+      "slug": "breadcrumbs",
+      "sprint": 5,
+      "nameEN": "breadcrumbs",
+      "hook": "[data-testid=\"bc-home\"]",
+      "nameTarget": "[data-testid=\"bc-home\"]",
+      "focusTarget": "[data-testid=\"bc-home\"]",
+      "designs": [
+        {
+          "n": 1,
+          "nameEN": "Glass Trail",
+          "nameES": "Rastro de Cristal"
+        },
+        {
+          "n": 2,
+          "nameEN": "Minimal Separator",
+          "nameES": "Separador Mínimo"
+        },
+        {
+          "n": 3,
+          "nameEN": "Terminal Path",
+          "nameES": "Ruta Terminal"
+        },
+        {
+          "n": 4,
+          "nameEN": "Dark Trail",
+          "nameES": "Ruta Oscura"
+        },
+        {
+          "n": 5,
+          "nameEN": "Gradient Path",
+          "nameES": "Ruta Degradada"
+        },
+        {
+          "n": 6,
+          "nameEN": "Mono Breadcrumbs",
+          "nameES": "Monogramas"
+        },
+        {
+          "n": 7,
+          "nameEN": "Pill Breadcrumbs",
+          "nameES": "Píldoras"
+        },
+        {
+          "n": 8,
+          "nameEN": "Mono Stages",
+          "nameES": "Etapas Mono"
+        },
+        {
+          "n": 9,
+          "nameEN": "Editor Trail",
+          "nameES": "Sendero de Editor"
+        },
+        {
+          "n": 10,
+          "nameEN": "Home Functional",
+          "nameES": "Home Funcional"
+        }
+      ]
+    },
+    {
+      "slug": "hamburger",
+      "sprint": 5,
+      "nameEN": "hamburger",
+      "hook": "[data-testid=\"hamburger\"]",
+      "nameTarget": "[data-testid=\"hamburger\"]",
+      "focusTarget": "[data-testid=\"hamburger\"]",
+      "designs": [
+        {
+          "n": 1,
+          "nameEN": "Classic Slide",
+          "nameES": "Deslizado Clásico"
+        },
+        {
+          "n": 2,
+          "nameEN": "Minimal Reveal",
+          "nameES": "Revelado Mínimo"
+        },
+        {
+          "n": 3,
+          "nameEN": "Terminal Slide",
+          "nameES": "Deslizado Terminal"
+        },
+        {
+          "n": 4,
+          "nameEN": "Glass Expand",
+          "nameES": "Expansión de Cristal"
+        },
+        {
+          "n": 5,
+          "nameEN": "Pill Hamburger",
+          "nameES": "Hamburguesa Píldora"
+        },
+        {
+          "n": 6,
+          "nameEN": "Mono Bars",
+          "nameES": "Barras Mono"
+        },
+        {
+          "n": 7,
+          "nameEN": "Rounded Reveal",
+          "nameES": "Revelado con Radio"
+        },
+        {
+          "n": 8,
+          "nameEN": "Gradient Slide",
+          "nameES": "Deslizado Degradado"
+        },
+        {
+          "n": 9,
+          "nameEN": "Inline Icon",
+          "nameES": "Ícono en Línea"
+        },
+        {
+          "n": 10,
+          "nameEN": "Hamburger con Close Botón",
+          "nameES": "Hamburger con Botón de Close"
+        }
+      ]
+    },
+    {
+      "slug": "sidebar",
+      "sprint": 5,
+      "nameEN": "sidebar",
+      "hook": "[data-testid=\"sidebar\"]",
+      "nameTarget": "[data-testid=\"sidebar\"]",
+      "focusTarget": "[data-testid=\"toggle\"]",
+      "designs": [
+        {
+          "n": 1,
+          "nameEN": "Collapsible Grid",
+          "nameES": "Cuadrícula Desplegable"
+        },
+        {
+          "n": 2,
+          "nameEN": "Minimal List",
+          "nameES": "Lista Mínima"
+        },
+        {
+          "n": 3,
+          "nameEN": "Terminal Nav",
+          "nameES": "Navegación Terminal"
+        },
+        {
+          "n": 4,
+          "nameEN": "Dark Accordion",
+          "nameES": "Acordeón Oscuro"
+        },
+        {
+          "n": 5,
+          "nameEN": "Rounded Links",
+          "nameES": "Enlaces Redondeados"
+        },
+        {
+          "n": 6,
+          "nameEN": "Sliding Rail",
+          "nameES": "Carril Deslizante"
+        },
+        {
+          "n": 7,
+          "nameEN": "Dock Bar",
+          "nameES": "Barra de Muelle"
+        },
+        {
+          "n": 8,
+          "nameEN": "Gradient Items",
+          "nameES": "Ítems Degradados"
+        },
+        {
+          "n": 9,
+          "nameEN": "Badge Sidebar",
+          "nameES": "Barra de Insignias"
+        },
+        {
+          "n": 10,
+          "nameEN": "Drawer Overlay",
+          "nameES": "Cajón Superpuesto"
+        }
+      ]
+    },
+    {
+      "slug": "tabs",
+      "sprint": 5,
+      "nameEN": "tabs",
+      "hook": "[data-testid=\"tab\"]",
+      "nameTarget": "[data-testid=\"tab\"]",
+      "focusTarget": "[data-testid=\"tab\"]",
+      "designs": [
+        {
+          "n": 1,
+          "nameEN": "Card Switch",
+          "nameES": "Conmutador de Tarjeta"
+        },
+        {
+          "n": 2,
+          "nameEN": "Minimal Indicators",
+          "nameES": "Indicadores Mínimos"
+        },
+        {
+          "n": 3,
+          "nameEN": "Pill Separated",
+          "nameES": "Píldora Separada"
+        },
+        {
+          "n": 4,
+          "nameEN": "Dark Tabs",
+          "nameES": "Tabs Oscuros"
+        },
+        {
+          "n": 5,
+          "nameEN": "Gradient Indicators",
+          "nameES": "Indicadores Degradados"
+        },
+        {
+          "n": 6,
+          "nameEN": "Mono Labels",
+          "nameES": "Etiquetas Mono"
+        },
+        {
+          "n": 7,
+          "nameEN": "Numbered Steps",
+          "nameES": "Pasos Numerados"
+        },
+        {
+          "n": 8,
+          "nameEN": "Underlined Switch",
+          "nameES": "Intercambio Subrayado"
+        },
+        {
+          "n": 9,
+          "nameEN": "Icon Only",
+          "nameES": "Solo Ícono"
+        },
+        {
+          "n": 10,
+          "nameEN": "Terminal Switch",
+          "nameES": "Conmutador Terminal"
+        }
+      ]
+    },
+    {
+      "slug": "anchor",
+      "sprint": 6,
+      "nameEN": "anchor",
+      "hook": "[data-testid=\"anchor\"]",
+      "nameTarget": "[data-testid=\"anchor\"]",
+      "focusTarget": "[data-testid=\"anchor\"]",
+      "designs": [
+        {
+          "n": 1,
+          "nameEN": "soft-link",
+          "nameES": "soft-enlace"
+        },
+        {
+          "n": 2,
+          "nameEN": "bold-anchor",
+          "nameES": "bold-ancla"
+        },
+        {
+          "n": 3,
+          "nameEN": "terminal-anchor",
+          "nameES": "ancla terminal"
+        },
+        {
+          "n": 4,
+          "nameEN": "dark-minimal",
+          "nameES": "oscuro-minimalista"
+        },
+        {
+          "n": 5,
+          "nameEN": "gradient-anchor",
+          "nameES": "ancla gradient"
+        },
+        {
+          "n": 6,
+          "nameEN": "cite-link",
+          "nameES": "enlace-cita"
+        },
+        {
+          "n": 7,
+          "nameEN": "list-anchor",
+          "nameES": "ancla-lista"
+        },
+        {
+          "n": 8,
+          "nameEN": "section-jump",
+          "nameES": "salto-sección"
+        },
+        {
+          "n": 9,
+          "nameEN": "quiz-anchor",
+          "nameES": "ancla-quiz"
+        },
+        {
+          "n": 10,
+          "nameEN": "float-anchor",
+          "nameES": "ancla-flotante"
+        }
+      ]
+    },
+    {
+      "slug": "bottom-nav",
+      "sprint": 6,
+      "nameEN": "bottom nav",
+      "hook": "[data-testid=\"bottom-nav\"]",
+      "nameTarget": "[data-testid=\"bottom-nav\"]",
+      "focusTarget": "[data-testid=\"bottom-nav\"]",
+      "designs": [
+        {
+          "n": 1,
+          "nameEN": "Bottom Navigation Clásico",
+          "nameES": "Classic Bottom Navigation"
+        },
+        {
+          "n": 2,
+          "nameEN": "Bottom Navigation con Íconos de Bordes",
+          "nameES": "Border Icon Bottom Nav"
+        },
+        {
+          "n": 3,
+          "nameEN": "Bottom Navigation con Background Gradient",
+          "nameES": "Gradient Background"
+        },
+        {
+          "n": 4,
+          "nameEN": "Bottom Navigation con Tarjetas Flotantes",
+          "nameES": "Floating Cards Bottom Nav"
+        },
+        {
+          "n": 5,
+          "nameEN": "Bottom Navigation con Indicador de Actividad",
+          "nameES": "Active Indicator Bottom Nav"
+        },
+        {
+          "n": 6,
+          "nameEN": "Bottom Navigation con Border Radius",
+          "nameES": "Border Radius Bottom Nav"
+        },
+        {
+          "n": 7,
+          "nameEN": "Bottom Navigation con Animación de Hover",
+          "nameES": "Hover Animation Bottom Nav"
+        },
+        {
+          "n": 8,
+          "nameEN": "Bottom Navigation con Sombras",
+          "nameES": "Shadow Bottom Nav"
+        },
+        {
+          "n": 9,
+          "nameEN": "Bottom Navigation con Badge de Cuentas",
+          "nameES": "Account Badge Bottom Nav"
+        },
+        {
+          "n": 10,
+          "nameEN": "Bottom Navigation con Efecto Lupa",
+          "nameES": "Search Magnifier Effect Bottom Nav"
+        }
+      ]
+    },
+    {
+      "slug": "infinite-scroll",
+      "sprint": 6,
+      "nameEN": "infinite scroll",
+      "hook": "[data-testid=\"infinite-scroll\"]",
+      "nameTarget": "[data-testid=\"infinite-scroll\"]",
+      "focusTarget": "[data-testid=\"infinite-scroll\"]",
+      "designs": [
+        {
+          "n": 1,
+          "nameEN": "Infinite Scroll Cargas Manuales",
+          "nameES": "Manual Load Infinite Scroll"
+        },
+        {
+          "n": 2,
+          "nameEN": "Infinite Scroll con Animación de Skeletons",
+          "nameES": "Skeleton Loading Animation"
+        },
+        {
+          "n": 3,
+          "nameEN": "Infinite Scroll con Tarjetas Grid",
+          "nameES": "Grid Card Infinite Scroll"
+        },
+        {
+          "n": 4,
+          "nameEN": "Infinite Scroll con Tarjetas con Imagen Superior",
+          "nameES": "Top Image Infinite Scroll"
+        },
+        {
+          "n": 5,
+          "nameEN": "Infinite Scroll con Cards Minimalistas",
+          "nameES": "Minimalist Cards Infinite Scroll"
+        },
+        {
+          "n": 6,
+          "nameEN": "Infinite Scroll con Cards de Precio",
+          "nameES": "Pricing Cards Infinite Scroll"
+        },
+        {
+          "n": 7,
+          "nameEN": "Infinite Scroll con Tarjetas de Características",
+          "nameES": "Feature Cards Infinite Scroll"
+        },
+        {
+          "n": 8,
+          "nameEN": "Infinite Scroll con Tarjetas de Estadísticas",
+          "nameES": "Stats Cards Infinite Scroll"
+        },
+        {
+          "n": 9,
+          "nameEN": "Infinite Scroll con Tarjetas de Perfiles",
+          "nameES": "User Profile Cards Infinite Scroll"
+        },
+        {
+          "n": 10,
+          "nameEN": "Infinite Scroll con Tarjetas de Testimoniales",
+          "nameES": "Testimonial Cards Infinite Scroll"
+        }
+      ]
+    },
+    {
+      "slug": "pagination",
+      "sprint": 6,
+      "nameEN": "pagination",
+      "hook": "[data-testid=\"pagination\"]",
+      "nameTarget": "[data-testid=\"pagination\"]",
+      "focusTarget": "[data-testid=\"pagination\"] button, [data-testid=\"pagination\"] a, [data-testid=\"pagination\"] .page-link",
+      "designs": [
+        {
+          "n": 1,
+          "nameEN": "Paginación Numérica Clásica",
+          "nameES": "Classic Numerical Pagination"
+        },
+        {
+          "n": 2,
+          "nameEN": "Paginación con Bordes Suaves",
+          "nameES": "Pagination with Border Radius"
+        },
+        {
+          "n": 3,
+          "nameEN": "Paginación Minimalista",
+          "nameES": "Minimalist Pagination"
+        },
+        {
+          "n": 4,
+          "nameEN": "Paginación con Background Gradiente",
+          "nameES": "Gradient Background Pagination"
+        },
+        {
+          "n": 5,
+          "nameEN": "Paginación con Tarjetas de Contenido",
+          "nameES": "Content Cards Pagination"
+        },
+        {
+          "n": 6,
+          "nameEN": "Paginación Oscura",
+          "nameES": "Dark Mode Pagination"
+        },
+        {
+          "n": 7,
+          "nameEN": "Paginación con Visualización de Saltos",
+          "nameES": "Jump-Through Pagination"
+        },
+        {
+          "n": 8,
+          "nameEN": "Paginación con Avatar de Usuario",
+          "nameES": "User Avatar Pagination"
+        },
+        {
+          "n": 9,
+          "nameEN": "Paginación con Íconos de Nube",
+          "nameES": "Cloud Icon Pagination"
+        },
+        {
+          "n": 10,
+          "nameEN": "Paginación con Efecto Hover 3D",
+          "nameES": "3D Hover Effect Pagination"
+        }
+      ]
+    },
+    {
+      "slug": "card",
+      "sprint": 7,
+      "nameEN": "card",
+      "hook": "[data-testid=\"card\"]",
+      "nameTarget": "[data-testid=\"card\"]",
+      "focusTarget": "[data-testid=\"card-link\"]",
+      "contrastLabel": "[data-testid=\"card\"]",
+      "designs": [
+        {
+          "n": 1,
+          "nameEN": "Card Image Caption",
+          "nameES": "Card with Image and Caption"
+        },
+        {
+          "n": 2,
+          "nameEN": "Card Minimal Meta",
+          "nameES": "Card with Minimal Metadata"
+        },
+        {
+          "n": 3,
+          "nameEN": "Card Terminal",
+          "nameES": "Terminal Card"
+        },
+        {
+          "n": 4,
+          "nameEN": "Card Gradient",
+          "nameES": "Card with Gradient Background"
+        },
+        {
+          "n": 5,
+          "nameEN": "Card Dark",
+          "nameES": "Dark Card"
+        },
+        {
+          "n": 6,
+          "nameEN": "Card Gradient Two",
+          "nameES": "Card with Gradient Two Colors"
+        },
+        {
+          "n": 7,
+          "nameEN": "Card Mono",
+          "nameES": "Mono Card"
+        },
+        {
+          "n": 8,
+          "nameEN": "Card Pill",
+          "nameES": "Card with Pill Shapes"
+        },
+        {
+          "n": 9,
+          "nameEN": "Card Badge",
+          "nameES": "Card with Badge"
+        },
+        {
+          "n": 10,
+          "nameEN": "Card Editor",
+          "nameES": "Card Editor"
+        }
+      ]
+    },
+    {
+      "slug": "grid",
+      "sprint": 7,
+      "nameEN": "grid",
+      "hook": "[data-testid=\"grid\"]",
+      "nameTarget": "[data-testid=\"grid\"]",
+      "focusTarget": "[data-testid=\"grid\"]",
+      "contrastLabel": "[data-testid=\"grid\"]",
+      "designs": [
+        {
+          "n": 1,
+          "nameEN": "Grid Responsive 3 Col",
+          "nameES": "Responsive 3-Column Grid"
+        },
+        {
+          "n": 2,
+          "nameEN": "Grid Minimal Gap",
+          "nameES": "Minimal Gap Grid"
+        },
+        {
+          "n": 3,
+          "nameEN": "Grid Terminal",
+          "nameES": "Terminal Grid"
+        },
+        {
+          "n": 4,
+          "nameEN": "Grid Dark",
+          "nameES": "Dark Grid"
+        },
+        {
+          "n": 5,
+          "nameEN": "Grid Gradient",
+          "nameES": "Gradient Grid"
+        },
+        {
+          "n": 6,
+          "nameEN": "Grid Mono",
+          "nameES": "Mono Grid"
+        },
+        {
+          "n": 7,
+          "nameEN": "Grid Pill",
+          "nameES": "Pill Grid"
+        },
+        {
+          "n": 8,
+          "nameEN": "Grid Badge",
+          "nameES": "Badge Grid"
+        },
+        {
+          "n": 9,
+          "nameEN": "Grid Underlined",
+          "nameES": "Underlined Grid"
+        },
+        {
+          "n": 10,
+          "nameEN": "Grid Editor",
+          "nameES": "Editor Grid"
+        }
+      ]
+    },
+    {
+      "slug": "list",
+      "sprint": 7,
+      "nameEN": "list",
+      "hook": "[data-testid=\"list\"]",
+      "nameTarget": "[data-testid=\"list\"]",
+      "focusTarget": "[data-testid=\"list-item\"]",
+      "contrastLabel": "[data-testid=\"list\"]",
+      "designs": [
+        {
+          "n": 1,
+          "nameEN": "List Grid Masonica",
+          "nameES": "Masonic List"
+        },
+        {
+          "n": 2,
+          "nameEN": "List Minimal Bullets",
+          "nameES": "Minimal Bullets List"
+        },
+        {
+          "n": 3,
+          "nameEN": "List Terminal",
+          "nameES": "Terminal List"
+        },
+        {
+          "n": 4,
+          "nameEN": "List Dark",
+          "nameES": "Dark List"
+        },
+        {
+          "n": 5,
+          "nameEN": "List Gradient",
+          "nameES": "Gradient List"
+        },
+        {
+          "n": 6,
+          "nameEN": "List Mono",
+          "nameES": "Mono List"
+        },
+        {
+          "n": 7,
+          "nameEN": "List Pill",
+          "nameES": "Pill List"
+        },
+        {
+          "n": 8,
+          "nameEN": "List Checked",
+          "nameES": "Checked List"
+        },
+        {
+          "n": 9,
+          "nameEN": "List Divider",
+          "nameES": "Divider List"
+        },
+        {
+          "n": 10,
+          "nameEN": "List Editor",
+          "nameES": "Editor List"
+        }
+      ]
+    },
+    {
+      "slug": "toc",
+      "sprint": 7,
+      "nameEN": "toc",
+      "hook": "[data-testid=\"toc\"]",
+      "nameTarget": "[data-testid=\"toc-link\"]",
+      "focusTarget": "[data-testid=\"toc-link\"]",
+      "contrastLabel": "[data-testid=\"toc-link\"]",
+      "designs": [
+        {
+          "n": 1,
+          "nameEN": "TOC Sticky Header",
+          "nameES": "Sticky Header TOC"
+        },
+        {
+          "n": 2,
+          "nameEN": "TOC Minimal Grid",
+          "nameES": "Minimal Grid TOC"
+        },
+        {
+          "n": 3,
+          "nameEN": "TOC Terminal",
+          "nameES": "Terminal TOC"
+        },
+        {
+          "n": 4,
+          "nameEN": "TOC Glass",
+          "nameES": "Glass TOC"
+        },
+        {
+          "n": 5,
+          "nameEN": "TOC Dark",
+          "nameES": "Dark TOC"
+        },
+        {
+          "n": 6,
+          "nameEN": "TOC Gradient",
+          "nameES": "Gradient TOC"
+        },
+        {
+          "n": 7,
+          "nameEN": "TOC Mono",
+          "nameES": "Mono TOC"
+        },
+        {
+          "n": 8,
+          "nameEN": "TOC Pill",
+          "nameES": "Pill TOC"
+        },
+        {
+          "n": 9,
+          "nameEN": "TOC Inline",
+          "nameES": "Inline TOC"
+        },
+        {
+          "n": 10,
+          "nameEN": "TOC Editor",
+          "nameES": "Editor TOC"
+        }
+      ]
+    },
+    {
+      "slug": "badge",
+      "sprint": 8,
+      "nameEN": "badge",
+      "hook": "[data-testid=\"badge\"]",
+      "nameTarget": "[data-testid=\"badge\"]",
+      "focusTarget": "[data-testid=\"badge\"]",
+      "contrastLabel": "[data-testid=\"label\"]",
+      "designs": [
+        {
+          "n": 1,
+          "nameEN": "Badge Pulse",
+          "nameES": "Pulse Badge"
+        },
+        {
+          "n": 2,
+          "nameEN": "Badge Minimal",
+          "nameES": "Minimal Badge"
+        },
+        {
+          "n": 3,
+          "nameEN": "Badge Terminal",
+          "nameES": "Terminal Badge"
+        },
+        {
+          "n": 4,
+          "nameEN": "Badge Glass",
+          "nameES": "Glass Badge"
+        },
+        {
+          "n": 5,
+          "nameEN": "Badge Gradient",
+          "nameES": "Gradient Badge"
+        },
+        {
+          "n": 6,
+          "nameEN": "Badge Mono",
+          "nameES": "Mono Badge"
+        },
+        {
+          "n": 7,
+          "nameEN": "Badge Pill",
+          "nameES": "Pill Badge"
+        },
+        {
+          "n": 8,
+          "nameEN": "Badge Underlined",
+          "nameES": "Underlined Badge"
+        },
+        {
+          "n": 9,
+          "nameEN": "Badge Editor",
+          "nameES": "Editor Badge"
+        },
+        {
+          "n": 10,
+          "nameEN": "Badge Neon",
+          "nameES": "Neon Badge"
+        }
+      ]
+    },
+    {
+      "slug": "charts",
+      "sprint": 8,
+      "nameEN": "charts",
+      "hook": "[data-testid=\"chart\"]",
+      "nameTarget": "[data-testid=\"chart\"]",
+      "focusTarget": "[data-testid=\"chart\"]",
+      "contrastLabel": "[data-testid=\"label\"]",
+      "designs": [
+        {
+          "n": 1,
+          "nameEN": "Bar Chart",
+          "nameES": "Bar Chart"
+        },
+        {
+          "n": 2,
+          "nameEN": "Minimal Line",
+          "nameES": "Minimal Line Chart"
+        },
+        {
+          "n": 3,
+          "nameEN": "Terminal Chart",
+          "nameES": "Terminal Chart"
+        },
+        {
+          "n": 4,
+          "nameEN": "Gradient Chart",
+          "nameES": "Gradient Chart"
+        },
+        {
+          "n": 5,
+          "nameEN": "Mono Chart",
+          "nameES": "Mono Chart"
+        },
+        {
+          "n": 6,
+          "nameEN": "Pill Chart",
+          "nameES": "Pill Chart"
+        },
+        {
+          "n": 7,
+          "nameEN": "Neon Chart",
+          "nameES": "Neon Chart"
+        },
+        {
+          "n": 8,
+          "nameEN": "Underlined Chart",
+          "nameES": "Underlined Chart"
+        },
+        {
+          "n": 9,
+          "nameEN": "Editor Chart",
+          "nameES": "Editor Chart"
+        },
+        {
+          "n": 10,
+          "nameEN": "Dashboard Chart",
+          "nameES": "Dashboard Chart"
+        }
+      ]
+    },
+    {
+      "slug": "tag",
+      "sprint": 8,
+      "nameEN": "tag",
+      "hook": "[data-testid=\"tag\"]",
+      "nameTarget": "[data-testid=\"tag\"]",
+      "focusTarget": "[data-testid=\"tag\"]",
+      "contrastLabel": "[data-testid=\"label\"]",
+      "designs": [
+        {
+          "n": 1,
+          "nameEN": "Tag Pill",
+          "nameES": "Pill Tag"
+        },
+        {
+          "n": 2,
+          "nameEN": "Tag Minimal",
+          "nameES": "Minimal Tag"
+        },
+        {
+          "n": 3,
+          "nameEN": "Tag Terminal",
+          "nameES": "Terminal Tag"
+        },
+        {
+          "n": 4,
+          "nameEN": "Tag Glass",
+          "nameES": "Glass Tag"
+        },
+        {
+          "n": 5,
+          "nameEN": "Tag Gradient",
+          "nameES": "Gradient Tag"
+        },
+        {
+          "n": 6,
+          "nameEN": "Tag Mono",
+          "nameES": "Mono Tag"
+        },
+        {
+          "n": 7,
+          "nameEN": "Tag Pill (colored)",
+          "nameES": "Pill Tag"
+        },
+        {
+          "n": 8,
+          "nameEN": "Tag Underlined",
+          "nameES": "Underlined Tag"
+        },
+        {
+          "n": 9,
+          "nameEN": "Tag Editor",
+          "nameES": "Editor Tag"
+        },
+        {
+          "n": 10,
+          "nameEN": "Tag Neon",
+          "nameES": "Neon Tag"
+        }
+      ]
+    },
+    {
+      "slug": "timeline",
+      "sprint": 8,
+      "nameEN": "timeline",
+      "hook": "[data-testid=\"timeline\"]",
+      "nameTarget": "[data-testid=\"timeline\"]",
+      "focusTarget": "[data-testid=\"timeline\"]",
+      "contrastLabel": "[data-testid=\"label\"]",
+      "designs": [
+        {
+          "n": 1,
+          "nameEN": "Timeline Striped",
+          "nameES": "Striped Timeline"
+        },
+        {
+          "n": 2,
+          "nameEN": "Timeline Minimal",
+          "nameES": "Minimal Timeline"
+        },
+        {
+          "n": 3,
+          "nameEN": "Timeline Terminal",
+          "nameES": "Terminal Timeline"
+        },
+        {
+          "n": 4,
+          "nameEN": "Timeline Glass",
+          "nameES": "Glass Timeline"
+        },
+        {
+          "n": 5,
+          "nameEN": "Timeline Gradient",
+          "nameES": "Gradient Timeline"
+        },
+        {
+          "n": 6,
+          "nameEN": "Timeline Mono",
+          "nameES": "Mono Timeline"
+        },
+        {
+          "n": 7,
+          "nameEN": "Timeline Pill",
+          "nameES": "Pill Timeline"
+        },
+        {
+          "n": 8,
+          "nameEN": "Timeline Underlined",
+          "nameES": "Underlined Timeline"
+        },
+        {
+          "n": 9,
+          "nameEN": "Timeline Badge",
+          "nameES": "Badge Timeline"
+        },
+        {
+          "n": 10,
+          "nameEN": "Timeline Editor",
+          "nameES": "Editor Timeline"
+        }
+      ]
+    },
+    {
+      "slug": "accordion",
+      "sprint": 9,
+      "nameEN": "Accordion",
+      "nameES": "Alternador",
+      "hook": "[data-testid=\"accordion\"]",
+      "nameTarget": "[data-testid=\"accordion\"]",
+      "focusTarget": "[data-testid=\"accordion\"]",
+      "designs": [
+        {
+          "n": 1,
+          "nameEN": "Accordion Classic",
+          "nameES": "Classic Accordion"
+        },
+        {
+          "n": 2,
+          "nameEN": "Accordion Minimal",
+          "nameES": "Minimal Accordion"
+        },
+        {
+          "n": 3,
+          "nameEN": "Accordion Terminal",
+          "nameES": "Terminal Accordion"
+        },
+        {
+          "n": 4,
+          "nameEN": "Accordion Nested",
+          "nameES": "Nested Accordion"
+        },
+        {
+          "n": 5,
+          "nameEN": "Accordion Chevron",
+          "nameES": "Chevron Accordion"
+        },
+        {
+          "n": 6,
+          "nameEN": "Accordion Bordered",
+          "nameES": "Bordered Accordion"
+        },
+        {
+          "n": 7,
+          "nameEN": "Accordion Numeric",
+          "nameES": "Numeric Accordion"
+        },
+        {
+          "n": 8,
+          "nameEN": "Accordion Terminal Numeric",
+          "nameES": "Terminal Numeric Accordion"
+        },
+        {
+          "n": 9,
+          "nameEN": "Accordion Ghost",
+          "nameES": "Ghost Accordion"
+        },
+        {
+          "n": 10,
+          "nameEN": "Accordion Floating",
+          "nameES": "Floating Accordion"
+        }
+      ]
+    },
+    {
+      "slug": "avatar",
+      "sprint": 9,
+      "nameEN": "Avatar",
+      "nameES": "Avatar",
+      "hook": "[data-testid=\"avatar\"]",
+      "nameTarget": "[data-testid=\"avatar\"]",
+      "focusTarget": "[data-testid=\"avatar\"]",
+      "designs": [
+        {
+          "n": 1,
+          "nameEN": "Avatar Classic",
+          "nameES": "Classic Avatar"
+        },
+        {
+          "n": 2,
+          "nameEN": "Avatar Bordered",
+          "nameES": "Bordered Avatar"
+        },
+        {
+          "n": 3,
+          "nameEN": "Avatar Terminal",
+          "nameES": "Terminal Avatar"
+        },
+        {
+          "n": 4,
+          "nameEN": "Avatar Rounded",
+          "nameES": "Rounded Avatar"
+        },
+        {
+          "n": 5,
+          "nameEN": "Avatar Initials",
+          "nameES": "Initials Avatar"
+        },
+        {
+          "n": 6,
+          "nameEN": "Avatar Circle Color",
+          "nameES": "Circle Color Avatar"
+        },
+        {
+          "n": 7,
+          "nameEN": "Avatar Square",
+          "nameES": "Square Avatar"
+        },
+        {
+          "n": 8,
+          "nameEN": "Avatar Monogram",
+          "nameES": "Monogram Avatar"
+        },
+        {
+          "n": 9,
+          "nameEN": "Avatar Minimal",
+          "nameES": "Minimal Avatar"
+        },
+        {
+          "n": 10,
+          "nameEN": "Avatar Floating",
+          "nameES": "Floating Avatar"
+        }
+      ]
+    },
+    {
+      "slug": "blockquote",
+      "sprint": 9,
+      "nameEN": "Blockquote",
+      "nameES": "Bloque de cita",
+      "hook": "[data-testid=\"blockquote\"]",
+      "nameTarget": "[data-testid=\"blockquote\"]",
+      "focusTarget": "[data-testid=\"blockquote\"]",
+      "designs": [
+        {
+          "n": 1,
+          "nameEN": "Blockquote Main",
+          "nameES": "Bloque Principal"
+        },
+        {
+          "n": 2,
+          "nameEN": "Blockquote Dark",
+          "nameES": "Oscuro"
+        },
+        {
+          "n": 3,
+          "nameEN": "Blockquote Gradient",
+          "nameES": "Gradiente"
+        },
+        {
+          "n": 4,
+          "nameEN": "Blockquote Minimal",
+          "nameES": "Minimalista"
+        },
+        {
+          "n": 5,
+          "nameEN": "Blockquote with Border",
+          "nameES": "Con Borde"
+        },
+        {
+          "n": 6,
+          "nameEN": "Blockquote Glassmorphism",
+          "nameES": "Glassmorphism"
+        },
+        {
+          "n": 7,
+          "nameEN": "Blockquote Colorful",
+          "nameES": "Colorido"
+        },
+        {
+          "n": 8,
+          "nameEN": "Blockquote Rounded",
+          "nameES": "Con Borde Redondeado"
+        },
+        {
+          "n": 9,
+          "nameEN": "Blockquote with Icon",
+          "nameES": "Con Icono"
+        },
+        {
+          "n": 10,
+          "nameEN": "Blockquote Light",
+          "nameES": "Claro"
+        }
+      ]
+    },
+    {
+      "slug": "carousel",
+      "sprint": 9,
+      "nameEN": "Carousel",
+      "nameES": "Carrusel",
+      "hook": "[data-testid=\"carousel\"]",
+      "nameTarget": "[data-testid=\"carousel\"]",
+      "focusTarget": "[data-testid=\"carousel\"] [data-prev], [data-testid=\"carousel\"] [data-next]",
+      "designs": [
+        {
+          "n": 1,
+          "nameEN": "Carousel Fade Slide",
+          "nameES": "Fade Slide Carousel"
+        },
+        {
+          "n": 2,
+          "nameEN": "Carousel Minimal Indicators",
+          "nameES": "Minimal Indicators Carousel"
+        },
+        {
+          "n": 3,
+          "nameEN": "Carousel Terminal",
+          "nameES": "Terminal Carousel"
+        },
+        {
+          "n": 4,
+          "nameEN": "Carousel Dark",
+          "nameES": "Dark Carousel"
+        },
+        {
+          "n": 5,
+          "nameEN": "Carousel Gradient",
+          "nameES": "Gradient Carousel"
+        },
+        {
+          "n": 6,
+          "nameEN": "Carousel Mono",
+          "nameES": "Mono Carousel"
+        },
+        {
+          "n": 7,
+          "nameEN": "Carousel Pill",
+          "nameES": "Pill Carousel"
+        },
+        {
+          "n": 8,
+          "nameEN": "Carousel Badge",
+          "nameES": "Badge Carousel"
+        },
+        {
+          "n": 9,
+          "nameEN": "Carousel Underlined",
+          "nameES": "Underlined Carousel"
+        },
+        {
+          "n": 10,
+          "nameEN": "Carousel Editor",
+          "nameES": "Editor Carousel"
+        }
+      ]
+    },
+    {
+      "slug": "table",
+      "sprint": 9,
+      "nameEN": "Data Table",
+      "nameES": "Tabla de datos",
+      "hook": "[data-testid=\"table\"]",
+      "nameTarget": "[data-testid=\"table\"]",
+      "focusTarget": "[data-testid=\"table\"] button, [data-testid=\"table\"] a",
+      "designs": [
+        {
+          "n": 1,
+          "nameEN": "Table Striped Row",
+          "nameES": "Table with Striped Rows"
+        },
+        {
+          "n": 2,
+          "nameEN": "Table Minimal",
+          "nameES": "Minimal Table"
+        },
+        {
+          "n": 3,
+          "nameEN": "Table Terminal",
+          "nameES": "Terminal Table"
+        },
+        {
+          "n": 4,
+          "nameEN": "Table Dark",
+          "nameES": "Dark Table"
+        },
+        {
+          "n": 5,
+          "nameEN": "Table Gradient",
+          "nameES": "Gradient Table"
+        },
+        {
+          "n": 6,
+          "nameEN": "Table Mono",
+          "nameES": "Mono Table"
+        },
+        {
+          "n": 7,
+          "nameEN": "Table Pill",
+          "nameES": "Pill Table"
+        },
+        {
+          "n": 8,
+          "nameEN": "Table Badge",
+          "nameES": "Badge Table"
+        },
+        {
+          "n": 9,
+          "nameEN": "Table Underlined",
+          "nameES": "Underlined Table"
+        },
+        {
+          "n": 10,
+          "nameEN": "Table Editor",
+          "nameES": "Editor Table"
+        }
+      ]
+    },
+    {
+      "slug": "alert",
+      "sprint": 10,
+      "nameEN": "Alert",
+      "nameES": "Alerta",
+      "hook": "[data-testid=\"alert\"]",
+      "nameTarget": "[data-testid=\"alert\"]",
+      "focusTarget": "[data-testid=\"alert\"]",
+      "designs": [
+        {
+          "n": 1,
+          "nameEN": "Info Alert",
+          "nameES": "Alerta de Información"
+        },
+        {
+          "n": 2,
+          "nameEN": "Warning Alert",
+          "nameES": "Alerta de Advertencia"
+        },
+        {
+          "n": 3,
+          "nameEN": "Error Alert",
+          "nameES": "Alerta de Error"
+        },
+        {
+          "n": 4,
+          "nameEN": "Success Alert",
+          "nameES": "Éxito"
+        },
+        {
+          "n": 5,
+          "nameEN": "Alert with Close Button",
+          "nameES": "Alerta con botón de cierre"
+        },
+        {
+          "n": 6,
+          "nameEN": "Alert with Timeout",
+          "nameES": "Alerta con tiempo límite"
+        },
+        {
+          "n": 7,
+          "nameEN": "Alert Dismissible",
+          "nameES": "Alerta Dismissible"
+        },
+        {
+          "n": 8,
+          "nameEN": "Alert inline",
+          "nameES": "Alerta Inline"
+        },
+        {
+          "n": 9,
+          "nameEN": "Alert with Icon Right",
+          "nameES": "Alerta con ícono a la derecha"
+        },
+        {
+          "n": 10,
+          "nameEN": "Alert with Description List",
+          "nameES": "Alerta con Lista Descriptiva"
+        }
+      ]
+    },
+    {
+      "slug": "calendar",
+      "sprint": 10,
+      "nameEN": "Calendar",
+      "nameES": "Calendario",
+      "hook": "[data-testid=\"calendar\"]",
+      "nameTarget": "[data-testid=\"calendar\"]",
+      "focusTarget": "[data-testid=\"calendar\"]",
+      "designs": [
+        {
+          "n": 1,
+          "nameEN": "Calendar Grid",
+          "nameES": "Calendar Grid"
+        },
+        {
+          "n": 2,
+          "nameEN": "Calendar Minimal",
+          "nameES": "Minimal Calendar"
+        },
+        {
+          "n": 3,
+          "nameEN": "Calendar Terminal",
+          "nameES": "Terminal Calendar"
+        },
+        {
+          "n": 4,
+          "nameEN": "Calendar Dark",
+          "nameES": "Dark Calendar"
+        },
+        {
+          "n": 5,
+          "nameEN": "Calendar Gradient",
+          "nameES": "Gradient Calendar"
+        },
+        {
+          "n": 6,
+          "nameEN": "Calendar Mono",
+          "nameES": "Mono Calendar"
+        },
+        {
+          "n": 7,
+          "nameEN": "Calendar Pill",
+          "nameES": "Pill Calendar"
+        },
+        {
+          "n": 8,
+          "nameEN": "Calendar Rounded",
+          "nameES": "Rounded Calendar"
+        },
+        {
+          "n": 9,
+          "nameEN": "Calendar Badge",
+          "nameES": "Badge Calendar"
+        },
+        {
+          "n": 10,
+          "nameEN": "Calendar Editor",
+          "nameES": "Editor Calendar"
+        }
+      ]
+    },
+    {
+      "slug": "code-block",
+      "sprint": 10,
+      "nameEN": "Code Block",
+      "nameES": "Bloque de código",
+      "hook": "[data-testid=\"code-block\"]",
+      "nameTarget": "[data-testid=\"code-block\"]",
+      "focusTarget": "[data-testid=\"code-block\"] [data-copy], [data-testid=\"code-block\"] [data-theme]",
+      "designs": [
+        {
+          "n": 1,
+          "nameEN": "Syntax Highlight",
+          "nameES": "Syntax Highlight"
+        },
+        {
+          "n": 2,
+          "nameEN": "Minimal Fence",
+          "nameES": "Minimal Fence"
+        },
+        {
+          "n": 3,
+          "nameEN": "Terminal Fence",
+          "nameES": "Terminal Fence"
+        },
+        {
+          "n": 4,
+          "nameEN": "Gradient Fence",
+          "nameES": "Gradient Fence"
+        },
+        {
+          "n": 5,
+          "nameEN": "Code Block Gradient",
+          "nameES": "Gradiente"
+        },
+        {
+          "n": 6,
+          "nameEN": "Code Block Neo-Brutalist",
+          "nameES": "Neo-Brutalista"
+        },
+        {
+          "n": 7,
+          "nameEN": "Code Block Dark Minimal",
+          "nameES": "Oscuro Minimalista"
+        },
+        {
+          "n": 8,
+          "nameEN": "Code Block Solarized",
+          "nameES": "Solarized"
+        },
+        {
+          "n": 9,
+          "nameEN": "Code Block Dracula",
+          "nameES": "Dracula"
+        },
+        {
+          "n": 10,
+          "nameEN": "Code Block One Dark",
+          "nameES": "One Dark"
+        }
+      ]
+    },
+    {
+      "slug": "toast",
+      "sprint": 10,
+      "nameEN": "Toast",
+      "nameES": "Toast",
+      "hook": "[data-testid=\"toast\"]",
+      "nameTarget": "[data-testid=\"toast\"]",
+      "focusTarget": "[data-testid=\"toast\"] button, [data-testid=\"toast\"] a",
+      "designs": [
+        {
+          "n": 1,
+          "nameEN": "Info Toast",
+          "nameES": "Toast de Información"
+        },
+        {
+          "n": 2,
+          "nameEN": "Success Toast",
+          "nameES": "Éxito"
+        },
+        {
+          "n": 3,
+          "nameEN": "Warning Toast",
+          "nameES": "Advertencia"
+        },
+        {
+          "n": 4,
+          "nameEN": "Warning Toast with Auto-close",
+          "nameES": "Advertencia con auto-cierre"
+        },
+        {
+          "n": 5,
+          "nameEN": "Error Toast",
+          "nameES": "Error"
+        },
+        {
+          "n": 6,
+          "nameEN": "Warning Toast with Close",
+          "nameES": "Advertencia con cierre"
+        },
+        {
+          "n": 7,
+          "nameEN": "Info Toast avec Icône",
+          "nameES": "Toast con ícono"
+        },
+        {
+          "n": 8,
+          "nameEN": "Toast with Action",
+          "nameES": "Toast con Acción"
+        },
+        {
+          "n": 9,
+          "nameEN": "Toast with Progress Bar",
+          "nameES": "Toast con Barra de Progreso"
+        },
+        {
+          "n": 10,
+          "nameEN": "Toast Dark",
+          "nameES": "Oscuro"
+        }
+      ]
+    },
+    {
+      "slug": "modal",
+      "sprint": 11,
+      "nameEN": "modal",
+      "hook": "[data-testid=\"modal\"]",
+      "nameTarget": "[data-testid=\"modal\"]",
+      "focusTarget": "[data-testid=\"modal\"]",
+      "designs": [
+        {
+          "n": 1,
+          "nameEN": "Confirm Modal",
+          "nameES": "Confirm Modal"
+        },
+        {
+          "n": 2,
+          "nameEN": "Minimal Modal",
+          "nameES": "Minimal Modal"
+        },
+        {
+          "n": 3,
+          "nameEN": "Terminal Modal",
+          "nameES": "Terminal Modal"
+        },
+        {
+          "n": 4,
+          "nameEN": "Dark Modal",
+          "nameES": "Dark Modal"
+        },
+        {
+          "n": 5,
+          "nameEN": "Gradient Modal",
+          "nameES": "Gradient Modal"
+        },
+        {
+          "n": 6,
+          "nameEN": "Mono Modal",
+          "nameES": "Mono Modal"
+        },
+        {
+          "n": 7,
+          "nameEN": "Pill Modal",
+          "nameES": "Pill Modal"
+        },
+        {
+          "n": 8,
+          "nameEN": "Underlined Modal",
+          "nameES": "Underlined Modal"
+        },
+        {
+          "n": 9,
+          "nameEN": "Badge Modal",
+          "nameES": "Badge Modal"
+        },
+        {
+          "n": 10,
+          "nameEN": "Editor Modal",
+          "nameES": "Editor Modal"
+        }
+      ]
+    },
+    {
+      "slug": "popover",
+      "sprint": 11,
+      "nameEN": "popover",
+      "hook": "[data-testid=\"popover\"]",
+      "nameTarget": "[data-testid=\"popover\"]",
+      "focusTarget": "[data-testid=\"popover\"]",
+      "designs": [
+        {
+          "n": 1,
+          "nameEN": "Click Trigger",
+          "nameES": "Click Trigger Popover"
+        },
+        {
+          "n": 2,
+          "nameEN": "Focus Trigger",
+          "nameES": "Focus Trigger Popover"
+        },
+        {
+          "n": 3,
+          "nameEN": "Terminal Popover",
+          "nameES": "Terminal Popover"
+        },
+        {
+          "n": 4,
+          "nameEN": "Dark Popover",
+          "nameES": "Dark Popover"
+        },
+        {
+          "n": 5,
+          "nameEN": "Gradient Popover",
+          "nameES": "Gradient Popover"
+        },
+        {
+          "n": 6,
+          "nameEN": "Modal Overlay Popover",
+          "nameES": "Modal Overlay Popover"
+        },
+        {
+          "n": 7,
+          "nameEN": "Transparent Popover",
+          "nameES": "Transparent Popover"
+        },
+        {
+          "n": 8,
+          "nameEN": "Inline Popover",
+          "nameES": "Inline Popover"
+        },
+        {
+          "n": 9,
+          "nameEN": "Multi-line Popover",
+          "nameES": "Multi-line Popover"
+        },
+        {
+          "n": 10,
+          "nameEN": "Sticky Bottom Popover",
+          "nameES": "Sticky Bottom Popover"
+        }
+      ]
+    },
+    {
+      "slug": "progress-bar",
+      "sprint": 11,
+      "nameEN": "progress bar",
+      "hook": "[data-testid=\"progress-bar\"]",
+      "nameTarget": "[data-testid=\"progress-bar\"]",
+      "focusTarget": "[data-testid=\"progress-bar\"] button, [data-testid=\"progress-bar\"] .progress-btn",
+      "contrastLabel": "[data-testid=\"label\"]",
+      "designs": [
+        {
+          "n": 1,
+          "nameEN": "Determinate",
+          "nameES": "Determinate Progress Bar"
+        },
+        {
+          "n": 2,
+          "nameEN": "Indeterminate",
+          "nameES": "Indeterminate Progress Bar"
+        },
+        {
+          "n": 3,
+          "nameEN": "Success",
+          "nameES": "Success Progress Bar"
+        },
+        {
+          "n": 4,
+          "nameEN": "Warning",
+          "nameES": "Warning Progress Bar"
+        },
+        {
+          "n": 5,
+          "nameEN": "Critical",
+          "nameES": "Critical Progress Bar"
+        },
+        {
+          "n": 6,
+          "nameEN": "Elastic Bar",
+          "nameES": "Barra Elástica"
+        },
+        {
+          "n": 7,
+          "nameEN": "75%",
+          "nameES": "75% Progress Bar"
+        },
+        {
+          "n": 8,
+          "nameEN": "100%",
+          "nameES": "100% Progress Bar"
+        },
+        {
+          "n": 9,
+          "nameEN": "Animated",
+          "nameES": "Animated Progress Bar"
+        },
+        {
+          "n": 10,
+          "nameEN": "Determinate with Color Change",
+          "nameES": "Determinate with Color Change Progress Bar"
+        }
+      ]
+    },
+    {
+      "slug": "tooltip",
+      "sprint": 11,
+      "nameEN": "tooltip",
+      "hook": "[data-testid=\"tooltip\"]",
+      "nameTarget": "[data-testid=\"tooltip\"]",
+      "focusTarget": "[data-testid=\"tooltip\"]",
+      "designs": [
+        {
+          "n": 1,
+          "nameEN": "Hover Trigger",
+          "nameES": "Hover Trigger Tooltip"
+        },
+        {
+          "n": 2,
+          "nameEN": "Focus Trigger",
+          "nameES": "Focus Trigger Tooltip"
+        },
+        {
+          "n": 3,
+          "nameEN": "Dark Mode Trigger",
+          "nameES": "Dark Mode Tooltip"
+        },
+        {
+          "n": 4,
+          "nameEN": "Light Mode Trigger",
+          "nameES": "Light Mode Tooltip"
+        },
+        {
+          "n": 5,
+          "nameEN": "Gradient Trigger",
+          "nameES": "Gradient Tooltip"
+        },
+        {
+          "n": 6,
+          "nameEN": "Rounded Trigger",
+          "nameES": "Rounded Tooltip"
+        },
+        {
+          "n": 7,
+          "nameEN": "Blue Trigger",
+          "nameES": "Blue Tooltip"
+        },
+        {
+          "n": 8,
+          "nameEN": "Purple Trigger",
+          "nameES": "Purple Tooltip"
+        },
+        {
+          "n": 9,
+          "nameEN": "Green Trigger",
+          "nameES": "Green Tooltip"
+        },
+        {
+          "n": 10,
+          "nameEN": "Multi-line Tooltip",
+          "nameES": "Multi-line Tooltip"
+        }
+      ]
+    },
+    {
+      "slug": "confirm-dialog",
+      "sprint": 12,
+      "nameEN": "Confirm Dialog",
+      "nameES": "Diálogo de confirmación",
+      "hook": "[data-testid=\"dialog\"]",
+      "nameTarget": "[data-testid=\"dialog\"]",
+      "focusTarget": "[data-testid=\"dialog\"] button",
+      "designs": [
+        {
+          "n": 1,
+          "nameEN": "Confirm Dialog Modal",
+          "nameES": "Modal"
+        },
+        {
+          "n": 2,
+          "nameEN": "Confirm Dialog Dark",
+          "nameES": "Oscuro"
+        },
+        {
+          "n": 3,
+          "nameEN": "Confirm Dialog Gradient",
+          "nameES": "Gradiente"
+        },
+        {
+          "n": 4,
+          "nameEN": "Confirm Dialog Minimal",
+          "nameES": "Minimalista"
+        },
+        {
+          "n": 5,
+          "nameEN": "Confirm Dialog with Icon",
+          "nameES": "Con Icono"
+        },
+        {
+          "n": 6,
+          "nameEN": "Confirm Dialog Border",
+          "nameES": "Con Borde"
+        },
+        {
+          "n": 7,
+          "nameEN": "Confirm Dialog Slide-in",
+          "nameES": "Deslizante"
+        },
+        {
+          "n": 8,
+          "nameEN": "Confirm Dialog with Image",
+          "nameES": "Con Imagen"
+        },
+        {
+          "n": 9,
+          "nameEN": "Confirm Dialog Fullscreen",
+          "nameES": "Pantalla Completa"
+        },
+        {
+          "n": 10,
+          "nameEN": "Confirm Dialog with Icon and Text",
+          "nameES": "Con Icono y Texto"
+        }
+      ]
+    },
+    {
+      "slug": "empty-state",
+      "sprint": 12,
+      "nameEN": "Empty State",
+      "nameES": "Estado vacío",
+      "hook": "[data-testid=\"empty\"]",
+      "nameTarget": "[data-testid=\"empty\"]",
+      "focusTarget": "[data-testid=\"empty\"] .cta",
+      "designs": [
+        {
+          "n": 1,
+          "nameEN": "Empty State Illustration",
+          "nameES": "Ilustración"
+        },
+        {
+          "n": 2,
+          "nameEN": "Empty State Dark",
+          "nameES": "Oscuro"
+        },
+        {
+          "n": 3,
+          "nameEN": "Empty State Minimal",
+          "nameES": "Minimalista"
+        },
+        {
+          "n": 4,
+          "nameEN": "Empty State with Illustration",
+          "nameES": "Con Ilustración"
+        },
+        {
+          "n": 5,
+          "nameEN": "Empty State Illustrative",
+          "nameES": "Ilustrativo"
+        },
+        {
+          "n": 6,
+          "nameEN": "Empty State Soft",
+          "nameES": "Suave"
+        },
+        {
+          "n": 7,
+          "nameEN": "Empty State Card",
+          "nameES": "Tarjeta"
+        },
+        {
+          "n": 8,
+          "nameEN": "Empty State with Background Pattern",
+          "nameES": "Con Patrón"
+        },
+        {
+          "n": 9,
+          "nameEN": "Empty State with Emoji",
+          "nameES": "Con Emoji"
+        },
+        {
+          "n": 10,
+          "nameEN": "Empty State with Action",
+          "nameES": "Con Acción"
+        }
+      ]
+    },
+    {
+      "slug": "error-404",
+      "sprint": 12,
+      "nameEN": "Error 404",
+      "nameES": "Error 404",
+      "hook": "[data-testid=\"error\"]",
+      "nameTarget": "[data-testid=\"error\"]",
+      "focusTarget": "[data-testid=\"error\"] .cta",
+      "designs": [
+        {
+          "n": 1,
+          "nameEN": "Error 404 Classic",
+          "nameES": "Clásico"
+        },
+        {
+          "n": 2,
+          "nameEN": "Error 404 Dark",
+          "nameES": "Oscuro"
+        },
+        {
+          "n": 3,
+          "nameEN": "Error 404 Gradient",
+          "nameES": "Gradiente"
+        },
+        {
+          "n": 4,
+          "nameEN": "Error 404 Minimal",
+          "nameES": "Minimalista"
+        },
+        {
+          "n": 5,
+          "nameEN": "Error 404 Illustration",
+          "nameES": "Ilustración"
+        },
+        {
+          "n": 6,
+          "nameEN": "Error 404 with Background Pattern",
+          "nameES": "Con Patrón"
+        },
+        {
+          "n": 7,
+          "nameEN": "Error 404 with Image",
+          "nameES": "Con Imagen"
+        },
+        {
+          "n": 8,
+          "nameEN": "Error 404 Card",
+          "nameES": "Tarjeta"
+        },
+        {
+          "n": 9,
+          "nameEN": "Error 404 Large",
+          "nameES": "Grande"
+        },
+        {
+          "n": 10,
+          "nameEN": "Error 404 with Backdrop",
+          "nameES": "Con Fondo"
+        }
+      ]
+    },
+    {
+      "slug": "spinner",
+      "sprint": 12,
+      "nameEN": "Spinner",
+      "nameES": "Cargador",
+      "hook": "[data-testid=\"spinner\"]",
+      "nameTarget": "[data-testid=\"spinner\"]",
+      "focusTarget": "[data-testid=\"spinner\"]",
+      "contrastLabel": "[data-testid=\"label\"]",
+      "designs": [
+        {
+          "n": 1,
+          "nameEN": "Spinner Rotating",
+          "nameES": "Giratorio"
+        },
+        {
+          "n": 2,
+          "nameEN": "Spinner Dark",
+          "nameES": "Oscuro"
+        },
+        {
+          "n": 3,
+          "nameEN": "Spinner Gradient",
+          "nameES": "Giratorio Gradiente"
+        },
+        {
+          "n": 4,
+          "nameEN": "Spinner Minimal",
+          "nameES": "Minimalista"
+        },
+        {
+          "n": 5,
+          "nameEN": "Spinner Border",
+          "nameES": "Con Borde"
+        },
+        {
+          "n": 6,
+          "nameEN": "Spinner Minimal Thin",
+          "nameES": "Minimal Delgada"
+        },
+        {
+          "n": 7,
+          "nameEN": "Spinner Dual",
+          "nameES": "Doble"
+        },
+        {
+          "n": 8,
+          "nameEN": "Spinner Pulse",
+          "nameES": "Pulso"
+        },
+        {
+          "n": 9,
+          "nameEN": "Spinner Wave",
+          "nameES": "Ola"
+        },
+        {
+          "n": 10,
+          "nameEN": "Spinner Neon",
+          "nameES": "Neón"
+        }
+      ]
+    },
+    {
+      "slug": "divider",
+      "sprint": 13,
+      "nameEN": "Divider",
+      "nameES": "Separador",
+      "hook": "[data-testid=\"divider\"]",
+      "nameTarget": "[data-testid=\"divider\"]",
+      "focusTarget": "[data-testid=\"divider\"]",
+      "designs": [
+        {
+          "n": 1,
+          "nameEN": "Divider Solid",
+          "nameES": "Sólido"
+        },
+        {
+          "n": 2,
+          "nameEN": "Divider Dashed",
+          "nameES": "Dasheado"
+        },
+        {
+          "n": 3,
+          "nameEN": "Divider Gradient",
+          "nameES": "Gradiente"
+        },
+        {
+          "n": 4,
+          "nameEN": "Divider Minimal",
+          "nameES": "Minimalista"
+        },
+        {
+          "n": 5,
+          "nameEN": "Divider Double",
+          "nameES": "Doble"
+        },
+        {
+          "n": 6,
+          "nameEN": "Divider Glassmorphism",
+          "nameES": "Glassmorphism"
+        },
+        {
+          "n": 7,
+          "nameEN": "Divider Thick",
+          "nameES": "Grueso"
+        },
+        {
+          "n": 8,
+          "nameEN": "Divider Space",
+          "nameES": "Espaciador"
+        },
+        {
+          "n": 9,
+          "nameEN": "Divider Decorative",
+          "nameES": "Decorativo"
+        },
+        {
+          "n": 10,
+          "nameEN": "Divider Animated",
+          "nameES": "Animado"
+        }
+      ]
+    },
+    {
+      "slug": "footer",
+      "sprint": 13,
+      "nameEN": "Footer",
+      "nameES": "Pie de página",
+      "hook": "[data-testid=\"footer\"]",
+      "nameTarget": "[data-testid=\"footer\"]",
+      "focusTarget": "[data-testid=\"footer\"] a",
+      "designs": [
+        {
+          "n": 1,
+          "nameEN": "Footer Basic",
+          "nameES": "Footer Básico"
+        },
+        {
+          "n": 2,
+          "nameEN": "Footer Minimal",
+          "nameES": "Minimalista"
+        },
+        {
+          "n": 3,
+          "nameEN": "Footer Dark",
+          "nameES": "Oscuro"
+        },
+        {
+          "n": 4,
+          "nameEN": "Footer Gradient",
+          "nameES": "Gradiente"
+        },
+        {
+          "n": 5,
+          "nameEN": "Footer Minimal Dark",
+          "nameES": "Minimal Oscuro"
+        },
+        {
+          "n": 6,
+          "nameEN": "Footer Two Column",
+          "nameES": "Dos Columnas"
+        },
+        {
+          "n": 7,
+          "nameEN": "Footer Sticky",
+          "nameES": "Fijo"
+        },
+        {
+          "n": 8,
+          "nameEN": "Footer Centered",
+          "nameES": "Centralizado"
+        },
+        {
+          "n": 9,
+          "nameEN": "Footer with Avatar",
+          "nameES": "Con Avatar"
+        },
+        {
+          "n": 10,
+          "nameEN": "Footer Minimal Two Column",
+          "nameES": "Minimal Dos Columnas"
+        }
+      ]
+    },
+    {
+      "slug": "header",
+      "sprint": 13,
+      "nameEN": "Header",
+      "nameES": "Cabecera",
+      "hook": "[data-testid=\"header\"]",
+      "nameTarget": "[data-testid=\"header\"]",
+      "focusTarget": "[data-testid=\"header\"] a",
+      "designs": [
+        {
+          "n": 1,
+          "nameEN": "Header Sticky",
+          "nameES": "Header Fijo"
+        },
+        {
+          "n": 2,
+          "nameEN": "Header Minimal",
+          "nameES": "Minimalista"
+        },
+        {
+          "n": 3,
+          "nameEN": "Header Dark",
+          "nameES": "Oscuro"
+        },
+        {
+          "n": 4,
+          "nameEN": "Header Gradient",
+          "nameES": "Gradiente"
+        },
+        {
+          "n": 5,
+          "nameEN": "Header Transparent",
+          "nameES": "Transparente"
+        },
+        {
+          "n": 6,
+          "nameEN": "Header Minimal Dark",
+          "nameES": "Minimal Oscuro"
+        },
+        {
+          "n": 7,
+          "nameEN": "Header Sticky with Search",
+          "nameES": "Header Fijo con Búsqueda"
+        },
+        {
+          "n": 8,
+          "nameEN": "Header Condensed",
+          "nameES": "Condensado"
+        },
+        {
+          "n": 9,
+          "nameEN": "Header with Avatar",
+          "nameES": "Header con Avatar"
+        },
+        {
+          "n": 10,
+          "nameEN": "Header Mobile First",
+          "nameES": "Mobile First"
+        }
+      ]
+    },
+    {
+      "slug": "hero",
+      "sprint": 13,
+      "nameEN": "Hero",
+      "nameES": "Hero",
+      "hook": "[data-testid=\"hero\"]",
+      "nameTarget": "[data-testid=\"hero\"]",
+      "focusTarget": "[data-testid=\"hero\"] .cta",
+      "designs": [
+        {
+          "n": 1,
+          "nameEN": "Hero Main",
+          "nameES": "Hero Principal"
+        },
+        {
+          "n": 2,
+          "nameEN": "Hero Dark",
+          "nameES": "Oscuro"
+        },
+        {
+          "n": 3,
+          "nameEN": "Hero Gradient",
+          "nameES": "Gradiente"
+        },
+        {
+          "n": 4,
+          "nameEN": "Hero Minimal",
+          "nameES": "Minimalista"
+        },
+        {
+          "n": 5,
+          "nameEN": "Hero with Background Image",
+          "nameES": "Con Imagen"
+        },
+        {
+          "n": 6,
+          "nameEN": "Hero Floating Action",
+          "nameES": "Con Acción Flotante"
+        },
+        {
+          "n": 7,
+          "nameEN": "Hero Glassmorphism",
+          "nameES": "Glassmorphism"
+        },
+        {
+          "n": 8,
+          "nameEN": "Hero with Illustration",
+          "nameES": "Con Ilustración"
+        },
+        {
+          "n": 9,
+          "nameEN": "Hero with Form",
+          "nameES": "Con Formulario"
+        },
+        {
+          "n": 10,
+          "nameEN": "Hero with Dark Mode Toggle",
+          "nameES": "Con Alternador Dark Mode"
+        }
+      ]
+    },
+    {
+      "slug": "icons",
+      "sprint": 14,
+      "nameEN": "Icons",
+      "nameES": "Iconos",
+      "hook": "[data-testid=\"icons\"]",
+      "nameTarget": "[data-testid=\"icons\"]",
+      "focusTarget": "[data-testid=\"icons\"]",
+      "designs": [
+        {
+          "n": 1,
+          "nameEN": "Icons Grid",
+          "nameES": "Grid"
+        },
+        {
+          "n": 2,
+          "nameEN": "Icons Dark",
+          "nameES": "Oscuro"
+        },
+        {
+          "n": 3,
+          "nameEN": "Icons Gradient",
+          "nameES": "Gradiente"
+        },
+        {
+          "n": 4,
+          "nameEN": "Icons Minimal",
+          "nameES": "Minimalista"
+        },
+        {
+          "n": 5,
+          "nameEN": "Icons Colored",
+          "nameES": "Con Color"
+        },
+        {
+          "n": 6,
+          "nameEN": "Icons Minimal Dark",
+          "nameES": "Minimal Oscuro"
+        },
+        {
+          "n": 7,
+          "nameEN": "Icons Border",
+          "nameES": "Con Borde"
+        },
+        {
+          "n": 8,
+          "nameEN": "Icons with Background",
+          "nameES": "Con Fondo"
+        },
+        {
+          "n": 9,
+          "nameEN": "Icons Colored Circle",
+          "nameES": "Círculo de Color"
+        },
+        {
+          "n": 10,
+          "nameEN": "Icons Social",
+          "nameES": "Sociales"
+        }
+      ]
+    },
+    {
+      "slug": "logo",
+      "sprint": 14,
+      "nameEN": "Logo",
+      "nameES": "Logotipo",
+      "hook": "[data-testid=\"logo\"]",
+      "nameTarget": "[data-testid=\"logo\"]",
+      "focusTarget": "[data-testid=\"logo\"]",
+      "designs": [
+        {
+          "n": 1,
+          "nameEN": "Logo Wordmark",
+          "nameES": "Marca de Palabra"
+        },
+        {
+          "n": 2,
+          "nameEN": "Logo Monogram",
+          "nameES": "Monograma"
+        },
+        {
+          "n": 3,
+          "nameEN": "Logo Symbol",
+          "nameES": "Símbolo"
+        },
+        {
+          "n": 4,
+          "nameEN": "Logo Minimal",
+          "nameES": "Minimalista"
+        },
+        {
+          "n": 5,
+          "nameEN": "Logo Gradient",
+          "nameES": "Gradiente"
+        },
+        {
+          "n": 6,
+          "nameEN": "Logo Rounded",
+          "nameES": "Redondeado"
+        },
+        {
+          "n": 7,
+          "nameEN": "Logo Monochrome",
+          "nameES": "Monocromo"
+        },
+        {
+          "n": 8,
+          "nameEN": "Logo with Tagline",
+          "nameES": "Con Lema"
+        },
+        {
+          "n": 9,
+          "nameEN": "Logo with Circle",
+          "nameES": "Con Círculo"
+        },
+        {
+          "n": 10,
+          "nameEN": "Logo Icon Only",
+          "nameES": "Solo Ícono"
+        }
+      ]
+    },
+    {
+      "slug": "media-player",
+      "sprint": 14,
+      "nameEN": "Media Player",
+      "nameES": "Reproductor multimedia",
+      "hook": "[data-testid=\"media-player\"]",
+      "nameTarget": "[data-testid=\"media-player\"]",
+      "focusTarget": "[data-testid=\"media-player\"] button",
+      "designs": [
+        {
+          "n": 1,
+          "nameEN": "Media Player Main",
+          "nameES": "Principal"
+        },
+        {
+          "n": 2,
+          "nameEN": "Media Player Dark",
+          "nameES": "Oscuro"
+        },
+        {
+          "n": 3,
+          "nameEN": "Media Player Minimal",
+          "nameES": "Minimalista"
+        },
+        {
+          "n": 4,
+          "nameEN": "Media Player Controls",
+          "nameES": "Controles"
+        },
+        {
+          "n": 5,
+          "nameEN": "Media Player Progress",
+          "nameES": "Progreso"
+        },
+        {
+          "n": 6,
+          "nameEN": "Media Player Glassmorphism",
+          "nameES": "Glassmorphism"
+        },
+        {
+          "n": 7,
+          "nameEN": "Media Player Compact",
+          "nameES": "Compacto"
+        },
+        {
+          "n": 8,
+          "nameEN": "Media Player with Seek",
+          "nameES": "Con Seek"
+        },
+        {
+          "n": 9,
+          "nameEN": "Media Player with Playlist",
+          "nameES": "Con Playlist"
+        },
+        {
+          "n": 10,
+          "nameEN": "Media Player Mini",
+          "nameES": "Mini"
+        }
+      ]
+    }
+  ]
+}

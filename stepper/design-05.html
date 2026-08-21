@@ -1,0 +1,83 @@
+<!-- Design 05: Minimal Split / División Mínima -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Minimal Split — Design 05</title>
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body {
+    min-height: 100vh;
+    display: grid;
+    place-items: center;
+    font-family: "Segoe UI", system-ui, sans-serif;
+    background: #e2e8f0;
+    overflow-x: hidden;
+  }
+  .stage {
+    width: min(480px, 94vw);
+    padding: clamp(34px, 7vw, 54px);
+    background: #f8fafc; border-radius: 4px;
+    box-shadow: 0 1px 0 rgba(15, 23, 42, .06);
+  }
+  h1 { margin: 0; font-size: clamp(1.5rem, 5vw, 1.9rem); color: #0f172a; font-weight: 400; }
+  .sub { margin: .4rem 0 2.4rem; color: #94a3b8; font-size: .9rem; }
+  .lbl { display: block; margin: 0 0 22px; color: #334155; font-size: .78rem; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; }
+  .stepper { display: flex; align-items: baseline; }
+  .btn {
+    width: 44px; height: 44px;
+    border: none; background: transparent;
+    color: #0f172a;
+    font-family: inherit; font-size: 1.5rem; font-weight: 300;
+    cursor: pointer;
+  }
+  .btn:hover { color: #334155; }
+  .btn:focus-visible { outline: 2px solid #0f172a; outline-offset: 3px; }
+  .inp {
+    width: 110px; height: 48px;
+    text-align: center;
+    font-family: inherit; font-size: 1.7rem; font-weight: 400; color: #0f172a;
+    background: transparent; border: none; border-bottom: 2px solid #0f172a;
+  }
+  .inp:focus-visible { outline: 2px solid #0f172a; outline-offset: 4px; }
+  .out { margin-top: 20px; color: #94a3b8; font-size: .8rem; letter-spacing: .1em; text-transform: uppercase; }
+  .out b { color: #0f172a; font-size: 1.2rem; letter-spacing: 0; text-transform: none; }
+  .hint { margin-top: 2rem; color: #cbd5e1; font-size: .8rem; }
+  .credit { margin-top: 1.4rem; padding-top: 1rem; border-top: 1px solid #e2e8f0; color: #cbd5e1; font-size: .76rem; }
+  .credit a { color: #64748b; text-decoration: none; }
+</style>
+</head>
+<body>
+<main class="stage">
+  <h1>Minimal Split</h1>
+  <p class="sub">Just the essentials / Solo lo esencial</p>
+  <label class="lbl" data-testid="label" id="lbl-st05" for="inp-st05">Value</label>
+  <div class="stepper" data-testid="stepper">
+    <button type="button" class="btn" data-testid="dec" aria-label="Decrease">−</button>
+    <input id="inp-st05" class="inp" data-testid="input" type="text" inputmode="numeric" maxlength="2" aria-label="Value" value="5">
+    <button type="button" class="btn" data-testid="inc" aria-label="Increase">+</button>
+  </div>
+  <p class="out"><span>Current</span> <b data-testid="value" aria-live="polite">5</b></p>
+  <p class="hint">A single thin line, a single true number / Una línea fina, un número verdadero</p>
+  <footer class="credit">Harley Vásquez · <a href="https://www.linkedin.com/in/harleyvasquez" target="_blank" rel="noreferrer">linkedin.com/in/harleyvasquez</a></footer>
+</main>
+<script>
+  const inp = document.querySelector('[data-testid="input"]');
+  const val = document.querySelector('[data-testid="value"]');
+  const inc = document.querySelector('[data-testid="inc"]');
+  const dec = document.querySelector('[data-testid="dec"]');
+  let n = 5;
+  const clamp = (x) => Math.max(0, Math.min(10, Math.round(x)));
+  function render() { inp.value = String(n); val.textContent = String(n); }
+  inc.addEventListener('click', () => { n = clamp(n + 1); render(); });
+  dec.addEventListener('click', () => { n = clamp(n - 1); render(); });
+  inp.addEventListener('input', () => {
+    n = clamp(parseInt(inp.value, 10) || 0);
+    render();
+  });
+  render();
+</script>
+</body>
+</html>

@@ -1,0 +1,90 @@
+<!-- Design 06: Outline Draft / Contorno en Boceto -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Outline Draft Button — Design 06</title>
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body {
+    min-height: 100vh;
+    display: grid;
+    place-items: center;
+    font-family: Georgia, "Times New Roman", serif;
+    background: #f4f1e8;
+    overflow-x: hidden;
+  }
+  .stage {
+    width: min(620px, 94vw);
+    padding: clamp(28px, 6vw, 60px);
+    background: #fbf9f2;
+    border: 1px solid #d8d2bd;
+    box-shadow: 0 20px 50px rgba(90,80,50,.12);
+    text-align: center;
+  }
+  h1 { margin: 0; font-size: clamp(1.5rem, 4vw, 2.1rem); font-weight: 400; color: #3d3826; letter-spacing: .04em; }
+  .sub { margin: .4rem 0 2.4rem; font-style: italic; color: #8d8468; font-size: .95rem; }
+  .btn {
+    position: relative;
+    display: inline-flex; align-items: center; gap: 12px;
+    padding: 15px 40px;
+    font-family: inherit; font-size: 1.05rem; letter-spacing: .06em;
+    color: #3d3826;
+    background: transparent;
+    border: 2px dashed #9b8f6d;
+    border-radius: 0;
+    cursor: pointer;
+    overflow: hidden;
+    transition: color .25s ease, border-color .25s ease;
+  }
+  .btn::before {
+    content: "";
+    position: absolute; inset: 0;
+    background: #3d3826;
+    transform: translateX(-101%);
+    transition: transform .3s ease;
+  }
+  .btn:hover::before, .btn:focus-visible::before { transform: translateX(0); }
+  .btn:hover, .btn:focus-visible { color: #fbf9f2; border-color: #3d3826; }
+  .btn:active { transform: scale(.98); }
+  .btn:focus-visible { outline: none; }
+  .btn > * { position: relative; z-index: 1; }
+  .btn .rule {
+    width: 0; height: 1px; background: currentColor;
+    transition: width .3s ease;
+  }
+  .btn:hover .rule { width: 22px; }
+  .btn .mark {
+    display: inline-grid; place-items: center;
+    min-width: 26px; height: 26px; padding: 0 6px;
+    border: 1px solid currentColor; border-radius: 50%;
+    font-size: .85rem; font-variant-numeric: tabular-nums;
+  }
+  .hint { margin-top: 1.8rem; color: #a39a7d; font-size: .85rem; font-style: italic; }
+  .credit { margin-top: 2.4rem; padding-top: 1rem; border-top: 1px dotted #d8d2bd; color: #a39a7d; font-size: .8rem; }
+  .credit a { color: #6b6246; }
+  .credit a:hover { text-decoration: underline; }
+</style>
+</head>
+<body>
+<main class="stage">
+  <h1>Outline Draft</h1>
+  <p class="sub">A sketch that inks itself on hover / Un boceto que se entinta al pasar</p>
+  <button type="button" class="btn" data-testid="btn" aria-label="Sign the draft">
+    <span class="rule" aria-hidden="true"></span>
+    <span>Sign it</span>
+    <span class="mark" aria-live="polite"><b data-testid="count">0</b></span>
+  </button>
+  <p class="hint">Click to sign — / Clic para firmar</p>
+  <footer class="credit">Harley Vásquez · <a href="https://www.linkedin.com/in/harleyvasquez" target="_blank" rel="noreferrer">linkedin.com/in/harleyvasquez</a></footer>
+</main>
+<script>
+  const btn = document.querySelector('[data-testid="btn"]');
+  const count = document.querySelector('[data-testid="count"]');
+  let n = 0;
+  btn.addEventListener('click', () => { n += 1; count.textContent = n; });
+</script>
+</body>
+</html>

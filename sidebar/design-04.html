@@ -1,0 +1,36 @@
+<!-- Design 04: Dark Accordion / Acordeón Oscuro -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Sidebar — Design 04</title>
+<style>
+  *{box-sizing:border-box}html,body{min-height:100vh;font-family:"Segoe UI",system-ui,sans-serif;background:#0f172a;color:#e2e8f0;display:grid;place-items:center;overflow-x:hidden}.sidebar-wrapper{width:min(350px,95vw)}.sidebar{position:fixed;top:0;left:-350px;width:350px;height:100vh;background:#1e293b;transition:left .3s ease;padding:20px;z-index:100;border-right:1px solid #3b82f6}.sidebar.open{left:0}.sidebar .toggle{position:absolute;top:20px;left:20px;width:32px;height:32px;background:none;border:none;cursor:pointer;color:#94a3bf}.sidebar .toggle.active svg{fill:#3b82f6}.sidebar .focus-visible:focus-visible{outline:3pxsolid#3b82f6;outline-offset:4px}.sidebar a{color:#e2e8f0;font-size:.9rem}.sidebar .sub{color:#94a3bf;font-size:.8rem}.sidebar details{margin:8px 0}.sidebar details summary{cursor:pointer;color:#e2e8f0}.sidebar details summary::before{content:'▶';color:#60a5fa;margin-right:4px}.sidebar details[open] summary::before{content:'▼';color:#60a5fa}.credit{margin-top:30px;padding:15px 0;border-top:1px solid #3b82f6;color:#64748b;font-size:.8rem}.credit a{color:#60a5fa;text-decoration:none}.media{display:none}.@media (max-width:360px){.sidebar{width:320px:left:-320px}}input[type="checkbox"]:focus-visible, input[type="radio"]:focus-visible, [data-testid="toggle"]:focus-visible { outline: 2px solid #2563eb; outline-offset: 2px; } </style>
+</head>
+<body><div class="sidebar-wrapper"><aside class="sidebar" aria-label="Barra lateral" aria-expanded="false" role="navigation" data-sidebar data-testid="sidebar"><button class="toggle" aria-label="Abrir barra" aria-controls="sidebar-nav" data-toggle data-testid="toggle"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button><nav id="sidebar-nav" aria-label="Navegación principal" data-testid="sidebar-content"><h3 class="sub">Menú principal</h3><a href="/inicio" class="active">Inicio</a><details><summary>Submenú avanzado</summary><a href="/sub1">Opción A</a><a href="/sub2">Opción B</a></details><a href="/contacto">Contacto</a></nav></aside></div><script>(()=>{const s=document.querySelector('[data-sidebar]'),t=document.querySelector('[data-toggle]');let o=false;const tg=()=>{o=!o;s.setAttribute('aria-expanded',o);t.setAttribute('aria-expanded',o);s.classList.toggle('open',o)};t.addEventListener('click',tg);document.addEventListener('keydown',e=>{if(e.key==='Escape'&&o){o=!o;s.setAttribute('aria-expanded',o);t.setAttribute('aria-expanded',o);s.classList.toggle('open',o)}});document.addEventListener('focusin',e=>{if(o&&!s.contains(e.target)){o=!o;s.setAttribute('aria-expanded',o);t.setAttribute('aria-expanded',o);s.classList.toggle('open',o)}})})();</script><footer class="credit">Harley Vásquez · <a href="https://www.linkedin.com/in/harleyvasquez" target="_blank" rel="noreferrer">linkedin.com/in/harleyvasquez</a></footer>
+<script>
+(function(){
+  var toggle = document.querySelector('[data-testid="toggle"]');
+  var sidebar = document.querySelector('[data-testid="sidebar"]');
+  if(!toggle || !sidebar) return;
+  sidebar.setAttribute('aria-expanded', 'false');
+  toggle.addEventListener('click', function(){
+    var expanded = sidebar.getAttribute('aria-expanded') === 'true';
+    sidebar.setAttribute('aria-expanded', String(!expanded));
+    sidebar.classList.toggle('open');
+  });
+})();
+</script>
+<script>
+(function(){
+  var t=document.querySelector('[data-testid="toggle"]');
+  var s=document.querySelector('[data-testid="sidebar"]');
+  if(!t||!s)return;
+  s.setAttribute('aria-expanded','false');
+  t.addEventListener('click',function(){
+    var e=s.getAttribute('aria-expanded')==='true';
+    s.setAttribute('aria-expanded',String(!e));
+    s.classList.toggle('open');
+  });
+})();
+</script>
+</body></html>

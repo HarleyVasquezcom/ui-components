@@ -1,0 +1,86 @@
+<!-- Design 10: Ghost Inline / Fantasma en Línea -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ghost Inline — Design 10</title>
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body {
+    min-height: 100vh;
+    display: grid;
+    place-items: center;
+    font-family: "Segoe UI", system-ui, sans-serif;
+    background: linear-gradient(160deg, #134e4a, #042f2e);
+    overflow-x: hidden;
+  }
+  .stage {
+    width: min(480px, 94vw);
+    padding: clamp(34px, 7vw, 54px);
+    background: rgba(255, 255, 255, .06);
+    border: 1px solid rgba(94, 234, 212, .25);
+    border-radius: 18px;
+    backdrop-filter: blur(10px);
+  }
+  h1 { margin: 0; font-size: clamp(1.6rem, 5vw, 2rem); color: #99f6e4; font-weight: 800; letter-spacing: -.01em; }
+  .sub { margin: .4rem 0 2.2rem; color: #5eead4; font-size: .95rem; }
+  .lbl { display: block; margin: 0 0 20px; color: #99f6e4; font-size: .92rem; font-weight: 700; }
+  .stepper { display: flex; align-items: center; gap: 12px; }
+  .btn {
+    width: 40px; height: 40px;
+    border: none; border-radius: 12px;
+    background: transparent; color: #5eead4;
+    font-size: 1.2rem; font-weight: 700;
+    cursor: pointer;
+  }
+  .btn:hover { background: rgba(94, 234, 212, .15); }
+  .btn:active { background: rgba(94, 234, 212, .25); }
+  .btn:focus-visible { outline: 3px solid #2dd4bf; outline-offset: 2px; }
+  .inp {
+    width: 84px; height: 44px;
+    text-align: center;
+    font-family: inherit; font-size: 1.35rem; font-weight: 800; color: #ccfbf1;
+    background: rgba(255, 255, 255, .08); border: 1px solid rgba(94, 234, 212, .35); border-radius: 12px;
+  }
+  .inp:focus-visible { outline: 3px solid #2dd4bf; outline-offset: 1px; }
+  .out { margin-top: 20px; color: #5eead4; font-size: .88rem; }
+  .out b { color: #ccfbf1; font-size: 1.15rem; }
+  .hint { margin-top: 2rem; color: #14b8a6; font-size: .82rem; }
+  .credit { margin-top: 1.6rem; padding-top: 1rem; border-top: 1px solid rgba(94, 234, 212, .2); color: #14b8a6; font-size: .78rem; }
+  .credit a { color: #5eead4; text-decoration: none; }
+</style>
+</head>
+<body>
+<main class="stage">
+  <h1>Ghost Inline</h1>
+  <p class="sub">Appears and disappears in your flow / Aparece y desaparece en tu flujo</p>
+  <label class="lbl" data-testid="label" id="lbl-st10" for="inp-st10">Quantity</label>
+  <div class="stepper" data-testid="stepper">
+    <button type="button" class="btn" data-testid="dec" aria-label="Decrease">−</button>
+    <input id="inp-st10" class="inp" data-testid="input" type="text" inputmode="numeric" maxlength="2" aria-label="Quantity" value="5">
+    <button type="button" class="btn" data-testid="inc" aria-label="Increase">+</button>
+  </div>
+  <p class="out"><span>Total</span> <b data-testid="value" aria-live="polite">5</b></p>
+  <p class="hint">Transparent, teal, tranquil / Transparente, teal, tranquilo</p>
+  <footer class="credit">Harley Vásquez · <a href="https://www.linkedin.com/in/harleyvasquez" target="_blank" rel="noreferrer">linkedin.com/in/harleyvasquez</a></footer>
+</main>
+<script>
+  const inp = document.querySelector('[data-testid="input"]');
+  const val = document.querySelector('[data-testid="value"]');
+  const inc = document.querySelector('[data-testid="inc"]');
+  const dec = document.querySelector('[data-testid="dec"]');
+  let n = 5;
+  const clamp = (x) => Math.max(0, Math.min(10, Math.round(x)));
+  function render() { inp.value = String(n); val.textContent = String(n); }
+  inc.addEventListener('click', () => { n = clamp(n + 1); render(); });
+  dec.addEventListener('click', () => { n = clamp(n - 1); render(); });
+  inp.addEventListener('input', () => {
+    n = clamp(parseInt(inp.value, 10) || 0);
+    render();
+  });
+  render();
+</script>
+</body>
+</html>

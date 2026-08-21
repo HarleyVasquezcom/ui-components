@@ -1,0 +1,103 @@
+<!-- Design 04: Step Dots / Puntos de Paso -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Step Dots Slider — Design 04</title>
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body {
+    min-height: 100vh;
+    display: grid;
+    place-items: center;
+    font-family: "Segoe UI", system-ui, sans-serif;
+    background: #451a03;
+    overflow-x: hidden;
+  }
+  .stage {
+    width: min(560px, 94vw);
+    padding: clamp(34px, 7vw, 54px);
+    background: #fffbeb; border-radius: 20px;
+    box-shadow: 0 30px 70px rgba(0, 0, 0, .5);
+  }
+  h1 { margin: 0; font-size: clamp(1.6rem, 5vw, 2rem); color: #92400e; font-weight: 800; letter-spacing: -.02em; }
+  .sub { margin: .4rem 0 2.2rem; color: #b45309; font-size: .95rem; }
+  .lbl { display: block; margin: 0 0 26px; color: #92400e; font-size: .92rem; font-weight: 700; }
+  .sl {
+    width: 100%;
+    -webkit-appearance: none;
+    appearance: none;
+    height: 6px;
+    border: none;
+    border-radius: 3px;
+    background: linear-gradient(#f59e0b, #f59e0b) 0 / var(--p, 0%) 100% no-repeat #fde68a;
+    outline: none;
+    cursor: pointer;
+  }
+  .sl::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 20px; height: 20px;
+    border: none; border-radius: 50%;
+    background: #f59e0b;
+    box-shadow: 0 2px 8px rgba(146, 64, 14, .45);
+  }
+  .sl:hover::-webkit-slider-thumb { background: #d97706; }
+  .sl:focus-visible { outline: 3px solid #f59e0b; outline-offset: 6px; }
+  .marks { position: relative; height: 18px; margin-top: 10px; }
+  .mk {
+    position: absolute; top: 0;
+    width: 10px; height: 10px;
+    margin-left: -5px;
+    border-radius: 50%;
+    background: #fde68a;
+    cursor: pointer;
+  }
+  .mk.on { background: #f59e0b; }
+  .mk:focus-visible { outline: 2px solid #92400e; outline-offset: 1px; }
+  .out { display: flex; align-items: center; justify-content: space-between; margin-top: 14px; color: #b45309; font-size: .88rem; }
+  .out b { color: #92400e; font-size: 1.05rem; }
+  .hint { margin-top: 2rem; color: #fbbf24; font-size: .82rem; }
+  .credit { margin-top: 1.6rem; padding-top: 1rem; border-top: 1px solid #fde68a; color: #fbbf24; font-size: .78rem; }
+  .credit a { color: #d97706; text-decoration: none; }
+</style>
+</head>
+<body>
+<main class="stage">
+  <h1>Step Dots</h1>
+  <p class="sub">Land on the dots / Aterriza en los puntos</p>
+  <label class="lbl" data-testid="label" id="lbl-sl04" for="sl04">Spice</label>
+  <input id="sl04" class="sl" data-testid="slider" type="range" min="0" max="100" step="5" value="30">
+  <div class="marks" data-testid="marks" role="presentation"></div>
+  <p class="out"><span>Level</span> <b data-testid="value" aria-live="polite">30</b></p>
+  <p class="hint">Twenty-one stops, zero surprises / Veintiún paradas, cero sorpresas</p>
+  <footer class="credit">Harley Vásquez · <a href="https://www.linkedin.com/in/harleyvasquez" target="_blank" rel="noreferrer">linkedin.com/in/harleyvasquez</a></footer>
+</main>
+<script>
+  const sl = document.querySelector('[data-testid="slider"]');
+  const val = document.querySelector('[data-testid="value"]');
+  const marks = document.querySelector('[data-testid="marks"]');
+  const min = Number(sl.min), max = Number(sl.max);
+  for (let v = min; v <= max; v += Number(sl.step)) {
+    const d = document.createElement('span');
+    d.className = 'mk';
+    d.style.left = ((v - min) / (max - min)) * 100 + '%';
+    d.setAttribute('role', 'button');
+    d.setAttribute('aria-label', String(v));
+    d.setAttribute('tabindex', '0');
+    d.addEventListener('click', () => { sl.value = v; sync(); });
+    d.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); sl.value = v; sync(); } });
+    marks.appendChild(d);
+  }
+  function sync() {
+    val.textContent = String(sl.value);
+    sl.style.setProperty('--p', ((Number(sl.value) - min) / (max - min)) * 100 + '%');
+    marks.querySelectorAll('.mk').forEach((d) => d.classList.toggle('on', Number(d.getAttribute('aria-label')) <= Number(sl.value)));
+  }
+  sl.addEventListener('input', sync);
+  sync();
+</script>
+</body>
+</html>

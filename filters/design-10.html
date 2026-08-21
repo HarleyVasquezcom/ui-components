@@ -1,0 +1,121 @@
+<!-- Design 10: Terminal Tail / Cola de Terminal -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Terminal Tail — Design 10</title>
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body {
+    min-height: 100vh;
+    display: grid; place-items: center;
+    font-family: "Cascadia Mono", Consolas, monospace;
+    background: #090a0f;
+    overflow-x: hidden;
+  }
+  .stage {
+    width: min(700px, 94vw);
+    padding: 0;
+    background: #0d0e14;
+    border: 1px solid #22242e;
+    border-radius: 14px;
+    box-shadow: 0 30px 70px rgba(0, 0, 0, .6);
+    overflow: hidden;
+  }
+  .bar { display: flex; align-items: center; gap: 7px; padding: 10px 14px; background: #13151d; border-bottom: 1px solid #22242e; }
+  .dot { width: 11px; height: 11px; border-radius: 50%; }
+  .d1 { background: #f87171; } .d2 { background: #fbbf24; } .d3 { background: #34d399; }
+  .title { margin-left: 10px; color: #6b7280; font-size: .78rem; }
+  .flags { margin-left: auto; display: flex; gap: 8px; flex-wrap: wrap; }
+  .flag { display: flex; align-items: center; gap: 6px; color: #9ca3af; font-size: .8rem; cursor: pointer; }
+  .flag input { width: 14px; height: 14px; accent-color: #22d3ee; cursor: pointer; }
+  .flag input:focus-visible { outline: 2px solid #22d3ee; outline-offset: 2px; border-radius: 2px; }
+  .body { padding: 16px; display: grid; grid-template-columns: 150px 1fr; gap: 18px; }
+  .lbl { display: block; margin-bottom: 12px; color: #22d3ee; font-size: .78rem; font-weight: 700; text-transform: uppercase; letter-spacing: .12em; }
+  .list { margin: 0; padding: 0; list-style: none; display: grid; gap: 6px; }
+  .list li { padding: 8px 10px; background: #14161f; border: 1px solid #1f2330; border-radius: 6px; color: #d1d5db; font-size: .8rem; display: flex; justify-content: space-between; gap: 8px; }
+  .list li small { color: #475569; }
+  .main .cnt { margin: 0 0 10px; color: #34d399; font-size: .82rem; font-weight: 700; }
+  .pre { margin: 0; padding: 12px 14px; background: #0a0b10; border: 1px solid #1f2330; border-radius: 8px; color: #9ca3af; font-size: .78rem; line-height: 1.65; overflow-x: auto; white-space: pre; min-height: 120px; }
+  .pre .hl { color: #fbbf24; }
+  .btn { margin-top: 12px; padding: 8px 14px; background: #14161f; border: 1px solid #22d3ee; border-radius: 6px; color: #22d3ee; font-family: inherit; font-size: .78rem; font-weight: 700; cursor: pointer; }
+  .btn:hover { background: #1a1d29; }
+  .btn:focus-visible { outline: 2px solid #22d3ee; outline-offset: 2px; }
+  .credit { padding: 10px 14px; border-top: 1px solid #22242e; color: #374151; font-size: .72rem; }
+  .credit a { color: #22d3ee; text-decoration: none; }
+  @media (max-width: 560px) { .body { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<main class="stage">
+  <header class="bar">
+    <span class="dot d1"></span><span class="dot d2"></span><span class="dot d3"></span>
+    <span class="title">harley@traycer: ~/catalog</span>
+    <div class="flags" role="group" aria-label="Service flags">
+      <label class="flag"><input type="checkbox" data-testid="check" value="Active" checked> --active</label>
+      <label class="flag"><input type="checkbox" data-testid="check" value="Beta" checked> --beta</label>
+      <label class="flag"><input type="checkbox" data-testid="check" value="Deprecated" checked> --deprecated</label>
+      <label class="flag"><input type="checkbox" data-testid="check" value="Archived" checked> --archived</label>
+    </div>
+  </header>
+  <div class="body">
+    <aside>
+      <span class="lbl" data-testid="label" id="fl-tt-10-label">tail -f catalog.log</span>
+      <ul class="list" data-testid="list"></ul>
+      <button type="button" class="btn" data-testid="reset" aria-label="Reset filters">$ reset --flags</button>
+    </aside>
+    <section class="main">
+      <p class="cnt" data-testid="count">Results: 10</p>
+      <pre class="pre" data-testid="out"></pre>
+    </section>
+  </div>
+  <footer class="credit">Harley Vásquez · <a href="https://www.linkedin.com/in/harleyvasquez" target="_blank" rel="noreferrer">linkedin.com/in/harleyvasquez</a></footer>
+</main>
+<script>
+  const SERVICES = [
+    { t: 'api-gateway', f: 'Active', l: '200 OK / 24ms' },
+    { t: 'auth-service', f: 'Active', l: '200 OK / 31ms' },
+    { t: 'search-indexer', f: 'Active', l: '200 OK / 12ms' },
+    { t: 'beta-notifier', f: 'Beta', l: '202 Accepted / 88ms' },
+    { t: 'legacy-sync', f: 'Deprecated', l: '301 Redirect / 9ms' },
+    { t: 'archive-2019', f: 'Archived', l: '410 Gone / 4ms' },
+    { t: 'cache-proxy', f: 'Active', l: '200 OK / 3ms' },
+    { t: 'canary-worker', f: 'Beta', l: '202 Accepted / 55ms' },
+    { t: 'old-metrics', f: 'Deprecated', l: '301 Redirect / 11ms' },
+    { t: 'logs-2020', f: 'Archived', l: '410 Gone / 6ms' }
+  ];
+  const checks = document.querySelectorAll('[data-testid="check"]');
+  const list = document.querySelector('[data-testid="list"]');
+  const count = document.querySelector('[data-testid="count"]');
+  const out = document.querySelector('[data-testid="out"]');
+  const reset = document.querySelector('[data-testid="reset"]');
+  function render() {
+    const active = [...checks].filter((c) => c.checked).map((c) => c.value);
+    const hits = active.length ? SERVICES.filter((s) => active.includes(s.f)) : SERVICES;
+    list.textContent = '';
+    for (const s of hits) { const li = document.createElement('li'); li.textContent = s.t; li.appendChild(Object.assign(document.createElement('small'), { textContent: s.f })); list.appendChild(li); }
+    if (!hits.length) { const li = document.createElement('li'); li.textContent = 'no service matches'; list.appendChild(li); }
+    count.textContent = 'Results: ' + hits.length;
+    out.textContent = '$ tail -f catalog.log --flags=' + (active.join(',') || 'all') + '\n';
+    for (const s of hits) { out.textContent += s.t + ' → ' + s.l + '\n'; }
+    if (!hits.length) { out.textContent += 'warning: filter yields zero rows\n'; }
+  }
+  checks.forEach((c) => c.addEventListener('change', render));
+  reset.addEventListener('click', () => { checks.forEach((c) => (c.checked = true)); render(); });
+  render();
+</script>
+
+<script>
+(function(){
+  var filters = document.querySelectorAll('[data-testid="filter"], [data-testid="check"], [data-testid="pill"]');
+  filters.forEach(function(f){
+    f.addEventListener('click', function(){
+      f.classList.toggle('active');
+    });
+  });
+})();
+</script>
+</body>
+</html>

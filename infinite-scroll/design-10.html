@@ -1,0 +1,118 @@
+<!-- Design 10: Infinite Scroll con Tarjetas de Testimoniales / Testimonial Cards Infinite Scroll -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Infinite Scroll — Design 10</title>
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body {
+    min-height: 100vh;
+    font-family: "Segoe UI", system-ui, sans-serif;
+    background: #f8fafc;
+    color: #0f172a;
+    overflow-x: hidden;
+  }
+  .grid { width: min(95vw, 1100px); margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; }
+  .card {
+    background: #fff;
+    border-radius: 16px;
+    padding: 32px;
+    box-shadow: 0 2px 8px rgba(0,0,0,.05);
+    position: relative;
+  }
+  .card::before {
+    content: '\201C';
+    position: absolute;
+    top: 16px; left: 24px;
+    font-size: 2.5rem;
+    color: #cbd5e1;
+    line-height: 1;
+    font-family: Georgia, serif;
+  }
+  .card h5 { margin: 16px 0 4px; font-size: 1.125rem; color: #1e293b; }
+  .card .role { color: #64748b; font-size: .875rem; margin-bottom: 12px; display: block; }
+  .card p { margin: 0; color: #64748b; font-size: .875rem; line-height: 1.6; }
+  .load-more {
+    width: min(220px, 95vw);
+    margin: 32px auto 0;
+    padding: 14px;
+    background: #3b82f6;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: .875rem;
+    font-weight: 600;
+    cursor: pointer;
+    display: block;
+    text-align: center;
+  }
+  .load-more:focus-visible { outline: 3px solid #64748b; outline-offset: 2px; }
+  .load-more:disabled { background: #64748b; cursor: not-allowed; }
+  .credit { margin-top: 32px; padding: 16px 0; border-top: 1px solid #e2e8f0; color: #64748b; font-size: .875rem; text-align: center; }
+  .credit a { color: #2563eb; text-decoration: none; }
+  @media (max-width: 480px) { .grid { padding: 0 8px; } }
+</style>
+</head>
+<body>
+<div class="grid" data-scroll-container data-testid="infinite-scroll" aria-label="Infinite scroll">
+  <article class="card"><h5>Excelente experiencia</h5><div class="role">Desarrollador Senior</div><p>El equipo fue extraordinario, superó todas mis expectativas en tiempo y calidad. Recomiendo totalmente sus servicios.</p></article>
+  <article class="card"><h5>Muy profesional</h5><div class="role">Diseñadora Gráfica</div><p>Trato cercano y resultados impecables. El proyecto quedó exactamente como lo imaginaba, con detalles que no esperaba.</p></article>
+  <article class="card"><h5>Calidad garantizada</h5><div class="role">Gerente de Proyectos</div><p>Atención al detalle y cumplimiento de plazos. El proceso fue transparente y la comunicación fluida en todo momento.</p></article>
+  <article class="card"><h5>Super recomiendo</h5><div class="role">Emprendedor</div><p>Trabajar con este equipo fue la mejor decisión para mi startup. Profesionales, creativos y siempre disponibles cuando los necesité.</p></article>
+  <article class="card"><h5>10/10</h5><div class="role">Director Creativo</div><p>La mejor colaboración que he tenido. Cada requisito fue entendido y ejecutado con precisión. Sin duda repetiré en futuros proyectos.</p></article>
+  <article class="card"><h5>Totalmente satisfecho</h5><div class="role">Fundador startup</div><p>Desde la primera reunión hasta la entrega final, todo fue perfecto. La calidad del trabajo y el trato humano hacen la diferencia.</p></article>
+  <article class="card"><h5>Profesionales increíbles</h5><div class="role">Marketing Manager</div><p>Resultados visibles desde la primera semana. El equipo entiende el negocio y aporta valor real, no solo cumplen con el brief.</p></article>
+  <article class="card"><h5>Exceeds expectations</h5><div class="role">CEO Tech Company</div><p>Sobrepasaron las expectativas en todos los aspectos. Innovación, calidad y compromiso. El nuevo producto ha tenido una excelente recepción en el mercado.</p></article>
+</div>
+<button class="load-more" aria-label="Cargar más artículos" data-load-more>Cargar más <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button>
+<script>
+  (() => {
+    const button = document.querySelector('[data-load-more]');
+    const container = document.querySelector('[data-scroll-container]');
+    let loaded = 8;
+    let total = 40;
+    button.addEventListener('click', () => {
+      const fragment = document.createDocumentFragment();
+      const testimonials = [
+        ['Excelente experiencia','Desarrollador Senior','El equipo fue extraordinario, superó todas mis expectativas en tiempo y calidad. Recomiendo totalmente sus servicios.'],
+        ['Muy profesional','Diseñadora Gráfica','Trato cercano y resultados impecables. El proyecto quedó exactamente como lo imaginaba, con detalles que no esperaba.'],
+        ['Calidad garantizada','Gerente de Proyectos','Atención al detalle y cumplimiento de plazos. El proceso fue transparente y la comunicación fluida en todo momento.'],
+        ['Super recomiendo','Emprendedor','Trabajar con este equipo fue la mejor decisión para mi startup. Profesionales, creativos y siempre disponibles cuando los necesité.'],
+        ['10/10','Director Creativo','La mejor colaboración que he tenido. Cada requisito fue entendido y ejecutado con precisión. Sin duda repetiré en futuros proyectos.'],
+        ['Totalmente satisfecho','Fundador startup','Desde la primera reunión hasta la entrega final, todo fue perfecto. La calidad del trabajo y el trato humano hacen la diferencia.'],
+        ['Profesionales increíbles','Marketing Manager','Resultados visibles desde la primera semana. El equipo entiende el negocio y aporta valor real, no solo cumplen con el brief.'],
+        ['Exceeds expectations','CEO Tech Company','Sobrepasaron las expectativas en todos los aspectos. Innovación, calidad y compromiso. El nuevo producto ha tenido una excelente recepción en el mercado.'],
+      ];
+      for (let i = loaded; i < Math.min(loaded + 8, total); i++) {
+        const card = document.createElement('article');
+        card.className = 'card';
+        const t = testimonials[i % testimonials.length];
+        card.innerHTML = `<h5>${t[0]}</h5><div class="role">${t[1]}</div><p>${t[2]}</p>`;
+        fragment.appendChild(card);
+      }
+      container.appendChild(fragment);
+      loaded += 8;
+      if (loaded >= total) { button.textContent = 'No hay más'; button.disabled = true; }
+    });
+  })();
+</script>
+<footer class="credit">Harley Vásquez · <a href="https://www.linkedin.com/in/harleyvasquez" target="_blank" rel="noreferrer">linkedin.com/in/harleyvasquez</a></footer>
+
+<script>
+(function(){
+  var grid = document.querySelector('[data-testid="infinite-scroll"]');
+  var btn = document.querySelector('[data-load-more]');
+  if(!grid || !btn) return;
+  window.addEventListener('scroll', function(){
+    if(btn.disabled) return;
+    var rect = grid.getBoundingClientRect();
+    if(rect.bottom <= window.innerHeight + 200) btn.click();
+  });
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,52 @@
+<!-- Design 07: Neon Chart / Neon Chart -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Charts — Design 07</title>
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body {
+    min-height: 100vh;
+    font-family: "Segoe UI", system-ui, sans-serif;
+    background: #0f172a;
+    color: #f1f5f9;
+    overflow-x: hidden;
+  }
+  .chart { width: min(90vw, 600px); margin: 40px auto; position: relative; }
+  .chart-bar { width: 34px; background: linear-gradient(135deg, #06b6d4 0%, #0891b2 100%); margin: 0 2px; height: calc(100% - 4px); position: relative; border-radius: 4px; box-shadow: 0 0 10px rgba(6,182,212,0.3); transition: box-shadow .3s; }
+  .chart-bar:hover { box-shadow: 0 0 20px rgba(6,182,212,0.5); }
+  .chart-bar .label { position: absolute; bottom: -8px; left: 50%; transform: translateX(-50%); font-size: .6rem; color: #64748b; white-space: nowrap; }
+  .chart-bar .value { position: absolute; top: -6px; right: 0; background: #fff; padding: 1px 3px; border-radius: 3px; font-size: .55rem; color: #06b6d4; font-weight: 600; }
+  .chart-axis { position: absolute; bottom: 0; left: 0; right: 0; height: 16px; display: flex; justify-content: space-between; font-size: .55rem; color: #64748b; }
+  .chart-title { text-align: center; margin-bottom: 16px; font-size: 1rem; font-weight: 600; color: #f1f5f9; }
+  .credit { margin-top: 32px; padding: 16px 0; border-top: 1px solid #334155; color: #64748b; font-size: .875rem; text-align: center; }
+  .credit a { color: #64748b; text-decoration: none; }
+  @media (max-width: 480px) { .chart { margin: 20px; } }
+</style>
+</head>
+<body>
+<div data-testid="label" class="label">Charts</div>
+<div class="chart" data-testid="chart" aria-label="Chart design" data-chart>
+  <div class="chart-title">Session Duration</div>
+  <div class="chart-axis"><span>Morning</span><span>Afternoon</span><span>Evening</span><span>Night</span></div>
+  <div class="chart-legend"><span class="legend-item"><span class="legend-color" style="background:linear-gradient(135deg,#06b6d4,#0891b2)"></span>Duration</span></span></div>
+  <div class="chart-bar" style="height: 55%;"><span class="label">12m</span><span class="value">12m</span></div>
+  <div class="chart-bar" style="height: 70%;"><span class="label">18m</span><span class="value">18m</span></div>
+  <div class="chart-bar" style="height: 65%;"><span class="label">15m</span><span class="value">15m</span></div>
+  <div class="chart-bar" style="height: 80%;"><span class="label">24m</span><span class="value">24m</span></div>
+
+  <svg data-testid="chart-svg" width="100%" height="200" viewBox="0 0 600 200" aria-label="Chart visualization">
+    <rect x="10" y="40" width="80" height="160" fill="#3b82f6" rx="4"/>
+    <rect x="110" y="70" width="80" height="130" fill="#3b82f6" rx="4"/>
+    <rect x="210" y="50" width="80" height="150" fill="#3b82f6" rx="4"/>
+    <rect x="310" y="20" width="80" height="180" fill="#3b82f6" rx="4"/>
+    <rect x="410" y="80" width="80" height="120" fill="#3b82f6" rx="4"/>
+    <rect x="510" y="30" width="80" height="170" fill="#3b82f6" rx="4"/>
+  </svg>
+</div>
+<footer class="credit">Harley Vásquez · <a href="https://www.linkedin.com/in/harleyvasquez" target="_blank" rel="noreferrer">linkedin.com/in/harleyvasquez</a></footer>
+</body>
+</html>

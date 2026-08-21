@@ -1,0 +1,98 @@
+<!-- Design 03: Pill Tabs / Pestañas Píldora -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pill Tabs — Design 03</title>
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body { font-family: "Segoe UI", system-ui, sans-serif; background: #eef2ff; min-height: 100vh; overflow-x: hidden; }
+  .nav {
+    display: flex; align-items: center; justify-content: center; gap: 14px;
+    padding: 22px clamp(16px, 5vw, 60px);
+    background: #eef2ff;
+  }
+  .brand { color: #312e81; font-weight: 800; font-size: 1.1rem; margin-right: 10px; }
+  .links { display: flex; gap: 6px; list-style: none; margin: 0; padding: 6px; background: #e0e7ff; border-radius: 999px; }
+  .links a {
+    display: block; padding: 10px 22px;
+    color: #4338ca; text-decoration: none; font-size: .9rem; font-weight: 700;
+    border-radius: 999px;
+    transition: background .15s ease, color .15s ease;
+  }
+  .links a:hover { background: #c7d2fe; }
+  .links a:focus-visible { outline: 3px solid #6366f1; outline-offset: 3px; }
+  .links a.active { background: #4f46e5; color: #fff; box-shadow: 0 6px 16px rgba(79, 70, 229, .4); }
+  .burger {
+    display: none;
+    width: 44px; height: 44px;
+    background: #e0e7ff; border: none; border-radius: 999px;
+    color: #312e81; font-size: 1.15rem; cursor: pointer;
+  }
+  .burger:hover { background: #c7d2fe; }
+  .burger:focus-visible { outline: 3px solid #6366f1; outline-offset: 3px; }
+  .mobile {
+    display: none; flex-direction: column; gap: 8px;
+    padding: 16px clamp(16px, 5vw, 60px) 22px;
+    background: #e0e7ff; border-radius: 0 0 18px 18px;
+  }
+  .mobile.open { display: flex; }
+  .mobile a { padding: 12px 18px; color: #4338ca; text-decoration: none; font-weight: 700; font-size: .95rem; border-radius: 999px; }
+  .mobile a:hover { background: #c7d2fe; }
+  .mobile a:focus-visible { outline: 3px solid #6366f1; outline-offset: 2px; }
+  .mobile a.active { background: #4f46e5; color: #fff; }
+  main { padding: clamp(70px, 13vw, 120px) clamp(16px, 5vw, 60px); color: #4338ca; max-width: 700px; }
+  main h1 { color: #312e81; margin: 0 0 12px; font-size: clamp(1.8rem, 5.5vw, 2.5rem); }
+  main p { line-height: 1.7; }
+  .credit { padding: 18px clamp(16px, 5vw, 60px); border-top: 1px solid #c7d2fe; color: #818cf8; font-size: .78rem; }
+  .credit a { color: #4338ca; text-decoration: none; }
+  @media (max-width: 480px) { .links { display: none; } .brand { margin-right: auto; } .burger { display: block; } }
+</style>
+</head>
+<body>
+<header>
+  <nav class="nav" aria-label="Main / Principal">
+    <div class="brand">Indigo</div>
+    <ul class="links">
+      <li><a href="#" data-testid="link" aria-current="page" class="active">Home</a></li>
+      <li><a href="#" data-testid="link">Projects</a></li>
+      <li><a href="#" data-testid="link">Library</a></li>
+      <li><a href="#" data-testid="link">Community</a></li>
+      <li><a href="#" data-testid="link">Settings</a></li>
+    </ul>
+    <button type="button" class="burger" data-testid="burger" aria-expanded="false" aria-controls="nb-pt-03-m">☰</button>
+  </nav>
+  <div class="mobile" id="nb-pt-03-m" data-testid="mobile">
+    <a href="#" data-testid="link" aria-current="page" class="active">Home</a>
+    <a href="#" data-testid="link">Projects</a>
+    <a href="#" data-testid="link">Library</a>
+    <a href="#" data-testid="link">Community</a>
+    <a href="#" data-testid="link">Settings</a>
+  </div>
+</header>
+<main>
+  <h1>Pill Tabs</h1>
+  <p>A single segmented pill carries the whole nav / Una sola píldora segmentada lleva toda la navegación.</p>
+  <p>Active tab fills with indigo / La pestaña activa se rellena de índigo.</p>
+</main>
+<footer class="credit">Harley Vásquez · <a href="https://www.linkedin.com/in/harleyvasquez" target="_blank" rel="noreferrer">linkedin.com/in/harleyvasquez</a></footer>
+<script>
+  const links = document.querySelectorAll('[data-testid="link"]');
+  const burger = document.querySelector('[data-testid="burger"]');
+  const mobile = document.querySelector('[data-testid="mobile"]');
+  links.forEach((l) => l.addEventListener('click', (e) => {
+    e.preventDefault();
+    links.forEach((x) => { x.classList.remove('active'); x.removeAttribute('aria-current'); });
+    l.classList.add('active'); l.setAttribute('aria-current', 'page');
+    mobile.classList.remove('open'); burger.setAttribute('aria-expanded', 'false');
+  }));
+  burger.addEventListener('click', () => {
+    const open = burger.getAttribute('aria-expanded') === 'true';
+    burger.setAttribute('aria-expanded', open ? 'false' : 'true');
+    mobile.classList.toggle('open', !open);
+  });
+</script>
+</body>
+</html>

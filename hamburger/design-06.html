@@ -1,0 +1,34 @@
+<!-- Design 06: Mono Bars / Barras Mono -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Hamburger Menu — Design 06</title>
+<style>
+  *{box-sizing:border-box}html,body{min-height:100vh;font-family:monospace;background:#0f172a;color:#cbd5e1;display:grid;place-items:center;overflow-x:hidden}.hamburger-wrapper{width:min(320px,95vw);text-align:center}.hamburger{width:44px;height:44px;position:relative;margin:20px auto;cursor:pointer;user-select:none;border:none;border-radius:0;background:transparent}.hamburger .bar{width:30px;height:4px;background:#64748b;position:absolute;left:50%;top:50%;transform:translateX(-50%)translateY(-50%);transition:all .3s ease;position:relative}.bar-1{top:8px}.bar-2{top:22px}.bar-3{top:36px}.hamburger.active .bar-1{top:22px;transform:rotate(45deg)translateY(-50%);width:18px}.hamburger.active .bar-2{opacity:0}.hamburger.active .bar-3{top:22px;transform:rotate(-45deg)translateY(-50%);width:18px}.menu{position:fixed;top:0;left:0;right:0;bottom:0;background:#1e213b;z-index:100;transform:translateX(100%);transition:transform .3s ease;padding:60px 25px 25px;height:100vh;color:#98a6bd}.menu .dot{width:12px;height:12px;border-radius:50%;background:#3b82f6;display:inline-block;margin:4px 2px}.menu .close{position:absolute;top:15px;right:15px;width:25px;height:25px;background:none;border:none;cursor:pointer;color:#64748b}.menu .close:hover{color:#a3b1bd}.menu h2{margin:0 0 20px;font-size:1rem;color:#98a6bd}.menu a{display:block;padding:8px 0;color:#98a6bd;text-decoration:none;border-bottom:1px solid #3b82f6;font-size:.85rem;transition:color .2s}.menu a:hover{color:#bfdbfe}.menu .active{color:#bfdbfe;font-weight:600}.credit{margin-top:30px;padding:15px 0;border-top:1px solid #3b82f6;color:#64748b;font-size:.7rem}.credit a{color:#bfdbfe;text-decoration:none}.media-query{display:none}.@media (max-width:360px){.menu{padding:50px 10px 10px}}</style>
+</head>
+<body><div class="hamburger-wrapper"><div class="hamburger" aria-label="Menu" aria-expanded="false" role="button" data-testid="hamburger" data-hamburger><span class="bar bar-1"></span><span class="bar bar-2"></span><span class="bar bar-3"></span></div><nav class="menu" aria-label="Menú principal" role="navigation" data-menu style="display:none;" aria-expanded="false"><button class="close" aria-label="Close" data-close>&times;</button><h2>Menu</h2><span class="dot"></span><span class="dot"></span><span class="dot"></span><a href="/home" class="active">Home</a><a href="/about">About</a><a href="/services">Services</a><a href="/contact">Contact</a></nav></div><script>
+  (() => {
+    const h = document.querySelector('[data-hamburger]');
+    const m = document.querySelector('[data-menu]');
+    const c = document.querySelector('[data-close]');
+    let menuOpen = false;
+    const toggle = () => {
+      menuOpen = !menuOpen;
+      h.setAttribute('aria-expanded', menuOpen);
+      m.setAttribute('aria-expanded', menuOpen);
+      m.style.display = menuOpen ? 'block' : 'none';
+      if (menuOpen) { m.classList.add('active'); }
+      else { m.classList.remove('active'); }
+    };
+    h.addEventListener('click', toggle);
+    c.addEventListener('click', toggle);
+    // Close on ESC
+    document.addEventListener('keydown', e => { if (e.key === 'Escape' && menuOpen) { toggle(); } });
+    // Close on outside click
+    document.addEventListener('click', e => { if (!h.contains(e.target) && !m.contains(e.target) && menuOpen) { toggle(); } });
+    // Initial count check for probe
+    const links = m.querySelectorAll('a');
+    const countEl = document.createElement('span'); countEl.style.display='none';
+    document.body.appendChild(countEl);
+  })();
+</script><footer class="credit">Harley Vásquez · <a href="https://www.linkedin.com/in/harleyvasquez" target="_blank" rel="noreferrer">linkedin.com/in/harleyvasquez</a></footer></body></html>

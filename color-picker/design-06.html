@@ -1,0 +1,86 @@
+<!-- Design 06: Minimal Squares / Cuadrados Mínimos -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Minimal Squares — Design 06</title>
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body {
+    min-height: 100vh;
+    display: grid; place-items: center;
+    font-family: "Segoe UI", system-ui, sans-serif;
+    background: #f4f4f5;
+    overflow-x: hidden;
+  }
+  .stage {
+    width: min(520px, 94vw);
+    padding: clamp(28px, 6vw, 44px);
+    background: #fafafa;
+    border: 1px solid #d4d4d8;
+    border-radius: 6px;
+  }
+  h1 { margin: 0; font-size: clamp(1.5rem, 4.8vw, 2rem); color: #18181b; font-weight: 300; letter-spacing: .04em; }
+  h1 b { font-weight: 700; }
+  .sub { margin: .4rem 0 2rem; color: #a1a1aa; font-size: .94rem; }
+  .lbl { display: block; margin: 0 0 12px; color: #3f3f46; font-size: .85rem; font-weight: 700; }
+  .grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+  .sw {
+    aspect-ratio: 1;
+    border: 2px solid #e4e4e7;
+    border-radius: 3px;
+    cursor: pointer;
+    position: relative;
+    transition: transform .12s ease;
+  }
+  .sw:hover { transform: scale(1.05); }
+  .sw:focus-visible { outline: 2px solid #18181b; outline-offset: 3px; }
+  .sw.on { border-color: #18181b; }
+  .sw.on::after {
+    content: "✓";
+    position: absolute; right: 4px; bottom: 2px;
+    color: #fff; font-size: .8rem; font-weight: 700;
+    text-shadow: 0 0 3px rgba(0, 0, 0, .8);
+  }
+  .out { display: flex; justify-content: space-between; align-items: center; margin-top: 22px; padding-top: 16px; border-top: 1px solid #e4e4e7; }
+  .out p { margin: 0; color: #52525b; font-size: .9rem; }
+  .hexv { font-family: "Cascadia Mono", Consolas, monospace; font-size: 1.05rem; font-weight: 700; color: #18181b; }
+  .credit { margin-top: 2rem; padding-top: 1rem; border-top: 1px solid #e4e4e7; color: #a1a1aa; font-size: .78rem; }
+  .credit a { color: #52525b; text-decoration: none; }
+</style>
+</head>
+<body>
+<main class="stage">
+  <h1>Minimal <b>Squares</b></h1>
+  <p class="sub">Nothing but the swatch / Nada más que la muestra</p>
+  <span class="lbl" data-testid="label" id="cp-ms-06-label">Pick a square / Elige un cuadrado</span>
+  <div class="grid" role="group" aria-labelledby="cp-ms-06-label">
+    <button type="button" class="sw" data-testid="swatch" data-color="#111827" style="background:#111827" aria-label="Black #111827" aria-pressed="false"></button>
+    <button type="button" class="sw" data-testid="swatch" data-color="#374151" style="background:#374151" aria-label="Graphite #374151" aria-pressed="false"></button>
+    <button type="button" class="sw" data-testid="swatch" data-color="#7C3AED" style="background:#7C3AED" aria-label="Violet #7C3AED" aria-pressed="false"></button>
+    <button type="button" class="sw" data-testid="swatch" data-color="#2563EB" style="background:#2563EB" aria-label="Blue #2563EB" aria-pressed="false"></button>
+    <button type="button" class="sw" data-testid="swatch" data-color="#0891B2" style="background:#0891B2" aria-label="Cyan #0891B2" aria-pressed="false"></button>
+    <button type="button" class="sw" data-testid="swatch" data-color="#059669" style="background:#059669" aria-label="Emerald #059669" aria-pressed="false"></button>
+    <button type="button" class="sw" data-testid="swatch" data-color="#D97706" style="background:#D97706" aria-label="Amber #D97706" aria-pressed="false"></button>
+    <button type="button" class="sw" data-testid="swatch" data-color="#DC2626" style="background:#DC2626" aria-label="Red #DC2626" aria-pressed="false"></button>
+  </div>
+  <div class="out">
+    <p>Selected / Seleccionado</p>
+    <p class="hexv" data-testid="hex">#111827</p>
+  </div>
+  <footer class="credit">Harley Vásquez · <a href="https://www.linkedin.com/in/harleyvasquez" target="_blank" rel="noreferrer">linkedin.com/in/harleyvasquez</a></footer>
+</main>
+<script>
+  const swatches = document.querySelectorAll('[data-testid="swatch"]');
+  const hexOut = document.querySelector('[data-testid="hex"]');
+  function select(el) {
+    swatches.forEach((s) => { s.classList.toggle('on', s === el); s.setAttribute('aria-pressed', s === el ? 'true' : 'false'); });
+    hexOut.textContent = el.dataset.color;
+  }
+  swatches.forEach((s) => s.addEventListener('click', () => select(s)));
+  select(swatches[0]);
+</script>
+</body>
+</html>

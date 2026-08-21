@@ -1,0 +1,56 @@
+<!-- Design 03: Terminal Fence / Terminal Fence -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Code Block — Design 03</title>
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body {
+    min-height: 100vh;
+    font-family: "Menlo", "Monaco", "Courier New", monospace;
+    background: #0f172a;
+    color: #f1f5f9;
+    overflow-x: hidden;
+  }
+  .code-block { width: min(90vw, 800px); margin: 40px auto; background: #1e293b; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.3); }
+  .code-header { display: flex; justify-content: space-between; align-items: center; padding: 10px 16px; border-bottom: 1px solid #334155; background: #1e293b; }
+  .code-title { font-size: .75rem; font-weight: 600; color: #f1f5f9; }
+  .code-actions { display: flex; gap: 6px; }
+  .code-action { width: 28px; height: 28px; background: #334155; border: 1px solid #475569; border-radius: 50; color: #94a3b8; font-size: .75rem; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: background .2s; }
+  .code-action:hover { background: #475569; }
+  .code-action:focus-visible { outline: 2px solid #64748b; outline-offset: 2px; }
+  .code-content { padding: 16px; font-family: "Fira Code", "Source Code Pro", monospace; font-size: .8rem; line-height: 1.6; color: #f1f5f9; white-space: pre; }
+  .code-line { padding: 4px 0; border-bottom: 1px solid #334155; }
+  .code-line:last-child { border-bottom: none; }
+  .code-line-num { width: 30px; color: #7f8c8d; user-select: none; -webkit-user-select: none; font-family: "Menlo", "Monaco", monospace; font-size: .7rem; }
+  .code-line-content { color: #f1f5f9; }
+  .credit { margin-top: 24px; padding: 12px 0; border-top: 1px solid #334155; color: #64748b; font-size: .75rem; text-align: center; }
+  .credit a { color: #64748b; text-decoration: none; }
+  @media (max-width: 480px) { .code-block { margin: 20px; } }
+</style>
+</head>
+<body>
+<div class="code-block" data-testid="code-block" aria-label="Code block" data-code-block>
+  <div class="code-header">
+    <span class="code-title">server.js</span>
+    <div class="code-actions">
+      <button class="code-action" data-copy aria-label="Copy code"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15l-7-7 7 7"/></svg></button>
+      <button class="code-action" data-theme aria-label="Toggle theme"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/></svg></button>
+    </div>
+  </div>
+  <div class="code-content" data-testid="code">
+    <div class="code-line"><span class="code-line-num">1</span><span class="code-line-content">const http = require('http');</span></div>
+    <div class="code-line"><span class="code-line-num">2</span><span class="code-line-content">const server = http.createServer((req, res) => {</span></div>
+    <div class="code-line"><span class="code-line-num">3</span><span class="code-line-content">  res.writeHead(200, { 'Content-Type': 'text/plain' });</span></div>
+    <div class="code-line"><span class="code-line-num">4</span><span class="code-line-content">  res.end('Hello World\\n');</span></div>
+    <div class="code-line"><span class="code-line-num">5</span><span class="code-line-content">});</span></div>
+    <div class="code-line"><span class="code-line-num">6</span><span class="code-line-content">server.listen(3000, () => {</span></div>
+    <div class="code-line"><span class="code-line-num">7</span><span class="code-line-content">  console.log('Server running on port 3000');</span></div>
+  </div>
+</div>
+<footer class="credit">Harley Vásquez · <a href="https://www.linkedin.com/in/harleyvasquez" target="_blank" rel="noreferrer">linkedin.com/in/harleyvasquez</a></footer>
+</body>
+</html>

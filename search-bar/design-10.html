@@ -1,0 +1,109 @@
+<!-- Design 10: Gradient Edge / Borde Degradado -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Gradient Edge Search — Design 10</title>
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body {
+    min-height: 100vh;
+    display: grid; place-items: center;
+    font-family: "Segoe UI", system-ui, sans-serif;
+    background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+    overflow-x: hidden;
+  }
+  .stage {
+    width: min(540px, 94vw);
+    padding: clamp(28px, 6vw, 44px);
+    background: linear-gradient(135deg, #1e293b, #111827);
+    border: 3px solid transparent;
+    border-radius: 18px;
+    background-clip: padding-box;
+    position: relative;
+  }
+  .stage::before {
+    content: "";
+    position: absolute; inset: -3px;
+    border-radius: 18px;
+    background: linear-gradient(135deg, #f43f5e, #f59e0b, #10b981);
+    z-index: -1;
+  }
+  h1 { margin: 0; font-size: clamp(1.5rem, 4.8vw, 2rem); color: #f8fafc; font-weight: 800; letter-spacing: -.02em; }
+  .sub { margin: .4rem 0 2rem; color: #94a3b8; font-size: .94rem; }
+  .lbl { display: block; margin: 0 0 10px; color: #e2e8f0; font-size: .88rem; font-weight: 700; }
+  .field { display: flex; align-items: center; background: #0f172a; border-radius: 12px; padding: 4px; gap: 8px; }
+  .tag { flex: 0 0 auto; padding: 6px 12px; margin-left: 4px; border-radius: 8px; background: linear-gradient(135deg, #f43f5e, #f59e0b); color: #fff; font-size: .72rem; font-weight: 800; letter-spacing: .1em; }
+  .inp {
+    flex: 1; min-width: 0;
+    padding: 11px 4px;
+    font-family: inherit; font-size: 1rem; color: #f1f5f9;
+    background: transparent; border: none; outline: none;
+  }
+  .inp::placeholder { color: #475569; }
+  .inp:focus-visible { outline: 2px solid rgba(245, 158, 11, .6); outline-offset: 3px; border-radius: 6px; }
+  .clr {
+    flex: 0 0 auto;
+    width: 40px; height: 40px;
+    display: grid; place-items: center;
+    background: #1e293b; color: #f59e0b;
+    border: 1px solid #334155; border-radius: 9px;
+    font-size: 1.15rem; cursor: pointer;
+    transition: background .15s ease;
+  }
+  .clr:hover { background: #334155; }
+  .clr:focus-visible { outline: 2px solid #f59e0b; outline-offset: 2px; }
+  .rows { margin-top: 18px; padding: 0; list-style: none; display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+  .rows li {
+    padding: 13px 14px;
+    background: #1e293b;
+    border: 1px solid #334155;
+    border-radius: 10px;
+    color: #cbd5e1; font-size: .92rem; font-weight: 600;
+    transition: transform .15s ease, border-color .15s ease;
+  }
+  .rows li:hover { transform: translateY(-2px); border-color: #f59e0b; }
+  .cnt { margin-top: 16px; color: #f59e0b; font-size: .88rem; font-weight: 700; }
+  .hint { margin-top: .4rem; color: #64748b; font-size: .82rem; }
+  .credit { margin-top: 2rem; padding-top: 1rem; border-top: 1px solid #334155; color: #64748b; font-size: .78rem; }
+  .credit a { color: #fbbf24; text-decoration: none; }
+  [hidden] { display: none !important; }
+</style>
+</head>
+<body>
+<main class="stage">
+  <h1>Gradient Edge</h1>
+  <p class="sub">Grooves on vinyl, filter in motion / Surcos en vinilo, filtro en movimiento</p>
+  <label class="lbl" data-testid="label" for="sb-ge-10">Find a genre</label>
+  <div class="field">
+    <span class="tag" aria-hidden="true">LIVE</span>
+    <input class="inp" data-testid="search" id="sb-ge-10" type="search" placeholder="Type a genre…" autocomplete="off">
+    <button type="button" class="clr" data-testid="clear" aria-label="Clear search">×</button>
+  </div>
+  <ul class="rows" data-testid="results"></ul>
+  <p class="cnt" data-testid="count"></p>
+  <p class="hint">Tri-color frame, two-column grid / Marco tricolor, rejilla de dos columnas</p>
+  <footer class="credit">Harley Vásquez · <a href="https://www.linkedin.com/in/harleyvasquez" target="_blank" rel="noreferrer">linkedin.com/in/harleyvasquez</a></footer>
+</main>
+<script>
+  const DATA = ['Cajón', 'Calypso', 'Carnatic', 'Chill', 'Country', 'Dub', 'Funk', 'Jazz', 'Rock', 'Soul'];
+  const input = document.querySelector('[data-testid="search"]');
+  const list = document.querySelector('[data-testid="results"]');
+  const count = document.querySelector('[data-testid="count"]');
+  const clear = document.querySelector('[data-testid="clear"]');
+  function render(q) {
+    const ql = q.toLowerCase();
+    const hits = ql ? DATA.filter((t) => t.toLowerCase().includes(ql)) : DATA;
+    list.textContent = '';
+    for (const t of hits) { const li = document.createElement('li'); li.textContent = t; list.appendChild(li); }
+    count.textContent = hits.length + ' results';
+    clear.hidden = !ql;
+  }
+  input.addEventListener('input', () => render(input.value));
+  clear.addEventListener('click', () => { input.value = ''; render(''); input.focus(); });
+  render('');
+</script>
+</body>
+</html>

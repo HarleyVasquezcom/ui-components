@@ -1,0 +1,100 @@
+<!-- Design 07: Tick Mark / Marca de Verificación -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tick Mark Radio — Design 07</title>
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body {
+    min-height: 100vh;
+    display: grid;
+    place-items: center;
+    font-family: "Segoe UI", system-ui, sans-serif;
+    background: linear-gradient(135deg, #fdf6ec, #f8ece0);
+    overflow-x: hidden;
+  }
+  .stage {
+    width: min(620px, 94vw);
+    padding: clamp(28px, 6vw, 60px);
+    background: #fffaf4;
+    border-radius: 26px;
+    box-shadow: 0 30px 70px rgba(140,90,40,.18);
+  }
+  h1 { margin: 0; font-size: clamp(1.5rem, 4vw, 2.1rem); color: #4a3a26; font-weight: 800; }
+  .sub { margin: .3rem 0 2.2rem; color: #b09a7e; font-size: .92rem; }
+  .group { border: none; margin: 0; padding: 0; }
+  legend { font-size: .78rem; letter-spacing: .22em; text-transform: uppercase; color: #b09a7e; margin-bottom: 14px; padding: 0; }
+  .opt {
+    display: flex; align-items: center; gap: 16px;
+    padding: 15px 18px;
+    margin-bottom: 12px;
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 2px 10px rgba(140,90,40,.06);
+    cursor: pointer;
+    transition: box-shadow .2s ease, transform .15s ease;
+  }
+  .opt:hover { transform: translateX(4px); box-shadow: 0 6px 18px rgba(140,90,40,.12); }
+  .opt input { position: absolute; opacity: 0; width: 1px; height: 1px; }
+  .tickbox {
+    flex: 0 0 auto;
+    width: 30px; height: 30px; border-radius: 10px;
+    background: #f4e9da;
+    display: grid; place-items: center;
+    transition: background .2s ease;
+  }
+  .tickbox svg {
+    width: 17px; height: 17px;
+    stroke: #fff; stroke-width: 3.4; fill: none;
+    stroke-dasharray: 24; stroke-dashoffset: 24;
+    transition: stroke-dashoffset .25s cubic-bezier(.6,0,.3,1);
+  }
+  .opt.selected .tickbox { background: #2f9e6e; box-shadow: 0 4px 14px rgba(47,158,110,.4); }
+  .opt.selected .tickbox svg { stroke-dashoffset: 0; }
+  .opt input:focus-visible ~ .tickbox { outline: 3px solid #2f9e6e; outline-offset: 3px; }
+  .opt .txt { color: #4a3a26; font-weight: 600; font-size: .98rem; }
+  .opt .txt small { display: block; color: #b09a7e; font-weight: 400; font-size: .78rem; }
+  .hint { margin-top: 1.8rem; color: #b09a7e; font-size: .82rem; }
+  .credit { margin-top: 2.2rem; padding-top: 1rem; border-top: 1px solid #f0e5d5; color: #b09a7e; font-size: .8rem; }
+  .credit a { color: #2f9e6e; text-decoration: none; }
+  .credit a:hover { text-decoration: underline; }
+input[type="checkbox"]:focus-visible, input[type="radio"]:focus-visible, [data-testid="toggle"]:focus-visible { outline: 2px solid #2563eb; outline-offset: 2px; } </style>
+</head>
+<body>
+<main class="stage">
+  <h1>Tick Mark</h1>
+  <p class="sub">A rubber stamp for your choice / Un sello para tu elección</p>
+  <fieldset class="group" data-testid="group">
+    <legend>Delivery method</legend>
+    <label class="opt" data-idx="0">
+      <input type="radio" name="deliv" value="pickup" checked
+      <span class="tickbox" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4.5 12.5l5 5L19.5 7"/></svg></span>
+      <span class="txt">Pickup<small>ready in 30 min — / listo en 30 min</small></span>
+    </label>
+    <label class="opt" data-idx="1">
+      <input type="radio" name="deliv" value="standard"
+      <span class="tickbox" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4.5 12.5l5 5L19.5 7"/></svg></span>
+      <span class="txt">Standard delivery<small>3–5 business days — / 3–5 días hábiles</small></span>
+    </label>
+    <label class="opt" data-idx="2">
+      <input type="radio" name="deliv" value="express"
+      <span class="tickbox" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4.5 12.5l5 5L19.5 7"/></svg></span>
+      <span class="txt">Express delivery<small>next day — / al día siguiente</small></span>
+    </label>
+  </fieldset>
+  <p class="hint">Click an option to stamp it — / Clic para sellar una opción</p>
+  <footer class="credit">Harley Vásquez · <a href="https://www.linkedin.com/in/harleyvasquez" target="_blank" rel="noreferrer">linkedin.com/in/harleyvasquez</a></footer>
+</main>
+<script>
+  const group = document.querySelector('[data-testid="group"]');
+  group.addEventListener('change', (e) => {
+    if (e.target.type !== 'radio') return;
+    group.querySelectorAll('.opt').forEach((opt) => opt.classList.remove('selected'));
+    e.target.closest('.opt').classList.add('selected');
+  });
+</script>
+</body>
+</html>

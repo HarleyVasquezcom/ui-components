@@ -1,0 +1,133 @@
+<!-- Design 09: Sectioned List / Lista por Secciones -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sectioned List Dropdown — Design 09</title>
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body {
+    min-height: 100vh;
+    display: grid;
+    place-items: center;
+    font-family: "Segoe UI", system-ui, sans-serif;
+    background: #f4f4f5;
+    overflow-x: hidden;
+  }
+  .stage {
+    width: min(500px, 94vw);
+    padding: clamp(36px, 8vw, 72px);
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, .06);
+  }
+  h1 { margin: 0; font-size: clamp(1.6rem, 5vw, 2.2rem); color: #18181b; font-weight: 800; letter-spacing: -.02em; }
+  .sub { margin: .4rem 0 2.6rem; color: #a1a1aa; font-size: .95rem; }
+  .lbl { display: block; margin: 0 0 12px; color: #3f3f46; font-size: .92rem; font-weight: 700; }
+  .wrap { position: relative; }
+  .trg {
+    width: 100%;
+    display: flex; align-items: center; justify-content: space-between; gap: 10px;
+    padding: 15px 18px;
+    font-family: inherit; font-size: 1.02rem; font-weight: 600; color: #18181b;
+    background: #fafafa;
+    border: 1px solid #e4e4e7;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: border-color .15s ease;
+  }
+  .trg:hover { border-color: #18181b; }
+  .trg[aria-expanded="true"] { border-color: #18181b; }
+  .trg:focus-visible { outline: 3px solid #f59e0b; outline-offset: 2px; }
+  .trg .arr { color: #71717a; font-size: .95rem; transition: transform .2s ease; }
+  .trg[aria-expanded="true"] .arr { transform: rotate(180deg); }
+  .lst {
+    position: absolute; left: 0; right: 0; top: calc(100% + 10px);
+    margin: 0; padding: 8px;
+    list-style: none;
+    background: #fff;
+    border: 1px solid #e4e4e7;
+    border-radius: 12px;
+    box-shadow: 0 18px 44px rgba(0, 0, 0, .1);
+    z-index: 5;
+  }
+  [hidden] { display: none !important; }
+  .sec {
+    display: block;
+    padding: 10px 12px 6px;
+    font-size: .68rem; font-weight: 800; letter-spacing: .14em; text-transform: uppercase;
+    color: #a1a1aa;
+  }
+  .sep { height: 1px; margin: 6px 8px 4px; background: #e4e4e7; }
+  .opt {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 11px 12px;
+    font-size: .96rem; font-weight: 500; color: #3f3f46;
+    border-radius: 7px;
+    cursor: pointer;
+    transition: background .12s ease, color .12s ease;
+  }
+  .opt:hover, .opt.hl { background: #fff7ed; color: #18181b; }
+  .opt.checked { background: #18181b; color: #fff; font-weight: 700; }
+  .opt.checked::after { content: "✓"; color: #f59e0b; }
+  .opt:focus-visible { outline: 2px solid #f59e0b; outline-offset: -2px; }
+  .selout { display: flex; align-items: center; justify-content: space-between; gap: 14px; margin-top: 26px; flex-wrap: wrap; }
+  .selout span { color: #a1a1aa; font-size: .88rem; }
+  .selout b { color: #18181b; font-weight: 800; }
+  .hint { margin-top: 2.2rem; color: #d4d4d8; font-size: .82rem; }
+  .credit { margin-top: 2.2rem; padding-top: 1.2rem; border-top: 1px solid #e4e4e7; color: #a1a1aa; font-size: .78rem; }
+  .credit a { color: #f59e0b; text-decoration: none; }
+  .credit a:hover { text-decoration: underline; }
+</style>
+</head>
+<body>
+<main class="stage">
+  <h1>Sectioned List</h1>
+  <p class="sub">Groups keep the list tidy / Los grupos mantienen la lista ordenada</p>
+  <label class="lbl" data-testid="label" id="lbl-d09">Plan</label>
+  <div class="wrap">
+    <button type="button" class="trg" data-testid="trigger" role="combobox" aria-haspopup="listbox" aria-expanded="false" aria-controls="lst09" aria-labelledby="lbl-d09">
+      <span data-testid="cur">Pro</span>
+      <span class="arr" aria-hidden="true">▾</span>
+    </button>
+    <ul class="lst" id="lst09" data-testid="list" role="listbox" aria-label="Plan" hidden>
+      <li class="sec" role="presentation">Core</li>
+      <li class="opt" data-testid="option-1" role="option" tabindex="-1">Starter</li>
+      <li class="opt" data-testid="option-2" role="option" tabindex="-1">Hobby</li>
+      <li class="opt" data-testid="option-3" role="option" tabindex="-1">Pro</li>
+      <li class="sep" role="presentation"></li>
+      <li class="sec" role="presentation">Teams</li>
+      <li class="opt" data-testid="option-4" role="option" tabindex="-1">Business</li>
+      <li class="opt" data-testid="option-5" role="option" tabindex="-1">Enterprise</li>
+    </ul>
+  </div>
+  <p class="selout"><span>selected:</span> <b data-testid="selected" aria-live="polite">Pro</b></p>
+  <p class="hint">Structure before style / Estructura antes que estilo</p>
+  <footer class="credit">Harley Vásquez · <a href="https://www.linkedin.com/in/harleyvasquez" target="_blank" rel="noreferrer">linkedin.com/in/harleyvasquez</a></footer>
+</main>
+<script>
+  const trigger = document.querySelector('[data-testid="trigger"]');
+  const list = document.querySelector('[data-testid="list"]');
+  const cur = document.querySelector('[data-testid="cur"]');
+  const selected = document.querySelector('[data-testid="selected"]');
+  const opts = Array.from(document.querySelectorAll('[data-testid^="option-"]'));
+  const DATA = opts.map((o) => o.textContent.trim());
+  let open = false, curI = 2, hl = 0;
+  function paint() { opts.forEach((el, j) => el.classList.toggle('hl', j === hl)); }
+  function setOpen(v) { open = v; list.hidden = !v; trigger.setAttribute('aria-expanded', String(v)); }
+  function openList(kbd) { hl = kbd ? 0 : curI; setOpen(true); paint(); }
+  function setSel(j) { curI = j; cur.textContent = DATA[j]; selected.textContent = DATA[j]; opts.forEach((el, i) => el.classList.toggle('checked', i === j)); }
+  trigger.addEventListener('click', () => { open ? setOpen(false) : openList(); });
+  opts.forEach((el, j) => el.addEventListener('click', () => { setSel(j); setOpen(false); }));
+  trigger.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowDown') { e.preventDefault(); if (!open) openList(true); else { hl = Math.min(hl + 1, opts.length - 1); paint(); } }
+    else if (e.key === 'ArrowUp') { e.preventDefault(); if (open) { hl = Math.max(hl - 1, 0); paint(); } }
+    else if (e.key === 'Enter') { e.preventDefault(); if (open) { setSel(hl); setOpen(false); } }
+    else if (e.key === 'Escape') { e.preventDefault(); if (open) setOpen(false); }
+  });
+  setSel(2);
+</script>
+</body>
+</html>

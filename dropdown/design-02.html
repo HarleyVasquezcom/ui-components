@@ -1,0 +1,124 @@
+<!-- Design 02: Listbox Custom / Listbox Personalizado -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Listbox Custom Dropdown — Design 02</title>
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body {
+    min-height: 100vh;
+    display: grid;
+    place-items: center;
+    font-family: "Segoe UI", system-ui, sans-serif;
+    background: #f2f2f7;
+    overflow-x: hidden;
+  }
+  .stage {
+    width: min(540px, 94vw);
+    padding: clamp(32px, 7vw, 60px);
+    background: #fff;
+    border-radius: 14px;
+    box-shadow: 0 24px 60px rgba(0,0,0,.08);
+  }
+  h1 { margin: 0; font-size: clamp(1.5rem, 4.5vw, 2.1rem); color: #1c1c1e; font-weight: 700; }
+  .sub { margin: .3rem 0 2.4rem; color: #8e8e93; font-size: .92rem; }
+  .lbl { display: block; margin: 0 0 10px; color: #3a3a3c; font-size: .9rem; font-weight: 600; }
+  .wrap { position: relative; }
+  .trg {
+    width: 100%;
+    display: flex; align-items: center; justify-content: space-between; gap: 10px;
+    padding: 14px 16px;
+    font-family: inherit; font-size: 1rem; color: #1c1c1e;
+    background: #fff;
+    border: 1.5px solid #e0e0e5;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: border-color .2s ease, box-shadow .2s ease;
+  }
+  .trg:hover { border-color: #b0b0b8; }
+  .trg[aria-expanded="true"] { border-color: #007aff; box-shadow: 0 0 0 4px rgba(0,122,255,.12); }
+  .trg:focus-visible { outline: 2px solid #007aff; outline-offset: 2px; }
+  .trg .caret { width: 18px; height: 18px; stroke: #8e8e93; fill: none; stroke-width: 2; transition: transform .2s ease; }
+  .trg[aria-expanded="true"] .caret { transform: rotate(180deg); }
+  .lst {
+    position: absolute; left: 0; right: 0; top: calc(100% + 6px);
+    margin: 0; padding: 6px;
+    list-style: none;
+    background: #fff;
+    border: 1.5px solid #e0e0e5;
+    border-radius: 10px;
+    box-shadow: 0 18px 40px rgba(0,0,0,.12);
+    z-index: 5;
+  }
+  [hidden] { display: none !important; }
+  .opt {
+    padding: 11px 12px;
+    font-size: .95rem; color: #1c1c1e;
+    border-radius: 7px;
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: space-between; gap: 8px;
+  }
+  .opt:hover, .opt.hl { background: #f2f2f7; }
+  .opt.hl { outline: 2px solid #007aff; outline-offset: -2px; }
+  .opt.checked { color: #007aff; font-weight: 600; }
+  .opt:focus-visible { outline: 2px solid #007aff; outline-offset: -2px; }
+  .opt .tick { width: 16px; height: 16px; stroke: #007aff; fill: none; stroke-width: 2.4; opacity: 0; }
+  .opt.checked .tick { opacity: 1; }
+  .selout { display: flex; align-items: center; justify-content: space-between; gap: 14px; margin-top: 22px; flex-wrap: wrap; }
+  .selout span { color: #8e8e93; font-size: .88rem; }
+  .selout b { color: #1c1c1e; font-weight: 700; }
+  .hint { margin-top: 2rem; color: #b0b0b8; font-size: .82rem; }
+  .credit { margin-top: 2.2rem; padding-top: 1rem; border-top: 1px solid #f2f2f7; color: #8e8e93; font-size: .78rem; }
+  .credit a { color: #007aff; text-decoration: none; }
+  .credit a:hover { text-decoration: underline; }
+</style>
+</head>
+<body>
+<main class="stage">
+  <h1>Listbox Custom</h1>
+  <p class="sub">A listbox that behaves like a listbox / Un listbox que se comporta como un listbox</p>
+  <label class="lbl" data-testid="label" id="lbl-d02">Display mode</label>
+  <div class="wrap">
+    <button type="button" class="trg" data-testid="trigger" role="combobox" aria-haspopup="listbox" aria-expanded="false" aria-controls="lst02" aria-labelledby="lbl-d02">
+      <span data-testid="cur">Day</span>
+      <svg class="caret" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+    </button>
+    <ul class="lst" id="lst02" data-testid="list" role="listbox" aria-label="Display mode" hidden>
+      <li class="opt" data-testid="option-1" role="option" tabindex="-1">Day <svg class="tick" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7"/></svg></li>
+      <li class="opt" data-testid="option-2" role="option" tabindex="-1">Night <svg class="tick" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7"/></svg></li>
+      <li class="opt" data-testid="option-3" role="option" tabindex="-1">Dawn <svg class="tick" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7"/></svg></li>
+      <li class="opt" data-testid="option-4" role="option" tabindex="-1">Dusk <svg class="tick" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7"/></svg></li>
+      <li class="opt" data-testid="option-5" role="option" tabindex="-1">Midnight <svg class="tick" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7"/></svg></li>
+    </ul>
+  </div>
+  <p class="selout"><span>selected:</span> <b data-testid="selected" aria-live="polite">Day</b></p>
+  <p class="hint">Arrows move, Enter picks, Escape steps away / Las flechas mueven, Enter elige, Escape se aleja</p>
+  <footer class="credit">Harley Vásquez · <a href="https://www.linkedin.com/in/harleyvasquez" target="_blank" rel="noreferrer">linkedin.com/in/harleyvasquez</a></footer>
+</main>
+<script>
+  const trigger = document.querySelector('[data-testid="trigger"]');
+  const list = document.querySelector('[data-testid="list"]');
+  const cur = document.querySelector('[data-testid="cur"]');
+  const selected = document.querySelector('[data-testid="selected"]');
+  const opts = Array.from(document.querySelectorAll('[data-testid^="option-"]'));
+  const DATA = opts.map((o) => o.textContent.replace(/[^\w ]/g, '').trim());
+  let open = false, curI = 0, hl = 0;
+  function paint() { opts.forEach((el, j) => el.classList.toggle('hl', j === hl)); }
+  function setOpen(v) { open = v; list.hidden = !v; trigger.setAttribute('aria-expanded', String(v)); }
+  function openList(kbd) { hl = kbd ? 0 : curI; setOpen(true); paint(); }
+  function setSel(j) { curI = j; cur.textContent = DATA[j]; selected.textContent = DATA[j]; opts.forEach((el, i) => el.classList.toggle('checked', i === j)); }
+  trigger.addEventListener('click', () => { open ? setOpen(false) : openList(); });
+  opts.forEach((el, j) => el.addEventListener('click', () => { setSel(j); setOpen(false); }));
+  trigger.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowDown') { e.preventDefault(); if (!open) openList(true); else { hl = Math.min(hl + 1, opts.length - 1); paint(); } }
+    else if (e.key === 'ArrowUp') { e.preventDefault(); if (open) { hl = Math.max(hl - 1, 0); paint(); } }
+    else if (e.key === 'Enter') { e.preventDefault(); if (open) { setSel(hl); setOpen(false); } }
+    else if (e.key === 'Escape') { e.preventDefault(); if (open) setOpen(false); }
+  });
+  setSel(0);
+</script>
+</body>
+</html>

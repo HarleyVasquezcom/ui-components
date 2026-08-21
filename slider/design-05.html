@@ -1,0 +1,82 @@
+<!-- Design 05: Vertical Trim / Afilada Vertical -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Vertical Trim Slider — Design 05</title>
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body {
+    min-height: 100vh;
+    display: grid;
+    place-items: center;
+    font-family: "Segoe UI", system-ui, sans-serif;
+    background: #0f172a;
+    overflow-x: hidden;
+  }
+  .stage {
+    width: min(480px, 94vw);
+    padding: clamp(34px, 7vw, 54px);
+    background: #1e293b; border-radius: 22px;
+    box-shadow: 0 30px 70px rgba(0, 0, 0, .5);
+  }
+  h1 { margin: 0; font-size: clamp(1.6rem, 5vw, 2rem); color: #e2e8f0; font-weight: 800; letter-spacing: -.02em; }
+  .sub { margin: .4rem 0 2.2rem; color: #94a3b8; font-size: .95rem; }
+  .lbl { display: block; margin: 0 0 26px; color: #e2e8f0; font-size: .92rem; font-weight: 700; }
+  .vc { display: flex; justify-content: center; margin: 0 0 18px; }
+  .sl {
+    width: 240px;
+    -webkit-appearance: none;
+    appearance: none;
+    transform: rotate(270deg);
+    height: 8px;
+    border: none;
+    border-radius: 4px;
+    background: linear-gradient(#64748b, #64748b) 0 / var(--p, 0%) 100% no-repeat #334155;
+    outline: none;
+    cursor: pointer;
+  }
+  .sl::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 26px; height: 26px;
+    border: 3px solid #1e293b; border-radius: 50%;
+    background: #f8fafc;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, .5);
+  }
+  .sl:hover::-webkit-slider-thumb { background: #cbd5e1; }
+  .sl:focus-visible { outline: 3px solid #f8fafc; outline-offset: 6px; }
+  .vlabels { display: flex; justify-content: space-between; color: #64748b; font-size: .8rem; }
+  .out { display: flex; align-items: center; justify-content: center; gap: 12px; margin-top: 16px; color: #94a3b8; font-size: .88rem; }
+  .out b { color: #f8fafc; font-size: 1.3rem; }
+  .hint { margin-top: 2rem; color: #64748b; font-size: .82rem; }
+  .credit { margin-top: 1.6rem; padding-top: 1rem; border-top: 1px solid #334155; color: #64748b; font-size: .78rem; }
+  .credit a { color: #cbd5e1; text-decoration: none; }
+</style>
+</head>
+<body>
+<main class="stage">
+  <h1>Vertical Trim</h1>
+  <p class="sub">Tall, slim, precise / Alta, delgada, precisa</p>
+  <div class="vlabels"><span>Low</span><span>High</span></div>
+  <div class="vc">
+    <input class="sl" data-testid="slider" type="range" min="0" max="100" step="5" value="30" aria-label="Volume">
+  </div>
+  <p class="out"><span data-testid="label" id="lbl-sl05">Level</span> <b data-testid="value" aria-live="polite">30</b></p>
+  <p class="hint">Grows upward, quietly / Crece hacia arriba, en silencio</p>
+  <footer class="credit">Harley Vásquez · <a href="https://www.linkedin.com/in/harleyvasquez" target="_blank" rel="noreferrer">linkedin.com/in/harleyvasquez</a></footer>
+</main>
+<script>
+  const sl = document.querySelector('[data-testid="slider"]');
+  const val = document.querySelector('[data-testid="value"]');
+  function sync() {
+    val.textContent = String(sl.value);
+    sl.style.setProperty('--p', ((Number(sl.value) - Number(sl.min)) / (Number(sl.max) - Number(sl.min))) * 100 + '%');
+  }
+  sl.addEventListener('input', sync);
+  sync();
+</script>
+</body>
+</html>

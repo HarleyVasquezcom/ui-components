@@ -1,0 +1,99 @@
+<!-- Design 07: Filled Plate / Placa Rellena -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Filled Plate Checkbox — Design 07</title>
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body {
+    min-height: 100vh;
+    display: grid;
+    place-items: center;
+    font-family: "Segoe UI", system-ui, sans-serif;
+    background: #1d1f24;
+    overflow-x: hidden;
+  }
+  .stage {
+    width: min(620px, 94vw);
+    padding: clamp(28px, 6vw, 60px);
+    background: #262933;
+    border-radius: 20px;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,.06), 0 24px 60px rgba(0,0,0,.4);
+    text-align: center;
+  }
+  h1 { margin: 0; color: #f3ead2; font-size: clamp(1.5rem, 4vw, 2.1rem); font-weight: 800; letter-spacing: .01em; }
+  .sub { margin: .4rem 0 2.6rem; color: #8d8f9c; font-size: .92rem; }
+  .row {
+    display: flex; align-items: center; gap: 16px;
+    max-width: 420px; margin: 0 auto 16px;
+    padding: 14px 18px;
+    background: #2e323d;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: transform .15s ease, background .2s ease;
+  }
+  .row:hover { transform: translateX(4px); background: #333844; }
+  .row input { position: absolute; opacity: 0; width: 1px; height: 1px; }
+  .plate {
+    flex: 0 0 auto;
+    width: 30px; height: 30px;
+    background: #3a3f4d;
+    border-radius: 6px;
+    display: grid; place-items: center;
+    box-shadow: inset 0 3px 8px rgba(0,0,0,.4);
+    transition: background .2s ease;
+  }
+  .plate svg {
+    width: 17px; height: 17px;
+    stroke: #ffd23f; stroke-width: 4; fill: none;
+    stroke-dasharray: 24; stroke-dashoffset: 24;
+    filter: drop-shadow(0 0 6px rgba(255,210,63,.8));
+    transition: stroke-dashoffset .25s cubic-bezier(.6,0,.3,1);
+  }
+  .row.checked .plate { background: linear-gradient(160deg, #ffd23f, #f5a623); }
+  .row.checked .plate svg { stroke: #241c05; stroke-dashoffset: 0; filter: none; }
+  .row input:focus-visible ~ .plate { outline: 3px solid #ffd23f; outline-offset: 3px; }
+  .row .txt { text-align: left; color: #d9d6cc; font-weight: 600; font-size: .95rem; }
+  .row .txt small { display: block; color: #7d808d; font-weight: 400; font-size: .78rem; }
+  .row.disabled { opacity: .4; cursor: not-allowed; }
+  .row.disabled:hover { transform: none; background: #2e323d; }
+  .hint { margin-top: 1.8rem; color: #7d808d; font-size: .82rem; }
+  .credit { margin-top: 2.4rem; padding-top: 1rem; border-top: 1px solid #353a46; color: #7d808d; font-size: .8rem; }
+  .credit a { color: #ffd23f; text-decoration: none; }
+  .credit a:hover { text-decoration: underline; }
+input[type="checkbox"]:focus-visible, input[type="radio"]:focus-visible, [data-testid="toggle"]:focus-visible { outline: 2px solid #2563eb; outline-offset: 2px; } </style>
+</head>
+<body>
+<main class="stage">
+  <h1>Filled Plate</h1>
+  <p class="sub">A chunky plate that fills with gold / Una placa que se llena de oro</p>
+  <label class="row" data-testid="cb" for="cb-fp-a">
+    <input type="checkbox" id="cb-fp-a">
+    <span class="plate" data-testid="visual" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4.5 12.5l5 5L19.5 7"/></svg></span>
+    <span class="txt">Gold tier<small>premium perks unlocked — / beneficios premium</small></span>
+  </label>
+  <label class="row" for="cb-fp-b">
+    <input type="checkbox" id="cb-fp-b">
+    <span class="plate" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4.5 12.5l5 5L19.5 7"/></svg></span>
+    <span class="txt">Silver tier<small>community badge — / insignia comunitaria</small></span>
+  </label>
+  <label class="row disabled" data-testid="cb-disabled" for="cb-fp-c">
+    <input type="checkbox" id="cb-fp-c" disabled>
+    <span class="plate" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4.5 12.5l5 5L19.5 7"/></svg></span>
+    <span class="txt">Bronze tier<small>locked — / bloqueado</small></span>
+  </label>
+  <p class="hint">Click a plate to fill it — / Clic en una placa para llenarla</p>
+  <footer class="credit">Harley Vásquez · <a href="https://www.linkedin.com/in/harleyvasquez" target="_blank" rel="noreferrer">linkedin.com/in/harleyvasquez</a></footer>
+</main>
+<script>
+  document.querySelectorAll('.row input').forEach((input) => {
+    input.addEventListener('change', () => {
+      input.closest('.row').classList.toggle('checked', input.checked);
+    });
+  });
+</script>
+</body>
+</html>

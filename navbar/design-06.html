@@ -1,0 +1,102 @@
+<!-- Design 06: Dark Lines / Líneas Oscuras -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dark Lines — Design 06</title>
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body { font-family: "Segoe UI", system-ui, sans-serif; background: #0d0d0d; min-height: 100vh; overflow-x: hidden; }
+  .nav {
+    display: flex; align-items: center; justify-content: space-between; gap: 16px;
+    padding: 0 clamp(16px, 5vw, 60px);
+    background: #111;
+    border-top: 4px solid #e5e5e5;
+    border-bottom: 1px solid #2a2a2a;
+  }
+  .brand { color: #e5e5e5; font-weight: 800; font-size: 1.05rem; letter-spacing: .06em; padding: 18px 0; }
+  .brand span { color: #666; }
+  .links { display: flex; list-style: none; margin: 0; padding: 0; }
+  .links a {
+    display: block; padding: 20px 22px;
+    color: #8f8f8f; text-decoration: none; font-size: .9rem; font-weight: 700;
+    letter-spacing: .02em;
+    border-left: 1px solid #222;
+  }
+  .links li:last-child a { border-right: 1px solid #222; }
+  .links a:hover { color: #e5e5e5; background: #1a1a1a; }
+  .links a:focus-visible { outline: 3px solid #e5e5e5; outline-offset: -3px; }
+  .links a.active { color: #111; background: #e5e5e5; }
+  .burger {
+    display: none;
+    width: 44px; height: 44px;
+    background: none; border: 1px solid #2a2a2a;
+    color: #e5e5e5; font-size: 1.1rem; cursor: pointer;
+  }
+  .burger:hover { background: #1a1a1a; }
+  .burger:focus-visible { outline: 3px solid #e5e5e5; outline-offset: 3px; }
+  .mobile {
+    display: none; flex-direction: column;
+    background: #111;
+    border-bottom: 1px solid #2a2a2a;
+  }
+  .mobile.open { display: flex; }
+  .mobile a { padding: 15px clamp(16px, 5vw, 60px); color: #8f8f8f; text-decoration: none; font-size: .95rem; font-weight: 700; border-top: 1px solid #222; }
+  .mobile a:hover { color: #e5e5e5; }
+  .mobile a:focus-visible { outline: 3px solid #e5e5e5; outline-offset: -3px; }
+  .mobile a.active { color: #111; background: #e5e5e5; }
+  main { padding: clamp(70px, 14vw, 130px) clamp(16px, 5vw, 60px); color: #666; max-width: 700px; }
+  main h1 { color: #e5e5e5; margin: 0 0 12px; font-size: clamp(1.7rem, 5.4vw, 2.4rem); letter-spacing: .02em; }
+  main p { line-height: 1.8; }
+  .credit { padding: 18px clamp(16px, 5vw, 60px); border-top: 1px solid #222; color: #4d4d4d; font-size: .78rem; }
+  .credit a { color: #e5e5e5; text-decoration: none; }
+  @media (max-width: 480px) { .links { display: none; } .brand { margin-right: auto; } .burger { display: block; } }
+</style>
+</head>
+<body>
+<header>
+  <nav class="nav" aria-label="Main / Principal">
+    <div class="brand">ATELIER<span>·</span>M</div>
+    <ul class="links">
+      <li><a href="#" data-testid="link" aria-current="page" class="active">Home</a></li>
+      <li><a href="#" data-testid="link">Collection</a></li>
+      <li><a href="#" data-testid="link">Ateliers</a></li>
+      <li><a href="#" data-testid="link">Journal</a></li>
+      <li><a href="#" data-testid="link">Contact</a></li>
+    </ul>
+    <button type="button" class="burger" data-testid="burger" aria-expanded="false" aria-controls="nb-dl-06-m">☰</button>
+  </nav>
+  <div class="mobile" id="nb-dl-06-m" data-testid="mobile">
+    <a href="#" data-testid="link" aria-current="page" class="active">Home</a>
+    <a href="#" data-testid="link">Collection</a>
+    <a href="#" data-testid="link">Ateliers</a>
+    <a href="#" data-testid="link">Journal</a>
+    <a href="#" data-testid="link">Contact</a>
+  </div>
+</header>
+<main>
+  <h1>Dark Lines</h1>
+  <p>Hard rules, inverted active block / Reglas duras, bloque activo invertido.</p>
+  <p>A monochrome strip where the active item inverts to white / Una franja monocroma donde el elemento activo se invierte a blanco.</p>
+</main>
+<footer class="credit">Harley Vásquez · <a href="https://www.linkedin.com/in/harleyvasquez" target="_blank" rel="noreferrer">linkedin.com/in/harleyvasquez</a></footer>
+<script>
+  const links = document.querySelectorAll('[data-testid="link"]');
+  const burger = document.querySelector('[data-testid="burger"]');
+  const mobile = document.querySelector('[data-testid="mobile"]');
+  links.forEach((l) => l.addEventListener('click', (e) => {
+    e.preventDefault();
+    links.forEach((x) => { x.classList.remove('active'); x.removeAttribute('aria-current'); });
+    l.classList.add('active'); l.setAttribute('aria-current', 'page');
+    mobile.classList.remove('open'); burger.setAttribute('aria-expanded', 'false');
+  }));
+  burger.addEventListener('click', () => {
+    const open = burger.getAttribute('aria-expanded') === 'true';
+    burger.setAttribute('aria-expanded', open ? 'false' : 'true');
+    mobile.classList.toggle('open', !open);
+  });
+</script>
+</body>
+</html>

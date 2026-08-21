@@ -1,0 +1,96 @@
+<!-- Design 03: Hue Slider / Deslizador de Tono -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hue Slider — Design 03</title>
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body {
+    min-height: 100vh;
+    display: grid; place-items: center;
+    font-family: "Segoe UI", system-ui, sans-serif;
+    background: #eef2ff;
+    overflow-x: hidden;
+  }
+  .stage {
+    width: min(580px, 94vw);
+    padding: clamp(28px, 6vw, 46px);
+    background: #ffffff;
+    border-radius: 20px;
+    box-shadow: 0 22px 60px rgba(49, 46, 129, .14);
+  }
+  h1 { margin: 0; font-size: clamp(1.6rem, 5vw, 2.1rem); color: #312e81; font-weight: 800; letter-spacing: -.02em; }
+  .sub { margin: .4rem 0 1.8rem; color: #6366f1; font-size: .95rem; }
+  .rig { display: flex; align-items: center; gap: 24px; }
+  .big {
+    width: 130px; height: 130px; flex: 0 0 auto;
+    border-radius: 26px;
+    background: hsl(220, 85%, 55%);
+    box-shadow: 0 14px 30px rgba(49, 46, 129, .22);
+    transition: background .12s linear;
+  }
+  .ctrl { flex: 1; min-width: 0; }
+  .lbl { display: block; margin: 0 0 8px; color: #4338ca; font-size: .85rem; font-weight: 700; text-transform: uppercase; letter-spacing: .1em; }
+  input[type="range"] { width: 100%; height: 34px; -webkit-appearance: none; appearance: none; background: transparent; }
+  input[type="range"]::-webkit-slider-runnable-track { height: 14px; border-radius: 999px; background: linear-gradient(to right, #ff0000, #ffff00, #00ff00, #00ffff, #0000ff, #ff00ff, #ff0000); }
+  input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; margin-top: -7px; width: 28px; height: 28px; border-radius: 50%; background: #fff; border: 2px solid #312e81; box-shadow: 0 3px 8px rgba(0,0,0,.3); }
+  input[type="range"]::-moz-range-track { height: 14px; border-radius: 999px; background: linear-gradient(to right, #ff0000, #ffff00, #00ff00, #00ffff, #0000ff, #ff00ff, #ff0000); }
+  input[type="range"]::-moz-range-thumb { width: 24px; height: 24px; border-radius: 50%; background: #fff; border: 2px solid #312e81; box-shadow: 0 3px 8px rgba(0,0,0,.3); }
+  input[type="range"]:focus-visible { outline: 3px solid #6366f1; outline-offset: 4px; border-radius: 999px; }
+  .meta { display: flex; justify-content: space-between; align-items: center; margin-top: 18px; padding: 14px 16px; background: #eef2ff; border-radius: 12px; }
+  .meta p { margin: 0; color: #312e81; }
+  .hexv { font-family: "Cascadia Mono", Consolas, monospace; font-weight: 700; color: #312e81; }
+  .deg { font-family: "Cascadia Mono", Consolas, monospace; color: #6366f1; }
+  .hint { margin-top: 12px; color: #a5b4fc; font-size: .82rem; }
+  .credit { margin-top: 2rem; padding-top: 1rem; border-top: 1px solid #e0e7ff; color: #a5b4fc; font-size: .78rem; }
+  .credit a { color: #4338ca; text-decoration: none; }
+</style>
+</head>
+<body>
+<main class="stage">
+  <h1>Hue Slider</h1>
+  <p class="sub">Drag the rainbow, read the hex / Arrastra el arcoíris, lee el hex</p>
+  <div class="rig">
+    <div class="big" data-testid="preview" aria-hidden="true"></div>
+    <div class="ctrl">
+      <label class="lbl" data-testid="label" for="cp-hs-03-hue">Hue — tone / Tono</label>
+      <input type="range" data-testid="hue" id="cp-hs-03-hue" min="0" max="359" value="220" step="1" aria-valuetext="220 degrees, Blue">
+    </div>
+  </div>
+  <div class="meta">
+    <p>Selected color / Color seleccionado</p>
+    <p><span class="deg" data-testid="deg">220°</span> · <span class="hexv" data-testid="hex">#3B61F5</span></p>
+  </div>
+  <p class="hint">A live readout at 85% saturation, 55% lightness / Lectura en vivo al 85% de saturación y 55% de luminosidad.</p>
+  <footer class="credit">Harley Vásquez · <a href="https://www.linkedin.com/in/harleyvasquez" target="_blank" rel="noreferrer">linkedin.com/in/harleyvasquez</a></footer>
+</main>
+<script>
+  const hue = document.querySelector('[data-testid="hue"]');
+  const preview = document.querySelector('[data-testid="preview"]');
+  const hexOut = document.querySelector('[data-testid="hex"]');
+  const deg = document.querySelector('[data-testid="deg"]');
+  const NAMES = ['Red', 'Orange', 'Yellow', 'Chartreuse', 'Green', 'Spring green', 'Cyan', 'Azure', 'Blue', 'Violet', 'Magenta', 'Rose'];
+  function hslToHex(h, s, l) {
+    s /= 100; l /= 100;
+    const k = (n) => (n + h / 30) % 12;
+    const a = s * Math.min(l, 1 - l);
+    const f = (n) => l - a * Math.max(-1, Math.min(k(n) - 3, Math.min(9 - k(n), 1)));
+    const to = (x) => Math.round(x * 255).toString(16).padStart(2, '0');
+    return '#' + to(f(0)) + to(f(8)) + to(f(4)).toUpperCase();
+  }
+  function update() {
+    const h = Number(hue.value);
+    const hex = hslToHex(h, 85, 55);
+    preview.style.background = 'hsl(' + h + ', 85%, 55%)';
+    hexOut.textContent = hex.toLowerCase();
+    deg.textContent = h + '°';
+    hue.setAttribute('aria-valuetext', h + ' degrees, ' + NAMES[Math.floor(h / 30) % 12]);
+  }
+  hue.addEventListener('input', update);
+  update();
+</script>
+</body>
+</html>

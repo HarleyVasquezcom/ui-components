@@ -1,0 +1,123 @@
+<!-- Design 04: Toggle Rows / Filas Interruptor -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Toggle Rows — Design 04</title>
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body {
+    min-height: 100vh;
+    display: grid; place-items: center;
+    font-family: "Segoe UI", system-ui, sans-serif;
+    background: #f5f3ff;
+    overflow-x: hidden;
+  }
+  .stage {
+    width: min(600px, 94vw);
+    padding: clamp(26px, 6vw, 44px);
+    background: #fff;
+    border-radius: 18px;
+    box-shadow: 0 24px 60px rgba(76, 29, 149, .12);
+  }
+  h1 { margin: 0; font-size: clamp(1.5rem, 4.8vw, 2rem); color: #2e1065; font-weight: 800; }
+  .sub { margin: .4rem 0 1.8rem; color: #6d28d9; font-size: .94rem; }
+  .lbl { display: block; margin: 0 0 12px; color: #5b21b6; font-size: .82rem; font-weight: 700; text-transform: uppercase; letter-spacing: .1em; }
+  .rows { display: grid; gap: 10px; }
+  .row {
+    display: flex; align-items: center; justify-content: space-between; gap: 12px;
+    padding: 14px 16px;
+    background: #faf5ff;
+    border: 1px solid #ede9fe; border-radius: 12px;
+  }
+  .row .nm { color: #3b0764; font-size: .94rem; font-weight: 600; }
+  .row .sd { color: #8b5cf6; font-size: .8rem; }
+  .tg {
+    width: 52px; height: 30px; flex: 0 0 auto;
+    border-radius: 999px;
+    background: #ddd6fe;
+    border: none;
+    position: relative;
+    cursor: pointer;
+    transition: background .15s ease;
+  }
+  .tg::after {
+    content: "";
+    position: absolute; left: 3px; top: 3px;
+    width: 24px; height: 24px;
+    border-radius: 50%;
+    background: #fff;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, .25);
+    transition: left .15s ease;
+  }
+  .tg.on { background: #7c3aed; }
+  .tg.on::after { left: 25px; }
+  .tg:focus-visible { outline: 3px solid #a78bfa; outline-offset: 3px; }
+  .cnt { margin: 18px 0 0; color: #7c3aed; font-weight: 700; font-size: .98rem; }
+  .btnrow { margin-top: 16px; display: flex; gap: 10px; }
+  .btn { padding: 9px 18px; border: 2px solid #c4b5fd; border-radius: 10px; background: #fff; color: #5b21b6; font-family: inherit; font-size: .88rem; font-weight: 700; cursor: pointer; }
+  .btn:hover { background: #f5f3ff; }
+  .btn:focus-visible { outline: 3px solid #c4b5fd; outline-offset: 2px; }
+  .btn.solid { background: #7c3aed; color: #fff; border-color: #7c3aed; }
+  .hint { margin-top: 12px; color: #c4b5fd; font-size: .82rem; }
+  .credit { margin-top: 2rem; padding-top: 1rem; border-top: 1px solid #ede9fe; color: #c4b5fd; font-size: .78rem; }
+  .credit a { color: #6d28d9; text-decoration: none; }
+</style>
+</head>
+<body>
+<main class="stage">
+  <h1>Toggle Rows</h1>
+  <p class="sub">Switches that re-count the list / Interruptores que recuentan la lista</p>
+  <span class="lbl" data-testid="label" id="fl-tr-04-label">Amenities / Servicios</span>
+  <div class="rows" role="group" aria-labelledby="fl-tr-04-label">
+    <div class="row"><span><span class="nm">Wi-Fi</span><br><span class="sd">high-speed / alta velocidad</span></span><button type="button" class="tg" data-testid="toggle" aria-pressed="true" aria-label="Toggle Wi-Fi filter"></button></div>
+    <div class="row"><span><span class="nm">Pool</span><br><span class="sd">outdoor / exterior</span></span><button type="button" class="tg" data-testid="toggle" aria-pressed="false" aria-label="Toggle Pool filter"></button></div>
+    <div class="row"><span><span class="nm">Parking</span><br><span class="sd">free / gratis</span></span><button type="button" class="tg" data-testid="toggle" aria-pressed="false" aria-label="Toggle Parking filter"></button></div>
+    <div class="row"><span><span class="nm">Pet friendly</span><br><span class="sd">dogs ok / perros sí</span></span><button type="button" class="tg" data-testid="toggle" aria-pressed="false" aria-label="Toggle Pet friendly filter"></button></div>
+    <div class="row"><span><span class="nm">Gym</span><br><span class="sd">24 h</span></span><button type="button" class="tg" data-testid="toggle" aria-pressed="false" aria-label="Toggle Gym filter"></button></div>
+  </div>
+  <p class="cnt" data-testid="count">Matches: 4</p>
+  <div class="btnrow">
+    <button type="button" class="btn solid" data-testid="reset" aria-label="Reset filters">Reset</button>
+  </div>
+  <p class="hint">Each switch adds or removes hotels / Cada interruptor suma o quita hoteles.</p>
+  <footer class="credit">Harley Vásquez · <a href="https://www.linkedin.com/in/harleyvasquez" target="_blank" rel="noreferrer">linkedin.com/in/harleyvasquez</a></footer>
+</main>
+<script>
+  const HOTELS = [
+    { t: 'Sunset Inn', a: ['Wi-Fi'] },
+    { t: 'Harbor House', a: ['Wi-Fi', 'Parking'] },
+    { t: 'Casa Verde', a: ['Pool', 'Pet friendly'] },
+    { t: 'Metro Suites', a: ['Wi-Fi', 'Gym', 'Parking'] },
+    { t: 'Skyline Hotel', a: ['Pool', 'Wi-Fi', 'Gym'] },
+    { t: 'La Posada', a: ['Pet friendly'] },
+    { t: 'Grand Central', a: ['Wi-Fi', 'Pool', 'Parking', 'Gym'] },
+    { t: 'Bay Breeze', a: ['Parking', 'Pet friendly', 'Wi-Fi'] }
+  ];
+  const toggles = document.querySelectorAll('[data-testid="toggle"]');
+  const count = document.querySelector('[data-testid="count"]');
+  const reset = document.querySelector('[data-testid="reset"]');
+  function render() {
+    const on = [...toggles].filter((t) => t.getAttribute('aria-pressed') === 'true').map((t) => t.getAttribute('aria-label').replace('Toggle ', '').replace(' filter', ''));
+    const hits = on.length ? HOTELS.filter((h) => on.every((f) => h.a.includes(f))) : HOTELS;
+    count.textContent = 'Matches: ' + hits.length;
+  }
+  toggles.forEach((t) => t.addEventListener('click', () => { const now = t.getAttribute('aria-pressed') !== 'true'; t.setAttribute('aria-pressed', now ? 'true' : 'false'); t.classList.toggle('on', now); render(); }));
+  reset.addEventListener('click', () => { toggles.forEach((t, i) => { const on = i === 0; t.setAttribute('aria-pressed', on ? 'true' : 'false'); t.classList.toggle('on', on); }); render(); });
+  render();
+</script>
+
+<script>
+(function(){
+  var filters = document.querySelectorAll('[data-testid="filter"], [data-testid="check"], [data-testid="pill"]');
+  filters.forEach(function(f){
+    f.addEventListener('click', function(){
+      f.classList.toggle('active');
+    });
+  });
+})();
+</script>
+</body>
+</html>

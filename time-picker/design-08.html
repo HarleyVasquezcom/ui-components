@@ -1,0 +1,135 @@
+<!-- Design 08: Terminal Time / Hora Terminal -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Terminal Time Picker — Design 08</title>
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body {
+    min-height: 100vh;
+    display: grid;
+    place-items: center;
+    font-family: "Consolas", "Courier New", monospace;
+    background: #030603;
+    overflow-x: hidden;
+  }
+  .stage {
+    width: min(560px, 94vw);
+    padding: clamp(26px, 5vw, 44px);
+    background: #0a0f0a; border: 1px solid #122112; border-radius: 12px;
+    box-shadow: 0 30px 80px rgba(0, 0, 0, .6);
+    overflow: hidden;
+  }
+  .termbar {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 8px 14px; margin: -24px -56px 0 0;
+    background: #111; border-bottom: 1px solid #33ff66;
+    font-size: .75rem; color: #6b7280;
+  }
+  h1 { margin: 1.4rem 0 .2rem; font-size: clamp(1.4rem, 4.5vw, 1.9rem); color: #33ff66; font-weight: 700; letter-spacing: .01em; }
+  .sub { margin: .3rem 0 2rem; color: #4b5563; font-size: .9rem; }
+  .lbl { display: block; margin: 0 0 10px; color: #a3b3c2; font-size: .82rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
+  .wrap { position: relative; }
+  .trg {
+    width: 100%;
+    display: flex; align-items: center; justify-content: space-between; gap: 10px;
+    padding: 14px 16px;
+    font-family: "Consolas", "Courier New", monospace; font-size: 1.5rem; font-weight: 700; color: #33ff66;
+    background: #060a06; border: 1px solid #1a2a1a; border-radius: 6px;
+    cursor: pointer;
+  }
+  .trg:hover { border-color: #33ff66; }
+  .trg[aria-expanded="true"] { border-color: #33ff66; }
+  .trg:focus-visible { outline: 2px solid #33ff66; outline-offset: 2px; }
+  .trg .arr { color: #33ff66; font-size: 1rem; transition: transform .2s ease; }
+  .trg[aria-expanded="true"] .arr { transform: rotate(180deg); }
+  .pop {
+    position: absolute; left: 0; right: 0; top: calc(100% + 8px);
+    background: #060a06; border: 1px solid #1a2a1a;
+    padding: 18px; z-index: 5;
+  }
+  [hidden] { display: none !important; }
+  .row { display: flex; align-items: center; justify-content: center; gap: 8px; }
+  .dig {
+    width: 84px; padding: 12px 6px;
+    font-family: "Consolas", "Courier New", monospace; font-size: 2rem; font-weight: 700; text-align: center;
+    color: #33ff66; background: #030603; border: 1px solid #1a2a1a; border-radius: 4px; outline: none;
+  }
+  .dig:focus { border-color: #33ff66; box-shadow: 0 0 12px rgba(51, 255, 102, .35); }
+  .dig:focus-visible { outline: 2px solid #33ff66; outline-offset: 1px; }
+  .sep { color: #33ff66; font-size: 1.8rem; font-weight: 700; }
+  .tip { margin: 14px 0 0; color: #4b5563; font-size: .78rem; }
+  .selout { display: flex; align-items: center; justify-content: space-between; gap: 14px; margin-top: 22px; flex-wrap: wrap; }
+  .selout span { color: #4b5563; font-size: .85rem; }
+  .selout b { color: #33ff66; font-weight: 700; }
+  .hint { margin-top: 1.8rem; color: #1f3d1f; font-size: .8rem; }
+  .credit { margin-top: 1.8rem; padding-top: 1rem; border-top: 1px solid #161e16; color: #4b5563; font-size: .76rem; }
+  .credit a { color: #33ff66; text-decoration: none; }
+</style>
+</head>
+<body>
+<main class="stage">
+  <div class="termbar" aria-hidden="true">
+    <span><b>bash</b> — ui-kit v1.0</span>
+    <span>● ● ●</span>
+  </div>
+  <h1>Terminal Time</h1>
+  <p class="sub">$ date --pick / $ fecha --elige</p>
+  <label class="lbl" data-testid="label" id="lbl-tp08">Time</label>
+  <div class="wrap">
+    <button type="button" class="trg" data-testid="trigger" aria-haspopup="dialog" aria-expanded="false" aria-controls="pop08" aria-labelledby="lbl-tp08">
+      <span data-testid="value" aria-live="polite">10:30</span>
+      <span class="arr" aria-hidden="true">▾</span>
+    </button>
+    <div class="pop" id="pop08" data-testid="popup" role="dialog" aria-label="Pick a time" hidden>
+      <div class="row">
+        <input class="dig" data-testid="hour-in" type="text" inputmode="numeric" maxlength="2" aria-label="Hour" value="10">
+        <span class="sep" aria-hidden="true">:</span>
+        <input class="dig" data-testid="min-in" type="text" inputmode="numeric" maxlength="2" aria-label="Minutes" value="30">
+      </div>
+      <p class="tip">$ set-hour --12:30 / $ fijar-hora</p>
+    </div>
+  </div>
+  <p class="selout"><span>$ time.now:</span> <b data-testid="display" aria-live="polite">10:30</b></p>
+  <p class="hint">Green on black, always / Verde sobre negro, siempre</p>
+  <footer class="credit">Harley Vásquez · <a href="https://www.linkedin.com/in/harleyvasquez" target="_blank" rel="noreferrer">linkedin.com/in/harleyvasquez</a></footer>
+</main>
+<script>
+  const trigger = document.querySelector('[data-testid="trigger"]');
+  const popup = document.querySelector('[data-testid="popup"]');
+  const value = document.querySelector('[data-testid="value"]');
+  const display = document.querySelector('[data-testid="display"]');
+  const hIn = document.querySelector('[data-testid="hour-in"]');
+  const mIn = document.querySelector('[data-testid="min-in"]');
+  let h = 10, m = 30;
+  const clamp = (n, a, b) => Math.max(a, Math.min(b, n));
+  const pad = (n) => String(n).padStart(2, '0');
+  function paint() {
+    const t = pad(h) + ':' + pad(m);
+    value.textContent = t;
+    display.textContent = t;
+    if (hIn !== document.activeElement) hIn.value = pad(h);
+    if (mIn !== document.activeElement) mIn.value = pad(m);
+  }
+  hIn.addEventListener('input', () => { const n = parseInt(hIn.value, 10); if (!isNaN(n)) h = clamp(n, 0, 23); paint(); });
+  hIn.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowUp') { e.preventDefault(); h = (h + 1) % 24; paint(); }
+    if (e.key === 'ArrowDown') { e.preventDefault(); h = (h + 23) % 24; paint(); }
+  });
+  mIn.addEventListener('input', () => { const n = parseInt(mIn.value, 10); if (!isNaN(n)) m = clamp(n, 0, 59); paint(); });
+  mIn.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowUp') { e.preventDefault(); m = (m + 1) % 60; paint(); }
+    if (e.key === 'ArrowDown') { e.preventDefault(); m = (m + 59) % 60; paint(); }
+  });
+  trigger.addEventListener('click', () => {
+    popup.hidden = !popup.hidden;
+    trigger.setAttribute('aria-expanded', String(!popup.hidden));
+    if (!popup.hidden) hIn.focus();
+  });
+  paint();
+</script>
+</body>
+</html>

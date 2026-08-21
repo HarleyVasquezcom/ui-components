@@ -1,0 +1,135 @@
+<!-- Design 02: Pill Chips / Chips de Píldora -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pill Chips — Design 02</title>
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body {
+    min-height: 100vh;
+    display: grid; place-items: center;
+    font-family: "Segoe UI", system-ui, sans-serif;
+    background: #fffaf5;
+    overflow-x: hidden;
+  }
+  .stage {
+    width: min(600px, 94vw);
+    padding: clamp(26px, 6vw, 44px);
+    background: #fff;
+    border-radius: 22px;
+    box-shadow: 0 24px 60px rgba(120, 53, 15, .12);
+    text-align: center;
+  }
+  h1 { margin: 0; font-size: clamp(1.5rem, 4.8vw, 2rem); color: #431407; font-weight: 800; }
+  .sub { margin: .4rem 0 1.8rem; color: #c2410c; font-size: .94rem; }
+  .lbl { display: block; margin: 0 0 14px; color: #9a3412; font-size: .82rem; font-weight: 700; text-transform: uppercase; letter-spacing: .1em; }
+  .pills { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; }
+  .pill {
+    padding: 10px 22px;
+    border: 2px solid #fed7aa; border-radius: 999px;
+    background: #fff7ed; color: #7c2d12;
+    font-family: inherit; font-size: .92rem; font-weight: 700;
+    cursor: pointer;
+    transition: background .15s ease, border-color .15s ease, color .15s ease;
+  }
+  .pill:hover { border-color: #fdba74; }
+  .pill:focus-visible { outline: 3px solid #fdba74; outline-offset: 3px; }
+  .pill.on { background: #ea580c; border-color: #ea580c; color: #fff; }
+  .bar { display: flex; justify-content: center; gap: 10px; margin-top: 18px; }
+  .btn {
+    padding: 9px 18px;
+    border: 2px solid #fed7aa; border-radius: 999px;
+    background: #fff; color: #9a3412;
+    font-family: inherit; font-size: .88rem; font-weight: 700;
+    cursor: pointer;
+  }
+  .btn:hover { border-color: #fb923c; }
+  .btn:focus-visible { outline: 3px solid #fdba74; outline-offset: 3px; }
+  .btn.danger { border-color: #fecaca; color: #b91c1c; }
+  .cnt { margin: 22px 0 12px; color: #ea580c; font-size: 1.02rem; font-weight: 800; }
+  .grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; text-align: left; }
+  .card {
+    padding: 14px 16px;
+    background: #fff7ed;
+    border: 1px solid #ffedd5; border-radius: 14px;
+    color: #431407; font-size: .93rem;
+    display: flex; justify-content: space-between; align-items: center; gap: 8px;
+  }
+  .card b { color: #c2410c; font-size: .78rem; }
+  .empty { grid-column: 1 / -1; color: #fdba74; text-align: center; padding: 16px; }
+  .credit { margin-top: 2rem; padding-top: 1rem; border-top: 1px solid #ffedd5; color: #fdba74; font-size: .78rem; }
+  .credit a { color: #ea580c; text-decoration: none; }
+  @media (max-width: 480px) { .grid { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<main class="stage">
+  <h1>Pill Chips</h1>
+  <p class="sub">Tap a chip to filter recipes / Toca un chip para filtrar recetas</p>
+  <span class="lbl" data-testid="label" id="fl-pc-02-label">Course / Plato</span>
+  <div class="pills" role="group" aria-labelledby="fl-pc-02-label">
+    <button type="button" class="pill on" data-testid="pill" value="Breakfast" aria-pressed="true">Breakfast</button>
+    <button type="button" class="pill" data-testid="pill" value="Lunch" aria-pressed="false">Lunch</button>
+    <button type="button" class="pill" data-testid="pill" value="Dinner" aria-pressed="false">Dinner</button>
+    <button type="button" class="pill" data-testid="pill" value="Dessert" aria-pressed="false">Dessert</button>
+    <button type="button" class="pill" data-testid="pill" value="Drinks" aria-pressed="false">Drinks</button>
+  </div>
+  <div class="bar">
+    <button type="button" class="btn" data-testid="clear" aria-label="Clear all filters">Clear all / Limpiar todo</button>
+    <button type="button" class="btn" data-testid="reset" aria-label="Reset filters">Reset</button>
+  </div>
+  <p class="cnt" data-testid="count">Results: 10</p>
+  <div class="grid" data-testid="grid"></div>
+  <footer class="credit">Harley Vásquez · <a href="https://www.linkedin.com/in/harleyvasquez" target="_blank" rel="noreferrer">linkedin.com/in/harleyvasquez</a></footer>
+</main>
+<script>
+  const RECIPES = [
+    { t: 'Avocado Toast', c: 'Breakfast' }, { t: 'Omelette', c: 'Breakfast' },
+    { t: 'Poke Bowl', c: 'Lunch' }, { t: 'Caesar Salad', c: 'Lunch' },
+    { t: 'Pasta Alfredo', c: 'Dinner' }, { t: 'Beef Stir-fry', c: 'Dinner' },
+    { t: 'Tiramisu', c: 'Dessert' }, { t: 'Mango Sago', c: 'Dessert' },
+    { t: 'Matcha Latte', c: 'Drinks' }, { t: 'Mojito Mocktail', c: 'Drinks' }
+  ];
+  const pills = document.querySelectorAll('[data-testid="pill"]');
+  const grid = document.querySelector('[data-testid="grid"]');
+  const count = document.querySelector('[data-testid="count"]');
+  const clear = document.querySelector('[data-testid="clear"]');
+  const reset = document.querySelector('[data-testid="reset"]');
+  function render() {
+    const active = [...pills].filter((p) => p.classList.contains('on')).map((p) => p.value);
+    const hits = active.length ? RECIPES.filter((r) => active.includes(r.c)) : RECIPES;
+    grid.textContent = '';
+    for (const r of hits) {
+      const card = document.createElement('div');
+      card.className = 'card';
+      card.textContent = r.t;
+      card.appendChild(Object.assign(document.createElement('b'), { textContent: r.c }));
+      grid.appendChild(card);
+    }
+    if (!hits.length) { const e = document.createElement('p'); e.className = 'empty'; e.textContent = 'No recipes match / Ninguna receta coincide'; grid.appendChild(e); }
+    count.textContent = 'Results: ' + hits.length;
+  }
+  pills.forEach((p) => p.addEventListener('click', () => { p.classList.toggle('on'); p.setAttribute('aria-pressed', p.classList.contains('on') ? 'true' : 'false'); render(); }));
+  clear.addEventListener('click', () => { pills.forEach((p) => { p.classList.remove('on'); p.setAttribute('aria-pressed', 'false'); }); render(); });
+  reset.addEventListener('click', () => {
+    pills.forEach((p, i) => { p.classList.toggle('on', i === 0); p.setAttribute('aria-pressed', i === 0 ? 'true' : 'false'); });
+    render();
+  });
+  render();
+</script>
+
+<script>
+(function(){
+  var filters = document.querySelectorAll('[data-testid="filter"], [data-testid="check"], [data-testid="pill"]');
+  filters.forEach(function(f){
+    f.addEventListener('click', function(){
+      f.classList.toggle('active');
+    });
+  });
+})();
+</script>
+</body>
+</html>

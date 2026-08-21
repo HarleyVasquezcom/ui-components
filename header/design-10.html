@@ -1,0 +1,11 @@
+<!-- Design 10: Header Mobile First / Mobile First -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Header — Design 10</title>
+<style>
+  *{box-sizing:border-box}html,body{min-height:100vh;font-family:"Segoe UI",system-ui,sans-serif;background:#f0fafc;overflow-x:hidden}.header{max-width:100%;padding:16px 0;background:#fff;border-bottom:1px solid #e2e8f0;position:fixed;top:0;left:0:right:0;z-index:100}.header-container{max-width:1200px;margin:0 auto;padding:0 16px;display:flex;align-items:center;justify-content:space-between}.logo{font-size:1.25rem;font-weight:600;color:#0f172a;text-decoration-none}.menu-icon{display:none;width:32px;height:32px;background:transparent;border:none;cursor:pointer}.nav{display:none;flex-direction:column;gap=12px;position:absolute;top:100%;left:0;width:100%;background:#fff;padding:16px;border-top:1px solid #e2e8f0}.nav.active{display:flex}.nav-link{color:#64748b;font-size=.875rem;font-weight:500;text-decoration:none}.nav-link:hover{color:#0f172a}.hamburger{cursor:pointer}.credit{margin-top:24px;padding:12px 0;border-top:1px solid #e2e8f0;color:#64748b;font-size:.75rem}.credit a{color:#2563eb;text-decoration:none}.@media (max-width:480px){.nav{display:block}.menu-icon{display:block}}.nav-link{width:100%;text-align:left}</style>
+</head>
+<body><div class="header" data-testid="header" aria-label="Header"><a class="logo" href="#" aria-label="Inicio">Inicio</a><div class="menu-icon" aria-label="Menú"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg></div><nav class="nav" role="navigation"><a class="nav-link" href="#sobre">Sobre</a><a class="nav-link" href="#servicios">Servicios</a><a class="nav-link" href="#contacto">Contacto</a></nav></div><footer class="credit">Harley Vásquez · <a href="https://www.linkedin.com/in/harleyvasquez" target="_blank" rel="noreferrer">linkedin.com/in/harleyvasquez</a></footer><script>(()=>{const menu=document.querySelector('.menu-icon');const nav=document.querySelector('.nav');menu.addEventListener('click',()=>nav.classList.toggle('active'));})();</script></body></html>

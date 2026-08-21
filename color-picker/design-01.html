@@ -1,0 +1,101 @@
+<!-- Design 01: Swatch Grid / Rejilla de Muestras -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Swatch Grid — Design 01</title>
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body {
+    min-height: 100vh;
+    display: grid; place-items: center;
+    font-family: "Segoe UI", system-ui, sans-serif;
+    background: #faf9f6;
+    overflow-x: hidden;
+  }
+  .stage {
+    width: min(560px, 94vw);
+    padding: clamp(28px, 6vw, 44px);
+    background: #fff;
+    border: 1px solid #e5e5e0;
+    border-radius: 24px;
+    box-shadow: 0 24px 60px rgba(28, 25, 23, .08);
+  }
+  h1 { margin: 0; font-size: clamp(1.6rem, 5vw, 2.2rem); color: #1c1917; font-weight: 800; letter-spacing: -.03em; }
+  .sub { margin: .4rem 0 1.6rem; color: #78716c; font-size: .94rem; }
+  .lbl { display: block; margin: 0 0 10px; color: #57534e; font-size: .86rem; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; }
+  .grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+  .sw {
+    position: relative;
+    aspect-ratio: 1;
+    border: 3px solid #fff;
+    border-radius: 14px;
+    cursor: pointer;
+    transition: transform .15s ease, box-shadow .15s ease;
+  }
+  .sw:hover { transform: translateY(-3px); box-shadow: 0 10px 20px rgba(28, 25, 23, .15); }
+  .sw:focus-visible { outline: 3px solid #292524; outline-offset: 3px; }
+  .sw.on { border-color: #292524; }
+  .sw .check {
+    position: absolute; right: 6px; top: 6px;
+    width: 20px; height: 20px;
+    display: grid; place-items: center;
+    background: rgba(0, 0, 0, .55); color: #fff;
+    border-radius: 50%;
+    font-size: .75rem;
+    opacity: 0; transition: opacity .15s ease;
+  }
+  .sw.on .check { opacity: 1; }
+  .out { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: 22px; padding: 14px 16px; background: #f5f5f1; border-radius: 12px; }
+  .out .up { margin: 0; color: #292524; font-size: 1rem; }
+  .hexv { margin: 0; color: #1c1917; font-family: "Cascadia Mono", Consolas, monospace; font-size: 1rem; font-weight: 700; letter-spacing: .04em; }
+  .preview {
+    width: 42px; height: 42px; border-radius: 10px;
+    border: 2px solid #d6d3d1; flex: 0 0 auto;
+  }
+  .note { margin-top: 12px; color: #a8a29e; font-size: .82rem; }
+  .credit { margin-top: 2rem; padding-top: 1rem; border-top: 1px solid #e7e5e4; color: #a8a29e; font-size: .78rem; }
+  .credit a { color: #57534e; text-decoration: none; }
+</style>
+</head>
+<body>
+<main class="stage">
+  <h1>Swatch Grid</h1>
+  <p class="sub">Pick a tone for your canvas / Elige un tono para tu lienzo</p>
+  <span class="lbl" data-testid="label" id="cp-sg-01-label">Palette — 8 colors</span>
+  <div class="grid" role="group" aria-labelledby="cp-sg-01-label">
+    <button type="button" class="sw" data-testid="swatch" data-color="#EF4444" style="background:#EF4444" aria-label="Red #EF4444" aria-pressed="false"><span class="check" aria-hidden="true">✓</span></button>
+    <button type="button" class="sw" data-testid="swatch" data-color="#F97316" style="background:#F97316" aria-label="Orange #F97316" aria-pressed="false"><span class="check" aria-hidden="true">✓</span></button>
+    <button type="button" class="sw" data-testid="swatch" data-color="#F59E0B" style="background:#F59E0B" aria-label="Amber #F59E0B" aria-pressed="false"><span class="check" aria-hidden="true">✓</span></button>
+    <button type="button" class="sw" data-testid="swatch" data-color="#22C55E" style="background:#22C55E" aria-label="Green #22C55E" aria-pressed="false"><span class="check" aria-hidden="true">✓</span></button>
+    <button type="button" class="sw" data-testid="swatch" data-color="#0EA5E9" style="background:#0EA5E9" aria-label="Sky #0EA5E9" aria-pressed="false"><span class="check" aria-hidden="true">✓</span></button>
+    <button type="button" class="sw" data-testid="swatch" data-color="#6366F1" style="background:#6366F1" aria-label="Indigo #6366F1" aria-pressed="false"><span class="check" aria-hidden="true">✓</span></button>
+    <button type="button" class="sw" data-testid="swatch" data-color="#A855F7" style="background:#A855F7" aria-label="Purple #A855F7" aria-pressed="false"><span class="check" aria-hidden="true">✓</span></button>
+    <button type="button" class="sw" data-testid="swatch" data-color="#14B8A6" style="background:#14B8A6" aria-label="Teal #14B8A6" aria-pressed="false"><span class="check" aria-hidden="true">✓</span></button>
+  </div>
+  <div class="out">
+    <p class="up">Selected color / Color seleccionado</p>
+    <div style="display:flex;align-items:center;gap:12px">
+      <p class="hexv" data-testid="hex">#EF4444</p>
+      <div class="preview" data-testid="preview" style="background:#EF4444"></div>
+    </div>
+  </div>
+  <p class="note">Click a swatch to copy its hex into the field / Haz clic en una muestra para copiar su hex.</p>
+  <footer class="credit">Harley Vásquez · <a href="https://www.linkedin.com/in/harleyvasquez" target="_blank" rel="noreferrer">linkedin.com/in/harleyvasquez</a></footer>
+</main>
+<script>
+  const swatches = document.querySelectorAll('[data-testid="swatch"]');
+  const hexOut = document.querySelector('[data-testid="hex"]');
+  const preview = document.querySelector('[data-testid="preview"]');
+  function select(el) {
+    swatches.forEach((s) => { s.classList.toggle('on', s === el); s.setAttribute('aria-pressed', s === el ? 'true' : 'false'); });
+    hexOut.textContent = el.dataset.color;
+    preview.style.background = el.dataset.color;
+  }
+  swatches.forEach((s) => s.addEventListener('click', () => select(s)));
+  select(swatches[0]);
+</script>
+</body>
+</html>

@@ -1,0 +1,117 @@
+<!-- Design 04: Card Grid / Rejilla de Tarjetas -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Card Grid — Design 04</title>
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body {
+    min-height: 100vh;
+    display: grid;
+    place-items: center;
+    font-family: "Segoe UI", system-ui, sans-serif;
+    background: #4c1d95;
+    overflow-x: hidden;
+  }
+  .stage { width: min(580px, 94vw); padding: clamp(34px, 7vw, 54px); background: #faf5ff; border-radius: 20px; box-shadow: 0 30px 70px rgba(0, 0, 0, .5); }
+  h1 { margin: 0; font-size: clamp(1.7rem, 5vw, 2.1rem); color: #5b21b6; font-weight: 800; letter-spacing: -.01em; }
+  .sub { margin: .4rem 0 2.2rem; color: #8b5cf6; font-size: .95rem; }
+  .lbl { display: block; margin: 0 0 16px; color: #5b21b6; font-size: .92rem; font-weight: 700; }
+  .dz {
+    display: grid; place-items: center; gap: 6px;
+    padding: 36px 20px;
+    text-align: center;
+    background: #ffffff; border: 2px solid #ddd6fe; border-radius: 14px;
+    cursor: pointer;
+  }
+  .dz:hover { border-color: #a78bfa; background: #f5f3ff; }
+  .dz:focus-within { outline: 3px solid #7c3aed; outline-offset: 3px; }
+  .dz p { margin: 0; color: #6d28d9; font-weight: 700; }
+  .dz small { color: #a78bfa; }
+  .list { margin-top: 18px; display: grid; gap: 12px; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); list-style: none; padding: 0; }
+  .li {
+    display: grid; gap: 6px; justify-items: center;
+    padding: 16px 12px;
+    background: #ffffff; border: 1px solid #e9d5ff; border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(76, 29, 149, .08);
+  }
+  .li .ico { font-size: 1.6rem; }
+  .li .nm { color: #5b21b6; font-weight: 700; font-size: .85rem; text-align: center; word-break: break-all; }
+  .li .sz { color: #8b5cf6; font-size: .78rem; }
+  .rm {
+    border: none; background: #7c3aed; color: #fff;
+    padding: 6px 14px; border-radius: 8px; font-size: .78rem; font-weight: 700; cursor: pointer;
+  }
+  .rm:hover { background: #6d28d9; }
+  .rm:focus-visible { outline: 3px solid #a78bfa; outline-offset: 2px; }
+  .empty { margin-top: 18px; text-align: center; color: #c4b5fd; font-size: .85rem; }
+  .hint { margin-top: 2rem; color: #c4b5fd; font-size: .82rem; }
+  .credit { margin-top: 1.6rem; padding-top: 1rem; border-top: 1px solid #ede9fe; color: #c4b5fd; font-size: .78rem; }
+  .credit a { color: #7c3aed; text-decoration: none; }
+</style>
+</head>
+<body>
+<main class="stage">
+  <h1>Card Grid</h1>
+  <p class="sub">Each file, its own little home / Cada archivo, su propia casita</p>
+  <label class="lbl" data-testid="label" id="lbl-fu04">Documents</label>
+  <div class="dz" data-testid="dropzone" aria-label="File uploader">
+    <p>🗂 Add documents</p>
+    <small>Click to browse</small>
+    <input data-testid="file-input" type="file" multiple aria-label="Upload file" aria-describedby="lbl-fu04" hidden>
+  </div>
+  <p class="empty" data-testid="empty">
+<div data-testid="file-name" style="display:none"></div>No cards yet · Aún no hay tarjetas</p>
+  <ul class="list" data-testid="list" hidden></ul>
+  <p class="hint">Violet cards, tidy grid / Tarjetas violeta, rejilla ordenada</p>
+  <footer class="credit">Harley Vásquez · <a href="https://www.linkedin.com/in/harleyvasquez" target="_blank" rel="noreferrer">linkedin.com/in/harleyvasquez</a></footer>
+</main>
+<script>
+  const input = document.querySelector('[data-testid="file-input"]');
+  const list = document.querySelector('[data-testid="list"]');
+  const empty = document.querySelector('[data-testid="empty"]');
+  const dz = document.querySelector('[data-testid="dropzone"]');
+  dz.addEventListener('click', () => input.click());
+  function fmt(n) {
+    if (n >= 1024 * 1024) return (n / (1024 * 1024)).toFixed(1) + ' MB';
+    if (n >= 1024) return (n / 1024).toFixed(1) + ' KB';
+    return n + ' B';
+  }
+  input.addEventListener('change', () => {
+    list.textContent = '';
+    for (const f of input.files) {
+      const li = document.createElement('li');
+      li.className = 'li';
+      const ico = document.createElement('span');
+      ico.className = 'ico';
+      ico.textContent = '📄';
+      ico.setAttribute('aria-hidden', 'true');
+      const nm = document.createElement('span');
+      nm.className = 'nm';
+      nm.textContent = f.name;
+      const sz = document.createElement('span');
+      sz.className = 'sz';
+      sz.textContent = fmt(f.size);
+      const rm = document.createElement('button');
+      rm.type = 'button';
+      rm.className = 'rm';
+      rm.dataset.testid = 'remove';
+      rm.textContent = 'Remove';
+      rm.addEventListener('click', () => {
+        li.remove();
+        input.value = '';
+        list.hidden = list.children.length === 0;
+        empty.hidden = list.children.length > 0;
+      });
+      li.append(ico, nm, sz, rm);
+      list.appendChild(li);
+    }
+    list.hidden = list.children.length === 0;
+    empty.hidden = list.children.length > 0;
+  });
+</script>
+</body>
+</html>

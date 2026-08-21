@@ -1,0 +1,145 @@
+<!-- Design 06: TOC Gradient / Gradient TOC -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>TOC — Design 06</title>
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body {
+    min-height: 100vh;
+    font-family: "Segoe UI", system-ui, sans-serif;
+    background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+    color: #fff;
+    overflow-x: hidden;
+  }
+  .toc {
+    position: fixed;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 280px;
+    border-right: 1px solid rgba(255,255,255,.2);
+    background: linear-gradient(180deg, rgba(255,255,255,.1) 0%, transparent 100%);
+    padding: 20px;
+    overflow-y: auto;
+  }
+  .toc-link {
+    display: block;
+    padding: 10px 12px;
+    color: rgba(255,255,255,.7);
+    font-size: .875rem;
+    text-decoration: none;
+    margin: 4px 0;
+    border-radius: 6px;
+    transition: all .2s;
+  }
+  .toc-link:hover { background: rgba(255,255,255,.2); color: #fff; }
+  .toc-link.active { background: rgba(255,255,255,.3); color: #fff; }
+  .toc-link:focus-visible { outline: 2px solid #3b82f6; outline-offset: 2px; }
+  .main {
+    margin-left: 280px;
+    padding: 40px 20px 20px;
+  }
+  .section {
+    margin-bottom: 60px;
+    scroll-margin-top: 80px;
+  }
+  .section h2 { margin: 0 0 12px; font-size: 1.75rem; color: #fff; }
+  .section p { color: rgba(255,255,255,.6); line-height: 1.5; }
+  .credit { margin-top: 32px; padding: 16px 0; border-top: 1px solid rgba(255,255,255,.2); color: rgba(255,255,255,.5); font-size: .75rem; text-align: center; }
+  .credit a { color: #fff; text-decoration: none; }
+  @media (max-width: 768px) { .toc { display: none; } .main { margin-left: 0; } }
+</style>
+</head>
+<body>
+<nav class="toc" data-testid="toc" aria-label="Tabla de contenidos" data-toc>
+  <h4 style="margin:0 0 20px 0; font-size:.875rem; color:rgba(255,255,255,.5);">Índice</h4>
+  <a class="toc-link active" data-testid="toc-link" href="#bl-1">Bl 1</a>
+  <a class="toc-link" data-testid="toc-link" href="#bl-2">Bl 2</a>
+  <a class="toc-link" data-testid="toc-link" href="#bl-3">Bl 3</a>
+  <a class="toc-link" data-testid="toc-link" href="#bl-4">Bl 4</a>
+  <a class="toc-link" data-testid="toc-link" href="#bl-5">Bl 5</a>
+  <a class="toc-link" data-testid="toc-link" href="#bl-6">Bl 6</a>
+  <a class="toc-link" data-testid="toc-link" href="#bl-7">Bl 7</a>
+  <a class="toc-link" data-testid="toc-link" href="#bl-8">Bl 8</a>
+  <a class="toc-link" data-testid="toc-link" href="#bl-9">Bl 9</a>
+  <a class="toc-link" data-testid="toc-link" href="#bl-10">Bl 10</a>
+</nav>
+<main class="main" data-scroll>
+  <section id="bl-1" class="section" aria-labelledby="bl-1">
+    <h2 id="bl-1">Bloque 1</h2>
+    <p>Contenido del bloque uno. Duis aute irure dolor.</p>
+  </section>
+  <section id="bl-2" class="section" aria-labelledby="bl-2">
+    <h2 id="bl-2">Bloque 2</h2>
+    <p>Excepteur sint occaecat cupidatat.</p>
+  </section>
+  <section id="bl-3" class="section" aria-labelledby="bl-3">
+    <h2 id="bl-3">Bloque 3</h2>
+    <p>Lorem ipsum dolor sit amet.</p>
+  </section>
+  <section id="bl-4" class="section" aria-labelledby="bl-4">
+    <h2 id="bl-4">Bloque 4</h2>
+    <p>Sed do eiusmod tempor.</p>
+  </section>
+  <section id="bl-5" class="section" aria-labelledby="bl-5">
+    <h2 id="bl-5">Bloque 5</h2>
+    <p>Incididunt ut labore.</p>
+  </section>
+  <section id="bl-6" class="section" aria-labelledby="bl-6">
+    <h2 id="bl-6">Bloque 6</h2>
+    <p>Duis aute irure dolor.</p>
+  </section>
+  <section id="bl-7" class="section" aria-labelledby="bl-7">
+    <h2 id="bl-7">Bloque 7</h2>
+    <p>Excepteur sint occaecat.</p>
+  </section>
+  <section id="bl-8" class="section" aria-labelledby="bl-8">
+    <h2 id="bl-8">Bloque 8</h2>
+    <p>Sunt in culpa qui.</p>
+  </section>
+  <section id="bl-9" class="section" aria-labelledby="bl-9">
+    <h2 id="bl-9">Bloque 9</h2>
+    <p>Lorem ipsum dolor sit amet.</p>
+  </section>
+  <section id="bl-10" class="section" aria-labelledby="bl-10">
+    <h2 id="bl-10">Bloque 10</h2>
+    <p>Consectetur adipiscing elit.</p>
+  </section>
+</main>
+<script>
+  (() => {
+    const tocLinks = document.querySelectorAll('.toc-link');
+    const sections = document.querySelectorAll('.section');
+    
+    function setActiveLink() {
+      let current = '';
+      sections.forEach(section => {
+        const rect = section.getBoundingClientRect();
+        if (Math.abs(rect.top) < 80) { current = section.getAttribute('id'); }
+      });
+      tocLinks.forEach(link => {
+        link.classList.toggle('active', link.getAttribute('href') === `#${current}`);
+      });
+    }
+    
+    window.addEventListener('scroll', () => setActiveLink());
+    
+    tocLinks.forEach(link => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        const targetId = link.getAttribute('href').substring(1);
+        const targetSection = document.getElementById(targetId);
+        if (targetSection) { targetSection.scrollIntoView({ behavior: 'smooth' }); }
+      });
+    });
+    
+    setActiveLink();
+  })();
+</script>
+<footer class="credit">Harley Vásquez · <a href="https://www.linkedin.com/in/harleyvasquez" target="_blank" rel="noreferrer">linkedin.com/in/harleyvasquez</a></footer>
+</body>
+</html>

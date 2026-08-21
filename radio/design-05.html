@@ -1,0 +1,124 @@
+<!-- Design 05: Orbit Moons / Lunas Orbitales -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Orbit Moons Radio — Design 05</title>
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body {
+    min-height: 100vh;
+    display: grid;
+    place-items: center;
+    font-family: "Segoe UI", system-ui, sans-serif;
+    background: #05060d;
+    overflow-x: hidden;
+  }
+  .stars { position: fixed; inset: 0; pointer-events: none;
+    background-image:
+      radial-gradient(1px 1px at 25% 25%, #fff, transparent),
+      radial-gradient(1px 1px at 70% 15%, #fff, transparent),
+      radial-gradient(1.5px 1.5px at 45% 65%, #fff, transparent),
+      radial-gradient(1px 1px at 85% 45%, #fff, transparent),
+      radial-gradient(1px 1px at 15% 80%, #fff, transparent),
+      radial-gradient(1px 1px at 60% 85%, #fff, transparent);
+  }
+  .stage {
+    position: relative;
+    width: min(680px, 94vw);
+    padding: clamp(26px, 6vw, 56px);
+    background: rgba(9,11,26,.85);
+    border: 1px solid #1c2240;
+    border-radius: 30px;
+    box-shadow: 0 40px 100px rgba(0,0,0,.7);
+    text-align: center;
+  }
+  h1 { margin: 0; font-size: clamp(1.4rem, 4vw, 2rem); color: #cdd6ff; font-weight: 600; letter-spacing: .04em; }
+  .sub { margin: .4rem 0 1.8rem; color: #6d77a3; font-size: .9rem; }
+  .orbit { position: relative; width: min(300px, 82vw); aspect-ratio: 1; margin: 0 auto 20px; }
+  .orbit .ring {
+    position: absolute; inset: 12%;
+    border: 1px dashed #2e3760; border-radius: 50%;
+  }
+  .orbit .ring2 { position: absolute; inset: 0; border: 1px solid rgba(46,55,96,.5); border-radius: 50%; }
+  .orbit .core {
+    position: absolute; left: 50%; top: 50%;
+    width: 56px; height: 56px; margin: -28px 0 0 -28px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 30%, #4c63ff, #202a66 70%);
+    box-shadow: 0 0 30px rgba(76,99,255,.6);
+    display: grid; place-items: center;
+    color: #fff; font-size: .68rem; letter-spacing: .14em; font-weight: 700;
+  }
+  .opt {
+    position: absolute;
+    width: 64px; height: 64px; margin: -32px 0 0 -32px;
+    display: grid; place-items: center;
+    cursor: pointer;
+  }
+  .opt input { position: absolute; opacity: 0; width: 1px; height: 1px; }
+  .moon {
+    width: 22px; height: 22px; border-radius: 50%;
+    background: radial-gradient(circle at 35% 30%, #9aa3d6, #454e7a);
+    box-shadow: 0 0 12px rgba(140,150,220,.35);
+    transition: transform .2s ease, box-shadow .2s ease, background .2s ease;
+  }
+  .opt:hover .moon { transform: scale(1.2); }
+  .opt.selected .moon {
+    background: radial-gradient(circle at 35% 30%, #ffe9a8, #f5b04c);
+    box-shadow: 0 0 24px rgba(245,176,76,.9);
+    transform: scale(1.35);
+  }
+  .opt .mname { position: absolute; top: 100%; left: 50%; transform: translateX(-50%); color: #6d77a3; font-size: .68rem; white-space: nowrap; }
+  .opt.selected .mname { color: #f5b04c; }
+  .opt input:focus-visible ~ .moon { outline: 3px solid #f5b04c; outline-offset: 3px; }
+  .o0 { left: 50%; top: 4%; } .o1 { right: 2%; top: 50%; } .o2 { left: 50%; bottom: 4%; } .o3 { left: 2%; top: 50%; }
+  .value { color: #cdd6ff; font-size: .95rem; min-height: 1.4em; }
+  .value b { color: #f5b04c; }
+  .group { border: none; margin: 0; padding: 0; }
+  .hint { margin-top: 1.2rem; color: #4c5577; font-size: .78rem; }
+  .credit { margin-top: 2rem; padding-top: 1rem; border-top: 1px solid #181d38; color: #4c5577; font-size: .78rem; }
+  .credit a { color: #9db4ff; text-decoration: none; }
+  .credit a:hover { text-decoration: underline; }
+input[type="checkbox"]:focus-visible, input[type="radio"]:focus-visible, [data-testid="toggle"]:focus-visible { outline: 2px solid #2563eb; outline-offset: 2px; } </style>
+</head>
+<body>
+<div class="stars" aria-hidden="true"></div>
+<main class="stage">
+  <h1>Orbit Moons</h1>
+  <p class="sub">Pick your satellite — / Elige tu satélite</p>
+  <fieldset class="group" data-testid="group">
+    <legend style="position:absolute;width:1px;height:1px;overflow:hidden;">Satellite target</legend>
+    <div class="orbit">
+      <div class="ring" aria-hidden="true"></div>
+      <div class="ring2" aria-hidden="true"></div>
+      <div class="core" aria-hidden="true">PLANET</div>
+      <label class="opt o0" data-idx="0"><input type="radio" name="sat" value="europa" checked<span class="moon" aria-hidden="true"></span><span class="mname">Europa</span></label>
+      <label class="opt o1" data-idx="1"><input type="radio" name="sat" value="titan"<span class="moon" aria-hidden="true"></span><span class="mname">Titan</span></label>
+      <label class="opt o2" data-idx="2"><input type="radio" name="sat" value="ganymede"<span class="moon" aria-hidden="true"></span><span class="mname">Ganymede</span></label>
+      <label class="opt o3" data-idx="3"><input type="radio" name="sat" value="callisto"<span class="moon" aria-hidden="true"></span><span class="mname">Callisto</span></label>
+    </div>
+    <p class="value" aria-live="polite">orbit set to: <b id="val">Europa</b></p>
+  </fieldset>
+  <p class="hint">Click a moon, or use arrow keys — / Clic en una luna, o flechas</p>
+  <footer class="credit">Harley Vásquez · <a href="https://www.linkedin.com/in/harleyvasquez" target="_blank" rel="noreferrer">linkedin.com/in/harleyvasquez</a></footer>
+</main>
+<script>
+  const group = document.querySelector('[data-testid="group"]');
+  const val = document.getElementById('val');
+  const NAMES = ['Europa', 'Titan', 'Ganymede', 'Callisto'];
+  function refresh() {
+    const checked = group.querySelector('input:checked');
+    const idx = Number(checked.closest('.opt').dataset.idx);
+    val.textContent = NAMES[idx];
+    group.querySelectorAll('.opt').forEach((o) => o.classList.toggle('selected', o === checked.closest('.opt')));
+  }
+  group.addEventListener('change', (e) => {
+    if (e.target.type === 'radio') refresh();
+  });
+  refresh();
+</script>
+</body>
+</html>

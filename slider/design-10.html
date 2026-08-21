@@ -1,0 +1,104 @@
+<!-- Design 10: Ramp Marks / Marcas de Rampa -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ramp Marks Slider — Design 10</title>
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body {
+    min-height: 100vh;
+    display: grid;
+    place-items: center;
+    font-family: "Segoe UI", system-ui, sans-serif;
+    background: #0c0a09;
+    overflow-x: hidden;
+  }
+  .stage {
+    width: min(560px, 94vw);
+    padding: clamp(34px, 7vw, 54px);
+    background: #1c1917; border-radius: 18px;
+    box-shadow: 0 30px 70px rgba(0, 0, 0, .6);
+  }
+  h1 { margin: 0; font-size: clamp(1.6rem, 5vw, 2rem); color: #fbbf24; font-weight: 800; letter-spacing: -.01em; }
+  .sub { margin: .4rem 0 2.2rem; color: #d97706; font-size: .95rem; }
+  .lbl { display: block; margin: 0 0 26px; color: #fde68a; font-size: .92rem; font-weight: 700; }
+  .sl {
+    width: 100%;
+    -webkit-appearance: none;
+    appearance: none;
+    height: 8px;
+    border: none; border-radius: 4px;
+    background: linear-gradient(#f59e0b, #f59e0b) 0 / var(--p, 0%) 100% no-repeat #44403c;
+    outline: none;
+    cursor: pointer;
+  }
+  .sl::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 22px; height: 22px;
+    border: 3px solid #1c1917; border-radius: 50%;
+    background: #fbbf24;
+    box-shadow: 0 2px 10px rgba(251, 191, 36, .5);
+  }
+  .sl:hover::-webkit-slider-thumb { background: #f59e0b; }
+  .sl:focus-visible { outline: 3px solid #fbbf24; outline-offset: 6px; }
+  .marks { position: relative; height: 26px; margin-top: 8px; }
+  .mk {
+    position: absolute; bottom: 0;
+    width: 4px;
+    margin-left: -2px;
+    border-radius: 2px 2px 0 0;
+    background: #57534e;
+    cursor: pointer;
+  }
+  .mk.on { background: #fbbf24; }
+  .mk:focus-visible { outline: 2px solid #fbbf24; outline-offset: 2px; }
+  .out { display: flex; align-items: center; justify-content: space-between; margin-top: 14px; color: #d97706; font-size: .88rem; }
+  .out b { color: #fde68a; font-size: 1.1rem; }
+  .hint { margin-top: 2rem; color: #78716c; font-size: .82rem; }
+  .credit { margin-top: 1.6rem; padding-top: 1rem; border-top: 1px solid #292524; color: #78716c; font-size: .78rem; }
+  .credit a { color: #fbbf24; text-decoration: none; }
+</style>
+</head>
+<body>
+<main class="stage">
+  <h1>Ramp Marks</h1>
+  <p class="sub">Tick marks climbing a ramp / Marcas trepando una rampa</p>
+  <label class="lbl" data-testid="label" id="lbl-sl10" for="sl10">Boost</label>
+  <input id="sl10" class="sl" data-testid="slider" type="range" min="0" max="100" step="5" value="30">
+  <div class="marks" data-testid="marks" role="presentation"></div>
+  <p class="out"><span>Power</span> <b data-testid="value" aria-live="polite">30</b></p>
+  <p class="hint">Steady fire, warm amber / Fuego constante, ámbar cálido</p>
+  <footer class="credit">Harley Vásquez · <a href="https://www.linkedin.com/in/harleyvasquez" target="_blank" rel="noreferrer">linkedin.com/in/harleyvasquez</a></footer>
+</main>
+<script>
+  const sl = document.querySelector('[data-testid="slider"]');
+  const val = document.querySelector('[data-testid="value"]');
+  const marks = document.querySelector('[data-testid="marks"]');
+  const min = Number(sl.min), max = Number(sl.max);
+  for (let v = min; v <= max; v += Number(sl.step)) {
+    const d = document.createElement('span');
+    d.className = 'mk';
+    const t = (v - min) / (max - min);
+    d.style.left = t * 100 + '%';
+    d.style.height = (8 + t * 18) + 'px';
+    d.setAttribute('role', 'button');
+    d.setAttribute('aria-label', String(v));
+    d.setAttribute('tabindex', '0');
+    d.addEventListener('click', () => { sl.value = v; sync(); });
+    d.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); sl.value = v; sync(); } });
+    marks.appendChild(d);
+  }
+  function sync() {
+    val.textContent = String(sl.value);
+    sl.style.setProperty('--p', ((Number(sl.value) - min) / (max - min)) * 100 + '%');
+    marks.querySelectorAll('.mk').forEach((d) => d.classList.toggle('on', Number(d.getAttribute('aria-label')) <= Number(sl.value)));
+  }
+  sl.addEventListener('input', sync);
+  sync();
+</script>
+</body>
+</html>

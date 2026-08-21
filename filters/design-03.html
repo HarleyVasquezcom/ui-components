@@ -1,0 +1,107 @@
+<!-- Design 03: Slider Range / Rango Deslizante -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Slider Range — Design 03</title>
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body {
+    min-height: 100vh;
+    display: grid; place-items: center;
+    font-family: "Segoe UI", system-ui, sans-serif;
+    background: #f0fdfa;
+    overflow-x: hidden;
+  }
+  .stage {
+    width: min(620px, 94vw);
+    padding: clamp(26px, 6vw, 44px);
+    background: #fff;
+    border: 1px solid #ccfbf1;
+    border-radius: 20px;
+    box-shadow: 0 22px 55px rgba(15, 118, 110, .1);
+  }
+  h1 { margin: 0; font-size: clamp(1.5rem, 4.8vw, 2rem); color: #134e4a; font-weight: 800; }
+  .sub { margin: .4rem 0 1.8rem; color: #0f766e; font-size: .94rem; }
+  .lbl { display: block; margin: 0 0 10px; color: #0f766e; font-size: .84rem; font-weight: 700; text-transform: uppercase; letter-spacing: .1em; }
+  .val {
+    display: inline-block; margin: 0 0 12px;
+    padding: 6px 14px; border-radius: 999px;
+    background: #ccfbf1; color: #134e4a;
+    font-family: "Cascadia Mono", Consolas, monospace; font-weight: 700; font-size: .9rem;
+  }
+  input[type="range"] { width: 100%; height: 36px; -webkit-appearance: none; appearance: none; background: transparent; }
+  input[type="range"]::-webkit-slider-runnable-track { height: 12px; border-radius: 999px; background: #99f6e4; }
+  input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; margin-top: -6px; width: 24px; height: 24px; border-radius: 50%; background: #0f766e; border: 3px solid #fff; box-shadow: 0 2px 8px rgba(15, 118, 110, .4); }
+  input[type="range"]::-moz-range-track { height: 12px; border-radius: 999px; background: #99f6e4; }
+  input[type="range"]::-moz-range-thumb { width: 20px; height: 20px; border-radius: 50%; background: #0f766e; border: 3px solid #fff; box-shadow: 0 2px 8px rgba(15, 118, 110, .4); }
+  input[type="range"]:focus-visible { outline: 3px solid #5eead4; outline-offset: 4px; border-radius: 999px; }
+  .cnt { margin: 14px 0 12px; color: #0f766e; font-weight: 700; font-size: .98rem; }
+  .list { margin: 0; padding: 0; list-style: none; display: grid; gap: 8px; }
+  .list li { display: flex; justify-content: space-between; align-items: center; gap: 10px; padding: 12px 14px; background: #f0fdfa; border: 1px solid #ccfbf1; border-radius: 10px; color: #134e4a; font-size: .93rem; }
+  .list li b { color: #0f766e; font-family: "Cascadia Mono", Consolas, monospace; font-size: .86rem; }
+  .btnrow { display: flex; gap: 10px; margin-top: 16px; }
+  .btn { padding: 9px 18px; border: 2px solid #14b8a6; border-radius: 10px; background: #fff; color: #0f766e; font-family: inherit; font-size: .88rem; font-weight: 700; cursor: pointer; }
+  .btn:hover { background: #f0fdfa; }
+  .btn:focus-visible { outline: 3px solid #5eead4; outline-offset: 2px; }
+  .btn.solid { background: #0f766e; color: #fff; border-color: #0f766e; }
+  .empty { color: #5eead4; padding: 14px 0; }
+  .credit { margin-top: 2rem; padding-top: 1rem; border-top: 1px solid #ccfbf1; color: #5eead4; font-size: .78rem; }
+  .credit a { color: #0f766e; text-decoration: none; }
+</style>
+</head>
+<body>
+<main class="stage">
+  <h1>Slider Range</h1>
+  <p class="sub">Budget filter for plans / Filtro de presupuesto para planes</p>
+  <label class="lbl" data-testid="label" for="fl-sr-03-range">Max price — precio máximo</label>
+  <br><span class="val" data-testid="val">$0</span>
+  <input type="range" data-testid="range" id="fl-sr-03-range" min="0" max="100" value="100" step="5">
+  <p class="cnt" data-testid="count">Results: 10</p>
+  <ul class="list" data-testid="list"></ul>
+  <div class="btnrow">
+    <button type="button" class="btn solid" data-testid="reset" aria-label="Reset filters">Reset</button>
+    <button type="button" class="btn" data-testid="clear" aria-label="Clear all filters">Clear all / Limpiar</button>
+  </div>
+  <footer class="credit">Harley Vásquez · <a href="https://www.linkedin.com/in/harleyvasquez" target="_blank" rel="noreferrer">linkedin.com/in/harleyvasquez</a></footer>
+</main>
+<script>
+  const PLANS = [
+    { t: 'Starter', p: 0 }, { t: 'Lite', p: 5 }, { t: 'Basic', p: 10 }, { t: 'Standard', p: 20 },
+    { t: 'Plus', p: 30 }, { t: 'Pro', p: 45 }, { t: 'Business', p: 60 }, { t: 'Team', p: 75 },
+    { t: 'Enterprise', p: 90 }, { t: 'Custom', p: 100 }
+  ];
+  const range = document.querySelector('[data-testid="range"]');
+  const val = document.querySelector('[data-testid="val"]');
+  const list = document.querySelector('[data-testid="list"]');
+  const count = document.querySelector('[data-testid="count"]');
+  const reset = document.querySelector('[data-testid="reset"]');
+  const clear = document.querySelector('[data-testid="clear"]');
+  function render() {
+    const max = Number(range.value);
+    val.textContent = '$' + max;
+    const hits = PLANS.filter((p) => p.p <= max);
+    list.textContent = '';
+    for (const p of hits) { const li = document.createElement('li'); li.textContent = p.t + ' plan'; li.appendChild(Object.assign(document.createElement('b'), { textContent: '$' + p.p })); list.appendChild(li); }
+    count.textContent = 'Results: ' + hits.length;
+  }
+  range.addEventListener('input', render);
+  reset.addEventListener('click', () => { range.value = 100; render(); });
+  clear.addEventListener('click', () => { range.value = 0; render(); });
+  render();
+</script>
+
+<script>
+(function(){
+  var filters = document.querySelectorAll('[data-testid="filter"], [data-testid="check"], [data-testid="pill"]');
+  filters.forEach(function(f){
+    f.addEventListener('click', function(){
+      f.classList.toggle('active');
+    });
+  });
+})();
+</script>
+</body>
+</html>

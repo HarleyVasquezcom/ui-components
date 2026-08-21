@@ -1,0 +1,34 @@
+<!-- Design 07: Rounded Reveal / Revelado con Radio -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Hamburger Menu — Design 07</title>
+<style>
+  *{box-sizing:border-box}html,body{min-height:100vh;font-family:"Apple SF UI",system-ui,sans-serif;background:#ffffff;color:#1e293b;display:grid;place-items:center;overflow-x:hidden}.hamburger-wrapper{width:min(300px,90vw);text-align:center}.hamburger{width:44px;height:44px;position:relative;margin:25px auto;cursor:pointer;user-select:none;border:2px solid #d1d5db;border-radius:50%;background:#f8fafc}.hamburger .line{width:22px;height:4px;background:#1e293b;border-radius:2px;position:absolute;left:50%;top:50%;transform:translateX(-50%)translateY(-50%);transition:all .3s ease}.line-1{top:10px}.line-2{top:20px}.line-3{top:30px}.hamburger.active .line-1{top:20px;transform:rotate(45deg)translateY(-50%)}.hamburger.active .line-2{opacity:0}.hamburger.active .line-3{top:20px;transform:rotate(-45deg)translateY(-50%)}.menu{position:fixed;top:0;left:0;right:0;bottom:0;background:#f8fafc;border:2px solid #d1d5db;border-radius:20px;z-index:100;transform:translateX(100%);transition:transform .3s ease;padding:60px 35px 35px;height:100vh;max-width:320px}.menu .close{position:absolute;top:20px;right:20px;width:32px;height:32px;background:none;border:none;cursor:pointer;color:#6b7280}.menu .close:hover{color:#4b5563}.menu h2{margin:0 0 24px;font-size:1.2rem;color:#1e293b}.menu a{display:block;padding:10px 0;color:#1e293b;text-decoration:none;border-bottom:1px solid #e5e7eb;font-size:.95rem;transition:color .2s}.menu a:hover{color:#6b7283}.menu .active{color:#6b7283;font-weight:600}.credit{margin-top:35px;padding:20px 0;border-top:1px solid #e5e7eb;color:#9ca3af;font-size:.8rem}.credit a{color:#6b7283;text-decoration:none}.media-query{display:none}.@media (max-width:360px){.menu{padding:50px 10px 10px}}</style>
+</head>
+<body><div class="hamburger-wrapper"><div class="hamburger" aria-label="Menú" aria-expanded="false" role="button" data-testid="hamburger" data-hamburger><span class="line line-1"></span><span class="line line-2"></span><span class="line line-3"></span></div><nav class="menu" aria-label="Menú principal" role="navigation" data-menu style="display:none;" aria-expanded="false"><button class="close" aria-label="Cerrar" data-close>&times;</button><h2>Menú</h2><a href="/inicio" class="active">Inicio</a><a href="/nosotros">Nosotros</a><a href="/servicios">Servicios</a><a href="/portafolio">Portafolio</a><a href="/contacto">Contacto</a></nav></div><script>
+  (() => {
+    const h = document.querySelector('[data-hamburger]');
+    const m = document.querySelector('[data-menu]');
+    const c = document.querySelector('[data-close]');
+    let menuOpen = false;
+    const toggle = () => {
+      menuOpen = !menuOpen;
+      h.setAttribute('aria-expanded', menuOpen);
+      m.setAttribute('aria-expanded', menuOpen);
+      m.style.display = menuOpen ? 'block' : 'none';
+      if (menuOpen) { m.classList.add('active'); }
+      else { m.classList.remove('active'); }
+    };
+    h.addEventListener('click', toggle);
+    c.addEventListener('click', toggle);
+    // Close on ESC
+    document.addEventListener('keydown', e => { if (e.key === 'Escape' && menuOpen) { toggle(); } });
+    // Close on outside click
+    document.addEventListener('click', e => { if (!h.contains(e.target) && !m.contains(e.target) && menuOpen) { toggle(); } });
+    // Initial count check for probe
+    const links = m.querySelectorAll('a');
+    const countEl = document.createElement('span'); countEl.style.display='none';
+    document.body.appendChild(countEl);
+  })();
+</script><footer class="credit">Harley Vásquez · <a href="https://www.linkedin.com/in/harleyvasquez" target="_blank" rel="noreferrer">linkedin.com/in/harleyvasquez</a></footer></body></html>

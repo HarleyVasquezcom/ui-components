@@ -1,0 +1,83 @@
+<!-- Design 10: Paginación con Efecto Hover 3D / 3D Hover Effect Pagination -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pagination — Design 10</title>
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body { min-height: 100vh; font-family: "Segoe UI", system-ui, sans-serif; background: linear-gradient(135deg, #0ea5e9 0%, #6366f1 100%); color: #fff; overflow-x: hidden; }
+  .pagination-wrapper { width: min(460px, 90vw); text-align: center; padding: 32px 20px; }
+  .page-link {
+    display: inline-block;
+    margin: 2px 3px;
+    padding: 8px 14px;
+    background: rgba(255,255,255,.1);
+    border: 1px solid rgba(255,255,255,.2);
+    border-radius: 50px;
+    color: #fff;
+    font-size: .875rem;
+    font-weight: 600;
+    cursor: pointer;
+    backdrop-filter: blur(10px);
+    transition: all .2s cubic-bezier(.4,0,.2,1);
+  }
+  .page-link:hover { background: rgba(255,255,255,.25); transform: translateY(-2px) scale(1.05); }
+  .page-link.active { background: rgba(255,255,255,.3); border-color: rgba(255,255,255,.4); }
+  .page-link.disabled { color: rgba(255,255,255,.4); pointer-events: none; }
+  .page-numbers { margin: 16px 0; display: flex; gap: 6px; justify-content: center; }
+  .page-item { flex: 1; min-width: 36px; }
+  .ellipsis { color: rgba(255,255,255,.5); }
+  .page-info { margin: 24px 0; color: rgba(255,255,255,.7); font-size: .875rem; text-align: center; }
+  .btn { margin-top: 24px; padding: 10px 20px; background: rgba(255,255,255,.2); border: 1px solid rgba(255,255,255,.3); color: #fff; border-radius: 50px; font-family: inherit; font-size: .875rem; cursor: pointer; backdrop-filter: blur(10px); }
+  .btn:hover { background: rgba(255,255,255,.3); transform: translateY(-1px); }
+  .btn:focus-visible { outline: 2px solid #fff; outline-offset: 2px; }
+  .credit { margin-top: 32px; padding: 16px 0; border-top: 1px solid rgba(255,255,255,.2); color: rgba(255,255,255,.7); font-size: .875rem; text-align: center; }
+  .credit a { color: #fff; text-decoration: none; }
+  @media (max-width: 480px) { .pagination-wrapper { padding: 16px; } }
+</style>
+</head>
+<body>
+<div class="pagination-wrapper" data-testid="pagination" aria-label="Pagination">
+  <nav aria-label="Paginación" role="navigation" data-pagination>
+    <div class="page-numbers">
+      <span class="page-item active"><a class="page-link" href="#">1</a></span>
+      <span class="page-item"><a class="page-link" href="#">2</a></span>
+      <span class="page-item"><a class="page-link" href="#">3</a></span>
+      <span class="page-item ellipsis">…</span>
+      <span class="page-item"><a class="page-link" href="#">15</a></span>
+    </div>
+    <div class="page-info">Mostrando 1-10 de 104 resultados</div>
+    <button class="btn" aria-label="Siguiente página" data-next>Siguiente <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="9" y1="9" x2="15" y2="15"/><line x1="15" y1="9" x2="9" y2="15"/></svg></button>
+  </nav>
+</div>
+<script>
+  (() => {
+    const links = document.querySelectorAll('.page-link:not(.disabled)');
+    const info = document.querySelector('.page-info');
+    let current = 1;
+    function update() {
+      info.textContent = `Mostrando ${Math.min((current)*10, 104)}-${Math.min((current)*10+9, 104)} de 104 resultados`;
+      links.forEach((l, i) => {
+        l.classList.toggle('active', i === current - 1);
+        l.setAttribute('aria-current', i === current - 1 ? 'page' : null);
+      });
+    }
+    document.querySelector('[data-next]').addEventListener('click', () => {
+      if (current < 104) { current++; update(); }
+    });
+    links.forEach((l, i) => {
+      l.addEventListener('click', (e) => {
+        e.preventDefault();
+        current = i + 1;
+        update();
+      });
+    });
+    update();
+  })();
+</script>
+<footer class="credit">Harley Vásquez · <a href="https://www.linkedin.com/in/harleyvasquez" target="_blank" rel="noreferrer">linkedin.com/in/harleyvasquez</a></footer>
+</body>
+</html>

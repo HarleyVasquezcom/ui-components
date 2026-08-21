@@ -1,0 +1,146 @@
+<!-- Design 10: TOC Editor / Editor TOC -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>TOC — Design 10</title>
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body {
+    min-height: 100vh;
+    font-family: "Segoe UI", system-ui, sans-serif;
+    background: #f8fafc;
+    color: #0f172a;
+    overflow-x: hidden;
+  }
+  .toc {
+    position: fixed;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 320px;
+    border-right: 1px solid #d1d5db;
+    background: #fff;
+    padding: 28px 20px;
+    overflow-y: auto;
+  }
+  .toc-link {
+    display: block;
+    padding: 10px 12px;
+    color: #64748b;
+    font-size: .875rem;
+    text-decoration: none;
+    margin: 4px 0;
+    border-radius: 6px;
+    border: 1px solid transparent;
+    transition: all .2s;
+  }
+  .toc-link:hover { border-color: #94a3b8; color: #1e293b; }
+  .toc-link.active { background: #e2e8f0; border-color: #1e293b; color: #1e293b; }
+  .toc-link:focus-visible { outline: 2px solid #3b82f6; outline-offset: 2px; }
+  .main {
+    margin-left: 320px;
+    padding: 60px 24px 24px;
+  }
+  .section {
+    margin-bottom: 80px;
+    scroll-margin-top: 80px;
+  }
+  .section h2 { margin: 0 0 16px; font-size: 2rem; color: #1e293b; }
+  .section p { color: #64748b; line-height: 1.6; }
+  .credit { margin-top: 32px; padding: 16px 0; border-top: 1px solid #e2e8f0; color: #64748b; font-size: .875rem; text-align: center; }
+  .credit a { color: #2563eb; text-decoration: none; }
+  @media (max-width: 768px) { .toc { display: none; } .main { margin-left: 0; } }
+</style>
+</head>
+<body>
+<nav class="toc" data-testid="toc" aria-label="Tabla de contenidos" data-toc>
+  <h4 style="margin:0 0 24px 0; font-size:1rem; color:#1e293b;">Índice</h4>
+  <a class="toc-link active" data-testid="toc-link" href="#art-1">Art 1</a>
+  <a class="toc-link" data-testid="toc-link" href="#art-2">Art 2</a>
+  <a class="toc-link" data-testid="toc-link" href="#art-3">Art 3</a>
+  <a class="toc-link" data-testid="toc-link" href="#art-4">Art 4</a>
+  <a class="toc-link" data-testid="toc-link" href="#art-5">Art 5</a>
+  <a class="toc-link" data-testid="toc-link" href="#art-6">Art 6</a>
+  <a class="toc-link" data-testid="toc-link" href="#art-7">Art 7</a>
+  <a class="toc-link" data-testid="toc-link" href="#art-8">Art 8</a>
+  <a class="toc-link" data-testid="toc-link" href="#art-9">Art 9</a>
+  <a class="toc-link" data-testid="toc-link" href="#art-10">Art 10</a>
+</nav>
+<main class="main" data-scroll>
+  <section id="art-1" class="section" aria-labelledby="art-1">
+    <h2 id="art-1">Artículo 1</h2>
+    <p>Contenido del artículo uno. Duis aute irure dolor in reprehenderit.</p>
+  </section>
+  <section id="art-2" class="section" aria-labelledby="art-2">
+    <h2 id="art-2">Artículo 2</h2>
+    <p>Excepteur sint occaecat cupidatat non proident.</p>
+  </section>
+  <section id="art-3" class="section" aria-labelledby="art-3">
+    <h2 id="art-3">Artículo 3</h2>
+    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+  </section>
+  <section id="art-4" class="section" aria-labelledby="art-4">
+    <h2 id="art-4">Artículo 4</h2>
+    <p>Sed do eiusmod tempor incididunt ut labore.</p>
+  </section>
+  <section id="art-5" class="section" aria-labelledby="art-5">
+    <h2 id="art-5">Artículo 5</h2>
+    <p>Incididunt ut labore et dolore magna aliqua.</p>
+  </section>
+  <section id="art-6" class="section" aria-labelledby="art-6">
+    <h2 id="art-6">Artículo 6</h2>
+    <p>Duis aute irure dolor in reprehenderit in voluptate.</p>
+  </section>
+  <section id="art-7" class="section" aria-labelledby="art-7">
+    <h2 id="art-7">Artículo 7</h2>
+    <p>Excepteur sint occaecat cupidatat non proident.</p>
+  </section>
+  <section id="art-8" class="section" aria-labelledby="art-8">
+    <h2 id="art-8">Artículo 8</h2>
+    <p>Sunt in culpa qui officia deserunt mollit anim.</p>
+  </section>
+  <section id="art-9" class="section" aria-labelledby="art-9">
+    <h2 id="art-9">Artículo 9</h2>
+    <p>Labore et dolore magna aliqua.</p>
+  </section>
+  <section id="art-10" class="section" aria-labelledby="art-10">
+    <h2 id="art-10">Artículo 10</h2>
+    <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco.</p>
+  </section>
+</main>
+<script>
+  (() => {
+    const tocLinks = document.querySelectorAll('.toc-link');
+    const sections = document.querySelectorAll('.section');
+    
+    function setActiveLink() {
+      let current = '';
+      sections.forEach(section => {
+        const rect = section.getBoundingClientRect();
+        if (Math.abs(rect.top) < 80) { current = section.getAttribute('id'); }
+      });
+      tocLinks.forEach(link => {
+        link.classList.toggle('active', link.getAttribute('href') === `#${current}`);
+      });
+    }
+    
+    window.addEventListener('scroll', () => setActiveLink());
+    
+    tocLinks.forEach(link => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        const targetId = link.getAttribute('href').substring(1);
+        const targetSection = document.getElementById(targetId);
+        if (targetSection) { targetSection.scrollIntoView({ behavior: 'smooth' }); }
+      });
+    });
+    
+    setActiveLink();
+  })();
+</script>
+<footer class="credit">Harley Vásquez · <a href="https://www.linkedin.com/in/harleyvasquez" target="_blank" rel="noreferrer">linkedin.com/in/harleyvasquez</a></footer>
+</body>
+</html>

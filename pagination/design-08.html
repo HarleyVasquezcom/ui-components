@@ -1,0 +1,90 @@
+<!-- Design 08: Paginación con Avatar de Usuario / User Avatar Pagination -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pagination — Design 08</title>
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body { min-height: 100vh; font-family: "Segoe UI", system-ui, sans-serif; background: #fff; color: #1e293b; overflow-x: hidden; }
+  .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; width: min(95vw, 1000px); margin: 0 auto; }
+  .card { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 16px; text-align: center; transition: box-shadow .2s; }
+  .card:hover { box-shadow: 0 4px 12px rgba(0,0,0,.08); }
+  .card-img { width: 40px; height: 40px; border-radius: 50%; margin: 0 auto 8px; background: #e2e8f0; display: flex; align-items: center; justify-content: center; font-size: .75rem; font-weight: 600; color: #64748b; }
+  .card h4 { margin: 4px 0 0; font-size: .875rem; }
+  .card p { margin: 4px 0 0; color: #64748b; font-size: .75rem; }
+  .pagination-wrapper { width: min(95vw, 1000px); margin: 32px auto 0; text-align: center; }
+  .page-link {
+    display: inline-block;
+    margin: 0 2px;
+    padding: 6px 12px;
+    background: #fff;
+    border: 1px solid #cbd5e1;
+    border-radius: 50%;
+    color: #0f172a;
+    font-size: .75rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all .15s;
+    width: 32px; height: 32px; line-height: 32px;
+  }
+  .page-link:hover { background: #e2e8f0; }
+  .page-link.active { background: #1e293b; color: #fff; border-color: #1e293b; }
+  .page-link.disabled { color: #64748b; pointer-events: none; }
+  .page-numbers { margin: 16px 0; display: flex; gap: 6px; justify-content: center; }
+  .ellipsis { color: #64748b; }
+  .page-info { margin: 24px 0; color: #64748b; font-size: .75rem; }
+  .credit { margin-top: 32px; padding: 16px 0; border-top: 1px solid #e2e8f0; color: #64748b; font-size: .75rem; text-align: center; }
+  .credit a { color: #2563eb; text-decoration: none; }
+  @media (max-width: 480px) { .pagination-wrapper { padding: 16px; } }
+</style>
+</head>
+<body>
+<div class="cards">
+  <article class="card"><div class="card-img">H.V</div><h4>Harley V.</h4><p>Desarrollo Web</p></article>
+  <article class="card"><div class="card-img">D.M</div><h4>Diana M.</p><p>Diseño Gráfico</p></article>
+  <article class="card"><div class="card-img">J.S</div><h4>Juan S.</h4><p>Marketing</p></article>
+  <article class="card"><div class="card-img">M.R</div><h4>Maria R.</h4><p>Contenido</p></article>
+  <article class="card"><div class="card-img">A.K</div><h4>Ana K.</h4><p>SEO</p></article>
+</div>
+<nav class="pagination-wrapper" aria-label="Paginación" data-testid="pagination">
+  <div class="page-numbers">
+    <span class="page-item active"><a class="page-link" href="#">1</a></span>
+    <span class="page-item"><a class="page-link" href="#">2</a></span>
+    <span class="page-item"><a class="page-link" href="#">3</a></span>
+    <span class="page-item ellipsis">…</span>
+    <span class="page-item"><a class="page-link" href="#">15</a></span>
+  </div>
+  <div class="page-info">Mostrando 1-5 de 75 perfiles</div>
+  <button class="page-link" aria-label="Siguiente página" data-next>Siguiente <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="9" y1="9" x2="15" y2="15"/><line x1="15" y1="9" x2="9" y2="15"/></svg></button>
+</nav>
+<script>
+  (() => {
+    const links = document.querySelectorAll('.page-link:not(.disabled)');
+    const info = document.querySelector('.page-info');
+    let current = 1;
+    function update() {
+      info.textContent = `Mostrando ${Math.min((current)*5, 25)}-${Math.min((current)*5+4, 25)} de 75 perfiles`;
+      links.forEach((l, i) => {
+        l.classList.toggle('active', i === current - 1);
+        l.setAttribute('aria-current', i === current - 1 ? 'page' : null);
+      });
+    }
+    document.querySelector('[data-next]').addEventListener('click', () => {
+      if (current < 75) { current++; update(); }
+    });
+    links.forEach((l, i) => {
+      l.addEventListener('click', (e) => {
+        e.preventDefault();
+        current = i + 1;
+        update();
+      });
+    });
+    update();
+  })();
+</script>
+<footer class="credit">Harley Vásquez · <a href="https://www.linkedin.com/in/harleyvasquez" target="_blank" rel="noreferrer">linkedin.com/in/harleyvasquez</a></footer>
+</body>
+</html>

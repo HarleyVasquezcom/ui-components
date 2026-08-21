@@ -1,0 +1,101 @@
+<!-- Design 10: Mono Badges / Insignias Mono -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mono Badges — Design 10</title>
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body { font-family: "Courier New", monospace; background: #101010; min-height: 100vh; overflow-x: hidden; }
+  .nav {
+    display: flex; align-items: center; justify-content: space-between; gap: 14px;
+    padding: 20px clamp(16px, 5vw, 60px);
+    background: #101010;
+    border-bottom: 1px solid #262626;
+  }
+  .brand { color: #f5f5f5; font-weight: 700; font-size: .96rem; letter-spacing: .08em; }
+  .brand::before { content: "[ "; color: #525252; }
+  .brand::after { content: " ]"; color: #525252; }
+  .links { display: flex; gap: 10px; list-style: none; margin: 0; padding: 0; flex-wrap: wrap; }
+  .links a {
+    display: inline-block; padding: 8px 14px;
+    color: #a3a3a3; text-decoration: none; font-size: .84rem; font-weight: 700;
+    border: 1px solid #333; border-radius: 4px;
+    transition: all .12s ease;
+  }
+  .links a:hover { color: #f5f5f5; border-color: #525252; background: #1a1a1a; }
+  .links a:focus-visible { outline: 3px solid #f5f5f5; outline-offset: 2px; }
+  .links a.active { color: #101010; background: #f5f5f5; border-color: #f5f5f5; }
+  .burger {
+    display: none;
+    width: 42px; height: 42px;
+    background: #1a1a1a; border: 1px solid #333; border-radius: 4px;
+    color: #f5f5f5; font-size: 1rem; cursor: pointer;
+  }
+  .burger:hover { background: #262626; }
+  .burger:focus-visible { outline: 3px solid #f5f5f5; outline-offset: 2px; }
+  .mobile {
+    display: none; flex-direction: column; gap: 8px;
+    padding: 16px clamp(16px, 5vw, 60px);
+    background: #0d0d0d; border-bottom: 1px solid #262626;
+  }
+  .mobile.open { display: flex; }
+  .mobile a { padding: 11px 14px; color: #a3a3a3; text-decoration: none; font-size: .88rem; font-weight: 700; border: 1px solid #262626; border-radius: 4px; }
+  .mobile a:hover { color: #f5f5f5; }
+  .mobile a:focus-visible { outline: 3px solid #f5f5f5; outline-offset: 2px; }
+  .mobile a.active { color: #101010; background: #f5f5f5; }
+  main { padding: clamp(70px, 14vw, 130px) clamp(16px, 5vw, 60px); color: #737373; max-width: 700px; }
+  main h1 { color: #f5f5f5; margin: 0 0 12px; font-size: clamp(1.5rem, 4.8vw, 2.2rem); font-weight: 700; }
+  main p { line-height: 1.8; font-size: .94rem; }
+  .credit { padding: 18px clamp(16px, 5vw, 60px); border-top: 1px solid #1a1a1a; color: #404040; font-size: .76rem; }
+  .credit a { color: #a3a3a3; text-decoration: none; }
+  @media (max-width: 480px) { .links { display: none; } .brand { margin-right: auto; } .burger { display: block; } }
+</style>
+</head>
+<body>
+<header>
+  <nav class="nav" aria-label="Main / Principal">
+    <div class="brand">SYS</div>
+    <ul class="links">
+      <li><a href="#" data-testid="link" aria-current="page" class="active">/home</a></li>
+      <li><a href="#" data-testid="link">/modules</a></li>
+      <li><a href="#" data-testid="link">/monitor</a></li>
+      <li><a href="#" data-testid="link">/logs</a></li>
+      <li><a href="#" data-testid="link">/config</a></li>
+    </ul>
+    <button type="button" class="burger" data-testid="burger" aria-expanded="false" aria-controls="nb-mb-10-m">☰</button>
+  </nav>
+  <div class="mobile" id="nb-mb-10-m" data-testid="mobile">
+    <a href="#" data-testid="link" aria-current="page" class="active">/home</a>
+    <a href="#" data-testid="link">/modules</a>
+    <a href="#" data-testid="link">/monitor</a>
+    <a href="#" data-testid="link">/logs</a>
+    <a href="#" data-testid="link">/config</a>
+  </div>
+</header>
+<main>
+  <h1>Mono Badges</h1>
+  <p>Console paths as tappable badges / Rutas de consola como insignias pulsables.</p>
+  <p>The active route inverts to paper white / La ruta activa se invierte a blanco papel.</p>
+</main>
+<footer class="credit">Harley Vásquez · <a href="https://www.linkedin.com/in/harleyvasquez" target="_blank" rel="noreferrer">linkedin.com/in/harleyvasquez</a></footer>
+<script>
+  const links = document.querySelectorAll('[data-testid="link"]');
+  const burger = document.querySelector('[data-testid="burger"]');
+  const mobile = document.querySelector('[data-testid="mobile"]');
+  links.forEach((l) => l.addEventListener('click', (e) => {
+    e.preventDefault();
+    links.forEach((x) => { x.classList.remove('active'); x.removeAttribute('aria-current'); });
+    l.classList.add('active'); l.setAttribute('aria-current', 'page');
+    mobile.classList.remove('open'); burger.setAttribute('aria-expanded', 'false');
+  }));
+  burger.addEventListener('click', () => {
+    const open = burger.getAttribute('aria-expanded') === 'true';
+    burger.setAttribute('aria-expanded', open ? 'false' : 'true');
+    mobile.classList.toggle('open', !open);
+  });
+</script>
+</body>
+</html>

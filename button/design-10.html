@@ -1,0 +1,115 @@
+<!-- Design 10: Neon Void / Vacío Neón -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Neon Void Button — Design 10</title>
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body {
+    min-height: 100vh;
+    display: grid;
+    place-items: center;
+    font-family: "Segoe UI", system-ui, sans-serif;
+    background: #05060a;
+    overflow-x: hidden;
+  }
+  .stars { position: fixed; inset: 0; z-index: 0; pointer-events: none;
+    background-image:
+      radial-gradient(1px 1px at 20% 30%, #fff, transparent),
+      radial-gradient(1px 1px at 40% 70%, #fff, transparent),
+      radial-gradient(1.5px 1.5px at 60% 20%, #fff, transparent),
+      radial-gradient(1px 1px at 80% 50%, #fff, transparent),
+      radial-gradient(1px 1px at 30% 80%, #fff, transparent),
+      radial-gradient(1.5px 1.5px at 90% 80%, #fff, transparent),
+      radial-gradient(1px 1px at 10% 50%, #fff, transparent),
+      radial-gradient(1px 1px at 70% 60%, #fff, transparent);
+  }
+  .stage {
+    position: relative; z-index: 1;
+    width: min(620px, 94vw);
+    padding: clamp(28px, 6vw, 60px);
+    background: #0a0c14;
+    border: 1px solid #1d2233;
+    border-radius: 8px;
+    box-shadow: 0 0 80px rgba(34,211,238,.08);
+    text-align: center;
+  }
+  h1 {
+    margin: 0; font-size: clamp(1.5rem, 4vw, 2.2rem); font-weight: 300; letter-spacing: .28em;
+    color: #e0faff; text-transform: uppercase;
+    text-shadow: 0 0 18px rgba(34,211,238,.8);
+  }
+  .sub { margin: .6rem 0 2.6rem; color: #4d5a75; font-size: .86rem; letter-spacing: .12em; text-transform: uppercase; }
+  .btn {
+    position: relative;
+    display: inline-flex; align-items: center; gap: 14px;
+    padding: 16px 42px;
+    font-size: 1.05rem; font-weight: 500; letter-spacing: .18em; text-transform: uppercase;
+    color: #22d3ee;
+    background: transparent;
+    border: 1px solid #22d3ee;
+    border-radius: 4px;
+    box-shadow: 0 0 14px rgba(34,211,238,.35), inset 0 0 14px rgba(34,211,238,.12);
+    cursor: pointer;
+    transition: box-shadow .25s ease, color .25s ease, background .25s ease, transform .12s ease;
+  }
+  .btn:hover, .btn:focus-visible {
+    color: #05060a;
+    background: #22d3ee;
+    box-shadow: 0 0 34px rgba(34,211,238,.9), 0 0 80px rgba(34,211,238,.5);
+  }
+  .btn:active { transform: scale(.97); }
+  .btn:focus-visible { outline: 1px solid #a5f3fc; outline-offset: 6px; }
+  .btn.burst { animation: burst .5s ease; }
+  @keyframes burst {
+    0% { box-shadow: 0 0 60px rgba(34,211,238,1); }
+    100% { box-shadow: 0 0 14px rgba(34,211,238,.35); }
+  }
+  .btn .pulse {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: currentColor;
+    box-shadow: 0 0 10px currentColor;
+    animation: flicker 1.6s ease-in-out infinite;
+  }
+  @keyframes flicker { 0%,100% { opacity: 1; } 45% { opacity: .35; } 60% { opacity: .9; } }
+  .btn .num {
+    font-variant-numeric: tabular-nums;
+    font-size: .9rem; letter-spacing: .08em;
+    border: 1px solid currentColor; border-radius: 2px; padding: 1px 8px;
+  }
+  .hint { margin-top: 2rem; color: #3c465e; font-size: .78rem; letter-spacing: .14em; text-transform: uppercase; }
+  .credit { margin-top: 2.6rem; padding-top: 1rem; border-top: 1px solid #171c2b; color: #3c465e; font-size: .78rem; }
+  .credit a { color: #22d3ee; text-decoration: none; }
+  .credit a:hover { text-decoration: underline; }
+</style>
+</head>
+<body>
+<div class="stars" aria-hidden="true"></div>
+<main class="stage">
+  <h1>Neon Void</h1>
+  <p class="sub">Illuminate the void / Ilumina el vacío</p>
+  <button type="button" class="btn" data-testid="btn" aria-label="Fire neon pulse">
+    <span class="pulse" aria-hidden="true"></span>
+    <span>Fire</span>
+    <span class="num" aria-live="polite"><b data-testid="count">0</b></span>
+  </button>
+  <p class="hint">Click to fire pulses — / Clic para disparar pulsos</p>
+  <footer class="credit">Harley Vásquez · <a href="https://www.linkedin.com/in/harleyvasquez" target="_blank" rel="noreferrer">linkedin.com/in/harleyvasquez</a></footer>
+</main>
+<script>
+  const btn = document.querySelector('[data-testid="btn"]');
+  const count = document.querySelector('[data-testid="count"]');
+  let n = 0;
+  btn.addEventListener('click', () => {
+    n += 1;
+    count.textContent = n;
+    btn.classList.remove('burst');
+    void btn.offsetWidth;
+    btn.classList.add('burst');
+  });
+</script>
+</body>
+</html>

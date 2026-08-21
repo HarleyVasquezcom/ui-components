@@ -1,0 +1,71 @@
+<!-- Design 08: Card Pill / Card with Pill Shapes -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Card — Design 08</title>
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body {
+    min-height: 100vh;
+    font-family: "Segoe UI", system-ui, sans-serif;
+    background: #e2e8f0;
+    color: #334155;
+    overflow-x: hidden;
+  }
+  .card {
+    background: #fff;
+    border-radius: 16px;
+    padding: 28px;
+    position: relative;
+    overflow: hidden;
+  }
+  .card .pills {
+    display: flex;
+    gap: 6px;
+    margin: -28px -28px 24px;
+    padding: 0 28px;
+  }
+  .card .pill {
+    display: inline-block;
+    padding: 4px 8px;
+    background: #e2e8f0;
+    border-radius: 20px;
+    font-size: .65rem;
+    color: #64748b;
+  }
+  .card h3 { margin: 0 0 8px; font-size: 1.125rem; color: #1e293b; }
+  .card p { margin: 0; color: #64748b; font-size: .875rem; line-height: 1.5; }
+  .card-link {
+    display: inline-block;
+    margin-top: 16px;
+    padding: 8px 16px;
+    background: #3b82f6;
+    color: #fff;
+    border-radius: 20px;
+    font-size: .75rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: background .15s;
+  }
+  .card-link:hover { background: #2563e6; }
+  .card-link:focus-visible { outline: 2px solid #64748b; outline-offset: 2px; }
+  .grid { width: min(95vw, 1100px); margin: 40px auto 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; }
+  .credit { margin-top: 32px; padding: 16px 0; border-top: 1px solid #e2e8f0; color: #64748b; font-size: .75rem; text-align: center; }
+  .credit a { color: #3b82f6; text-decoration: none; }
+  @media (max-width: 480px) { .grid { padding: 0 8px; } }
+</style>
+</head>
+<body>
+<div class="grid">
+  <article class="card" id="card-1" data-testid="card" aria-label="Card design"><div class="pills"><span class="pill">Design</span><span class="pill">UI</span><span class="pill">Figma</span></div><h3>Diseño Gráfico Moderno</h3><p>Técnicas actuales de diseño visual con herramientas profesionales.</p><a class="card-link" href="#card-1" data-testid="card-link">Leer más →</a></article>
+  <article class="card"><div class="pills"><span class="pill">Web</span><span class="pill">HTML</span><span class="pill">CSS</span></div><h3>Desarrollo Web Completo</h3><p>Cursos desde HTML básico hasta deployment profesional.</p><a class="card-link" href="#card-1" data-testid="card-link">Leer más →</a></article>
+  <article class="card"><div class="pills"><span class="pill">Photo</span><span class="pill">Portfolio</span><span class="pill">Gallery</span></div><h3>Fotografía de Autor</h3><p>Galería de obras originales con técnicas avanzadas.</p><a class="card-link" href="#card-1" data-testid="card-link">Leer más →</a></article>
+  <article class="card"><div class="pills"><span class="pill">Market</span><span class="pill">Ads</span><span class="pill">SEO</span></div><h3>Marketing Digital</h3><p>Estrategias para crecimiento orgánico y paid media.</p><a class="card-link" href="#card-1" data-testid="card-link">Leer más →</a></article>
+  <article class="card"><div class="pills"><span class="pill">Brand</span><span class="pill">Identity</span><span class="pill">Style</span></div><h3>Branding Personal</h3><p>Construye tu identidad visual única.</p><a class="card-link" href="#card-1" data-testid="card-link">Leer más →</a></article>
+</div>
+<footer class="credit">Harley Vásquez · <a href="https://www.linkedin.com/in/harleyvasquez" target="_blank" rel="noreferrer">linkedin.com/in/harleyvasquez</a></footer>
+</body>
+</html>

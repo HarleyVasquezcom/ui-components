@@ -1,0 +1,102 @@
+<!-- Design 08: Big Touch / Gran Área Táctil -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Big Touch Radio — Design 08</title>
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body {
+    min-height: 100vh;
+    display: grid;
+    place-items: center;
+    font-family: "Segoe UI", system-ui, sans-serif;
+    background: #eef1f6;
+    overflow-x: hidden;
+  }
+  .stage {
+    width: min(640px, 94vw);
+    padding: clamp(24px, 6vw, 56px);
+    background: #f7f9fc;
+    border-radius: 24px;
+    box-shadow: 0 26px 70px rgba(40,60,100,.16);
+  }
+  h1 { margin: 0; font-size: clamp(1.5rem, 4vw, 2.1rem); color: #16233c; font-weight: 800; }
+  .sub { margin: .3rem 0 2.2rem; color: #7e8da6; font-size: .92rem; }
+  .group { border: none; margin: 0; padding: 0; display: grid; gap: 14px; }
+  legend { font-size: .78rem; letter-spacing: .2em; text-transform: uppercase; color: #7e8da6; margin-bottom: 4px; padding: 0; }
+  .opt {
+    display: flex; align-items: center; gap: 20px;
+    min-height: 64px;
+    padding: 14px 22px;
+    background: #fff;
+    border: 3px solid #dbe2ec;
+    border-radius: 16px;
+    cursor: pointer;
+    transition: border-color .2s ease, background .2s ease, transform .12s ease;
+  }
+  .opt:hover { border-color: #9fb0cb; transform: translateY(-2px); }
+  .opt:active { transform: scale(.99); }
+  .opt input { position: absolute; opacity: 0; width: 1px; height: 1px; }
+  .circle {
+    flex: 0 0 auto;
+    width: 30px; height: 30px; border-radius: 50%;
+    border: 3px solid #c3ccdb;
+    display: grid; place-items: center;
+    transition: border-color .2s ease;
+  }
+  .circle::after {
+    content: ""; width: 15px; height: 15px; border-radius: 50%;
+    background: #2563eb;
+    transform: scale(0);
+    transition: transform .2s cubic-bezier(.5,1.6,.4,1);
+  }
+  .opt.selected { border-color: #2563eb; background: #f2f6ff; }
+  .opt.selected .circle { border-color: #2563eb; }
+  .opt.selected .circle::after { transform: scale(1); }
+  .opt input:focus-visible ~ .circle { outline: 4px solid #2563eb; outline-offset: 4px; }
+  .opt .txt { color: #2a3852; font-weight: 700; font-size: 1.05rem; }
+  .opt .txt small { display: block; color: #8d9ab0; font-weight: 400; font-size: .8rem; margin-top: 2px; }
+  .hint { margin-top: 1.8rem; color: #8d9ab0; font-size: .82rem; }
+  .credit { margin-top: 2.2rem; padding-top: 1rem; border-top: 1px solid #e6ebf3; color: #8d9ab0; font-size: .8rem; }
+  .credit a { color: #2563eb; text-decoration: none; }
+  .credit a:hover { text-decoration: underline; }
+input[type="checkbox"]:focus-visible, input[type="radio"]:focus-visible, [data-testid="toggle"]:focus-visible { outline: 2px solid #2563eb; outline-offset: 2px; } </style>
+</head>
+<body>
+<main class="stage">
+  <h1>Big Touch</h1>
+  <p class="sub">Thumb-sized targets, no mis-taps / Objetivos tamaño pulgar, sin errores</p>
+  <fieldset class="group" data-testid="group">
+    <legend>Attendance</legend>
+    <label class="opt" data-idx="0">
+      <input type="radio" name="attend" value="in" checked
+      <span class="circle" aria-hidden="true"></span>
+      <span class="txt">Check in<small>start your shift — / inicia tu turno</small></span>
+    </label>
+    <label class="opt" data-idx="1">
+      <input type="radio" name="attend" value="break"
+      <span class="circle" aria-hidden="true"></span>
+      <span class="txt">Break<small>pause for 30 min — / pausa de 30 min</small></span>
+    </label>
+    <label class="opt" data-idx="2">
+      <input type="radio" name="attend" value="out"
+      <span class="circle" aria-hidden="true"></span>
+      <span class="txt">Check out<small>end your shift — / termina tu turno</small></span>
+    </label>
+  </fieldset>
+  <p class="hint">Click a row to select — / Clic en una fila para elegir</p>
+  <footer class="credit">Harley Vásquez · <a href="https://www.linkedin.com/in/harleyvasquez" target="_blank" rel="noreferrer">linkedin.com/in/harleyvasquez</a></footer>
+</main>
+<script>
+  const group = document.querySelector('[data-testid="group"]');
+  group.addEventListener('change', (e) => {
+    if (e.target.type !== 'radio') return;
+    group.querySelectorAll('.opt').forEach((opt) => opt.classList.remove('selected'));
+    e.target.closest('.opt').classList.add('selected');
+  });
+</script>
+</body>
+</html>

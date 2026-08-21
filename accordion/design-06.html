@@ -1,0 +1,72 @@
+<!-- Design 06: Accordion Bordered / Bordered Accordion -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Accordion — Design 06</title>
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body {
+    min-height: 100vh;
+    font-family: "Segoe UI", system-ui, sans-serif;
+    background: #f8fafc;
+    color: #0f172a;
+    overflow-x: hidden;
+  }
+  .accordion { width: min(90vw, 800px); margin: 20px auto; }
+  .accordion-item { border: 1px solid #e2e8f0; border-radius: 6px; margin-bottom: 6px; overflow: hidden; }
+  .accordion-item.active { border-color: #3b82f6; }
+  .accordion-header { padding: 12px 18px; background: #fff; color: #1e293b; font-size: .75rem; font-weight: 600; cursor: pointer; display: flex; justify-content: space-between; align-items: center; }
+  .accordion-header svg { width: 16px; height: 16px; transition: transform .3s; }
+  .accordion-item.active .accordion-header svg { transform: rotate(180deg); }
+  .accordion-header:hover { background: #f8fafc; }
+  .accordion-body { padding: 0 18px; max-height: 0; overflow: hidden; transition: max-height .4s ease-out; background: #f8fafc; color: #64748b; font-size: .7rem; line-height: 1.4; }
+  .accordion-item.active .accordion-body { max-height: 200px; }
+  .accordion-item[data-allow-multiple] .accordion-header { border-radius: 6px 6px 0 0; }
+  .accordion-item[data-allow-multiple].active .accordion-header { border-radius: 6px; }
+  .credit { margin-top: 32px; padding: 16px 0; border-top: 1px solid #e2e8f0; color: #64748b; font-size: .75rem; text-align: center; }
+  .credit a { color: #3b82f6; text-decoration: none; }
+  @media (max-width: 480px) { .accordion { margin: 10px; } }
+</style>
+</head>
+<body>
+<div class="accordion" data-testid="accordion" aria-label="Accordion design" data-accordion>
+  <div class="accordion-item" data-allow-multiple>
+    <div class="accordion-header"><span>Diseño Gráfico</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polygon points="12 5 19 12 12 19"/></svg></div>
+    <div class="accordion-body">Técnicas visuales modernas.</div>
+  </div>
+  <div class="accordion-item" data-allow-multiple>
+    <div class="accordion-header"><span>Desarrollo Web</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polygon points="12 5 19 12 12 19"/></svg></div>
+    <div class="accordion-body">Fundamentos y frameworks modernos.</div>
+  </div>
+  <div class="accordion-item" data-allow-multiple>
+    <div class="accordion-header"><span>Fotografía</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polygon points="12 5 19 12 12 19"/></svg></div>
+    <div class="accordion-body">Técnicas de composición y revelado.</div>
+  </div>
+  <div class="accordion-item">
+    <div class="accordion-header"><span>Marketing</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polygon points="12 5 19 12 12 19"/></svg></div>
+    <div class="accordion-body">Estrategias digitales y crecimiento.</div>
+  </div>
+  <div class="accordion-item">
+    <div class="accordion-header"><span>Branding</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polygon points="12 5 19 12 12 19"/></svg></div>
+    <div class="accordion-body">Identidad visual y logotipos.</div>
+  </div>
+</div>
+<footer class="credit">Harley Vásquez · <a href="https://www.linkedin.com/in/harleyvasquez" target="_blank" rel="noreferrer">linkedin.com/in/harleyvasquez</a></footer>
+
+<script>
+(function(){
+  var items = document.querySelectorAll('[data-testid="accordion"] .accordion-item, [data-accordion] .accordion-item');
+  items.forEach(function(item){
+    var header = item.querySelector('.accordion-header');
+    if(!header) return;
+    header.addEventListener('click', function(){
+      item.classList.toggle('active');
+    });
+  });
+})();
+</script>
+</body>
+</html>

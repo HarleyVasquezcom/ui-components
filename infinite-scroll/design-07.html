@@ -1,0 +1,105 @@
+<!-- Design 07: Infinite Scroll con Tarjetas de Características / Feature Cards Infinite Scroll -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Infinite Scroll — Design 07</title>
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body {
+    min-height: 100vh;
+    font-family: "Segoe UI", system-ui, sans-serif;
+    background: #fff;
+    color: #1e293b;
+    overflow-x: hidden;
+  }
+  .grid { width: min(95vw, 1300px); margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 20px; }
+  .card {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 24px;
+    position: relative;
+    overflow: hidden;
+  }
+  .card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; height: 4px;
+    background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+  }
+  .card h3 { margin: 0 0 8px; font-size: 1.125rem; color: #1e293b; }
+  .card p { margin: 0; color: #64748b; font-size: .875rem; line-height: 1.5; }
+  .load-more {
+    width: min(220px, 95vw);
+    margin: 32px auto 0;
+    padding: 14px;
+    background: #1e293b;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: .875rem;
+    font-weight: 600;
+    cursor: pointer;
+    display: block;
+    text-align: center;
+  }
+  .load-more:focus-visible { outline: 3px solid #64748b; outline-offset: 2px; }
+  .load-more:disabled { background: #64748b; cursor: not-allowed; }
+  .credit { margin-top: 32px; padding: 16px 0; border-top: 1px solid #e2e8f0; color: #64748b; font-size: .875rem; text-align: center; }
+  .credit a { color: #2563eb; text-decoration: none; }
+  @media (max-width: 480px) { .grid { padding: 0 8px; } }
+</style>
+</head>
+<body>
+<div class="grid" data-scroll-container data-testid="infinite-scroll" aria-label="Infinite scroll">
+  <article class="card"><h3>Dark Mode</h3><p>Interfaz oscura con contraste optimizado.</p></article>
+  <article class="card"><h3>Notificaciones</h3><p>Alertas en tiempo real con sonido.</p></article>
+  <article class="card"><h3>Integraciones</h3><p>Conexión con herramientas externas.</p></article>
+  <article class="card"><h3>Analítica</h3><p>Estadísticas detalladas en tiempo real.</p></article>
+  <article class="card"><h3>Exportar</h3><p>Exporta datos en CSV, JSON, PDF.</p></article>
+  <article class="card"><h3>Colaboración</h3><p>Trabajo en equipo en tiempo real.</p></article>
+  <article class="card"><h3>Seguridad</h3><p>2FA y encriptación de datos.</p></article>
+  <article class="card"><h3>Backup</h3><p>Copias automáticas diarias.</p></article>
+</div>
+<button class="load-more" aria-label="Cargar más artículos" data-load-more>Cargar más <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button>
+<script>
+  (() => {
+    const button = document.querySelector('[data-load-more]');
+    const container = document.querySelector('[data-scroll-container]');
+    let loaded = 8;
+    let total = 40;
+    button.addEventListener('click', () => {
+      const fragment = document.createDocumentFragment();
+      const features = ['Dark Mode','Notificaciones','Integraciones','Analítica','Exportar','Colaboración','Seguridad','Backup'];
+      for (let i = loaded; i < Math.min(loaded + 8, total); i++) {
+        const card = document.createElement('article');
+        card.className = 'card';
+        card.innerHTML = `<h3>${features[i % features.length]}</h3><p>Artículo ${i + 1}: Descripción completa de la característica seleccionada con sus beneficios.</p>`;
+        fragment.appendChild(card);
+      }
+      container.appendChild(fragment);
+      loaded += 8;
+      if (loaded >= total) { button.textContent = 'No hay más'; button.disabled = true; }
+    });
+  })();
+</script>
+<footer class="credit">Harley Vásquez · <a href="https://www.linkedin.com/in/harleyvasquez" target="_blank" rel="noreferrer">linkedin.com/in/harleyvasquez</a></footer>
+
+<script>
+(function(){
+  var grid = document.querySelector('[data-testid="infinite-scroll"]');
+  var btn = document.querySelector('[data-load-more]');
+  if(!grid || !btn) return;
+  window.addEventListener('scroll', function(){
+    if(btn.disabled) return;
+    var rect = grid.getBoundingClientRect();
+    if(rect.bottom <= window.innerHeight + 200) btn.click();
+  });
+})();
+</script>
+</body>
+</html>

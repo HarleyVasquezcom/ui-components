@@ -1,0 +1,115 @@
+<!-- Design 02: Grid Minimal Gap / Minimal Gap Grid -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Grid — Design 02</title>
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body {
+    min-height: 100vh;
+    font-family: "Segoe UI", system-ui, sans-serif;
+    background: #e2e8f0;
+    color: #334155;
+    overflow-x: hidden;
+  }
+  .grid {
+    width: min(95vw, 1300px);
+    margin: 32px auto 0;
+    padding: 0 16px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 12px;
+  }
+  .grid-item {
+    background: #fff;
+    border-radius: 12px;
+    padding: 24px;
+    transition: background .2s;
+  }
+  .grid-item:hover { background: #f8fafc; }
+  .grid-item h3 { margin: 0 0 8px; font-size: 1.125rem; color: #1e293b; }
+  .grid-item p { margin: 0; color: #64748b; font-size: .875rem; line-height: 1.5; }
+  .grid-item .category {
+    display: inline-block;
+    margin-top: 12px;
+    padding: 4px 8px;
+    background: #f1f5f9;
+    border-radius: 4px;
+    font-size: .65rem;
+    color: #64748b;
+  }
+  .load-more {
+    width: min(180px, 90vw);
+    margin: 24px auto 0;
+    padding: 10px;
+    background: #3b82f6;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: .75rem;
+    font-weight: 600;
+    cursor: pointer;
+    display: block;
+    text-align: center;
+  }
+  .load-more:focus-visible { outline: 3px solid #64748b; outline-offset: 2px; }
+  .load-more:disabled { background: #64748b; cursor: not-allowed; }
+  .credit { margin-top: 32px; padding: 16px 0; border-top: 1px solid #e2e8f0; color: #64748b; font-size: .75rem; text-align: center; }
+  .credit a { color: #3b82f6; text-decoration: none; }
+  @media (max-width: 480px) { .grid { padding: 0 8px; } }
+</style>
+</head>
+<body>
+<button data-toggle aria-label="Toggle grid" style="margin:8px;padding:8px 16px;background:#1e293b;color:#fff;border:none;border-radius:6px;cursor:pointer;font-size:14px">Toggle</button>
+<div class="grid" data-testid="grid" aria-label="Responsive grid" data-scroll-container>
+  <article class="grid-item"><h3>Diseño Gráfico Moderno</h3><p>Técnicas actuales de diseño visual con herramientas profesionales.</p><span class="category">Visual Design</span></article>
+  <article class="grid-item"><h3>Desarrollo Web Completo</h3><p>Cursos desde HTML básico hasta deployment profesional.</p><span class="category">Web Development</span></article>
+  <article class="grid-item"><h3>Fotografía de Autor</h3><p>Galería de obras originales con técnicas avanzadas.</p><span class="category">Photography</span></article>
+  <article class="grid-item"><h3>Marketing Digital</h3><p>Estrategias para crecimiento orgánico y paid media.</p><span class="category">Digital Marketing</span></article>
+  <article class="grid-item"><h3>Branding Personal</h3><p>Construye tu identidad visual única.</p><span class="category">Branding</span></article>
+  <article class="grid-item"><h3>SEO Técnico</h3><p>Optimización para motores de búsqueda avanzada.</p><span class="category">SEO</span></article>
+  <article class="grid-item"><h3>Contenido Multimedia</h3><p>Video, audio y gráficos interactivos.</p><span class="category">Media</span></article>
+  <article class="grid-item"><h3>UX Research</h3><p>Investigación de usuario y testing de usabilidad.</p><span class="category">UX</span></article>
+</div>
+<button class="load-more" aria-label="Cargar más ítems" data-load-more>Cargar más <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button>
+<script>
+  (() => {
+    const button = document.querySelector('[data-load-more]');
+    const container = document.querySelector('.grid');
+    let loaded = 8;
+    let total = 40;
+    button.addEventListener('click', () => {
+      const labels = ['Diseño Gráfico Moderno','Desarrollo Web Completo','Fotografía de Autor','Marketing Digital','Branding Personal','SEO Técnico','Contenido Multimedia','UX Research'];
+      const cats = ['Visual Design','Web Development','Photography','Digital Marketing','Branding','SEO','Media','UX'];
+      for (let i = loaded; i < Math.min(loaded + 8, total); i++) {
+        const item = document.createElement('article');
+        item.className = 'grid-item';
+        item.innerHTML = `<h3>${labels[i % labels.length]}</h3><p>Artículo ${i + 1}: Descripción detallada sobre el tema seleccionado.</p><span class="category">${cats[i % cats.length]}</span>`;
+        container.appendChild(item);
+      }
+      loaded += 8;
+      if (loaded >= total) { button.textContent = 'No hay más'; button.disabled = true; }
+    });
+  })();
+</script>
+<footer class="credit">Harley Vásquez · <a href="https://www.linkedin.com/in/harleyvasquez" target="_blank" rel="noreferrer">linkedin.com/in/harleyvasquez</a></footer>
+
+<script>
+(function(){
+  var btn = document.querySelector('[data-toggle]');
+  var grid = document.querySelector('[data-testid="grid"]');
+  if(!btn || !grid) return;
+  btn.addEventListener('click', function() {
+    var children = grid.children;
+    for(var i=0; i<children.length; i++) {
+      children[i].style.display = children[i].style.display === 'none' ? '' : 'none';
+    }
+  });
+})();
+</script>
+</body>
+</html>

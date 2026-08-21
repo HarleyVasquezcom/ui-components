@@ -1,0 +1,42 @@
+<!-- Design 08: Mono Stages / Etapas Mono -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Breadcrumbs - Design 08</title>
+<style>
+  *{box-sizing:border-box}html,body{min-height:100vh;font-family:"Courier New",monospace;background:#0f172a;color:#7dd3fc;display:grid;place-items:center;overflow-x:hidden}.bc-stage{width:min(560px,92vw);padding:34px 26px;border:1px solid #334155;border-radius:14px;background:#0b1220}
+  .breadcrumbs{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+  .bc-list{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+  .bc-home{display:inline-flex;align-items:center;gap:7px;color:#22d3ee;font-size:.82rem;cursor:pointer;padding:6px 10px;border:1px dashed #164e63;border-radius:999px;transition:color .2s,border-color .2s}
+  .bc-home:hover{color:#a5f3fc;border-color:#22d3ee}
+  .bc-home.active{border-color:#22d3ee}
+  .bc-sep{color:#475569;font-size:.7rem}
+  .bc-item{display:inline-flex;align-items:center;gap:7px;color:#64748b;font-size:.82rem;cursor:pointer;padding:6px 10px;border:1px solid #1e293b;border-radius:999px;transition:color .2s,border-color .2s,background .2s}
+  .bc-item::before{content:"·";color:#22d3ee}
+  .bc-item:hover{color:#e2e8f0}
+  .bc-item.active{color:#0f172a;background:#22d3ee;border-color:#22d3ee}
+  .hint{margin-top:18px;color:#475569;font-size:.68rem;letter-spacing:.08em;text-transform:uppercase}
+  .credit{margin-top:26px;padding:12px 0;border-top:1px solid #1e293b;color:#475569;font-size:.74rem}.credit a{color:#22d3ee;text-decoration:none}
+  :focus-visible{outline:3px solid #22d3ee;outline-offset:2px}
+  @media (max-width:360px){.bc-stage{padding:22px 14px}.bc-item{font-size:.74rem}}
+</style>
+</head>
+<body>
+<div class="bc-stage">
+  <div class="breadcrumbs">
+    <div class="bc-list" role="navigation" aria-label="Breadcrumbs" aria-label="Ruta">
+      <span class="bc-home" data-testid="bc-home" aria-label="Breadcrumb home"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="13" height="13"><path d="M3 11l9-8 9 8v9a1 1 0 0 1-1 1h-5v-7h-6v7H4a1 1 0 0 1-1-1z"/></svg>Home</span>
+      <span class="bc-sep">/</span>
+      <span class="bc-item" data-testid="bc-item">Users</span>
+      <span class="bc-sep">/</span>
+      <span class="bc-item" data-testid="bc-item" active>Admin</span>
+      <span class="bc-sep">/</span>
+      <span class="bc-item" data-testid="bc-item">Roles</span>
+    </div>
+  </div>
+  <p class="hint" data-testid="label">Stage navigation / Navegación por etapas</p>
+</div>
+<script>(()=>{const items=document.querySelectorAll('.bc-item');const home=document.querySelector('.bc-home');items.forEach((item,i)=>{item.addEventListener('click',()=>{items.forEach(x=>x.classList.remove('active'));home.classList.remove('active');item.classList.add('active');if(i===0)home.classList.add('active')})});home.addEventListener('click',()=>{items.forEach(x=>x.classList.remove('active'));home.classList.add('active')})})();</script>
+<footer class="credit">Harley Vásquez · <a href="https://www.linkedin.com/in/harleyvasquez" target="_blank" rel="noreferrer">linkedin.com/in/harleyvasquez</a></footer>
+</body>
+</html>

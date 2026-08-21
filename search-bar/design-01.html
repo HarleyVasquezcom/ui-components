@@ -1,0 +1,106 @@
+<!-- Design 01: Magic Glow / Resplandor Mágico -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Magic Glow Search — Design 01</title>
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body {
+    min-height: 100vh;
+    display: grid; place-items: center;
+    font-family: "Segoe UI", system-ui, sans-serif;
+    background: radial-gradient(1200px 600px at 70% -10%, #4c1d95 0%, #1e1b4b 45%, #0f0a1e 100%);
+    overflow-x: hidden;
+  }
+  .stage {
+    width: min(520px, 94vw);
+    padding: clamp(30px, 7vw, 48px);
+    background: rgba(30, 27, 75, .55);
+    border: 1px solid rgba(167, 139, 250, .25);
+    border-radius: 26px;
+    backdrop-filter: blur(14px);
+    box-shadow: 0 30px 80px rgba(0, 0, 0, .55);
+  }
+  h1 { margin: 0; font-size: clamp(1.6rem, 5vw, 2.1rem); color: #f5f3ff; letter-spacing: -.02em; }
+  .sub { margin: .4rem 0 2rem; color: #a78bfa; font-size: .94rem; }
+  .lbl { display: block; margin: 0 0 10px; color: #ddd6fe; font-size: .9rem; font-weight: 700; }
+  .wrap { position: relative; display: flex; align-items: center; }
+  .glass {
+    width: 100%;
+    padding: 15px 46px 15px 44px;
+    font-family: inherit; font-size: 1.02rem; color: #f5f3ff;
+    background: rgba(255, 255, 255, .07);
+    border: 1px solid rgba(196, 181, 253, .4);
+    border-radius: 18px;
+    outline: none;
+    transition: box-shadow .25s ease, border-color .25s ease;
+  }
+  .glass::placeholder { color: #8b7fd6; }
+  .glass:focus { border-color: #a78bfa; box-shadow: 0 0 0 4px rgba(167, 139, 250, .28), 0 0 34px rgba(139, 92, 246, .5); }
+  .ico { position: absolute; left: 15px; color: #a78bfa; font-size: 1.05rem; pointer-events: none; }
+  .clr {
+    position: absolute; right: 12px; width: 30px; height: 30px;
+    display: grid; place-items: center;
+    border: none; border-radius: 10px;
+    background: rgba(167, 139, 250, .2); color: #e9d5ff;
+    font-size: 1rem; cursor: pointer;
+    transition: background .15s ease;
+  }
+  .clr:hover { background: rgba(167, 139, 250, .4); }
+  .clr:focus-visible { outline: 2px solid #a78bfa; outline-offset: 2px; }
+  .rows { margin-top: 18px; padding: 0; list-style: none; display: grid; gap: 8px; }
+  .rows li {
+    padding: 11px 14px;
+    color: #eef2ff;
+    background: rgba(255, 255, 255, .05);
+    border: 1px solid rgba(167, 139, 250, .14);
+    border-radius: 12px;
+    font-size: .95rem;
+    transition: transform .15s ease, border-color .15s ease;
+  }
+  .rows li:hover { transform: translateX(4px); border-color: rgba(167, 139, 250, .5); }
+  .cnt { margin-top: 14px; color: #a78bfa; font-size: .85rem; font-weight: 600; }
+  .hint { margin-top: .4rem; color: #7c6fc0; font-size: .8rem; }
+  .credit { margin-top: 2rem; padding-top: 1rem; border-top: 1px solid rgba(167, 139, 250, .2); color: #7c6fc0; font-size: .78rem; }
+  .credit a { color: #a78bfa; text-decoration: none; }
+  [hidden] { display: none !important; }
+</style>
+</head>
+<body>
+<main class="stage">
+  <h1>Magic Glow</h1>
+  <p class="sub">Search the cosmos of cities / Busca el cosmos de ciudades</p>
+  <label class="lbl" data-testid="label" for="sb-gl-01">Search cities</label>
+  <div class="wrap">
+    <span class="ico" aria-hidden="true">⌕</span>
+    <input class="glass" data-testid="search" id="sb-gl-01" type="search" placeholder="Type to filter…" autocomplete="off">
+    <button type="button" class="clr" data-testid="clear" aria-label="Clear search">×</button>
+  </div>
+  <ul class="rows" data-testid="results"></ul>
+  <p class="cnt" data-testid="count"></p>
+  <p class="hint">Live filtering, indigo aurora / Filtrado en vivo, aurora índigo</p>
+  <footer class="credit">Harley Vásquez · <a href="https://www.linkedin.com/in/harleyvasquez" target="_blank" rel="noreferrer">linkedin.com/in/harleyvasquez</a></footer>
+</main>
+<script>
+  const DATA = ['Cairo', 'Cape Town', 'Casablanca', 'Kyoto', 'Lisbon', 'Oslo', 'Berlin', 'Recife', 'Aurora', 'Chicago'];
+  const input = document.querySelector('[data-testid="search"]');
+  const list = document.querySelector('[data-testid="results"]');
+  const count = document.querySelector('[data-testid="count"]');
+  const clear = document.querySelector('[data-testid="clear"]');
+  function render(q) {
+    const ql = q.toLowerCase();
+    const hits = ql ? DATA.filter((t) => t.toLowerCase().includes(ql)) : DATA;
+    list.textContent = '';
+    for (const t of hits) { const li = document.createElement('li'); li.textContent = t; list.appendChild(li); }
+    count.textContent = hits.length + ' results';
+    clear.hidden = !ql;
+  }
+  input.addEventListener('input', () => render(input.value));
+  clear.addEventListener('click', () => { input.value = ''; render(''); input.focus(); });
+  render('');
+</script>
+</body>
+</html>

@@ -1,0 +1,107 @@
+<!-- Design 03: List with Remove / Lista con Quitar -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>List with Remove — Design 03</title>
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body {
+    min-height: 100vh;
+    display: grid;
+    place-items: center;
+    font-family: "Segoe UI", system-ui, sans-serif;
+    background: #020617;
+    overflow-x: hidden;
+  }
+  .stage { width: min(540px, 94vw); padding: clamp(34px, 7vw, 54px); background: #0f172a; border-radius: 16px; border: 1px solid #1e293b; box-shadow: 0 30px 70px rgba(0, 0, 0, .6); }
+  h1 { margin: 0; font-size: clamp(1.6rem, 5vw, 2rem); color: #e2e8f0; font-weight: 700; }
+  .sub { margin: .4rem 0 2.2rem; color: #64748b; font-size: .95rem; }
+  .lbl { display: block; margin: 0 0 16px; color: #cbd5e1; font-size: .92rem; font-weight: 700; }
+  .dz {
+    display: grid; place-items: center; gap: 6px;
+    padding: 32px 20px;
+    text-align: center;
+    background: #1e293b; border: 1px solid #334155; border-radius: 12px;
+    cursor: pointer;
+  }
+  .dz:hover { border-color: #475569; }
+  .dz:focus-within { outline: 3px solid #94a3b8; outline-offset: 3px; }
+  .dz p { margin: 0; color: #e2e8f0; font-weight: 600; }
+  .dz small { color: #64748b; }
+  .list { margin-top: 18px; display: grid; gap: 10px; list-style: none; padding: 0; }
+  .li { display: flex; align-items: center; gap: 12px; padding: 12px 14px; background: #1e293b; border-radius: 10px; border-left: 3px solid #38bdf8; }
+  .li .nm { flex: 1; color: #e2e8f0; font-weight: 600; font-size: .93rem; }
+  .li .sz { color: #64748b; font-size: .8rem; }
+  .rm {
+    border: none; background: #ef4444; color: #fff;
+    padding: 8px 12px; border-radius: 8px; font-size: .8rem; font-weight: 700; cursor: pointer;
+  }
+  .rm:hover { background: #dc2626; }
+  .rm:focus-visible { outline: 3px solid #f87171; outline-offset: 2px; }
+  .empty { margin-top: 18px; text-align: center; color: #475569; font-size: .85rem; }
+  .hint { margin-top: 2rem; color: #334155; font-size: .82rem; }
+  .credit { margin-top: 1.6rem; padding-top: 1rem; border-top: 1px solid #1e293b; color: #334155; font-size: .78rem; }
+  .credit a { color: #38bdf8; text-decoration: none; }
+</style>
+</head>
+<body>
+<main class="stage">
+  <h1>List with Remove</h1>
+  <p class="sub">Slate list, red delete / Lista pizarra, borrar en rojo</p>
+  <label class="lbl" data-testid="label" id="lbl-fu03">Files</label>
+  <div class="dz" data-testid="dropzone" aria-label="File uploader">
+    <p>＋ Add files</p>
+    <small>Click to browse and attach</small>
+    <input data-testid="file-input" type="file" multiple aria-label="Upload file" aria-describedby="lbl-fu03" hidden>
+  </div>
+  <p class="empty" data-testid="empty">
+<div data-testid="file-name" style="display:none"></div>The list is empty · La lista está vacía</p>
+  <ul class="list" data-testid="list" hidden></ul>
+  <p class="hint">Every row removable / Cada fila removible</p>
+  <footer class="credit">Harley Vásquez · <a href="https://www.linkedin.com/in/harleyvasquez" target="_blank" rel="noreferrer">linkedin.com/in/harleyvasquez</a></footer>
+</main>
+<script>
+  const input = document.querySelector('[data-testid="file-input"]');
+  const list = document.querySelector('[data-testid="list"]');
+  const empty = document.querySelector('[data-testid="empty"]');
+  const dz = document.querySelector('[data-testid="dropzone"]');
+  dz.addEventListener('click', () => input.click());
+  function fmt(n) {
+    if (n >= 1024 * 1024) return (n / (1024 * 1024)).toFixed(1) + ' MB';
+    if (n >= 1024) return (n / 1024).toFixed(1) + ' KB';
+    return n + ' B';
+  }
+  input.addEventListener('change', () => {
+    list.textContent = '';
+    for (const f of input.files) {
+      const li = document.createElement('li');
+      li.className = 'li';
+      const nm = document.createElement('span');
+      nm.className = 'nm';
+      nm.textContent = f.name;
+      const sz = document.createElement('span');
+      sz.className = 'sz';
+      sz.textContent = fmt(f.size);
+      const rm = document.createElement('button');
+      rm.type = 'button';
+      rm.className = 'rm';
+      rm.dataset.testid = 'remove';
+      rm.textContent = 'Remove';
+      rm.addEventListener('click', () => {
+        li.remove();
+        input.value = '';
+        list.hidden = list.children.length === 0;
+        empty.hidden = list.children.length > 0;
+      });
+      li.append(nm, sz, rm);
+      list.appendChild(li);
+    }
+    list.hidden = list.children.length === 0;
+    empty.hidden = list.children.length > 0;
+  });
+</script>
+</body>
+</html>

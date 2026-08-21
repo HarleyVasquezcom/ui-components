@@ -1,0 +1,130 @@
+<!-- Design 05: Traffic Light / Semáforo -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Traffic Light Switch — Design 05</title>
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body {
+    min-height: 100vh;
+    display: grid;
+    place-items: center;
+    font-family: "Segoe UI", system-ui, sans-serif;
+    background: linear-gradient(180deg, #3a3f4d, #23262f);
+    overflow-x: hidden;
+  }
+  .pole {
+    position: fixed; left: 50%; top: 0; bottom: 0; width: 8px; margin-left: -4px;
+    background: linear-gradient(90deg, #2b2f38, #3d424d 50%, #262a32);
+    z-index: 0;
+  }
+  .stage {
+    position: relative; z-index: 1;
+    width: min(560px, 94vw);
+    padding: clamp(28px, 6vw, 60px);
+    background: #2f333d;
+    border-radius: 22px;
+    box-shadow: 0 30px 80px rgba(0,0,0,.6);
+    text-align: center;
+  }
+  h1 { margin: 0; font-size: clamp(1.5rem, 4vw, 2.1rem); color: #eef1f7; font-weight: 700; letter-spacing: .04em; }
+  .sub { margin: .4rem 0 2.4rem; color: #8b93a3; font-size: .92rem; }
+  .box {
+    position: relative;
+    width: min(150px, 50vw);
+    margin: 0 auto 26px;
+    padding: 18px 16px;
+    background: #1b1d24;
+    border-radius: 20px;
+    box-shadow: inset 0 4px 12px rgba(0,0,0,.6), 0 10px 24px rgba(0,0,0,.4);
+  }
+  .lamp {
+    width: 78px; height: 78px;
+    margin: 0 auto 14px;
+    border-radius: 50%;
+    display: grid; place-items: center;
+    background: #15161c;
+    box-shadow: inset 0 6px 14px rgba(0,0,0,.8);
+    transition: background .3s ease, box-shadow .3s ease;
+  }
+  .lamp:last-child { margin-bottom: 0; }
+  .lamp.red { background: radial-gradient(circle at 35% 30%, #ff9b9b, #e11d2e 60%, #7a0d17); box-shadow: 0 0 34px rgba(225,29,46,.8), inset 0 3px 8px rgba(255,255,255,.35); }
+  .lamp.green { background: radial-gradient(circle at 35% 30%, #b6ffc9, #22c55e 60%, #0e5c2c); box-shadow: 0 0 34px rgba(34,197,94,.8), inset 0 3px 8px rgba(255,255,255,.35); }
+  .lamp .glyph { width: 30px; height: 30px; opacity: 0; transition: opacity .2s ease; }
+  .lamp .glyph svg { width: 100%; height: 100%; }
+  .lamp.red .glyph, .lamp.green .glyph { opacity: 1; }
+  .sw {
+    position: relative;
+    width: 120px; height: 44px;
+    background: #23262e;
+    border: 2px solid #3d424d;
+    border-radius: 10px;
+    cursor: pointer;
+    padding: 0;
+  }
+  .lever {
+    position: absolute; top: 3px; bottom: 3px; left: 3px;
+    width: 44px;
+    background: linear-gradient(180deg, #f7f8fb, #c9cdd6);
+    border-radius: 7px;
+    box-shadow: 0 3px 8px rgba(0,0,0,.4);
+    transition: transform .3s cubic-bezier(.6,0,.3,1);
+    display: grid; place-items: center;
+    font-size: .8rem; font-weight: 800; color: #565c68;
+  }
+  .sw.on .lever { transform: translateX(64px); }
+  .sw:focus-visible { outline: 3px solid #22c55e; outline-offset: 4px; }
+  .caption { margin-top: 18px; font-size: .95rem; color: #8b93a3; }
+  .caption b { color: #e11d2e; }
+  .caption.go b { color: #22c55e; }
+  .hint { margin-top: 1.3rem; color: #6b7382; font-size: .8rem; }
+  .credit { margin-top: 2.2rem; padding-top: 1rem; border-top: 1px solid #3d424d; color: #6b7382; font-size: .78rem; }
+  .credit a { color: #9fc3ff; text-decoration: none; }
+  .credit a:hover { text-decoration: underline; }
+input[type="checkbox"]:focus-visible, input[type="radio"]:focus-visible, [data-testid="toggle"]:focus-visible { outline: 2px solid #2563eb; outline-offset: 2px; } </style>
+</head>
+<body>
+<div class="pole" aria-hidden="true"></div>
+<main class="stage">
+  <h1>Traffic Light</h1>
+  <p class="sub">Stop and go, the analog way / Alto y siga, a la antigua</p>
+  <div class="box" aria-hidden="true">
+    <div class="lamp red" id="lampRed">
+      <span class="glyph"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18" stroke="#fff" stroke-width="3" stroke-linecap="round" fill="none"/></svg></span>
+    </div>
+    <div class="lamp" id="lampGreen">
+      <span class="glyph"><svg viewBox="0 0 24 24"><path d="M6 12.5l4.5 4.5L18 7.5" stroke="#06230f" stroke-width="3" stroke-linecap="round" fill="none"/></svg></span>
+    </div>
+  </div>
+  <button type="button" class="sw" data-testid="switch" role="switch" aria-checked="false" aria-label="Toggle traffic light">
+    <span class="lever" aria-hidden="true">GO</span>
+  </button>
+  <p class="caption" id="caption">Status: <b>STOP</b></p>
+  <p class="hint">Pull the lever to go — / Tira la palanca para avanzar</p>
+  <footer class="credit">Harley Vásquez · <a href="https://www.linkedin.com/in/harleyvasquez" target="_blank" rel="noreferrer">linkedin.com/in/harleyvasquez</a></footer>
+</main>
+<script>
+  const sw = document.querySelector('[data-testid="switch"]');
+  const lampRed = document.getElementById('lampRed');
+  const lampGreen = document.getElementById('lampGreen');
+  const caption = document.getElementById('caption');
+  function render() {
+    const on = sw.getAttribute('aria-checked') === 'true';
+    sw.classList.toggle('on', on);
+    lampRed.classList.toggle('red', !on);
+    lampGreen.classList.toggle('green', on);
+    caption.classList.toggle('go', on);
+    caption.innerHTML = on ? 'Status: <b>GO</b>' : 'Status: <b>STOP</b>';
+  }
+  sw.addEventListener('click', () => {
+    const on = sw.getAttribute('aria-checked') === 'true';
+    sw.setAttribute('aria-checked', String(!on));
+    render();
+  });
+  render();
+</script>
+</body>
+</html>

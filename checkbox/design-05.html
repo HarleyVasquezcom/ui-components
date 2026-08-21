@@ -1,0 +1,100 @@
+<!-- Design 05: Terminal [x] / Terminal con Corchetes -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Terminal [x] Checkbox — Design 05</title>
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body {
+    min-height: 100vh;
+    display: grid;
+    place-items: center;
+    font-family: "Cascadia Mono", "Consolas", "Courier New", monospace;
+    background: #0c0e0d;
+    color: #7dff9e;
+    overflow-x: hidden;
+  }
+  .stage {
+    width: min(640px, 94vw);
+    padding: clamp(24px, 6vw, 56px);
+    background: #111511;
+    border: 1px solid #23402c;
+    box-shadow: 0 0 50px rgba(61,255,130,.06);
+    overflow: hidden;
+  }
+  .termbar {
+    display: flex; justify-content: space-between;
+    padding: 8px 12px; margin: -24px -56px 0 0;
+    background: #0a0d0b; border-bottom: 1px solid #23402c;
+    font-size: .75rem; color: #5f9c73;
+  }
+  .termbar b { color: #7dff9e; }
+  h1 { margin: 1.4rem 0 .2rem; font-size: clamp(1.2rem, 3.5vw, 1.7rem); color: #7dff9e; letter-spacing: .1em; text-transform: uppercase; }
+  .sub { margin: 0 0 1.8rem; font-size: .8rem; color: #679b78; }
+  .row {
+    display: flex; align-items: center; gap: 12px;
+    padding: 10px 12px;
+    border: 1px solid #1c2e22;
+    margin-bottom: 12px;
+    cursor: pointer;
+    user-select: none;
+    transition: border-color .15s ease, background .15s ease;
+  }
+  .row:hover { border-color: #2f5540; background: #141a15; }
+  .row input { position: absolute; opacity: 0; width: 1px; height: 1px; }
+  .mark {
+    flex: 0 0 auto;
+    width: 2.2em;
+    color: #8a8f8b;
+    letter-spacing: .05em;
+  }
+  .row.checked .mark { color: #7dff9e; text-shadow: 0 0 8px rgba(125,255,158,.8); }
+  .row input:focus-visible ~ .mark { outline: 1px solid #7dff9e; outline-offset: 4px; }
+  .row .txt { color: #bfd6c6; font-size: .9rem; }
+  .row .txt::before { content: "> "; color: #5f9c73; }
+  .row.disabled { opacity: .45; cursor: not-allowed; }
+  .hint { margin-top: 1.4rem; font-size: .78rem; color: #4c7a5d; }
+  .hint .prompt { color: #7dff9e; }
+  .credit { margin-top: 2rem; padding-top: .8rem; border-top: 1px dashed #1c2e22; font-size: .75rem; color: #4c7a5d; }
+  .credit a { color: #7dff9e; text-decoration: none; }
+  .blink { animation: blink 1.1s step-end infinite; }
+  @keyframes blink { 50% { opacity: 0; } }
+input[type="checkbox"]:focus-visible, input[type="radio"]:focus-visible, [data-testid="toggle"]:focus-visible { outline: 2px solid #2563eb; outline-offset: 2px; } </style>
+</head>
+<body>
+<main class="stage">
+  <div class="termbar"><span><b>▲</b> flags.conf</span><span>:wq</span></div>
+  <h1>Terminal [x]</h1>
+  <p class="sub">Flags as old-school ascii / Flags en ascii clásico</p>
+  <label class="row" data-testid="cb" for="cb-tx-a">
+    <input type="checkbox" id="cb-tx-a">
+    <span class="mark" data-testid="visual" aria-hidden="true">[&nbsp;]</span>
+    <span class="txt">verbose</span>
+  </label>
+  <label class="row" data-testid="cb" for="cb-tx-b">
+    <input type="checkbox" id="cb-tx-b">
+    <span class="mark" aria-hidden="true">[&nbsp;]</span>
+    <span class="txt">no-cache</span>
+  </label>
+  <label class="row disabled" data-testid="cb-disabled" for="cb-tx-c">
+    <input type="checkbox" id="cb-tx-c" disabled>
+    <span class="mark" aria-hidden="true">[&nbsp;]</span>
+    <span class="txt">force</span>
+  </label>
+  <p class="hint"><span class="prompt">$</span> click to toggle flags <span class="blink">▊</span></p>
+  <footer class="credit">Harley Vásquez · <a href="https://www.linkedin.com/in/harleyvasquez" target="_blank" rel="noreferrer">linkedin.com/in/harleyvasquez</a></footer>
+</main>
+<script>
+  document.querySelectorAll('.row input').forEach((input) => {
+    input.addEventListener('change', () => {
+      const row = input.closest('.row');
+      row.classList.toggle('checked', input.checked);
+      row.querySelector('.mark').innerHTML = input.checked ? '[x]' : '[&nbsp;]';
+    });
+  });
+</script>
+</body>
+</html>

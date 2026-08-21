@@ -1,0 +1,64 @@
+<!-- Design 09: Table Underlined / Underlined Table -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Table — Design 09</title>
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body {
+    min-height: 100vh;
+    font-family: "Segoe UI", system-ui, sans-serif;
+    background: #f8fafc;
+    color: #0f172a;
+    overflow-x: hidden;
+  }
+  table { width: min(90vw, 100%); border-collapse: collapse; margin: 24px auto; }
+  th, td { padding: 12px 8px; border: 1px solid #e2e8f0; border-bottom: 4px solid #e2e8f0; }
+  th { background: #fff; color: #1e293b; font-weight: 600; font-size: .875rem; text-align: left; }
+  td { color: #64748b; font-size: .875rem; border: none; }
+  tr:hover td { border-color: #3b82f6; }
+  .ellipsis { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 300px; }
+  .pagination { display: flex; justify-content: center; gap: 8px; margin: 32px 0; }
+  .page-btn { padding: 6px 12px; background: #1e293b; color: #fff; border: none; border-radius: 6px; font-size: .75rem; cursor: pointer; }
+  .page-btn.active { background: #3b82f6; }
+  .page-btn:focus-visible { outline: 2px solid #64748b; outline-offset: 2px; }
+  .credit { margin-top: 32px; padding: 16px 0; border-top: 1px solid #e2e8f0; color: #64748b; font-size: .875rem; text-align: center; }
+  .credit a { color: #2563eb; text-decoration: none; }
+  @media (max-width: 480px) { th, td { padding: 8px; font-size: .75rem; } }
+</style>
+</head>
+<body>
+<table data-testid="table" aria-label="Sample data table">
+  <thead>
+    <tr><th>ID</th><th>Nombre</th><th>Categoría</th><th>Precio</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>001</td><td>Diseño Gráfico Moderno</td><td>Visual</td><td>$49</td></tr>
+    <tr><td>002</td><td>Desarrollo Web Completo</td><td>Web</td><td>$79</td></tr>
+    <tr><td>003</td><td>Fotografía de Autor</td><td>Photo</td><td>$29</td></tr>
+    <tr><td>004</td><td>Marketing Digital</td><td>Marketing</td><td>$199</td></tr>
+    <tr><td>005</td><td>Branding Personal</td><td>Brand</td><td>$99</td></tr>
+  </tbody>
+</table>
+<div class="pagination">
+  <button class="page-btn" data-page="1">1</button>
+  <button class="page-btn active" data-page="2">2</button>
+  <button class="page-btn" data-page="3">3</button>
+</div>
+<script>
+  (() => {
+    const buttons = document.querySelectorAll('.page-btn');
+    buttons.forEach(l => {
+      l.addEventListener('click', (e) => {
+        buttons.forEach(b => b.classList.remove('active'));
+        e.target.classList.add('active');
+      });
+    });
+  })();
+</script>
+<footer class="credit">Harley Vásquez · <a href="https://www.linkedin.com/in/harleyvasquez" target="_blank" rel="noreferrer">linkedin.com/in/harleyvasquez</a></footer>
+</body>
+</html>

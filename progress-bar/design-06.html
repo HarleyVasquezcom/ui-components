@@ -1,0 +1,35 @@
+<!-- Design 06: Elastic Bar / Barra Elástica -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Progress Bar - Design 06</title>
+<style>
+  *{box-sizing:border-box}html,body{min-height:100vh;font-family:"Segoe UI",system-ui,sans-serif;background:#f8fafc;color:#0f172a;display:grid;place-items:center;overflow-x:hidden}body{width:100%}.progress-stage{width:min(480px,90vw);padding:34px 26px;background:#fff;border-radius:18px;box-shadow:0 10px 30px rgba(2,6,23,.08);text-align:center}
+  .progress-wrapper{display:flex;flex-direction:column;gap:14px;cursor:pointer}
+  .progress-bar{height:26px;border-radius:999px;background:#e2e8f0;overflow:hidden;position:relative}
+  .progress-fill{height:100%;width:0%;border-radius:999px;background:linear-gradient(90deg,#6366f1,#a855f7);transition:width .5s cubic-bezier(.34,1.56,.64,1)}
+  .progress-fill.done{background:linear-gradient(90deg,#10b981,#84cc16)}
+  .progress-text{position:absolute;inset:0;display:grid;place-items:center;color:#fff;font-size:.78rem;font-weight:700;letter-spacing:.04em}
+  .progress-label{font-size:.9rem;font-weight:600;color:#334155}
+  .progress-btn{margin-top:6px;border:1px solid #c7d2fe;background:#eef2ff;color:#4338ca;border-radius:10px;padding:8px 14px;font-size:.8rem;font-weight:600;cursor:pointer;transition:background .2s,color .2s}
+  .progress-btn:hover{background:#4338ca;color:#fff}
+  .credit{margin-top:28px;padding:14px 0;border-top:1px solid #e2e8f0;color:#64748b;font-size:.78rem}.credit a{color:#2563eb;text-decoration:none}
+  :focus-visible{outline:3px solid #6366f1;outline-offset:2px}
+  @media (max-width:360px){.progress-stage{padding:24px 14px}}
+</style>
+</head>
+<body>
+<div class="progress-stage">
+  <div class="progress-wrapper" data-testid="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-label="Progress bar">
+    <div class="progress-bar">
+      <div class="progress-fill"></div>
+      <div class="progress-text">0%</div>
+    </div>
+    <button class="progress-btn" type="button">Fill / Llenar</button>
+  </div>
+  <div class="progress-label" data-testid="label">Downloading updates</div>
+</div>
+<script>(()=>{const bar=document.querySelector('[data-testid="progress-bar"]'),fill=document.querySelector('.progress-fill'),txt=document.querySelector('.progress-text'),btn=document.querySelector('.progress-btn');const set=v=>{fill.style.width=v+'%';txt.textContent=v+'%';bar.setAttribute('aria-valuenow',v)};if(btn){btn.addEventListener('click',()=>{set(bar.getAttribute('aria-valuenow')==='100'?0:100)})}})();</script>
+<footer class="credit">Harley Vásquez · <a href="https://www.linkedin.com/in/harleyvasquez" target="_blank" rel="noreferrer">linkedin.com/in/harleyvasquez</a></footer>
+</body>
+</html>

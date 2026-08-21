@@ -1,0 +1,91 @@
+<!-- Design 02: Paginación con Bordes Suaves / Pagination with Border Radius -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pagination — Design 02</title>
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body {
+    min-height: 100vh;
+    font-family: "Segoe UI", system-ui, sans-serif;
+    background: #e2e8f0;
+    display: grid; place-items: center;
+    overflow-x: hidden;
+  }
+  .pagination-wrapper {
+    width: min(400px, 80vw);
+    text-align: center;
+  }
+  .page-link {
+    display: inline-block;
+    margin: 2px;
+    padding: 6px 12px;
+    background: #fff;
+    border: 1px solid #94a3b8;
+    border-radius: 20px;
+    color: #334155;
+    font-size: .75rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all .2s;
+  }
+  .page-link:hover { background: #f1f5f9; border-color: #64748b; }
+  .page-link.active { background: #3b82f6; color: #fff; border-color: #3b82f6; box-shadow: 0 2px 4px rgba(59,130,246,.3); }
+  .page-link.disabled { color: #9ca3af; pointer-events: none; }
+  .page-numbers { margin: 16px 0; display: flex; gap: 6px; justify-content: center; flex-wrap: wrap; }
+  .page-item { flex: 0 0 auto; min-width: 30px; }
+  .ellipsis { color: #64748b; }
+  .page-info { margin: 24px 0; color: #64748b; font-size: .75rem; }
+  .btn { margin-top: 24px; padding: 8px 20px; background: #3b82f6; color: #fff; border: none; border-radius: 20px; font-family: inherit; font-size: .75rem; font-weight: 600; cursor: pointer; }
+  .btn:hover { background: #2563e6; }
+  .btn:focus-visible { outline: 2px solid #64748b; outline-offset: 2px; }
+  .credit { margin-top: 32px; padding: 16px 0; border-top: 1px solid #e2e8f0; color: #64748b; font-size: .75rem; }
+  .credit a { color: #3b82f6; text-decoration: none; }
+  @media (max-width: 480px) { .pagination-wrapper { width: 95vw; } }
+</style>
+</head>
+<body>
+<div class="pagination-wrapper" data-testid="pagination" aria-label="Pagination">
+  <nav aria-label="Paginación" role="navigation" data-pagination>
+    <div class="page-numbers">
+      <span class="page-item active"><a class="page-link" href="#">1</a></span>
+      <span class="page-item"><a class="page-link" href="#">2</a></span>
+      <span class="page-item"><a class="page-link" href="#">3</a></span>
+      <span class="page-item ellipsis">…</span>
+      <span class="page-item"><a class="page-link" href="#">15</a></span>
+    </div>
+    <div class="page-info">Mostrando 1-10 de 104 resultados</div>
+    <button class="btn" aria-label="Siguiente página" data-next>Siguiente <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="9" y1="9" x2="15" y2="15"/><line x1="15" y1="9" x2="9" y2="15"/></svg></button>
+  </nav>
+</div>
+<script>
+  (() => {
+    const links = document.querySelectorAll('.page-link:not(.disabled)');
+    const info = document.querySelector('.page-info');
+    let current = 1;
+    function update() {
+      info.textContent = `Mostrando ${Math.min((current)*10, 104)}-${Math.min((current)*10+9, 104)} de 104 resultados`;
+      links.forEach((l, i) => {
+        l.classList.toggle('active', i === current - 1);
+        l.setAttribute('aria-current', i === current - 1 ? 'page' : null);
+      });
+    }
+    document.querySelector('[data-next]').addEventListener('click', () => {
+      if (current < 104) { current++; update(); }
+    });
+    links.forEach((l, i) => {
+      l.addEventListener('click', (e) => {
+        e.preventDefault();
+        current = i + 1;
+        update();
+      });
+    });
+    update();
+  })();
+</script>
+<footer class="credit">Harley Vásquez · <a href="https://www.linkedin.com/in/harleyvasquez" target="_blank" rel="noreferrer">linkedin.com/in/harleyvasquez</a></footer>
+</body>
+</html>

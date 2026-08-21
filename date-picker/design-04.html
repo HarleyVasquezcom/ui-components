@@ -1,0 +1,193 @@
+<!-- Design 04: Dual Month / Mes Doble -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dual Month Date Picker — Design 04</title>
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body {
+    min-height: 100vh;
+    display: grid;
+    place-items: center;
+    font-family: "Segoe UI", system-ui, sans-serif;
+    background: #f8fafc;
+    overflow-x: hidden;
+  }
+  .stage {
+    width: min(560px, 94vw);
+    padding: clamp(32px, 8vw, 60px);
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 24px 60px rgba(15, 23, 42, .08);
+  }
+  h1 { margin: 0; font-size: clamp(1.6rem, 5vw, 2.2rem); color: #0f172a; font-weight: 800; letter-spacing: -.02em; }
+  .sub { margin: .4rem 0 2.4rem; color: #94a3b8; font-size: .95rem; }
+  .lbl { display: block; margin: 0 0 10px; color: #334155; font-size: .92rem; font-weight: 700; }
+  .wrap { position: relative; }
+  .trg {
+    width: 100%;
+    display: flex; align-items: center; justify-content: space-between; gap: 10px;
+    padding: 14px 18px;
+    font-family: inherit; font-size: 1.05rem; font-weight: 700; color: #0f172a;
+    background: linear-gradient(90deg, #0ea5e9, #8b5cf6);
+    background-clip: padding-box;
+    color: #fff;
+    border: none;
+    border-radius: 14px;
+    cursor: pointer;
+    box-shadow: 0 10px 24px rgba(139, 92, 246, .28);
+    transition: transform .15s ease, box-shadow .15s ease;
+  }
+  .trg:hover { transform: translateY(-1px); box-shadow: 0 14px 30px rgba(139, 92, 246, .36); }
+  .trg[aria-expanded="true"] { transform: translateY(-1px); }
+  .trg:focus-visible { outline: 3px solid #8b5cf6; outline-offset: 3px; }
+  .trg .arr { font-size: .95rem; transition: transform .2s ease; }
+  .trg[aria-expanded="true"] .arr { transform: rotate(180deg); }
+  .cal {
+    position: absolute; left: 0; right: 0; top: calc(100% + 10px);
+    background: #fff;
+    border: 1px solid #e2e8f0;
+    border-radius: 16px;
+    box-shadow: 0 22px 50px rgba(15, 23, 42, .16);
+    padding: 16px;
+    z-index: 5;
+  }
+  [hidden] { display: none !important; }
+  .cal-head { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 14px; }
+  .cal-head b { font-size: .95rem; color: #0f172a; }
+  .cal-head button {
+    width: 32px; height: 32px;
+    font-size: 1.05rem; color: #475569;
+    background: #f1f5f9;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background .12s ease, color .12s ease;
+  }
+  .cal-head button:hover { background: #ede9fe; color: #7c3aed; }
+  .cal-head button:focus-visible { outline: 2px solid #8b5cf6; outline-offset: 1px; }
+  .duo { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+  @media (max-width: 560px) { .duo { grid-template-columns: 1fr; gap: 20px; } }
+  .panel b { display: block; text-align: center; font-size: .82rem; font-weight: 800; color: #64748b; letter-spacing: .04em; margin-bottom: 8px; }
+  .wds { display: grid; grid-template-columns: repeat(7, 1fr); gap: 2px; margin-bottom: 4px; }
+  .wds span { text-align: center; font-size: .62rem; font-weight: 800; letter-spacing: .05em; text-transform: uppercase; color: #94a3b8; padding: 3px 0; }
+  .grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 2px; }
+  .grid .ghost { padding: 7px 0; }
+  .day {
+    padding: 7px 0;
+    font-family: inherit; font-size: .82rem; font-weight: 600; color: #334155;
+    background: transparent;
+    border: 1px solid transparent;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background .1s ease, color .1s ease;
+  }
+  .day:hover { background: #f1f5f9; color: #0f172a; }
+  .day.is-today { border-color: #a5b4fc; color: #6d28d9; }
+  .day.selected { background: #8b5cf6; color: #fff; border-color: #8b5cf6; }
+  .day:focus-visible { outline: 2px solid #8b5cf6; outline-offset: 1px; }
+  .selout { display: flex; align-items: center; justify-content: space-between; gap: 14px; margin-top: 26px; flex-wrap: wrap; }
+  .selout span { color: #94a3b8; font-size: .88rem; }
+  .selout b { color: #0f172a; font-weight: 800; }
+  .hint { margin-top: 2.2rem; color: #cbd5e1; font-size: .82rem; }
+  .credit { margin-top: 2.2rem; padding-top: 1.2rem; border-top: 1px solid #e2e8f0; color: #94a3b8; font-size: .78rem; }
+  .credit a { color: #8b5cf6; text-decoration: none; }
+  .credit a:hover { text-decoration: underline; }
+</style>
+</head>
+<body>
+<main class="stage">
+  <h1>Dual Month</h1>
+  <p class="sub">Two months at once / Dos meses a la vez</p>
+  <label class="lbl" data-testid="label" id="lbl-dp04">Date</label>
+  <div class="wrap">
+    <button type="button" class="trg" data-testid="trigger" aria-haspopup="dialog" aria-expanded="false" aria-controls="cal04" aria-labelledby="lbl-dp04">
+      <span data-testid="cur">17</span>
+      <span class="arr" aria-hidden="true">▾</span>
+    </button>
+    <div class="cal" id="cal04" data-testid="cal" role="dialog" aria-label="Pick a date" hidden>
+      <div class="cal-head">
+        <button type="button" data-testid="prev-m" aria-label="Previous month">‹</button>
+        <b data-testid="month-label">August 2026</b>
+        <button type="button" data-testid="next-m" aria-label="Next month">›</button>
+      </div>
+      <div class="duo">
+        <div>
+          <b data-testid="month-a">August</b>
+          <div class="wds" aria-hidden="true">
+            <span>Su</span><span>Mo</span><span>Tu</span><span>We</span><span>Th</span><span>Fr</span><span>Sa</span>
+          </div>
+          <div class="grid" data-testid="grid-a"></div>
+        </div>
+        <div>
+          <b data-testid="month-b">September</b>
+          <div class="wds" aria-hidden="true">
+            <span>Su</span><span>Mo</span><span>Tu</span><span>We</span><span>Th</span><span>Fr</span><span>Sa</span>
+          </div>
+          <div class="grid" data-testid="grid-b"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <p class="selout"><span>selected:</span> <b data-testid="date-out" aria-live="polite">Aug 17, 2026</b></p>
+  <p class="hint">Plan across the boundary / Planifica cruzando el límite</p>
+  <footer class="credit">Harley Vásquez · <a href="https://www.linkedin.com/in/harleyvasquez" target="_blank" rel="noreferrer">linkedin.com/in/harleyvasquez</a></footer>
+</main>
+<script>
+  const today = new Date();
+  const trigger = document.querySelector('[data-testid="trigger"]');
+  const cal = document.querySelector('[data-testid="cal"]');
+  const cur = document.querySelector('[data-testid="cur"]');
+  const monthLabel = document.querySelector('[data-testid="month-label"]');
+  const monthA = document.querySelector('[data-testid="month-a"]');
+  const monthB = document.querySelector('[data-testid="month-b"]');
+  const gridA = document.querySelector('[data-testid="grid-a"]');
+  const gridB = document.querySelector('[data-testid="grid-b"]');
+  const dateOut = document.querySelector('[data-testid="date-out"]');
+  const nextM = document.querySelector('[data-testid="next-m"]');
+  const prevM = document.querySelector('[data-testid="prev-m"]');
+  let view = new Date(today.getFullYear(), today.getMonth(), 1);
+  let sel = today;
+  const p = (n) => String(n).padStart(2, '0');
+  const iso = (d) => `${d.getFullYear()}-${p(d.getMonth() + 1)}-${p(d.getDate())}`;
+  const fmt = (d) => d.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
+  const ym = (d) => d.toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
+  cur.textContent = String(today.getDate());
+  dateOut.textContent = fmt(today);
+  function open() { cal.hidden = false; trigger.setAttribute('aria-expanded', 'true'); render(); }
+  function close() { cal.hidden = true; trigger.setAttribute('aria-expanded', 'false'); }
+  function paintGrid(grid, month) {
+    grid.innerHTML = '';
+    const startPad = new Date(month.getFullYear(), month.getMonth(), 1).getDay();
+    const dim = new Date(month.getFullYear(), month.getMonth() + 1, 0).getDate();
+    for (let i = 0; i < startPad; i++) {
+      const g = document.createElement('span'); g.className = 'ghost'; grid.appendChild(g);
+    }
+    for (let d = 1; d <= dim; d++) {
+      const day = new Date(month.getFullYear(), month.getMonth(), d);
+      const b = document.createElement('button');
+      b.type = 'button'; b.className = 'day'; b.dataset.date = iso(day); b.textContent = String(d);
+      b.setAttribute('aria-label', fmt(day));
+      if (iso(day) === iso(today)) b.classList.add('is-today');
+      if (iso(day) === iso(sel)) b.classList.add('selected');
+      b.addEventListener('click', () => { sel = day; dateOut.textContent = fmt(day); close(); render(); });
+      grid.appendChild(b);
+    }
+  }
+  function render() {
+    const second = new Date(view.getFullYear(), view.getMonth() + 1, 1);
+    monthLabel.textContent = ym(view);
+    monthA.textContent = ym(view).split(' ')[0];
+    monthB.textContent = ym(second).split(' ')[0];
+    paintGrid(gridA, view);
+    paintGrid(gridB, second);
+  }
+  trigger.addEventListener('click', () => (cal.hidden ? open() : close()));
+  nextM.addEventListener('click', () => { view = new Date(view.getFullYear(), view.getMonth() + 1, 1); render(); });
+  prevM.addEventListener('click', () => { view = new Date(view.getFullYear(), view.getMonth() - 1, 1); render(); });
+</script>
+</body>
+</html>

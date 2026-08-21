@@ -1,0 +1,113 @@
+<!-- Design 10: Magnetic Hover / Imán al Hover -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Magnetic Hover Switch — Design 10</title>
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body {
+    min-height: 100vh;
+    display: grid;
+    place-items: center;
+    font-family: "Segoe UI", system-ui, sans-serif;
+    background: linear-gradient(160deg, #0f172a, #1e1b4b);
+    overflow-x: hidden;
+  }
+  .gloworb { position: fixed; width: 380px; height: 380px; border-radius: 50%; filter: blur(90px); opacity: .35; pointer-events: none;
+    background: radial-gradient(circle, #f472b6, #8b5cf6 60%, transparent 75%);
+    top: 10%; left: 55%;
+  }
+  .stage {
+    position: relative;
+    width: min(580px, 94vw);
+    padding: clamp(28px, 6vw, 60px);
+    background: rgba(23,25,55,.7);
+    border: 1px solid rgba(148,163,255,.25);
+    border-radius: 26px;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    text-align: center;
+  }
+  h1 { margin: 0; font-size: clamp(1.5rem, 4vw, 2.1rem); color: #eeecff; font-weight: 600; letter-spacing: .03em; }
+  .sub { margin: .4rem 0 2.8rem; color: #8d92c9; font-size: .92rem; }
+  .sw {
+    position: relative;
+    width: 140px; height: 64px;
+    background: rgba(255,255,255,.06);
+    border: 1px solid rgba(148,163,255,.3);
+    border-radius: 999px;
+    cursor: pointer;
+    padding: 0;
+    transition: border-color .25s ease, background .25s ease;
+  }
+  .sw:hover, .sw:focus-visible { border-color: rgba(244,114,182,.7); }
+  .sw .knob {
+    position: absolute; top: 6px; left: 6px;
+    width: 50px; height: 50px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 30%, #c4b5fd, #7c3aed 70%);
+    box-shadow: 0 8px 22px rgba(124,58,237,.5);
+    display: grid; place-items: center;
+    font-size: 1.2rem;
+    transition: left .4s cubic-bezier(.34,1.2,.4,1), transform .15s ease, background .3s ease;
+    will-change: left;
+  }
+  .sw .knob .ico { filter: saturate(0) brightness(1.2); transition: filter .3s ease; }
+  .sw.on { background: rgba(124,58,237,.2); border-color: rgba(167,139,250,.6); }
+  .sw.on .knob { left: calc(100% - 56px); background: radial-gradient(circle at 35% 30%, #f8b4d8, #ec4899 70%); box-shadow: 0 8px 22px rgba(236,72,153,.55); }
+  .sw.on .knob .ico { filter: none; }
+  .sw:focus-visible { outline: 3px solid #ec4899; outline-offset: 5px; }
+  .trackline { position: absolute; left: 14px; right: 14px; top: 50%; height: 2px; background: rgba(148,163,255,.25); border-radius: 2px; }
+  .readout { margin-top: 24px; font-size: .95rem; color: #8d92c9; }
+  .readout b { color: #f472b6; }
+  .hint { margin-top: 1.3rem; color: #5d628f; font-size: .8rem; }
+  .hint .mag { color: #a78bfa; }
+  .credit { margin-top: 2.2rem; padding-top: 1rem; border-top: 1px solid rgba(148,163,255,.15); color: #5d628f; font-size: .78rem; }
+  .credit a { color: #a78bfa; text-decoration: none; }
+  .credit a:hover { text-decoration: underline; }
+input[type="checkbox"]:focus-visible, input[type="radio"]:focus-visible, [data-testid="toggle"]:focus-visible { outline: 2px solid #2563eb; outline-offset: 2px; } </style>
+</head>
+<body>
+<div class="gloworb" aria-hidden="true"></div>
+<main class="stage">
+  <h1>Magnetic Hover</h1>
+  <p class="sub">The knob is drawn to your cursor / El botón se atrae a tu cursor</p>
+  <button type="button" class="sw" data-testid="switch" role="switch" aria-checked="false" aria-label="Toggle magnetic mode">
+    <span class="trackline" aria-hidden="true"></span>
+    <span class="knob" id="knob"><span class="ico" aria-hidden="true">🧲</span></span>
+  </button>
+  <p class="readout" id="readout">magnetic mode: <b>off</b></p>
+  <p class="hint">Hover to feel the pull — <span class="mag">the knob leans toward you</span> / El botón se inclina hacia ti</p>
+  <footer class="credit">Harley Vásquez · <a href="https://www.linkedin.com/in/harleyvasquez" target="_blank" rel="noreferrer">linkedin.com/in/harleyvasquez</a></footer>
+</main>
+<script>
+  const sw = document.querySelector('[data-testid="switch"]');
+  const knob = document.getElementById('knob');
+  const readout = document.getElementById('readout');
+  function render() {
+    const on = sw.getAttribute('aria-checked') === 'true';
+    sw.classList.toggle('on', on);
+    readout.innerHTML = 'magnetic mode: <b>' + (on ? 'on' : 'off') + '</b>';
+  }
+  sw.addEventListener('pointermove', (e) => {
+    const r = sw.getBoundingClientRect();
+    const rel = (e.clientX - r.left) / r.width;
+    const tilt = Math.max(-6, Math.min(6, (rel - 0.5) * 18));
+    knob.style.transform = 'translateY(0) rotate(' + tilt + 'deg)';
+  });
+  sw.addEventListener('pointerleave', () => {
+    knob.style.transform = 'rotate(0deg)';
+  });
+  sw.addEventListener('click', () => {
+    const on = sw.getAttribute('aria-checked') === 'true';
+    sw.setAttribute('aria-checked', String(!on));
+    render();
+    knob.style.transform = 'rotate(0deg)';
+  });
+  render();
+</script>
+</body>
+</html>

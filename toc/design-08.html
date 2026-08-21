@@ -1,0 +1,146 @@
+<!-- Design 08: TOC Pill / Pill TOC -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>TOC — Design 08</title>
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body {
+    min-height: 100vh;
+    font-family: "Segoe UI", system-ui, sans-serif;
+    background: #f8fafc;
+    color: #0f172a;
+    overflow-x: hidden;
+  }
+  .toc {
+    position: fixed;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 300px;
+    border-right: 1px solid #e2e8f0;
+    background: #fff;
+    padding: 20px;
+    overflow-y: auto;
+  }
+  .toc-link {
+    display: block;
+    padding: 8px 12px;
+    color: #64748b;
+    font-size: .75rem;
+    text-decoration: none;
+    margin: 3px 0;
+    border-radius: 20px;
+    transition: all .15s;
+    background: transparent;
+  }
+  .toc-link:hover { background: #e2e8f0; color: #1e293b; }
+  .toc-link.active { background: #1e293b; color: #fff; }
+  .toc-link:focus-visible { outline: 2px solid #3b82f6; outline-offset: 2px; }
+  .main {
+    margin-left: 300px;
+    padding: 40px 20px 20px;
+  }
+  .section {
+    margin-bottom: 60px;
+    scroll-margin-top: 80px;
+  }
+  .section h2 { margin: 0 0 12px; font-size: 1.75rem; color: #1e293b; }
+  .section p { color: #64748b; line-height: 1.5; }
+  .credit { margin-top: 32px; padding: 16px 0; border-top: 1px solid #e2e8f0; color: #64748b; font-size: .75rem; text-align: center; }
+  .credit a { color: #2563eb; text-decoration: none; }
+  @media (max-width: 768px) { .toc { display: none; } .main { margin-left: 0; } }
+</style>
+</head>
+<body>
+<nav class="toc" data-testid="toc" aria-label="Tabla de contenidos" data-toc>
+  <h4 style="margin:0 0 20px 0; font-size:.875rem; color:#1e293b;">Índice</h4>
+  <a class="toc-link active" data-testid="toc-link" href="#h-1">Pill 1</a>
+  <a class="toc-link" data-testid="toc-link" href="#h-2">Pill 2</a>
+  <a class="toc-link" data-testid="toc-link" href="#h-3">Pill 3</a>
+  <a class="toc-link" data-testid="toc-link" href="#h-4">Pill 4</a>
+  <a class="toc-link" data-testid="toc-link" href="#h-5">Pill 5</a>
+  <a class="toc-link" data-testid="toc-link" href="#h-6">Pill 6</a>
+  <a class="toc-link" data-testid="toc-link" href="#h-7">Pill 7</a>
+  <a class="toc-link" data-testid="toc-link" href="#h-8">Pill 8</a>
+  <a class="toc-link" data-testid="toc-link" href="#h-9">Pill 9</a>
+  <a class="toc-link" data-testid="toc-link" href="#h-10">Pill 10</a>
+</nav>
+<main class="main" data-scroll>
+  <section id="h-1" class="section" aria-labelledby="h-1">
+    <h2 id="h-1">Píldora 1</h2>
+    <p>Contenido de la píldora uno. Duis aute irure dolor.</p>
+  </section>
+  <section id="h-2" class="section" aria-labelledby="h-2">
+    <h2 id="h-2">Píldora 2</h2>
+    <p>Excepteur sint occaecat cupidatat.</p>
+  </section>
+  <section id="h-3" class="section" aria-labelledby="h-3">
+    <h2 id="h-3">Píldora 3</h2>
+    <p>Lorem ipsum dolor sit amet.</p>
+  </section>
+  <section id="h-4" class="section" aria-labelledby="h-4">
+    <h2 id="h-4">Píldora 4</h2>
+    <p>Sed do eiusmod tempor.</p>
+  </section>
+  <section id="h-5" class="section" aria-labelledby="h-5">
+    <h2 id="h-5">Píldora 5</h2>
+    <p>Incididunt ut labore.</p>
+  </section>
+  <section id="h-6" class="section" aria-labelledby="h-6">
+    <h2 id="h-6">Píldora 6</h2>
+    <p>Duis aute irure dolor.</p>
+  </section>
+  <section id="h-7" class="section" aria-labelledby="h-7">
+    <h2 id="h-7">Píldora 7</h2>
+    <p>Excepteur sint occaecat.</p>
+  </section>
+  <section id="h-8" class="section" aria-labelledby="h-8">
+    <h2 id="h-8">Píldora 8</h2>
+    <p>Sunt in culpa qui.</p>
+  </section>
+  <section id="h-9" class="section" aria-labelledby="h-9">
+    <h2 id="h-9">Píldora 9</h2>
+    <p>Lorem ipsum dolor sit amet.</p>
+  </section>
+  <section id="h-10" class="section" aria-labelledby="h-10">
+    <h2 id="h-10">Píldora 10</h2>
+    <p>Consectetur adipiscing elit.</p>
+  </section>
+</main>
+<script>
+  (() => {
+    const tocLinks = document.querySelectorAll('.toc-link');
+    const sections = document.querySelectorAll('.section');
+    
+    function setActiveLink() {
+      let current = '';
+      sections.forEach(section => {
+        const rect = section.getBoundingClientRect();
+        if (Math.abs(rect.top) < 80) { current = section.getAttribute('id'); }
+      });
+      tocLinks.forEach(link => {
+        link.classList.toggle('active', link.getAttribute('href') === `#${current}`);
+      });
+    }
+    
+    window.addEventListener('scroll', () => setActiveLink());
+    
+    tocLinks.forEach(link => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        const targetId = link.getAttribute('href').substring(1);
+        const targetSection = document.getElementById(targetId);
+        if (targetSection) { targetSection.scrollIntoView({ behavior: 'smooth' }); }
+      });
+    });
+    
+    setActiveLink();
+  })();
+</script>
+<footer class="credit">Harley Vásquez · <a href="https://www.linkedin.com/in/harleyvasquez" target="_blank" rel="noreferrer">linkedin.com/in/harleyvasquez</a></footer>
+</body>
+</html>

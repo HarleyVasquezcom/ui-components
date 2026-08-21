@@ -1,0 +1,81 @@
+<!-- Design 01: Custom Select Native / Select Nativo Personalizado -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Custom Select Native Dropdown — Design 01</title>
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body {
+    min-height: 100vh;
+    display: grid;
+    place-items: center;
+    font-family: "Segoe UI", system-ui, sans-serif;
+    background: #f8fafc;
+    overflow-x: hidden;
+  }
+  .stage {
+    width: min(540px, 94vw);
+    padding: clamp(32px, 7vw, 60px);
+    background: #fff;
+    border-radius: 18px;
+    box-shadow: 0 24px 60px rgba(30,41,59,.1);
+  }
+  h1 { margin: 0; font-size: clamp(1.5rem, 4.5vw, 2.1rem); color: #0f172a; font-weight: 700; }
+  .sub { margin: .3rem 0 2.4rem; color: #94a3b8; font-size: .92rem; }
+  .lbl { display: block; margin: 0 0 10px; color: #334155; font-size: .9rem; font-weight: 600; }
+  .wrap { position: relative; }
+  .sel {
+    width: 100%;
+    padding: 14px 44px 14px 16px;
+    font-family: inherit; font-size: 1rem; color: #0f172a;
+    background: #fff url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="%2364748b" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>') no-repeat right 14px center / 18px 18px;
+    border: 1.5px solid #cbd5e1;
+    border-radius: 12px;
+    outline: none;
+    appearance: none;
+    -webkit-appearance: none;
+    cursor: pointer;
+    transition: border-color .2s ease, box-shadow .2s ease;
+  }
+  .sel:hover { border-color: #94a3b8; }
+  .sel:focus { border-color: #6366f1; box-shadow: 0 0 0 4px rgba(99,102,241,.12); }
+  .sel:focus-visible { outline: 2px solid #4f46e5; outline-offset: 2px; }
+  .selout { display: flex; align-items: center; justify-content: space-between; gap: 14px; margin-top: 22px; flex-wrap: wrap; }
+  .selout span { color: #94a3b8; font-size: .88rem; }
+  .selout b { color: #0f172a; font-weight: 700; }
+  .hint { margin-top: 2rem; color: #cbd5e1; font-size: .82rem; }
+  .credit { margin-top: 2.2rem; padding-top: 1rem; border-top: 1px solid #f1f5f9; color: #94a3b8; font-size: .78rem; }
+  .credit a { color: #6366f1; text-decoration: none; }
+  .credit a:hover { text-decoration: underline; }
+</style>
+</head>
+<body>
+<main class="stage">
+  <h1>Custom Select Native</h1>
+  <p class="sub">A native select, beautifully dressed / Un select nativo, elegantemente vestido</p>
+  <label class="lbl" data-testid="label" for="d01">Ice cream flavor</label>
+  <div class="wrap">
+    <select class="sel" id="d01" data-testid="trigger" aria-label="Ice cream flavor">
+      <option>Vanilla</option>
+      <option>Chocolate</option>
+      <option>Strawberry</option>
+      <option>Mango</option>
+      <option>Pistachio</option>
+    </select>
+  </div>
+  <p class="selout"><span>selected:</span> <b data-testid="selected" aria-live="polite">Vanilla</b></p>
+  <p class="hint">100% native; arrow keys work out of the box / 100% nativo; las flechas funcionan de fábrica</p>
+  <footer class="credit">Harley Vásquez · <a href="https://www.linkedin.com/in/harleyvasquez" target="_blank" rel="noreferrer">linkedin.com/in/harleyvasquez</a></footer>
+</main>
+<script>
+  const sel = document.querySelector('[data-testid="trigger"]');
+  const selected = document.querySelector('[data-testid="selected"]');
+  function upd() { selected.textContent = sel.options[sel.selectedIndex].text; }
+  sel.addEventListener('change', upd);
+  upd();
+</script>
+</body>
+</html>

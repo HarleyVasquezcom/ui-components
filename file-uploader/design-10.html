@@ -1,0 +1,145 @@
+<!-- Design 10: Progress Inline / Progreso en Línea -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Progress Inline — Design 10</title>
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body {
+    min-height: 100vh;
+    display: grid;
+    place-items: center;
+    font-family: "Segoe UI", system-ui, sans-serif;
+    background: #082f49;
+    overflow-x: hidden;
+  }
+  .stage { width: min(540px, 94vw); padding: clamp(34px, 7vw, 54px); background: #f0f9ff; border-radius: 16px; box-shadow: 0 30px 70px rgba(0, 0, 0, .5); }
+  h1 { margin: 0; font-size: clamp(1.6rem, 5vw, 2rem); color: #075985; font-weight: 800; letter-spacing: -.01em; }
+  .sub { margin: .4rem 0 2.2rem; color: #0ea5e9; font-size: .95rem; }
+  .lbl { display: block; margin: 0 0 16px; color: #075985; font-size: .92rem; font-weight: 700; }
+  .dz {
+    display: grid; place-items: center; gap: 6px;
+    padding: 34px 20px;
+    text-align: center;
+    background: #ffffff; border: 2px dashed #7dd3fc; border-radius: 14px;
+    cursor: pointer;
+  }
+  .dz:hover { border-color: #0ea5e9; background: #e0f2fe; }
+  .dz:focus-within { outline: 3px solid #0284c7; outline-offset: 3px; }
+  .dz p { margin: 0; color: #075985; font-weight: 700; }
+  .dz small { color: #38bdf8; }
+  .progress-wrap { margin-top: 14px; background: #e0f2fe; border-radius: 8px; height: 12px; overflow: hidden; }
+  .bar { height: 100%; width: 0%; background: linear-gradient(90deg, #0ea5e9, #22d3ee); border-radius: 8px; transition: width .1s linear; }
+  .prog-label { margin-top: 6px; text-align: right; color: #0284c7; font-size: .78rem; font-weight: 700; }
+  .list { margin-top: 16px; display: grid; gap: 8px; list-style: none; padding: 0; }
+  .li { display: flex; align-items: center; gap: 10px; padding: 10px 12px; background: #ffffff; border: 1px solid #bae6fd; border-radius: 10px; }
+  .li .nm { flex: 1; color: #075985; font-weight: 700; font-size: .92rem; }
+  .li .sz { color: #0284c7; font-size: .8rem; }
+  .rm {
+    border: none; background: #0284c7; color: #fff;
+    padding: 7px 12px; border-radius: 8px; font-size: .78rem; font-weight: 700; cursor: pointer;
+  }
+  .rm:hover { background: #0369a1; }
+  .rm:focus-visible { outline: 3px solid #38bdf8; outline-offset: 2px; }
+  .empty { margin-top: 16px; text-align: center; color: #38bdf8; font-size: .85rem; }
+  .hint { margin-top: 2rem; color: #38bdf8; font-size: .82rem; }
+  .credit { margin-top: 1.6rem; padding-top: 1rem; border-top: 1px solid #bae6fd; color: #38bdf8; font-size: .78rem; }
+  .credit a { color: #0284c7; text-decoration: none; }
+</style>
+</head>
+<body>
+<main class="stage">
+  <h1>Progress Inline</h1>
+  <p class="sub">Sky blue bars, honest pace / Barras azul cielo, ritmo honesto</p>
+  <label class="lbl" data-testid="label" id="lbl-fu10">Upload</label>
+  <div class="dz" data-testid="dropzone" aria-label="File uploader">
+    <p>☁ Add your file</p>
+    <small>Click to choose</small>
+    <input data-testid="file-input" type="file" aria-label="Upload file" aria-describedby="lbl-fu10" hidden>
+  </div>
+  <div class="progress-wrap" hidden>
+    <div class="bar" data-testid="progress" data-done="false"></div>
+  </div>
+  <p class="prog-label" data-testid="prog-label" hidden>0%</p>
+  <p class="empty" data-testid="empty">
+<div data-testid="file-name" style="display:none"></div>No files yet · Sin archivos aún</p>
+  <ul class="list" data-testid="list" hidden></ul>
+  <p class="hint">Clear skies, clear progress / Cielos claros, progreso claro</p>
+  <footer class="credit">Harley Vásquez · <a href="https://www.linkedin.com/in/harleyvasquez" target="_blank" rel="noreferrer">linkedin.com/in/harleyvasquez</a></footer>
+</main>
+<script>
+  const input = document.querySelector('[data-testid="file-input"]');
+  const list = document.querySelector('[data-testid="list"]');
+  const empty = document.querySelector('[data-testid="empty"]');
+  const dz = document.querySelector('[data-testid="dropzone"]');
+  const progWrap = document.querySelector('.progress-wrap');
+  const bar = document.querySelector('[data-testid="progress"]');
+  const progLabel = document.querySelector('[data-testid="prog-label"]');
+  let timer = null;
+  dz.addEventListener('click', () => input.click());
+  function fmt(n) {
+    if (n >= 1024 * 1024) return (n / (1024 * 1024)).toFixed(1) + ' MB';
+    if (n >= 1024) return (n / 1024).toFixed(1) + ' KB';
+    return n + ' B';
+  }
+  function resetProgress() {
+    clearInterval(timer);
+    timer = null;
+    bar.style.width = '0%';
+    bar.setAttribute('data-done', 'false');
+    progWrap.hidden = true;
+    progLabel.hidden = true;
+  }
+  function startProgress() {
+    resetProgress();
+    progWrap.hidden = false;
+    progLabel.hidden = false;
+    let p = 0;
+    timer = setInterval(() => {
+      p = Math.min(100, p + 5 + Math.random() * 10);
+      bar.style.width = p + '%';
+      progLabel.textContent = Math.round(p) + '%';
+      if (p >= 100) {
+        bar.setAttribute('data-done', 'true');
+        clearInterval(timer);
+        timer = null;
+      }
+    }, 90);
+  }
+  input.addEventListener('change', () => {
+    resetProgress();
+    list.textContent = '';
+    for (const f of input.files) {
+      const li = document.createElement('li');
+      li.className = 'li';
+      const nm = document.createElement('span');
+      nm.className = 'nm';
+      nm.textContent = f.name;
+      const sz = document.createElement('span');
+      sz.className = 'sz';
+      sz.textContent = fmt(f.size);
+      const rm = document.createElement('button');
+      rm.type = 'button';
+      rm.className = 'rm';
+      rm.dataset.testid = 'remove';
+      rm.textContent = 'Remove';
+      rm.addEventListener('click', () => {
+        li.remove();
+        input.value = '';
+        list.hidden = list.children.length === 0;
+        empty.hidden = list.children.length > 0;
+        resetProgress();
+      });
+      li.append(nm, sz, rm);
+      list.appendChild(li);
+    }
+    list.hidden = list.children.length === 0;
+    empty.hidden = list.children.length > 0;
+    startProgress();
+  });
+</script>
+</body>
+</html>

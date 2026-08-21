@@ -1,0 +1,107 @@
+<!-- Design 05: Underline Animated / Subrayado Animado -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Underline Animated Text Field — Design 05</title>
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body {
+    min-height: 100vh;
+    display: grid;
+    place-items: center;
+    font-family: Georgia, "Times New Roman", serif;
+    background: #fdfdfb;
+    overflow-x: hidden;
+  }
+  .stage {
+    width: min(560px, 94vw);
+    padding: clamp(40px, 8vw, 72px);
+    background: #fff;
+    border-radius: 2px;
+    box-shadow: 0 1px 0 rgba(0,0,0,.05), 0 30px 80px rgba(0,0,0,.06);
+  }
+  h1 { margin: 0; font-size: clamp(1.9rem, 6vw, 2.6rem); color: #111; font-weight: 400; }
+  .sub { margin: .5rem 0 3rem; color: #6b7280; font-size: .95rem; font-style: italic; }
+  .lbl { display: inline-block; margin: 0 0 14px; color: #4b5563; font-size: .92rem; letter-spacing: .02em; }
+  .wrap { position: relative; }
+  .field {
+    width: 100%;
+    padding: 8px 0 10px;
+    font-family: inherit; font-size: 1.25rem; color: #111;
+    background: transparent;
+    border: none;
+    border-bottom: 2px solid #e5e5e0;
+    outline: none;
+  }
+  .wrap::after {
+    content: ""; position: absolute; left: 0; bottom: 0;
+    width: 100%; height: 2px;
+    background: #b91c1c;
+    transform: scaleX(0); transform-origin: left;
+    transition: transform .3s cubic-bezier(.65,.05,.36,1);
+  }
+  .wrap:focus-within::after { transform: scaleX(1); }
+  .field:focus-visible { outline: 2px solid #b91c1c; outline-offset: 8px; }
+  .field[aria-invalid="true"] { border-color: #dc2626; }
+  .wrap:has(.field[aria-invalid="true"])::after { background: #dc2626; }
+  .field::placeholder { color: #d4d4cf; }
+  .err {
+    display: none; margin-top: 10px; color: #b91c1c; font-size: .88rem; font-style: italic;
+  }
+  .err.show { display: block; }
+  .row { display: flex; align-items: baseline; justify-content: space-between; gap: 14px; margin-top: 30px; flex-wrap: wrap; }
+  .btn {
+    padding: 10px 26px; font-family: inherit; font-size: .95rem;
+    color: #fff; background: #111;
+    border: none; border-radius: 2px; cursor: pointer;
+    transition: background .15s ease;
+  }
+  .btn:hover { background: #b91c1c; }
+  .btn:focus-visible { outline: 2px solid #111; outline-offset: 3px; }
+  .val { margin: 0; color: #9ca3af; font-size: .9rem; font-style: italic; }
+  .val b { color: #111; font-style: normal; font-family: ui-monospace, "Cascadia Mono", Consolas, monospace; font-size: .85rem; }
+  .hint { margin-top: 3rem; color: #9ca3af; font-size: .85rem; font-style: italic; }
+  .credit { margin-top: 2.6rem; padding-top: 1.2rem; border-top: 1px solid #f0f0ec; color: #9ca3af; font-size: .8rem; }
+  .credit a { color: #111; text-decoration: none; }
+  .credit a:hover { text-decoration: underline; }
+</style>
+</head>
+<body>
+<main class="stage">
+  <h1>Underline Animated</h1>
+  <p class="sub">A red rule draws itself beneath your words / Una regla roja se dibuja bajo tus palabras</p>
+  <form novalidate>
+    <label class="lbl" data-testid="label" for="f05">Email address</label>
+    <div class="wrap">
+      <input class="field" type="email" id="f05" data-testid="field" aria-label="Email address" aria-describedby="err05" placeholder="you@example.com">
+    </div>
+    <p class="err" id="err05" data-testid="error" role="alert">Enter a valid email address</p>
+    <div class="row">
+      <button class="btn" type="submit" data-testid="submit" aria-label="Submit email">Save</button>
+      <p class="val">value: <b data-testid="value" aria-live="polite"></b></p>
+    </div>
+  </form>
+  <p class="hint">Focus draws the line; type and the echo follows — / Al enfocar se dibuja la línea; escribe y el eco te sigue</p>
+  <footer class="credit">Harley Vásquez · <a href="https://www.linkedin.com/in/harleyvasquez" target="_blank" rel="noreferrer">linkedin.com/in/harleyvasquez</a></footer>
+</main>
+<script>
+  const field = document.querySelector('[data-testid="field"]');
+  const err = document.querySelector('[data-testid="error"]');
+  const out = document.querySelector('[data-testid="value"]');
+  const form = document.querySelector('form');
+  const EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  function validate() {
+    const ok = EMAIL.test(field.value);
+    err.classList.toggle('show', !ok);
+    field.setAttribute('aria-invalid', String(!ok));
+    return ok;
+  }
+  field.addEventListener('input', () => { out.textContent = field.value; });
+  field.addEventListener('blur', validate);
+  form.addEventListener('submit', (e) => { e.preventDefault(); validate(); });
+</script>
+</body>
+</html>

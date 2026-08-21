@@ -1,0 +1,98 @@
+<!-- Design 10: List Editor / Editor List -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>List — Design 10</title>
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body {
+    min-height: 100vh;
+    font-family: "Segoe UI", system-ui, sans-serif;
+    background: #f8fafc;
+    color: #0f172a;
+    overflow-x: hidden;
+  }
+  .list {
+    width: min(90vw, 1100px);
+    margin: 32px auto 0;
+    padding: 0 16px;
+  }
+  .list-item {
+    background: #fff;
+    border-radius: 8px;
+    padding: 16px;
+    border: 1px solid #e2e8f0;
+    margin-bottom: 12px;
+    position: relative;
+  }
+  .list-item .tag {
+    position: absolute;
+    top: 10px; right: 10px;
+    display: inline-block;
+    padding: 2px 6px;
+    background: #e2e8f0;
+    border-radius: 4px;
+    font-size: .65rem;
+    color: #64748b;
+  }
+  .list-item h4 { margin: 0 0 4px; font-size: .875rem; color: #1e293b; }
+  .list-item p { margin: 0; color: #64748b; font-size: .75rem; line-height: 1.4; }
+  .load-more {
+    width: min(180px, 90vw);
+    margin: 24px auto 0;
+    padding: 10px;
+    background: #1e293b;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: .75rem;
+    font-weight: 600;
+    cursor: pointer;
+    display: block;
+    text-align: center;
+  }
+  .load-more:focus-visible { outline: 3px solid #64748b; outline-offset: 2px; }
+  .load-more:disabled { background: #64748b; cursor: not-allowed; }
+  .credit { margin-top: 32px; padding: 16px 0; border-top: 1px solid #e2e8f0; color: #64748b; font-size: .75rem; text-align: center; }
+  .credit a { color: #3b82f6; text-decoration: none; }
+  @media (max-width: 480px) { .list { padding: 0; } }
+</style>
+</head>
+<body>
+<div class="list">
+  <article class="list-item" data-testid="list" aria-label="List design"><h4>Diseño Gráfico</h4><p>Técnicas visuales modernas.</p><span class="tag">#design</span></article>
+  <article class="list-item"><h4>Desarrollo Web</h4><p>Fundamentos y frameworks modernos.</p><span class="tag">#web</span></article>
+  <article class="list-item"><h4>Fotografía</h4><p>Técnicas de composición y revelado.</p><span class="tag">#photo</span></article>
+  <article class="list-item"><h4>Marketing</h4><p>Estrategias digitales y crecimiento.</p><span class="tag">#digital</span></article>
+  <article class="list-item"><h4>Branding</h4><p>Identidad visual y logotipos.</p><span class="tag">#brand</span></article>
+  <article class="list-item"><h4>SEO</h4><p>Optimización para motores de búsqueda.</p><span class="tag">#seo</span></article>
+  <article class="list-item"><h4>Contenido</h4><p>Creación y distribución.</p><span class="tag">#content</span></article>
+  <article class="list-item"><h4>UX Research</h4><p>Testing de usabilidad.</p><span class="tag">#ux</span></article>
+</div>
+<button class="load-more" aria-label="Cargar más ítems" data-load-more>Cargar más <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/ data-testid="list-item"><line x1="5" y1="12" x2="19" y2="12"/ data-testid="list-item"></svg></button>
+<script>
+  (() => {
+    const button = document.querySelector('[data-load-more]');
+    const container = document.querySelector('.list');
+    let loaded = 8;
+    let total = 40;
+    button.addEventListener('click', () => {
+      const labels = ['Diseño Gráfico','Desarrollo Web','Fotografía','Marketing','Branding','SEO','Contenido','UX Research'];
+      for (let i = loaded; i < Math.min(loaded + 8, total); i++) {
+        const item = document.createElement('article');
+        item.className = 'list-item';
+        item.innerHTML = `<h4>${labels[i % labels.length]}</h4><p>Artículo ${i + 1}: Descripción detallada sobre el tema seleccionado.</p><span class="tag">#${labels[i % labels.length]}</span>`;
+        container.appendChild(item);
+      }
+      loaded += 8;
+      if (loaded >= total) { button.textContent = 'No hay más'; button.disabled = true; }
+    });
+  })();
+</script>
+<footer class="credit">Harley Vásquez · <a href="https://www.linkedin.com/in/harleyvasquez" target="_blank" rel="noreferrer">linkedin.com/in/harleyvasquez</a></footer>
+</body>
+</html>

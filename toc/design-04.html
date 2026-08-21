@@ -1,0 +1,146 @@
+<!-- Design 04: TOC Glass / Glass TOC -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>TOC — Design 04</title>
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body {
+    min-height: 100vh;
+    font-family: "Segoe UI", system-ui, sans-serif;
+    background: linear-gradient(135deg, #fff 0%, #f8fafc 100%);
+    color: #0f172a;
+    overflow-x: hidden;
+  }
+  .toc {
+    position: fixed;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 260px;
+    border-right: 1px solid rgba(0,0,0,.1);
+    background: rgba(255,255,255,.8);
+    backdrop-filter: blur(10px);
+    padding: 20px;
+    overflow-y: auto;
+  }
+  .toc-link {
+    display: block;
+    padding: 8px 12px;
+    color: #64748b;
+    font-size: .75rem;
+    text-decoration: none;
+    margin: 2px 0;
+    border-radius: 6px;
+    transition: all .2s;
+  }
+  .toc-link:hover { background: rgba(0,0,0,.05); color: #1e293b; }
+  .toc-link.active { background: rgba(30,41,59,.1); color: #1e293b; }
+  .toc-link:focus-visible { outline: 2px solid #3b82f6; outline-offset: 2px; }
+  .main {
+    margin-left: 260px;
+    padding: 80px 24px 24px;
+  }
+  .section {
+    margin-bottom: 80px;
+    scroll-margin-top: 80px;
+  }
+  .section h2 { margin: 0 0 16px; font-size: 2rem; color: #1e293b; }
+  .section p { color: #64748b; line-height: 1.6; }
+  .credit { margin-top: 32px; padding: 16px 0; border-top: 1px solid #e2e8f0; color: #64748b; font-size: .875rem; text-align: center; }
+  .credit a { color: #2563eb; text-decoration: none; }
+  @media (max-width: 768px) { .toc { display: none; } .main { margin-left: 0; } }
+</style>
+</head>
+<body>
+<nav class="toc" data-testid="toc" aria-label="Tabla de contenidos" data-toc>
+  <h4 style="margin:0 0 20px 0; font-size:1rem; color:#1e293b;">Índice</h4>
+  <a class="toc-link active" data-testid="toc-link" href="#h1">H1</a>
+  <a class="toc-link" data-testid="toc-link" href="#h2">H2</a>
+  <a class="toc-link" data-testid="toc-link" href="#h3">H3</a>
+  <a class="toc-link" data-testid="toc-link" href="#h4">H4</a>
+  <a class="toc-link" data-testid="toc-link" href="#h5">H5</a>
+  <a class="toc-link" data-testid="toc-link" href="#h6">H6</a>
+  <a class="toc-link" data-testid="toc-link" href="#h7">H7</a>
+  <a class="toc-link" data-testid="toc-link" href="#h8">H8</a>
+  <a class="toc-link" data-testid="toc-link" href="#h9">H9</a>
+  <a class="toc-link" data-testid="toc-link" href="#h10">H10</a>
+</nav>
+<main class="main" data-scroll>
+  <section id="h1" class="section" aria-labelledby="h1">
+    <h2 id="h1">Heading 1</h2>
+    <p>Content for heading one. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore.</p>
+  </section>
+  <section id="h2" class="section" aria-labelledby="h2">
+    <h2 id="h2">Heading 2</h2>
+    <p>Content for heading two. Excepteur sint occaecat cupidatat non proident.</p>
+  </section>
+  <section id="h3" class="section" aria-labelledby="h3">
+    <h2 id="h3">Heading 3</h2>
+    <p>Content for heading three. Lorem ipsum dolor sit amet consectetur.</p>
+  </section>
+  <section id="h4" class="section" aria-labelledby="h4">
+    <h2 id="h4">Heading 4</h2>
+    <p>Content for heading four. Sed do eiusmod tempor.</p>
+  </section>
+  <section id="h5" class="section" aria-labelledby="h5">
+    <h2 id="h5">Heading 5</h2>
+    <p>Content for heading five. Incididunt ut labore et dolore.</p>
+  </section>
+  <section id="h6" class="section" aria-labelledby="h6">
+    <h2 id="h6">Heading 6</h2>
+    <p>Content for heading six. Duis aute irure dolor.</p>
+  </section>
+  <section id="h7" class="section" aria-labelledby="h7">
+    <h2 id="h7">Heading 7</h2>
+    <p>Content for heading seven. Excepteur sint occaecat.</p>
+  </section>
+  <section id="h8" class="section" aria-labelledby="h8">
+    <h2 id="h8">Heading 8</h2>
+    <p>Content for heading eight. Sunt in culpa qui officia.</p>
+  </section>
+  <section id="h9" class="section" aria-labelledby="h9">
+    <h2 id="h9">Heading 9</h2>
+    <p>Content for heading nine. Lorem ipsum dolor.</p>
+  </section>
+  <section id="h10" class="section" aria-labelledby="h10">
+    <h2 id="h10">Heading 10</h2>
+    <p>Content for heading ten. Consectetur adipiscing elit.</p>
+  </section>
+</main>
+<script>
+  (() => {
+    const tocLinks = document.querySelectorAll('.toc-link');
+    const sections = document.querySelectorAll('.section');
+    
+    function setActiveLink() {
+      let current = '';
+      sections.forEach(section => {
+        const rect = section.getBoundingClientRect();
+        if (Math.abs(rect.top) < 80) { current = section.getAttribute('id'); }
+      });
+      tocLinks.forEach(link => {
+        link.classList.toggle('active', link.getAttribute('href') === `#${current}`);
+      });
+    }
+    
+    window.addEventListener('scroll', () => setActiveLink());
+    
+    tocLinks.forEach(link => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        const targetId = link.getAttribute('href').substring(1);
+        const targetSection = document.getElementById(targetId);
+        if (targetSection) { targetSection.scrollIntoView({ behavior: 'smooth' }); }
+      });
+    });
+    
+    setActiveLink();
+  })();
+</script>
+<footer class="credit">Harley Vásquez · <a href="https://www.linkedin.com/in/harleyvasquez" target="_blank" rel="noreferrer">linkedin.com/in/harleyvasquez</a></footer>
+</body>
+</html>

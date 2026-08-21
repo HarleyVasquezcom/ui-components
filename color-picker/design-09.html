@@ -1,0 +1,111 @@
+<!-- Design 09: Mono Outline / Contorno Mono -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mono Outline — Design 09</title>
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body {
+    min-height: 100vh;
+    display: grid; place-items: center;
+    font-family: "Courier New", monospace;
+    background: #e6e8ea;
+    overflow-x: hidden;
+  }
+  .stage {
+    width: min(560px, 94vw);
+    padding: clamp(28px, 6vw, 46px);
+    background: #f2f3f4;
+    border: 2px solid #111;
+    border-radius: 0;
+    box-shadow: 10px 10px 0 #111;
+  }
+  h1 { margin: 0; font-size: clamp(1.4rem, 4.4vw, 1.9rem); color: #111; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; }
+  .sub { margin: .4rem 0 2rem; color: #444; font-size: .88rem; }
+  .lbl { display: block; margin: 0 0 12px; color: #111; font-size: .8rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; }
+  .grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+  .sw {
+    aspect-ratio: 1;
+    border: 3px solid #111;
+    border-radius: 50%;
+    cursor: pointer;
+    background: transparent;
+    position: relative;
+    transition: transform .12s ease;
+  }
+  .sw:hover { transform: rotate(12deg) scale(1.06); }
+  .sw:focus-visible { outline: 3px solid #111; outline-offset: 4px; }
+  .sw.on { box-shadow: 0 0 0 4px #f2f3f4, 0 0 0 7px #111; }
+  .sw .hexlab {
+    position: absolute; left: 50%; bottom: -24px;
+    transform: translateX(-50%);
+    font-size: .7rem; color: #444;
+    letter-spacing: .04em; white-space: nowrap;
+  }
+  .editrow { display: flex; align-items: center; gap: 12px; margin-top: 44px; padding-top: 16px; border-top: 2px solid #111; }
+  .editrow label { color: #111; font-size: .82rem; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; }
+  .hexin {
+    flex: 1; min-width: 0;
+    padding: 10px 12px;
+    font-family: "Courier New", monospace; font-size: 1.02rem;
+    color: #111; background: #fff;
+    border: 2px solid #111; border-radius: 0;
+    outline: none;
+  }
+  .hexin:focus-visible { outline: 3px solid #111; outline-offset: 2px; }
+  .pvl { width: 44px; height: 44px; border: 2px solid #111; border-radius: 50%; flex: 0 0 auto; }
+  .outp { margin-top: 14px; padding: 12px 14px; background: #fff; border: 2px solid #111; }
+  .outp p { margin: 0; color: #111; font-size: .9rem; font-weight: 700; }
+  .outp .hxv { color: #111; }
+  .credit { margin-top: 2rem; padding-top: 1rem; border-top: 1px solid #999; color: #555; font-size: .76rem; }
+  .credit a { color: #111; text-decoration: none; }
+</style>
+</head>
+<body>
+<main class="stage">
+  <h1>Mono Outline</h1>
+  <p class="sub">Strict circles, hard ink / Círculos estrictos, tinta dura</p>
+  <span class="lbl" data-testid="label" id="cp-mo-09-label">Dots — puntos</span>
+  <div class="grid" role="group" aria-labelledby="cp-mo-09-label">
+    <button type="button" class="sw" data-testid="swatch" data-color="#0B7285" style="background:#0B7285" aria-label="Teal #0B7285" aria-pressed="false"><span class="hexlab">#0B7285</span></button>
+    <button type="button" class="sw" data-testid="swatch" data-color="#2F9E44" style="background:#2F9E44" aria-label="Green #2F9E44" aria-pressed="false"><span class="hexlab">#2F9E44</span></button>
+    <button type="button" class="sw" data-testid="swatch" data-color="#E8590C" style="background:#E8590C" aria-label="Orange #E8590C" aria-pressed="false"><span class="hexlab">#E8590C</span></button>
+    <button type="button" class="sw" data-testid="swatch" data-color="#C2255C" style="background:#C2255C" aria-label="Pink #C2255C" aria-pressed="false"><span class="hexlab">#C2255C</span></button>
+    <button type="button" class="sw" data-testid="swatch" data-color="#1864AB" style="background:#1864AB" aria-label="Blue #1864AB" aria-pressed="false"><span class="hexlab">#1864AB</span></button>
+    <button type="button" class="sw" data-testid="swatch" data-color="#6741D9" style="background:#6741D9" aria-label="Violet #6741D9" aria-pressed="false"><span class="hexlab">#6741D9</span></button>
+    <button type="button" class="sw" data-testid="swatch" data-color="#A61E4D" style="background:#A61E4D" aria-label="Raspberry #A61E4D" aria-pressed="false"><span class="hexlab">#A61E4D</span></button>
+    <button type="button" class="sw" data-testid="swatch" data-color="#343A40" style="background:#343A40" aria-label="Graphite #343A40" aria-pressed="false"><span class="hexlab">#343A40</span></button>
+  </div>
+  <div class="editrow">
+    <label data-testid="label" for="cp-mo-09-hex">Hex</label>
+    <input class="hexin" data-testid="hex-in" id="cp-mo-09-hex" type="text" value="#0B7285" spellcheck="false" maxlength="7">
+    <span class="pvl" data-testid="preview" style="background:#0B7285" aria-hidden="true"></span>
+  </div>
+  <div class="outp"><p>Hex value / Valor hex: <span class="hxv" data-testid="hex">#0B7285</span></p></div>
+  <footer class="credit">Harley Vásquez · <a href="https://www.linkedin.com/in/harleyvasquez" target="_blank" rel="noreferrer">linkedin.com/in/harleyvasquez</a></footer>
+</main>
+<script>
+  const swatches = document.querySelectorAll('[data-testid="swatch"]');
+  const hexOut = document.querySelector('[data-testid="hex"]');
+  const preview = document.querySelector('[data-testid="preview"]');
+  const hexIn = document.querySelector('[data-testid="hex-in"]');
+  let lastValid = '#0B7285';
+  function applyHex(hex) {
+    hex = String(hex).trim().toUpperCase();
+    if (!/^#[0-9A-F]{6}$/.test(hex)) return false;
+    hexOut.textContent = hex;
+    preview.style.background = hex;
+    lastValid = hex;
+    swatches.forEach((s) => { const on = s.dataset.color.toUpperCase() === hex; s.classList.toggle('on', on); s.setAttribute('aria-pressed', on ? 'true' : 'false'); });
+    return true;
+  }
+  swatches.forEach((s) => s.addEventListener('click', () => { hexIn.value = s.dataset.color; applyHex(s.dataset.color); }));
+  hexIn.addEventListener('input', () => { if (!applyHex(hexIn.value)) preview.style.background = lastValid; });
+  hexIn.addEventListener('change', () => { hexIn.value = applyHex(hexIn.value) ? hexIn.value : lastValid; });
+  applyHex('#0B7285');
+</script>
+</body>
+</html>

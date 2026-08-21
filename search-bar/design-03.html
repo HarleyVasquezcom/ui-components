@@ -1,0 +1,102 @@
+<!-- Design 03: Pill Together / Píldora Juntos -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pill Together Search — Design 03</title>
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body {
+    min-height: 100vh;
+    display: grid; place-items: center;
+    font-family: "Segoe UI", system-ui, sans-serif;
+    background: #f1f5f9;
+    overflow-x: hidden;
+  }
+  .stage {
+    width: min(540px, 94vw);
+    padding: clamp(28px, 6vw, 44px);
+    background: #ffffff;
+    border-radius: 32px;
+    box-shadow: 0 20px 60px rgba(15, 23, 42, .08);
+  }
+  h1 { margin: 0; font-size: clamp(1.5rem, 4.6vw, 2rem); color: #0f172a; font-weight: 800; letter-spacing: -.02em; }
+  .sub { margin: .4rem 0 2rem; color: #64748b; font-size: .94rem; }
+  .lbl { display: block; margin: 0 0 12px; color: #334155; font-size: .9rem; font-weight: 700; }
+  .wrap { display: flex; align-items: center; gap: 6px; background: #f1f5f9; border: 2px solid #e2e8f0; border-radius: 999px; padding: 6px; }
+  .wrap:focus-within { border-color: #14b8a6; box-shadow: 0 0 0 4px rgba(20, 184, 166, .15); }
+  .inp {
+    flex: 1; min-width: 0;
+    padding: 10px 16px;
+    font-family: inherit; font-size: 1rem; color: #0f172a;
+    background: transparent; border: none; outline: none;
+  }
+  .inp::placeholder { color: #94a3b8; }
+  .clr {
+    flex: 0 0 auto;
+    width: 38px; height: 38px;
+    display: grid; place-items: center;
+    background: #14b8a6; color: #fff;
+    border: none; border-radius: 50%;
+    font-size: 1.05rem; cursor: pointer;
+    transition: transform .15s ease, background .15s ease;
+  }
+  .clr:hover { background: #0d9488; transform: rotate(90deg); }
+  .clr:focus-visible { outline: 3px solid #99f6e4; outline-offset: 2px; }
+  .sub2 { margin: 18px 0 10px; color: #94a3b8; font-size: .78rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; }
+  .rows { margin: 0; padding: 0; list-style: none; display: grid; gap: 10px; }
+  .rows li {
+    padding: 13px 18px;
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 999px;
+    color: #1e293b; font-size: .95rem; font-weight: 600;
+    display: flex; justify-content: space-between; align-items: center;
+    transition: border-color .15s ease;
+  }
+  .rows li::after { content: "·"; color: #14b8a6; font-size: 1.2rem; }
+  .rows li:hover { border-color: #5eead4; }
+  .cnt { margin-top: 16px; color: #0f766e; font-size: .88rem; font-weight: 700; }
+  .hint { margin-top: .4rem; color: #94a3b8; font-size: .82rem; }
+  .credit { margin-top: 2rem; padding-top: 1rem; border-top: 1px solid #e2e8f0; color: #94a3b8; font-size: .78rem; }
+  .credit a { color: #0f766e; text-decoration: none; }
+  [hidden] { display: none !important; }
+</style>
+</head>
+<body>
+<main class="stage">
+  <h1>Pill Together</h1>
+  <p class="sub">Fruits that float together / Frutas que flotan juntas</p>
+  <label class="lbl" data-testid="label" for="sb-pt-03">Search fruit</label>
+  <div class="wrap">
+    <input class="inp" data-testid="search" id="sb-pt-03" type="search" placeholder="Type to filter…" autocomplete="off">
+    <button type="button" class="clr" data-testid="clear" aria-label="Clear search">×</button>
+  </div>
+  <p class="sub2">Matches</p>
+  <ul class="rows" data-testid="results"></ul>
+  <p class="cnt" data-testid="count"></p>
+  <p class="hint">Teal pill bar, zero chrome / Barra píldora turquesa, cero cromo</p>
+  <footer class="credit">Harley Vásquez · <a href="https://www.linkedin.com/in/harleyvasquez" target="_blank" rel="noreferrer">linkedin.com/in/harleyvasquez</a></footer>
+</main>
+<script>
+  const DATA = ['Apple', 'Banana', 'Carrot', 'Cauliflower', 'Cherry', 'Grape', 'Lemon', 'Mango', 'Peach', 'Watermelon'];
+  const input = document.querySelector('[data-testid="search"]');
+  const list = document.querySelector('[data-testid="results"]');
+  const count = document.querySelector('[data-testid="count"]');
+  const clear = document.querySelector('[data-testid="clear"]');
+  function render(q) {
+    const ql = q.toLowerCase();
+    const hits = ql ? DATA.filter((t) => t.toLowerCase().includes(ql)) : DATA;
+    list.textContent = '';
+    for (const t of hits) { const li = document.createElement('li'); li.textContent = t; list.appendChild(li); }
+    count.textContent = hits.length + ' results';
+    clear.hidden = !ql;
+  }
+  input.addEventListener('input', () => render(input.value));
+  clear.addEventListener('click', () => { input.value = ''; render(''); input.focus(); });
+  render('');
+</script>
+</body>
+</html>

@@ -1,0 +1,33 @@
+<!-- Design 04: Badge Glass / Glass Badge -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Badge — Design 04</title>
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body {
+    min-height: 100vh;
+    font-family: "Segoe UI", system-ui, sans-serif;
+    background: #f1f5f9;
+    color: #334155;
+    overflow-x: hidden;
+  }
+  .badge { width: 120px; padding: 8px 16px; background: rgba(255,255,255,0.8); color: #1e293b; border: 1px solid #cbd5e1; border-radius: 9999px; backdrop-filter: blur(8px); font-size: .875rem; font-weight: 600; position: relative; display: inline-flex; align-items: center; gap: 8px; transition: background .2s; }
+  .badge:hover { background: rgba(255,255,255,1); }
+  .badge:focus-visible { outline: 2px solid #64748b; outline-offset: 4px; }
+  .badge[data-state="active"] { background: #f8fafc; color: #3b82f6; }
+  .badge[data-state="active"]::after { content: ''; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 8px; height: 8px; background: #3b82f6; border-radius: 50%; box-shadow: 0 0 0 2px #fff; }
+  .credit { margin-top: 32px; padding: 16px 0; border-top: 1px solid #cbd5e1; color: #64748b; font-size: .875rem; text-align: center; }
+  .credit a { color: #3b82f6; text-decoration: none; }
+  @media (max-width: 480px) { .badge { width: 100px; font-size: .75rem; padding: 6px 12px; } }
+</style>
+</head>
+<body>
+<label class="lbl" data-testid="label" for="badge-04">Unread</label>
+<span class="badge" data-testid="badge" data-badge id="badge-04" role="status" aria-label="Badge">Unread <span class="badge" data-badge-state>0</span></span>
+<footer class="credit">Harley Vásquez · <a href="https://www.linkedin.com/in/harleyvasquez" target="_blank" rel="noreferrer">linkedin.com/in/harleyvasquez</a></footer>
+</body>
+</html>

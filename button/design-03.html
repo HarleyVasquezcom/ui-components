@@ -1,0 +1,88 @@
+<!-- Design 03: Neo Brutalist / Neo Brutalista -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Neo Brutalist Button — Design 03</title>
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body {
+    min-height: 100vh;
+    display: grid;
+    place-items: center;
+    font-family: "Arial Black", "Segoe UI", sans-serif;
+    background:
+      repeating-linear-gradient(45deg, #fdf6e3 0 22px, #f7ecd4 22px 44px);
+    overflow-x: hidden;
+  }
+  .stage {
+    position: relative;
+    width: min(620px, 94vw);
+    padding: clamp(26px, 6vw, 60px);
+    background: #fff8e7;
+    border: 4px solid #111;
+    box-shadow: 10px 10px 0 #111;
+    text-align: center;
+  }
+  .sticker {
+    position: absolute; top: -22px; right: -14px;
+    background: #ffd23f; color: #111;
+    border: 3px solid #111; padding: 4px 10px;
+    font-size: .75rem; font-weight: 900; letter-spacing: .08em;
+    transform: rotate(6deg);
+    box-shadow: 4px 4px 0 #111;
+  }
+  h1 { margin: 0; font-size: clamp(1.6rem, 5vw, 2.6rem); text-transform: uppercase; letter-spacing: -.01em; color: #111; }
+  .sub { margin: .5rem 0 2.6rem; font-family: "Segoe UI", sans-serif; font-size: .9rem; font-weight: 600; color: #444; }
+  .btn {
+    display: inline-block;
+    padding: 18px 44px;
+    font-family: "Arial Black", "Segoe UI", sans-serif;
+    font-size: 1.2rem; font-weight: 900; text-transform: uppercase; letter-spacing: .04em;
+    color: #fff8e7;
+    background: #e63946;
+    border: 4px solid #111;
+    border-radius: 0;
+    box-shadow: 8px 8px 0 #111;
+    cursor: pointer;
+    transition: transform .08s ease, box-shadow .08s ease, background .15s ease;
+  }
+  .btn:hover { background: #ff5257; transform: translate(-2px, -2px); box-shadow: 12px 12px 0 #111; }
+  .btn:active, .btn.pressed { transform: translate(6px, 6px); box-shadow: 2px 2px 0 #111; }
+  .btn:focus-visible { outline: 4px dashed #111; outline-offset: 6px; }
+  .btn .tally { display: block; font-size: .72rem; font-family: "Courier New", monospace; letter-spacing: .18em; margin-top: 6px; color: #ffe3a9; }
+  .btn:active .tally { color: #fff; }
+  .hint { margin-top: 2rem; font-family: "Segoe UI", sans-serif; font-size: .85rem; font-weight: 700; color: #555; }
+  .credit {
+    margin-top: 2.4rem; padding-top: 1rem;
+    border-top: 3px solid #111;
+    font-family: "Courier New", monospace; font-size: .78rem; font-weight: 700; color: #333;
+  }
+  .credit a { color: #111; }
+</style>
+</head>
+<body>
+<main class="stage">
+  <span class="sticker" aria-hidden="true">RAW POWA!</span>
+  <h1>Neo Brutalist</h1>
+  <p class="sub">Hard edges, hard shadows / Bordes duros, sombras duras</p>
+  <button type="button" class="btn" data-testid="btn" aria-label="Smash the button">
+    Smash
+    <span class="tally" aria-live="polite">PRESSED <b data-testid="count">0</b> TIMES</span>
+  </button>
+  <p class="hint">CLICK IT. COUNT IT.</p>
+  <footer class="credit">Harley Vásquez · <a href="https://www.linkedin.com/in/harleyvasquez" target="_blank" rel="noreferrer">linkedin.com/in/harleyvasquez</a></footer>
+</main>
+<script>
+  const btn = document.querySelector('[data-testid="btn"]');
+  const count = document.querySelector('[data-testid="count"]');
+  let n = 0;
+  btn.addEventListener('click', () => { n += 1; count.textContent = n; });
+  btn.addEventListener('pointerdown', () => btn.classList.add('pressed'));
+  btn.addEventListener('pointerup', () => btn.classList.remove('pressed'));
+  btn.addEventListener('pointerleave', () => btn.classList.remove('pressed'));
+</script>
+</body>
+</html>

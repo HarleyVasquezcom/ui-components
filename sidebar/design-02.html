@@ -1,0 +1,36 @@
+<!-- Design 02: Minimal List / Lista Mínima -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Sidebar — Design 02</title>
+<style>
+  *{box-sizing:border-box}html,body{min-height:100vh;font-family:system-ui,-apple-system,sans-serif;background:#edf2f7;color:#343a40;display:grid;place-items:center;overflow-x:hidden}.sidebar-wrapper{width:min(300px,85vw)}.sidebar{position:fixed;top:0;left:-280px;width:280px;height:100vh;background:#fff;transition:left .3s ease;padding:20px;z-index:100;border-right:1px solid #e2e8f0}.sidebar.open{left:0}.sidebar .btn-close{position:absolute;top:10px;right:15px;width:30px;height:30px;background:none;border:none;cursor:pointer;color:#6c757d}.sidebar .toggle{width:32px;height:32px;position:absolute;top:10px;left:15px;background:none;border:none;cursor:pointer}.sidebar .focus-visible:focus-visible{outline:3pxsolid#3b82f6;outline-offset:4px}.sidebar a{color:#343a40;font-size:.9rem}.sidebar .sub{color:#6c757d;font-size:.8rem}.credit{margin-top:25px;padding:10px 0;border-top:1pxsolid#e2e8f0;color:#6c757d;font-size:.8rem}.credit a{color:#2563eb;text-decoration:none}.media{display:none}.@media (max-width:360px){.sidebar{left:-260px;width:260px}}input[type="checkbox"]:focus-visible, input[type="radio"]:focus-visible, [data-testid="toggle"]:focus-visible { outline: 2px solid #2563eb; outline-offset: 2px; } </style>
+</head>
+<body><div class="sidebar-wrapper"><aside class="sidebar" aria-label="Barra lateral" aria-expanded="false" role="navigation" data-sidebar data-testid="sidebar"><button class="toggle" aria-label="Abrir barra" aria-controls="sidebar-nav" data-toggle data-testid="toggle"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button><nav id="sidebar-nav" aria-label="Navegación principal" data-testid="sidebar-content"><h3 class="sub">Menú</h3><a href="/inicio" class="active">Inicio</a><a href="/nosotros">Nosotros</a><a href="/servicios">Servicios</a><a href="/contacto">Contacto</a></nav></aside></div><script>(()=>{const s=document.querySelector('[data-sidebar]'),t=document.querySelector('[data-toggle]');let o=false;const tg=()=>{o=!o;s.setAttribute('aria-expanded',o);t.setAttribute('aria-expanded',o);s.classList.toggle('open',o)};t.addEventListener('click',tg);document.addEventListener('keydown',e=>{if(e.key==='Escape'&&o){o=!o;s.setAttribute('aria-expanded',o);t.setAttribute('aria-expanded',o);s.classList.toggle('open',o)}});document.addEventListener('focusin',e=>{if(o&&!s.contains(e.target)){o=!o;s.setAttribute('aria-expanded',o);t.setAttribute('aria-expanded',o);s.classList.toggle('open',o)}})})();</script><footer class="credit">Harley Vásquez · <a href="https://www.linkedin.com/in/harleyvasquez" target="_blank" rel="noreferrer">linkedin.com/in/harleyvasquez</a></footer>
+<script>
+(function(){
+  var toggle = document.querySelector('[data-testid="toggle"]');
+  var sidebar = document.querySelector('[data-testid="sidebar"]');
+  if(!toggle || !sidebar) return;
+  sidebar.setAttribute('aria-expanded', 'false');
+  toggle.addEventListener('click', function(){
+    var expanded = sidebar.getAttribute('aria-expanded') === 'true';
+    sidebar.setAttribute('aria-expanded', String(!expanded));
+    sidebar.classList.toggle('open');
+  });
+})();
+</script>
+<script>
+(function(){
+  var t=document.querySelector('[data-testid="toggle"]');
+  var s=document.querySelector('[data-testid="sidebar"]');
+  if(!t||!s)return;
+  s.setAttribute('aria-expanded','false');
+  t.addEventListener('click',function(){
+    var e=s.getAttribute('aria-expanded')==='true';
+    s.setAttribute('aria-expanded',String(!e));
+    s.classList.toggle('open');
+  });
+})();
+</script>
+</body></html>

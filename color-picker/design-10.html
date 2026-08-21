@@ -1,0 +1,86 @@
+<!-- Design 10: Glass Swatches / Muestras de Cristal -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Glass Swatches — Design 10</title>
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body {
+    min-height: 100vh;
+    display: grid; place-items: center;
+    font-family: "Segoe UI", system-ui, sans-serif;
+    background: linear-gradient(135deg, #0f2027 0%, #203a43 50%, #2c5364 100%);
+    overflow-x: hidden;
+  }
+  .stage {
+    width: min(560px, 94vw);
+    padding: clamp(28px, 6vw, 46px);
+    background: rgba(255, 255, 255, .08);
+    border: 1px solid rgba(255, 255, 255, .22);
+    border-radius: 26px;
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    box-shadow: 0 30px 70px rgba(0, 0, 0, .4);
+  }
+  h1 { margin: 0; font-size: clamp(1.6rem, 5vw, 2.1rem); color: #f0fdfa; font-weight: 700; letter-spacing: -.02em; }
+  .sub { margin: .4rem 0 2rem; color: #99f6e4; font-size: .94rem; }
+  .lbl { display: block; margin: 0 0 12px; color: #ccfbf1; font-size: .84rem; font-weight: 700; text-transform: uppercase; letter-spacing: .12em; }
+  .row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+  .sw {
+    aspect-ratio: 1;
+    border-radius: 18px;
+    border: 2px solid rgba(255, 255, 255, .35);
+    cursor: pointer;
+    position: relative;
+    backdrop-filter: blur(4px);
+    transition: transform .15s ease, border-color .15s ease;
+  }
+  .sw:hover { transform: translateY(-3px) scale(1.03); }
+  .sw:focus-visible { outline: 3px solid #5eead4; outline-offset: 3px; }
+  .sw.on { border-color: #fff; box-shadow: 0 0 0 3px rgba(94, 234, 212, .55), 0 12px 26px rgba(0, 0, 0, .35); }
+  .sw.on::after { content: "✓"; position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); color: #fff; font-size: 1.5rem; font-weight: 800; text-shadow: 0 2px 6px rgba(0, 0, 0, .85); }
+  .out { display: flex; justify-content: space-between; align-items: center; margin-top: 24px; padding: 16px 18px; background: rgba(255, 255, 255, .1); border: 1px solid rgba(255, 255, 255, .2); border-radius: 16px; }
+  .out p { margin: 0; color: #f0fdfa; font-size: .92rem; }
+  .hx { font-family: "Cascadia Mono", Consolas, monospace; font-size: 1.1rem; font-weight: 700; color: #5eead4; }
+  .hint { margin-top: 12px; color: #5eead4; font-size: .82rem; }
+  .credit { margin-top: 2rem; padding-top: 1rem; border-top: 1px solid rgba(255, 255, 255, .18); color: #99f6e4; font-size: .78rem; }
+  .credit a { color: #ccfbf1; text-decoration: none; }
+</style>
+</head>
+<body>
+<main class="stage">
+  <h1>Glass Swatches</h1>
+  <p class="sub">Frosted chips over deep teal / Chips esmerilados sobre verde profundo</p>
+  <span class="lbl" data-testid="label" id="cp-gsw-10-label">Aurora palette / Paleta aurora</span>
+  <div class="row" role="group" aria-labelledby="cp-gsw-10-label">
+    <button type="button" class="sw" data-testid="swatch" data-color="#2DD4BF" style="background:rgba(45,212,191,.85)" aria-label="Teal #2DD4BF" aria-pressed="false"></button>
+    <button type="button" class="sw" data-testid="swatch" data-color="#38BDF8" style="background:rgba(56,189,248,.85)" aria-label="Sky #38BDF8" aria-pressed="false"></button>
+    <button type="button" class="sw" data-testid="swatch" data-color="#818CF8" style="background:rgba(129,140,248,.85)" aria-label="Indigo #818CF8" aria-pressed="false"></button>
+    <button type="button" class="sw" data-testid="swatch" data-color="#C084FC" style="background:rgba(192,132,252,.85)" aria-label="Purple #C084FC" aria-pressed="false"></button>
+    <button type="button" class="sw" data-testid="swatch" data-color="#F472B6" style="background:rgba(244,114,182,.85)" aria-label="Pink #F472B6" aria-pressed="false"></button>
+    <button type="button" class="sw" data-testid="swatch" data-color="#FB7185" style="background:rgba(251,113,133,.85)" aria-label="Rose #FB7185" aria-pressed="false"></button>
+    <button type="button" class="sw" data-testid="swatch" data-color="#FBBF24" style="background:rgba(251,191,36,.85)" aria-label="Amber #FBBF24" aria-pressed="false"></button>
+    <button type="button" class="sw" data-testid="swatch" data-color="#A3E635" style="background:rgba(163,230,53,.85)" aria-label="Lime #A3E635" aria-pressed="false"></button>
+  </div>
+  <div class="out">
+    <p>Picked / Elegido</p>
+    <p class="hx" data-testid="hex">#2DD4BF</p>
+  </div>
+  <p class="hint">One tap changes the readout / Un toque cambia la lectura.</p>
+  <footer class="credit">Harley Vásquez · <a href="https://www.linkedin.com/in/harleyvasquez" target="_blank" rel="noreferrer">linkedin.com/in/harleyvasquez</a></footer>
+</main>
+<script>
+  const swatches = document.querySelectorAll('[data-testid="swatch"]');
+  const hexOut = document.querySelector('[data-testid="hex"]');
+  function select(el) {
+    swatches.forEach((s) => { s.classList.toggle('on', s === el); s.setAttribute('aria-pressed', s === el ? 'true' : 'false'); });
+    hexOut.textContent = el.dataset.color;
+  }
+  swatches.forEach((s) => s.addEventListener('click', () => select(s)));
+  select(swatches[0]);
+</script>
+</body>
+</html>

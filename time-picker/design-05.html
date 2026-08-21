@@ -1,0 +1,148 @@
+<!-- Design 05: Clock Face 12h / Esfera 12h -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Clock Face 12h Time Picker — Design 05</title>
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body {
+    min-height: 100vh;
+    display: grid;
+    place-items: center;
+    font-family: "Segoe UI", system-ui, sans-serif;
+    background: radial-gradient(120% 120% at 50% 0%, #fff1f2, #ffe4e6 60%, #fecdd3);
+    overflow-x: hidden;
+  }
+  .stage { width: min(480px, 94vw); padding: clamp(34px, 8vw, 60px); background: #fff; border-radius: 28px; box-shadow: 0 30px 70px rgba(159, 18, 57, .16); }
+  h1 { margin: 0; font-size: clamp(1.6rem, 5vw, 2.1rem); color: #881337; font-weight: 800; letter-spacing: -.02em; }
+  .sub { margin: .4rem 0 2.2rem; color: #fda4af; font-size: .95rem; }
+  .lbl { display: block; margin: 0 0 10px; color: #9f1239; font-size: .92rem; font-weight: 700; }
+  .wrap { position: relative; }
+  .trg {
+    width: 100%;
+    display: flex; align-items: center; justify-content: space-between; gap: 10px;
+    padding: 15px 18px;
+    font-family: inherit; font-size: 1.6rem; font-weight: 800; color: #881337;
+    background: #fff; border: 2px solid #fecdd3; border-radius: 18px;
+    cursor: pointer;
+    transition: border-color .15s ease, box-shadow .15s ease;
+  }
+  .trg:hover { border-color: #fb7185; }
+  .trg[aria-expanded="true"] { border-color: #be123c; box-shadow: 0 0 0 4px rgba(225, 29, 72, .12); }
+  .trg:focus-visible { outline: 3px solid #be123c; outline-offset: 2px; }
+  .trg .arr { color: #fb7185; font-size: 1.05rem; transition: transform .2s ease; }
+  .trg[aria-expanded="true"] .arr { transform: rotate(180deg); }
+  .pop {
+    position: absolute; left: 0; right: 0; top: calc(100% + 10px);
+    background: #fff; border: 1px solid #ffe4e6; border-radius: 22px;
+    box-shadow: 0 24px 54px rgba(159, 18, 57, .16);
+    padding: 20px; z-index: 5;
+  }
+  [hidden] { display: none !important; }
+  .row { display: flex; align-items: center; justify-content: center; gap: 10px; }
+  .col { display: flex; flex-direction: column; align-items: center; gap: 6px; }
+  .col label { font-size: .66rem; font-weight: 800; letter-spacing: .18em; text-transform: uppercase; color: #fda4af; }
+  .dig {
+    width: 76px; padding: 12px 8px;
+    font-family: inherit; font-size: 2rem; font-weight: 800; text-align: center; color: #881337;
+    background: #fff1f2; border: 2px solid #ffe4e6; border-radius: 12px; outline: none;
+  }
+  .dig:focus { border-color: #fb7185; }
+  .dig:focus-visible { outline: 3px solid #be123c; outline-offset: 1px; }
+  .sep { font-size: 2rem; font-weight: 800; color: #fda4af; padding-bottom: 16px; }
+  .ampm {
+    padding: 12px 18px;
+    font-family: inherit; font-size: .95rem; font-weight: 800; color: #881337;
+    background: #fff1f2; border: 2px solid #ffe4e6; border-radius: 12px;
+    cursor: pointer;
+    transition: background .15s ease;
+  }
+  .ampm:hover { background: #ffe4e6; }
+  .ampm[aria-pressed="true"] { background: #be123c; color: #fff; border-color: #be123c; }
+  .ampm:focus-visible { outline: 3px solid #be123c; outline-offset: 1px; }
+  .tip { margin: 16px 0 0; text-align: center; color: #fda4af; font-size: .8rem; }
+  .selout { display: flex; align-items: center; justify-content: space-between; gap: 14px; margin-top: 26px; flex-wrap: wrap; }
+  .selout span { color: #fda4af; font-size: .88rem; }
+  .selout b { color: #881337; font-weight: 800; }
+  .hint { margin-top: 2rem; color: #fecdd3; font-size: .82rem; }
+  .credit { margin-top: 2rem; padding-top: 1.1rem; border-top: 1px solid #fff1f2; color: #fda4af; font-size: .78rem; }
+  .credit a { color: #be123c; text-decoration: none; }
+</style>
+</head>
+<body>
+<main class="stage">
+  <h1>Clock Face 12h</h1>
+  <p class="sub">Rose mantelpiece, twelve hours / Repisa de rosas, doce horas</p>
+  <label class="lbl" data-testid="label" id="lbl-tp05">Time</label>
+  <div class="wrap">
+    <button type="button" class="trg" data-testid="trigger" aria-haspopup="dialog" aria-expanded="false" aria-controls="pop05" aria-labelledby="lbl-tp05">
+      <span data-testid="value" aria-live="polite">10:30 AM</span>
+      <span class="arr" aria-hidden="true">▾</span>
+    </button>
+    <div class="pop" id="pop05" data-testid="popup" role="dialog" aria-label="Pick a time" hidden>
+      <div class="row">
+        <div class="col">
+          <label for="h05">Hour</label>
+          <input class="dig" id="h05" data-testid="hour-in" type="text" inputmode="numeric" maxlength="2" aria-label="Hour" value="10">
+        </div>
+        <span class="sep" aria-hidden="true">:</span>
+        <div class="col">
+          <label for="m05">Minutes</label>
+          <input class="dig" id="m05" data-testid="min-in" type="text" inputmode="numeric" maxlength="2" aria-label="Minutes" value="30">
+        </div>
+        <div class="col">
+          <span class="col-label" style="font-size:.66rem;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:#fda4af;visibility:hidden;">·</span>
+          <button type="button" class="ampm" data-testid="ampm" aria-pressed="false">AM</button>
+        </div>
+      </div>
+      <p class="tip">12-hour cycle, tap the meridian / Ciclo de 12 horas, toca el meridiano</p>
+    </div>
+  </div>
+  <p class="selout"><span>selected:</span> <b data-testid="display" aria-live="polite">10:30 AM</b></p>
+  <p class="hint">Elegant, rose-petal soft / Elegante, suave como pétalo de rosa</p>
+  <footer class="credit">Harley Vásquez · <a href="https://www.linkedin.com/in/harleyvasquez" target="_blank" rel="noreferrer">linkedin.com/in/harleyvasquez</a></footer>
+</main>
+<script>
+  const trigger = document.querySelector('[data-testid="trigger"]');
+  const popup = document.querySelector('[data-testid="popup"]');
+  const value = document.querySelector('[data-testid="value"]');
+  const display = document.querySelector('[data-testid="display"]');
+  const hIn = document.querySelector('[data-testid="hour-in"]');
+  const mIn = document.querySelector('[data-testid="min-in"]');
+  const ampm = document.querySelector('[data-testid="ampm"]');
+  let h = 10, m = 30, am = true;
+  const clamp = (n, a, b) => Math.max(a, Math.min(b, n));
+  const pad = (n) => String(n).padStart(2, '0');
+  function paint() {
+    const suf = am ? ' AM' : ' PM';
+    const t = pad(h) + ':' + pad(m) + suf;
+    value.textContent = t;
+    display.textContent = t;
+    ampm.textContent = am ? 'AM' : 'PM';
+    ampm.setAttribute('aria-pressed', String(am));
+    if (hIn !== document.activeElement) hIn.value = pad(h);
+    if (mIn !== document.activeElement) mIn.value = pad(m);
+  }
+  hIn.addEventListener('input', () => { const n = parseInt(hIn.value, 10); if (!isNaN(n)) h = ((n - 1) % 12 + 12) % 12 + 1; paint(); });
+  hIn.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowUp') { e.preventDefault(); h = (h % 12) + 1; paint(); }
+    if (e.key === 'ArrowDown') { e.preventDefault(); h = ((h - 2 + 12) % 12) + 1; paint(); }
+  });
+  mIn.addEventListener('input', () => { const n = parseInt(mIn.value, 10); if (!isNaN(n)) m = clamp(n, 0, 59); paint(); });
+  mIn.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowUp') { e.preventDefault(); m = (m + 1) % 60; paint(); }
+    if (e.key === 'ArrowDown') { e.preventDefault(); m = (m + 59) % 60; paint(); }
+  });
+  ampm.addEventListener('click', () => { am = !am; paint(); });
+  trigger.addEventListener('click', () => {
+    popup.hidden = !popup.hidden;
+    trigger.setAttribute('aria-expanded', String(!popup.hidden));
+    if (!popup.hidden) hIn.focus();
+  });
+  paint();
+</script>
+</body>
+</html>

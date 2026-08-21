@@ -1,0 +1,109 @@
+<!-- Design 09: Gradient Border / Borde Degradado -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Gradient Border Text Field — Design 09</title>
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body {
+    min-height: 100vh;
+    display: grid;
+    place-items: center;
+    font-family: "Segoe UI", system-ui, sans-serif;
+    background: radial-gradient(120% 120% at 50% 0%, #231640, #120b26 75%);
+    overflow-x: hidden;
+  }
+  .stage {
+    width: min(560px, 94vw);
+    padding: clamp(34px, 7vw, 60px);
+    background: rgba(21,11,44,.75);
+    border: 1px solid rgba(167,139,250,.2);
+    border-radius: 20px;
+    box-shadow: 0 30px 80px rgba(0,0,0,.55);
+  }
+  h1 { margin: 0; font-size: clamp(1.5rem, 4.5vw, 2.1rem); color: #ede9fe; font-weight: 700; }
+  .sub { margin: .3rem 0 2.4rem; color: #a78bfa; font-size: .92rem; }
+  .lbl { display: block; margin: 0 0 10px; color: #d8b4fe; font-size: .88rem; font-weight: 600; }
+  .gb {
+    padding: 2px;
+    border-radius: 12px;
+    background: linear-gradient(90deg, #f472b6, #a78bfa, #22d3ee);
+    transition: box-shadow .25s ease;
+  }
+  .gb:focus-within { box-shadow: 0 0 22px rgba(167,139,250,.45); }
+  .field {
+    width: 100%;
+    padding: 14px 16px;
+    font-size: 1rem; color: #f5f3ff;
+    background: #150b2c;
+    border: none;
+    border-radius: 10px;
+    outline: none;
+    caret-color: #c084fc;
+  }
+  .field::placeholder { color: #6d28d9; }
+  .field:focus-visible { outline: 2px solid #c084fc; outline-offset: 3px; }
+  .field[aria-invalid="true"] { background: #2a0f23; }
+  .gb.has-invalid { background: linear-gradient(90deg, #f87171, #f472b6); }
+  .err {
+    display: none; margin-top: 9px; color: #fda4af; font-size: .82rem; font-weight: 600;
+  }
+  .err.show { display: block; }
+  .row { display: flex; align-items: center; justify-content: space-between; gap: 14px; margin-top: 22px; flex-wrap: wrap; }
+  .btn {
+    padding: 12px 28px; font-size: .92rem; font-weight: 700;
+    color: #150b2c; background: linear-gradient(90deg, #f472b6, #a78bfa, #22d3ee);
+    border: none; border-radius: 10px; cursor: pointer;
+    transition: filter .2s ease, transform .12s ease;
+  }
+  .btn:hover { filter: brightness(1.12); transform: translateY(-1px); }
+  .btn:focus-visible { outline: 3px solid #c084fc; outline-offset: 3px; }
+  .val { margin: 0; color: #9d8bbf; font-size: .88rem; }
+  .val b { color: #f0abfc; font-family: ui-monospace, "Cascadia Mono", Consolas, monospace; }
+  .hint { margin-top: 2.4rem; color: #7c6ba3; font-size: .8rem; }
+  .credit { margin-top: 2.2rem; padding-top: 1rem; border-top: 1px solid rgba(167,139,250,.18); color: #7c6ba3; font-size: .78rem; }
+  .credit a { color: #c084fc; text-decoration: none; }
+  .credit a:hover { text-decoration: underline; }
+</style>
+</head>
+<body>
+<main class="stage">
+  <h1>Gradient Border</h1>
+  <p class="sub">A neon seam wraps the field / Una costura neón envuelve el campo</p>
+  <form novalidate>
+    <label class="lbl" data-testid="label" for="f09">Email address</label>
+    <div class="gb" data-testid="frame">
+      <input class="field" type="email" id="f09" data-testid="field" aria-label="Email address" aria-describedby="err09" placeholder="you@example.com">
+    </div>
+    <p class="err" id="err09" data-testid="error" role="alert">Enter a valid email address</p>
+    <div class="row">
+      <button class="btn" type="submit" data-testid="submit" aria-label="Submit email">Save</button>
+      <p class="val">value: <b data-testid="value" aria-live="polite"></b></p>
+    </div>
+  </form>
+  <p class="hint">The seam glows while you type / La costura brilla mientras escribes</p>
+  <footer class="credit">Harley Vásquez · <a href="https://www.linkedin.com/in/harleyvasquez" target="_blank" rel="noreferrer">linkedin.com/in/harleyvasquez</a></footer>
+</main>
+<script>
+  const gb = document.querySelector('[data-testid="frame"]');
+  const field = document.querySelector('[data-testid="field"]');
+  const err = document.querySelector('[data-testid="error"]');
+  const out = document.querySelector('[data-testid="value"]');
+  const form = document.querySelector('form');
+  const EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  function validate() {
+    const ok = EMAIL.test(field.value);
+    err.classList.toggle('show', !ok);
+    gb.classList.toggle('has-invalid', !ok);
+    field.setAttribute('aria-invalid', String(!ok));
+    return ok;
+  }
+  field.addEventListener('input', () => { out.textContent = field.value; });
+  field.addEventListener('blur', validate);
+  form.addEventListener('submit', (e) => { e.preventDefault(); validate(); });
+</script>
+</body>
+</html>

@@ -1,0 +1,110 @@
+<!-- Design 05: Code Editor / Editor de Código -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Code Editor Text Area — Design 05</title>
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body {
+    min-height: 100vh;
+    display: grid;
+    place-items: center;
+    font-family: ui-monospace, "Cascadia Mono", Consolas, monospace;
+    background: #0d1117;
+    overflow-x: hidden;
+  }
+  .stage {
+    width: min(680px, 94vw);
+    padding: clamp(26px, 6vw, 54px);
+    background: #161b22;
+    border: 1px solid #30363d;
+    border-radius: 14px;
+    box-shadow: 0 30px 80px rgba(0,0,0,.5);
+    overflow: hidden;
+  }
+  .win {
+    display: flex; align-items: center; gap: 8px;
+    padding: 12px 16px; margin: -26px -54px 0 0;
+    background: #0d1117; border-bottom: 1px solid #21262d;
+    border-radius: 14px 14px 0 0;
+  }
+  .win i { width: 12px; height: 12px; border-radius: 50%; display: inline-block; }
+  .win i:nth-child(1) { background: #f85149; }
+  .win i:nth-child(2) { background: #d29922; }
+  .win i:nth-child(3) { background: #3fb950; }
+  .win span { margin-left: auto; color: #8b949e; font-size: .75rem; }
+  h1 { margin: 1.5rem 0 .2rem; font-size: clamp(1.3rem, 3.8vw, 1.9rem); font-weight: 700; color: #e6edf3; }
+  .sub { margin: 0 0 1.6rem; font-size: .85rem; color: #8b949e; }
+  .lbl { display: block; margin: 0 0 8px; color: #8b949e; font-size: .8rem; text-transform: uppercase; letter-spacing: .12em; }
+  .code {
+    display: flex;
+    background: #0d1117;
+    border: 1px solid #30363d;
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  .gutter {
+    flex: 0 0 44px;
+    padding: 12px 8px 12px 0;
+    text-align: right;
+    background: #0a0e14;
+    border-right: 1px solid #21262d;
+    color: #484f58;
+    font-size: .85rem;
+    line-height: 1.7;
+    user-select: none;
+  }
+  .area {
+    flex: 1; min-width: 0;
+    padding: 12px 14px;
+    font-family: inherit; font-size: .9rem; line-height: 1.7; color: #c9d1d9;
+    background: transparent;
+    border: none;
+    outline: none;
+    resize: vertical;
+    caret-color: #58a6ff;
+  }
+  .area::placeholder { color: #484f58; }
+  .area:focus-visible { outline: 2px solid #58a6ff; outline-offset: -2px; }
+  .ctr { display: flex; justify-content: flex-end; gap: 16px; margin-top: 10px; color: #484f58; font-size: .78rem; }
+  .ctr b { color: #8b949e; }
+  .hint { margin-top: 1.8rem; color: #484f58; font-size: .8rem; }
+  .credit { margin-top: 2rem; padding-top: 1rem; border-top: 1px solid #21262d; color: #484f58; font-size: .76rem; }
+  .credit a { color: #58a6ff; text-decoration: none; }
+  .credit a:hover { text-decoration: underline; }
+</style>
+</head>
+<body>
+<main class="stage">
+  <div class="win" aria-hidden="true"><i></i><i></i><i></i><span>main.txt — ui-kit</span></div>
+  <h1>Code Editor</h1>
+  <p class="sub">Line numbers follow your cursor / Los números de línea siguen tu cursor</p>
+  <label class="lbl" data-testid="label" for="a05">Source buffer</label>
+  <div class="code">
+    <div class="gutter" id="gutter" data-testid="gutter" aria-hidden="true">1</div>
+    <textarea class="area" id="a05" data-testid="area" aria-label="Source buffer" placeholder="fn main() {&#10;  // write here&#10;}"></textarea>
+  </div>
+  <p class="ctr"><span>chars: <b data-testid="chars">0</b></span><span>lines: <b data-testid="lines">0</b></span></p>
+  <p class="hint">The gutter renumbers itself as you type / El gutter se renumerado solo mientras escribes</p>
+  <footer class="credit">Harley Vásquez · <a href="https://www.linkedin.com/in/harleyvasquez" target="_blank" rel="noreferrer">linkedin.com/in/harleyvasquez</a></footer>
+</main>
+<script>
+  const area = document.querySelector('[data-testid="area"]');
+  const gutter = document.querySelector('[data-testid="gutter"]');
+  const chars = document.querySelector('[data-testid="chars"]');
+  const lines = document.querySelector('[data-testid="lines"]');
+  function upd() {
+    const v = area.value;
+    const n = v ? v.split('\n').length : 1;
+    gutter.textContent = Array.from({ length: n }, (_, i) => i + 1).join('\n');
+    chars.textContent = v.length;
+    lines.textContent = v ? n : 0;
+  }
+  area.addEventListener('input', upd);
+  upd();
+</script>
+</body>
+</html>

@@ -1,0 +1,33 @@
+<!-- Design 02: Badge Minimal / Minimal Badge -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Badge — Design 02</title>
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body {
+    min-height: 100vh;
+    font-family: "Segoe UI", system-ui, sans-serif;
+    background: #e2e8f0;
+    color: #334155;
+    overflow-x: hidden;
+  }
+  .badge { width: 120px; padding: 8px 16px; background: #fff; color: #1e293b; border: 2px solid #cbd5e1; border-radius: 9999px; font-size: .875rem; font-weight: 600; position: relative; display: inline-flex; align-items: center; gap: 8px; transition: border-color .2s; }
+  .badge:hover { border-color: #3b82f6; }
+  .badge:focus-visible { outline: 2px solid #64748b; outline-offset: 4px; }
+  .badge[data-state="active"] { background: #f8fafc; border-color: #3b82f6; color: #3b82f6; }
+  .badge[data-state="active"]::after { content: ''; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 8px; height: 8px; background: #3b82f6; border-radius: 50%; box-shadow: 0 0 0 2px #fff; }
+  .credit { margin-top: 32px; padding: 16px 0; border-top: 1px solid #e2e8f0; color: #64748b; font-size: .875rem; text-align: center; }
+  .credit a { color: #3b82f6; text-decoration: none; }
+  @media (max-width: 480px) { .badge { width: 100px; font-size: .75rem; padding: 6px 12px; } }
+</style>
+</head>
+<body>
+<label class="lbl" data-testid="label" for="badge-02">Tags</label>
+<span class="badge" data-testid="badge" data-badge id="badge-02" role="status" aria-label="Badge">Tags <span class="badge" data-badge-state>5</span></span>
+<footer class="credit">Harley Vásquez · <a href="https://www.linkedin.com/in/harleyvasquez" target="_blank" rel="noreferrer">linkedin.com/in/harleyvasquez</a></footer>
+</body>
+</html>

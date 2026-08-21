@@ -1,0 +1,150 @@
+<!-- Design 05: Accordion Counts / Acordeón con Conteos -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Accordion Counts — Design 05</title>
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body {
+    min-height: 100vh;
+    display: grid; place-items: center;
+    font-family: "Segoe UI", system-ui, sans-serif;
+    background: #ecfdf5;
+    overflow-x: hidden;
+  }
+  .stage {
+    width: min(620px, 94vw);
+    padding: clamp(26px, 6vw, 44px);
+    background: #fff;
+    border: 1px solid #d1fae5;
+    border-radius: 18px;
+    box-shadow: 0 22px 55px rgba(6, 95, 70, .1);
+  }
+  h1 { margin: 0; font-size: clamp(1.5rem, 4.8vw, 2rem); color: #064e3b; font-weight: 800; }
+  .sub { margin: .4rem 0 1.8rem; color: #047857; font-size: .94rem; }
+  .lbl { display: block; margin: 0 0 12px; color: #047857; font-size: .82rem; font-weight: 700; text-transform: uppercase; letter-spacing: .1em; }
+  .layout { display: grid; grid-template-columns: 240px 1fr; gap: 24px; }
+  .acc { border-top: 1px solid #d1fae5; }
+  .ah {
+    width: 100%;
+    display: flex; justify-content: space-between; align-items: center; gap: 8px;
+    padding: 14px 4px;
+    background: none; border: none;
+    font-family: inherit; font-size: .93rem; font-weight: 700; color: #064e3b;
+    cursor: pointer;
+    text-align: left;
+  }
+  .ah:hover { color: #047857; }
+  .ah:focus-visible { outline: 3px solid #6ee7b7; outline-offset: 2px; border-radius: 6px; }
+  .ah .arw { color: #059669; transition: transform .15s ease; }
+  .ah[aria-expanded="true"] .arw { transform: rotate(90deg); }
+  .ah .n { color: #059669; font-family: "Cascadia Mono", Consolas, monospace; font-size: .8rem; background: #d1fae5; padding: 2px 8px; border-radius: 999px; }
+  .ap { display: none; padding: 0 4px 12px; }
+  .ap.open { display: block; }
+  .ck { display: flex; align-items: center; gap: 8px; padding: 6px 0; color: #065f46; font-size: .9rem; cursor: pointer; }
+  .ck input { width: 17px; height: 17px; accent-color: #059669; cursor: pointer; }
+  .ck input:focus-visible { outline: 3px solid #a7f3d0; outline-offset: 2px; border-radius: 4px; }
+  .main .cnt { margin: 0 0 12px; color: #047857; font-weight: 700; }
+  .list { margin: 0; padding: 0; list-style: none; display: grid; gap: 8px; }
+  .list li { padding: 12px 14px; background: #ecfdf5; border: 1px solid #d1fae5; border-radius: 10px; color: #064e3b; font-size: .93rem; display: flex; justify-content: space-between; gap: 8px; }
+  .list li small { color: #10b981; }
+  .btn { margin-top: 16px; padding: 9px 18px; border: 2px solid #10b981; border-radius: 10px; background: #fff; color: #047857; font-family: inherit; font-size: .88rem; font-weight: 700; cursor: pointer; }
+  .btn:hover { background: #ecfdf5; }
+  .btn:focus-visible { outline: 3px solid #6ee7b7; outline-offset: 2px; }
+  .credit { margin-top: 2rem; padding-top: 1rem; border-top: 1px solid #d1fae5; color: #6ee7b7; font-size: .78rem; }
+  .credit a { color: #047857; text-decoration: none; }
+  @media (max-width: 480px) { .layout { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<main class="stage">
+  <h1>Accordion Counts</h1>
+  <p class="sub">Folders that count their courses / Carpetas que cuentan sus cursos</p>
+  <span class="lbl" data-testid="label" id="fl-ac-05-lbl">Filters / Filtros</span>
+  <div class="layout">
+    <aside class="acc" aria-label="Filter groups">
+      <div>
+        <button type="button" class="ah" data-testid="ah" aria-expanded="true" aria-controls="fl-ac-05-1"><span>Level / Nivel <span class="n" data-testid="gn">4</span></span><span class="arw">▶</span></button>
+        <div class="ap open" id="fl-ac-05-1">
+          <label class="ck"><input type="checkbox" data-testid="check" value="Beginner" checked> Beginner</label>
+          <label class="ck"><input type="checkbox" data-testid="check" value="Intermediate" checked> Intermediate</label>
+          <label class="ck"><input type="checkbox" data-testid="check" value="Advanced" checked> Advanced</label>
+          <label class="ck"><input type="checkbox" data-testid="check" value="Expert" checked> Expert</label>
+        </div>
+      </div>
+      <div>
+        <button type="button" class="ah" data-testid="ah" aria-expanded="false" aria-controls="fl-ac-05-2"><span>Duration / Duración <span class="n" data-testid="gn">3</span></span><span class="arw">▶</span></button>
+        <div class="ap" id="fl-ac-05-2">
+          <label class="ck"><input type="checkbox" data-testid="check" value="Short" checked> Short (≤ 4 h)</label>
+          <label class="ck"><input type="checkbox" data-testid="check" value="Medium" checked> Medium (5–9 h)</label>
+          <label class="ck"><input type="checkbox" data-testid="check" value="Long" checked> Long (≥ 10 h)</label>
+        </div>
+      </div>
+      <div>
+        <button type="button" class="ah" data-testid="ah" aria-expanded="false" aria-controls="fl-ac-05-3"><span>Format / Formato <span class="n" data-testid="gn">3</span></span><span class="arw">▶</span></button>
+        <div class="ap" id="fl-ac-05-3">
+          <label class="ck"><input type="checkbox" data-testid="check" value="Video" checked> Video</label>
+          <label class="ck"><input type="checkbox" data-testid="check" value="Article" checked> Article</label>
+          <label class="ck"><input type="checkbox" data-testid="check" value="Workshop" checked> Workshop</label>
+        </div>
+      </div>
+    </aside>
+    <section class="main">
+      <p class="cnt" data-testid="count">Results: 10</p>
+      <ul class="list" data-testid="list"></ul>
+      <button type="button" class="btn" data-testid="reset" aria-label="Reset filters">Reset filters</button>
+    </section>
+  </div>
+  <footer class="credit">Harley Vásquez · <a href="https://www.linkedin.com/in/harleyvasquez" target="_blank" rel="noreferrer">linkedin.com/in/harleyvasquez</a></footer>
+</main>
+<script>
+  const COURSES = [
+    { t: 'HTML Basics', l: 'Beginner', d: 'Short', f: 'Video' },
+    { t: 'CSS Layouts', l: 'Intermediate', d: 'Medium', f: 'Video' },
+    { t: 'JavaScript 101', l: 'Beginner', d: 'Long', f: 'Workshop' },
+    { t: 'React Hooks', l: 'Advanced', d: 'Medium', f: 'Article' },
+    { t: 'Accessibility Audit', l: 'Expert', d: 'Short', f: 'Workshop' },
+    { t: 'Git in an Hour', l: 'Beginner', d: 'Short', f: 'Video' },
+    { t: 'Testing Patterns', l: 'Advanced', d: 'Long', f: 'Article' },
+    { t: 'Performance Profiling', l: 'Expert', d: 'Long', f: 'Workshop' },
+    { t: 'CSS Animations', l: 'Intermediate', d: 'Short', f: 'Article' },
+    { t: 'TypeScript Deep', l: 'Advanced', d: 'Long', f: 'Video' }
+  ];
+  const heads = document.querySelectorAll('[data-testid="ah"]');
+  const checks = document.querySelectorAll('[data-testid="check"]');
+  const list = document.querySelector('[data-testid="list"]');
+  const count = document.querySelector('[data-testid="count"]');
+  const reset = document.querySelector('[data-testid="reset"]');
+  heads.forEach((h) => h.addEventListener('click', () => {
+    const open = h.getAttribute('aria-expanded') === 'true';
+    h.setAttribute('aria-expanded', open ? 'false' : 'true');
+    document.getElementById(h.getAttribute('aria-controls')).classList.toggle('open', !open);
+  }));
+  function render() {
+    const active = [...checks].filter((c) => c.checked).map((c) => c.value);
+    const hits = active.length ? COURSES.filter((c) => active.includes(c.l) && active.includes(c.d) && active.includes(c.f)) : COURSES;
+    list.textContent = '';
+    for (const c of hits) { const li = document.createElement('li'); li.textContent = c.t; li.appendChild(Object.assign(document.createElement('small'), { textContent: c.l + ' · ' + c.d + ' · ' + c.f })); list.appendChild(li); }
+    if (!hits.length) { const li = document.createElement('li'); li.textContent = 'No courses match / Ningún curso coincide'; list.appendChild(li); }
+    count.textContent = 'Results: ' + hits.length;
+  }
+  checks.forEach((c) => c.addEventListener('change', render));
+  reset.addEventListener('click', () => { checks.forEach((c) => (c.checked = true)); render(); });
+  render();
+</script>
+
+<script>
+(function(){
+  var filters = document.querySelectorAll('[data-testid="filter"], [data-testid="check"], [data-testid="pill"]');
+  filters.forEach(function(f){
+    f.addEventListener('click', function(){
+      f.classList.toggle('active');
+    });
+  });
+})();
+</script>
+</body>
+</html>

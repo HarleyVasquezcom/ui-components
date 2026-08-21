@@ -1,0 +1,104 @@
+<!-- Design 03: Split Label / Etiqueta Dividida -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Split Label Switch — Design 03</title>
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body {
+    min-height: 100vh;
+    display: grid;
+    place-items: center;
+    font-family: "Segoe UI", system-ui, sans-serif;
+    background: linear-gradient(160deg, #1d2333, #12141f);
+    overflow-x: hidden;
+  }
+  .stage {
+    width: min(580px, 94vw);
+    padding: clamp(28px, 6vw, 60px);
+    background: #1b2231;
+    border-radius: 22px;
+    box-shadow: 0 30px 80px rgba(0,0,0,.55);
+    text-align: center;
+  }
+  h1 { margin: 0; font-size: clamp(1.5rem, 4vw, 2.1rem); color: #eef2fa; font-weight: 700; }
+  .sub { margin: .4rem 0 2.6rem; color: #8492ab; font-size: .92rem; }
+  .sw {
+    display: inline-flex; align-items: stretch;
+    width: min(300px, 88vw);
+    height: 54px;
+    background: #12161f;
+    border: 1px solid #2c364c;
+    border-radius: 14px;
+    overflow: hidden;
+    cursor: pointer;
+    padding: 0;
+    position: relative;
+  }
+  .half {
+    flex: 1;
+    display: grid; place-items: center;
+    font-size: .92rem; font-weight: 800; letter-spacing: .16em;
+    color: #56627a;
+    transition: color .3s ease;
+    z-index: 1;
+  }
+  .half.off-label { text-transform: uppercase; }
+  .half.on-label { text-transform: uppercase; }
+  .slider {
+    position: absolute; top: 5px; bottom: 5px; left: 5px;
+    width: calc(50% - 10px);
+    background: linear-gradient(135deg, #ff5f6d, #ff2e63);
+    border-radius: 10px;
+    box-shadow: 0 6px 18px rgba(255,46,99,.45);
+    transition: transform .3s cubic-bezier(.6,0,.3,1), background .3s ease;
+  }
+  .sw.on .slider { transform: translateX(100%); background: linear-gradient(135deg, #2ee6a8, #12b981); box-shadow: 0 6px 18px rgba(46,230,168,.45); }
+  .sw.on .off-label { color: #56627a; }
+  .sw.on .on-label { color: #071310; }
+  .sw:not(.on) .off-label { color: #1a0a0d; }
+  .sw:not(.on) .on-label { color: #56627a; }
+  .sw:focus-visible { outline: 3px solid #2ee6a8; outline-offset: 4px; }
+  .status { margin-top: 22px; font-size: .9rem; color: #8492ab; }
+  .status b { color: #2ee6a8; }
+  .status.off b { color: #ff5f6d; }
+  .hint { margin-top: 1.4rem; color: #56627a; font-size: .8rem; }
+  .credit { margin-top: 2.2rem; padding-top: 1rem; border-top: 1px solid #2c364c; color: #56627a; font-size: .78rem; }
+  .credit a { color: #8aa8ff; text-decoration: none; }
+  .credit a:hover { text-decoration: underline; }
+input[type="checkbox"]:focus-visible, input[type="radio"]:focus-visible, [data-testid="toggle"]:focus-visible { outline: 2px solid #2563eb; outline-offset: 2px; } </style>
+</head>
+<body>
+<main class="stage">
+  <h1>Split Label</h1>
+  <p class="sub">The label lives inside the switch / La etiqueta vive dentro del switch</p>
+  <button type="button" class="sw" data-testid="switch" role="switch" aria-checked="false" aria-label="Toggle do not disturb">
+    <span class="half off-label" aria-hidden="true">Off</span>
+    <span class="slider" aria-hidden="true"></span>
+    <span class="half on-label" aria-hidden="true">On</span>
+  </button>
+  <p class="status" id="status" aria-live="polite">Do Not Disturb is <b>OFF</b></p>
+  <p class="hint">Click to switch — / Clic para cambiar</p>
+  <footer class="credit">Harley Vásquez · <a href="https://www.linkedin.com/in/harleyvasquez" target="_blank" rel="noreferrer">linkedin.com/in/harleyvasquez</a></footer>
+</main>
+<script>
+  const sw = document.querySelector('[data-testid="switch"]');
+  const status = document.getElementById('status');
+  function render() {
+    const on = sw.getAttribute('aria-checked') === 'true';
+    sw.classList.toggle('on', on);
+    status.classList.toggle('off', !on);
+    status.innerHTML = 'Do Not Disturb is <b>' + (on ? 'ON' : 'OFF') + '</b>';
+  }
+  sw.addEventListener('click', () => {
+    const on = sw.getAttribute('aria-checked') === 'true';
+    sw.setAttribute('aria-checked', String(!on));
+    render();
+  });
+  render();
+</script>
+</body>
+</html>

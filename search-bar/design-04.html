@@ -1,0 +1,106 @@
+<!-- Design 04: Terminal Find / Búsqueda Terminal -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Terminal Find Search — Design 04</title>
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body {
+    min-height: 100vh;
+    display: grid; place-items: center;
+    font-family: "Cascadia Mono", Consolas, monospace;
+    background: #0a0f0d;
+    overflow-x: hidden;
+  }
+  .stage {
+    width: min(560px, 94vw);
+    padding: clamp(26px, 6vw, 42px);
+    background: #0d1512;
+    border: 1px solid #1c2b24;
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: 0 30px 90px rgba(0, 0, 0, .7);
+  }
+  .termbar {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 8px 14px; margin: -24px -56px 0 0;
+    background: #111; border-bottom: 1px solid #1f6f4b;
+    font-size: .75rem; color: #5c7a6b;
+  }
+  h1 { margin: 22px 0 0; font-size: clamp(1.3rem, 4vw, 1.7rem); color: #33ff88; font-weight: 700; letter-spacing: .04em; }
+  h1::before { content: "> search("; color: #7ee7b0; }
+  h1::after { content: ")"; color: #7ee7b0; }
+  .sub { margin: .5rem 0 2rem; color: #5c7a6b; font-size: .86rem; }
+  .lbl { display: block; margin: 0 0 10px; color: #33ff88; font-size: .8rem; font-weight: 700; }
+  .row { display: flex; align-items: center; gap: 8px; background: #0a120e; border: 1px solid #1f6f4b; border-radius: 8px; padding: 4px 4px 4px 12px; }
+  .prompt { color: #33ff88; font-weight: 700; user-select: none; }
+  .inp {
+    flex: 1; min-width: 0;
+    padding: 9px 4px;
+    font-family: inherit; font-size: 1rem; color: #c9f5dd;
+    background: transparent; border: none; outline: none; caret-color: #33ff88;
+  }
+  .inp::placeholder { color: #3d5a4b; }
+  .inp:focus-visible { outline: 2px solid #33ff88; outline-offset: 2px; }
+  .clr {
+    font-family: inherit;
+    padding: 8px 12px;
+    background: #12291d; color: #33ff88;
+    border: 1px solid #1f6f4b; border-radius: 6px;
+    font-size: .8rem; cursor: pointer;
+  }
+  .clr:hover { background: #1a3a29; }
+  .clr:focus-visible { outline: 2px solid #33ff88; outline-offset: 2px; }
+  .rows { margin: 18px 0 0; padding: 0; list-style: none; display: grid; gap: 2px; }
+  .rows li { padding: 8px 10px; color: #9fd7b8; font-size: .92rem; }
+  .rows li::before { content: "$ "; color: #33ff88; }
+  .rows li:hover { background: #0f1a14; }
+  .cnt { margin-top: 12px; color: #5c7a6b; font-size: .84rem; }
+  .hint { margin-top: .4rem; color: #3d5a4b; font-size: .8rem; }
+  .credit { margin-top: 2rem; padding-top: 1rem; border-top: 1px solid #1c2b24; color: #3d5a4b; font-size: .76rem; }
+  .credit a { color: #33ff88; text-decoration: none; }
+  [hidden] { display: none !important; }
+</style>
+</head>
+<body>
+<main class="stage">
+  <div class="termbar" aria-hidden="true"><span><b>bash</b> — ui-kit v1.0</span><span>● ● ●</span></div>
+  <h1>Terminal Find</h1>
+  <p class="sub">Command soup, live filter / Sopa de comandos, filtro en vivo</p>
+  <label class="lbl" data-testid="label" for="sb-tf-04">Command</label>
+  <div class="row">
+    <span class="prompt" aria-hidden="true">$</span>
+    <input class="inp" data-testid="search" id="sb-tf-04" type="search" placeholder="grep comm…" autocomplete="off">
+    <button type="button" class="clr" data-testid="clear" aria-label="Clear search">clear</button>
+  </div>
+  <ul class="rows" data-testid="results"></ul>
+  <p class="cnt" data-testid="count"></p>
+  <p class="hint">Press "/" to jump in / Pulsa "/" para entrar</p>
+  <footer class="credit">Harley Vásquez · <a href="https://www.linkedin.com/in/harleyvasquez" target="_blank" rel="noreferrer">linkedin.com/in/harleyvasquez</a></footer>
+</main>
+<script>
+  const DATA = ['cat', 'cargo', 'cd', 'chmod', 'curl', 'git', 'ls', 'mkdir', 'rm', 'tail'];
+  const input = document.querySelector('[data-testid="search"]');
+  const list = document.querySelector('[data-testid="results"]');
+  const count = document.querySelector('[data-testid="count"]');
+  const clear = document.querySelector('[data-testid="clear"]');
+  function render(q) {
+    const ql = q.toLowerCase();
+    const hits = ql ? DATA.filter((t) => t.toLowerCase().includes(ql)) : DATA;
+    list.textContent = '';
+    for (const t of hits) { const li = document.createElement('li'); li.textContent = t; list.appendChild(li); }
+    count.textContent = hits.length + ' results';
+    clear.hidden = !ql;
+  }
+  input.addEventListener('input', () => render(input.value));
+  clear.addEventListener('click', () => { input.value = ''; render(''); input.focus(); });
+  window.addEventListener('keydown', (e) => {
+    if (e.key === '/' && document.activeElement !== input) { e.preventDefault(); input.focus(); }
+  });
+  render('');
+</script>
+</body>
+</html>
