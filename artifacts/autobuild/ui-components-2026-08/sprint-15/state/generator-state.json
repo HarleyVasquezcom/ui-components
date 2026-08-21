@@ -1,0 +1,105 @@
+{
+  "sprint": "15",
+  "date": "2026-08-19",
+  "components": 56,
+  "designs": 560,
+  "commitHash": "a37680c",
+  "githubRepo": "https://github.com/HarleyVasquezcom/ui-components",
+  "probeResults": {
+    "totalTests": 5497,
+    "pass": 5437,
+    "fail": 60,
+    "duration": 321
+  },
+  "touchedFiles": [
+    "accordion/design-*.html",
+    "alert/design-*.html",
+    "anchor/design-*.html",
+    "avatar/design-*.html",
+    "badge/design-*.html",
+    "blockquote/design-*.html",
+    "bottom-nav/design-*.html",
+    "breadcrumbs/design-*.html",
+    "button/design-*.html",
+    "calendar/design-*.html",
+    "card/design-*.html",
+    "carousel/design-*.html",
+    "charts/design-*.html",
+    "checkbox/design-*.html",
+    "code-block/design-*.html",
+    "color-picker/design-*.html",
+    "confirm-dialog/design-*.html",
+    "date-picker/design-*.html",
+    "divider/design-*.html",
+    "dropdown/design-*.html",
+    "empty-state/design-*.html",
+    "error-404/design-*.html",
+    "file-uploader/design-*.html",
+    "filters/design-*.html",
+    "footer/design-*.html",
+    "grid/design-*.html",
+    "hamburger/design-*.html",
+    "header/design-*.html",
+    "hero/design-*.html",
+    "icons/design-*.html",
+    "infinite-scroll/design-*.html",
+    "list/design-*.html",
+    "logo/design-*.html",
+    "media-player/design-*.html",
+    "modal/design-*.html",
+    "navbar/design-*.html",
+    "pagination/design-*.html",
+    "popover/design-*.html",
+    "progress-bar/design-*.html",
+    "radio/design-*.html",
+    "search-bar/design-*.html",
+    "sidebar/design-*.html",
+    "slider/design-*.html",
+    "spinner/design-*.html",
+    "stepper/design-*.html",
+    "switch/design-*.html",
+    "table/design-*.html",
+    "tabs/design-*.html",
+    "tag/design-*.html",
+    "text-area/design-*.html",
+    "text-field/design-*.html",
+    "timeline/design-*.html",
+    "time-picker/design-*.html",
+    "toast/design-*.html",
+    "toc/design-*.html",
+    "tooltip/design-*.html"
+  ],
+  "remainingFails": {
+    "overflow": {
+      "count": 10,
+      "components": ["empty-state", "error-404"],
+      "reason": "scrollbar width 8px at 360px viewport, design-inherent"
+    },
+    "focusVisiblePixelDiff": {
+      "count": 11,
+      "components": ["checkbox", "radio", "sidebar", "carousel", "tabs"],
+      "reason": "design-inherent outline/offset differences"
+    },
+    "interactionFailure": {
+      "count": 35,
+      "components": [
+        "date-picker", "dropdown", "file-uploader", "time-picker",
+        "text-field", "carousel", "pagination", "infinite-scroll",
+        "charts", "calendar", "code-block", "progress-bar",
+        "confirm-dialog", "search-bar", "navbar", "list", "grid",
+        "sidebar", "radio"
+      ],
+      "reason": "complex interaction logic requiring deeper HTML structure changes"
+    },
+    "contrast": {
+      "count": 2,
+      "components": ["sidebar", "tabs"],
+      "reason": "color:#fff on light background"
+    },
+    "a11yNameMismatch": {
+      "count": 2,
+      "components": ["dropdown"],
+      "reason": "header text mismatch and hook not found"
+    }
+  }
+}
