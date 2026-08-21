@@ -3,8 +3,12 @@
   "date": "2026-08-19",
   "components": 56,
   "designs": 560,
-  "commitHash": "a37680c",
+  "commitHash": "3d8a6d2",
   "githubRepo": "https://github.com/HarleyVasquezcom/ui-components",
+  "vercelUrl": "https://ui-components-peach.vercel.app",
+  "vercelProductionUrl": "https://ui-components-bn5li4mph-harley-vasquez.vercel.app",
+  "vercelInspector": "https://vercel.com/harley-vasquez/ui-components/HRqJpJ8iV7FZnFw6wB8PB1isNsgb",
+  "codepenPrefill": "codepen-prefill.html",
   "probeResults": {
     "totalTests": 5497,
     "pass": 5437,
