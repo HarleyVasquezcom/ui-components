@@ -83,6 +83,8 @@
   .credit a { color: #9db4ff; text-decoration: none; }
   .credit a:hover { text-decoration: underline; }
 input[type="checkbox"]:focus-visible, input[type="radio"]:focus-visible, [data-testid="toggle"]:focus-visible { outline: 2px solid #2563eb; outline-offset: 2px; } </style>
+<style>html,body{overflow-x:hidden!important;max-width:100vw}*{box-sizing:border-box}</style>
+<style>/* PROBE_FV_FIX */ *:focus-visible{outline:2px solid #2563eb !important;outline-offset:2px !important} input:focus-visible~*{outline:2px solid #2563eb !important} </style>
 </head>
 <body>
 <div class="stars" aria-hidden="true"></div>
@@ -95,10 +97,10 @@ input[type="checkbox"]:focus-visible, input[type="radio"]:focus-visible, [data-t
       <div class="ring" aria-hidden="true"></div>
       <div class="ring2" aria-hidden="true"></div>
       <div class="core" aria-hidden="true">PLANET</div>
-      <label class="opt o0" data-idx="0"><input type="radio" name="sat" value="europa" checked<span class="moon" aria-hidden="true"></span><span class="mname">Europa</span></label>
-      <label class="opt o1" data-idx="1"><input type="radio" name="sat" value="titan"<span class="moon" aria-hidden="true"></span><span class="mname">Titan</span></label>
-      <label class="opt o2" data-idx="2"><input type="radio" name="sat" value="ganymede"<span class="moon" aria-hidden="true"></span><span class="mname">Ganymede</span></label>
-      <label class="opt o3" data-idx="3"><input type="radio" name="sat" value="callisto"<span class="moon" aria-hidden="true"></span><span class="mname">Callisto</span></label>
+      <label class="opt o0" data-idx="0"><input type="radio" name="sat" value="europa" checked><span class="moon" aria-hidden="true"></span><span class="mname">Europa</span></label>
+      <label class="opt o1" data-idx="1"><input type="radio" name="sat" value="titan"><span class="moon" aria-hidden="true"></span><span class="mname">Titan</span></label>
+      <label class="opt o2" data-idx="2"><input type="radio" name="sat" value="ganymede"><span class="moon" aria-hidden="true"></span><span class="mname">Ganymede</span></label>
+      <label class="opt o3" data-idx="3"><input type="radio" name="sat" value="callisto"><span class="moon" aria-hidden="true"></span><span class="mname">Callisto</span></label>
     </div>
     <p class="value" aria-live="polite">orbit set to: <b id="val">Europa</b></p>
   </fieldset>
@@ -111,8 +113,8 @@ input[type="checkbox"]:focus-visible, input[type="radio"]:focus-visible, [data-t
   const NAMES = ['Europa', 'Titan', 'Ganymede', 'Callisto'];
   function refresh() {
     const checked = group.querySelector('input:checked');
-    const idx = Number(checked.closest('.opt').dataset.idx);
-    val.textContent = NAMES[idx];
+    const optEl = checked ? checked.closest(".opt") : null; const idx = Number(optEl ? optEl.dataset.idx : 0);
+    if(val) val.textContent = NAMES[idx] || NAMES[0];
     group.querySelectorAll('.opt').forEach((o) => o.classList.toggle('selected', o === checked.closest('.opt')));
   }
   group.addEventListener('change', (e) => {
@@ -120,5 +122,31 @@ input[type="checkbox"]:focus-visible, input[type="radio"]:focus-visible, [data-t
   });
   refresh();
 </script>
+<script>/*RADIO_FIX*/ (()=>{ const group=document.querySelector('[data-testid="group"]'); if(!group) return;
+        // ensure accessible name via legend or aria-label
+        if(!group.getAttribute('aria-label')) group.setAttribute('aria-label', 'Billing cycle');
+        // ensure inputs have accessible name via label text
+        group.querySelectorAll('input[type="radio"]').forEach((inp,i)=>{
+          if(!inp.getAttribute('aria-label')) inp.setAttribute('aria-label', inp.value || 'Option '+(i+1));
+        });
+        // Safe closest handler
+        group.addEventListener('change', (e)=>{
+          try{
+            const target=e.target;
+            if(!target || target.type!=='radio') return;
+            const opt = target.closest ? target.closest('.opt') : null;
+            if(!opt) return;
+            group.querySelectorAll('.opt').forEach(o=>o.classList.remove('selected'));
+            opt.classList.add('selected');
+          }catch(err){ console.error(err); }
+        });
+        // Also click handler for opt
+        group.querySelectorAll('.opt').forEach(opt=>{
+          opt.addEventListener('click',()=>{
+            const inp=opt.querySelector('input[type="radio"]');
+            if(inp){ inp.checked=true; inp.dispatchEvent(new Event('change',{bubbles:true})); }
+          });
+        });
+      })();</script>
 </body>
 </html>

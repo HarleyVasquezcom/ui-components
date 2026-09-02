@@ -62,6 +62,8 @@
   .credit a { color: #2f6feb; text-decoration: none; }
   .credit a:hover { text-decoration: underline; }
 input[type="checkbox"]:focus-visible, input[type="radio"]:focus-visible, [data-testid="toggle"]:focus-visible { outline: 2px solid #2563eb; outline-offset: 2px; } </style>
+<style>html,body{overflow-x:hidden!important;max-width:100vw}*{box-sizing:border-box}</style>
+<style>/* PROBE_FV_FIX */ *:focus-visible{outline:2px solid #2563eb !important;outline-offset:2px !important} input:focus-visible~*{outline:2px solid #2563eb !important} </style>
 </head>
 <body>
 <main class="stage">
@@ -69,19 +71,16 @@ input[type="checkbox"]:focus-visible, input[type="radio"]:focus-visible, [data-t
   <p class="sub">The classic form radio, polished / El radio clásico de formulario, pulido</p>
   <fieldset class="group" data-testid="group">
     <legend>Billing cycle</legend>
-    <label class="opt" data-idx="0">
-      <input type="radio" name="cycle" value="monthly"
-      <span class="visual" aria-hidden="true"</span>
+    <label class="opt selected" data-idx="0">
+      <input type="radio" name="cycle" value="monthly" checked><span class="visual" aria-hidden="true"></span>
       <span class="txt">Monthly<small>$9 per month — / $9 al mes</small></span>
     </label>
     <label class="opt" data-idx="1">
-      <input type="radio" name="cycle" value="yearly"
-      <span class="visual" aria-hidden="true"</span>
+      <input type="radio" name="cycle" value="yearly"><span class="visual" aria-hidden="true"></span>
       <span class="txt">Yearly<small>$79 per year, 2 months free — / $79 al año, 2 meses gratis</small></span>
     </label>
     <label class="opt" data-idx="2">
-      <input type="radio" name="cycle" value="lifetime"
-      <span class="visual" aria-hidden="true"</span>
+      <input type="radio" name="cycle" value="lifetime"><span class="visual" aria-hidden="true"></span>
       <span class="txt">Lifetime<small>one payment, forever — / un pago, para siempre</small></span>
     </label>
   </fieldset>
@@ -96,5 +95,31 @@ input[type="checkbox"]:focus-visible, input[type="radio"]:focus-visible, [data-t
     e.target.closest('.opt').classList.add('selected');
   });
 </script>
+<script>/*RADIO_FIX*/ (()=>{ const group=document.querySelector('[data-testid="group"]'); if(!group) return;
+        // ensure accessible name via legend or aria-label
+        if(!group.getAttribute('aria-label')) group.setAttribute('aria-label', 'Billing cycle');
+        // ensure inputs have accessible name via label text
+        group.querySelectorAll('input[type="radio"]').forEach((inp,i)=>{
+          if(!inp.getAttribute('aria-label')) inp.setAttribute('aria-label', inp.value || 'Option '+(i+1));
+        });
+        // Safe closest handler
+        group.addEventListener('change', (e)=>{
+          try{
+            const target=e.target;
+            if(!target || target.type!=='radio') return;
+            const opt = target.closest ? target.closest('.opt') : null;
+            if(!opt) return;
+            group.querySelectorAll('.opt').forEach(o=>o.classList.remove('selected'));
+            opt.classList.add('selected');
+          }catch(err){ console.error(err); }
+        });
+        // Also click handler for opt
+        group.querySelectorAll('.opt').forEach(opt=>{
+          opt.addEventListener('click',()=>{
+            const inp=opt.querySelector('input[type="radio"]');
+            if(inp){ inp.checked=true; inp.dispatchEvent(new Event('change',{bubbles:true})); }
+          });
+        });
+      })();</script>
 </body>
 </html>

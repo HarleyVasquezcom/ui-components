@@ -37,6 +37,8 @@
   .credit a { color: #64748b; text-decoration: none; }
   @media (max-width: 480px) { .pagination-wrapper { width: 95vw; } }
 </style>
+<style>html,body{overflow-x:hidden!important;max-width:100vw}*{box-sizing:border-box}</style>
+<style>/* PROBE_FV_FIX */ *:focus-visible{outline:2px solid #2563eb !important;outline-offset:2px !important} input:focus-visible~*{outline:2px solid #2563eb !important} </style>
 </head>
 <body>
 <div class="pagination-wrapper" data-testid="pagination" aria-label="Pagination">
@@ -78,5 +80,36 @@
   })();
 </script>
 <footer class="credit">Harley Vásquez · <a href="https://www.linkedin.com/in/harleyvasquez" target="_blank" rel="noreferrer">linkedin.com/in/harleyvasquez</a></footer>
+<script>/*PAGINATION_FIX*/ (()=>{ const container=document.querySelector('[data-testid="pagination"]'); if(!container) return;
+      const links=container.querySelectorAll('a[href="#"], button'); 
+      const info=container.querySelector('.page-info');
+      let current=1;
+      function update(newPage){
+        current=newPage;
+        container.querySelectorAll('.active').forEach(x=>x.classList.remove('active'));
+        container.querySelectorAll('[aria-current]').forEach(x=>x.removeAttribute('aria-current'));
+        // find link with text newPage
+        links.forEach(l=>{
+          if(l.textContent.trim()===String(newPage)){
+            l.classList.add('active');
+            l.setAttribute('aria-current','page');
+            const parent=l.closest('.page-item'); if(parent) parent.classList.add('active');
+          }
+        });
+        if(info) info.textContent='Mostrando '+(current*10-9)+'-'+(current*10)+' de 104 resultados PAGE '+current;
+      }
+      links.forEach(l=>{
+        l.addEventListener('click', (e)=>{
+          e.preventDefault();
+          const txt=l.textContent.trim();
+          const num=parseInt(txt,10);
+          if(!isNaN(num)) update(num);
+          else {
+            // if next button, increment
+            update(current+1);
+          }
+        });
+      });
+    })();</script>
 </body>
 </html>

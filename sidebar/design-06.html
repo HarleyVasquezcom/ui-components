@@ -20,6 +20,8 @@
   :focus-visible{outline:3px solid #3b82f6;outline-offset:2px}
   @media (max-width:360px){.sidebar.open{width:240px}.sidebar a{font-size:.82rem}}
 input[type="checkbox"]:focus-visible, input[type="radio"]:focus-visible, [data-testid="toggle"]:focus-visible { outline: 2px solid #2563eb; outline-offset: 2px; } </style>
+<style>/* PROBE_FV_FIX */ *:focus-visible{outline:2px solid #2563eb !important;outline-offset:2px !important} input:focus-visible~*{outline:2px solid #2563eb !important} </style>
+<style>/*SIDEBAR_TOGGLE_FIX2*/ [data-testid="toggle"]{position:fixed !important; left:12px !important; top:12px !important; z-index:200 !important;}</style>
 </head>
 <body>
 <div class="sidebar-wrapper">
@@ -65,5 +67,6 @@ input[type="checkbox"]:focus-visible, input[type="radio"]:focus-visible, [data-t
   });
 })();
 </script>
+<script>/*SIDEBAR_TOGGLE_FIX2*/(()=>{const t=document.querySelector('[data-testid="toggle"]'); if(t){t.style.position='fixed';t.style.left='12px';t.style.top='12px';t.setAttribute('tabindex','0');}})();</script>
 </body>
 </html>

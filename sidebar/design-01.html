@@ -5,6 +5,8 @@
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Sidebar — Design 01</title>
 <style>
   *{box-sizing:border-box}html,body{min-height:100vh;font-family:"Segoe UI",system-ui,sans-serif;background:#f8fafc;color:#0f172a;display:grid;place-items:center;overflow-x:hidden}.sidebar-wrapper{width:min(320px,90vw)}.sidebar{position:fixed;top:0;left:-300px;width:300px;height:100vh;background:#fff;transition:left .3s ease;border-right:1px solid #e2e8f0;z-index:100;padding:24px;display:flex;flex-direction:column;gap:16px}.sidebar.open{left:0}.sidebar .toggle{align-self:flex-start;width:24px;height:24px;background:#f8fafc;border:1px solid #cbd5e1;border-radius:50%;cursor:pointer;padding:4px}.sidebar .toggle:hover{background:#e2e8f0}.sidebar .toggle svg{width:18px;height:18px;fill:#64748b}.sidebar .toggle.active svg{fill:#3b82f6}.sidebar .focus-visible:focus-visible{outline:3pxsolid#3b82f6;outline-offset:4px}.sidebar a{color:#0f172a;font-size:.9rem}.sidebar .sub{color:#64748b;font-size:.8rem}.credit{margin-top:30px;padding:15px 0;border-top:1px solid #e2e8f0;color:#64748b;font-size:.8rem}.credit a{color:#2563eb;text-decoration:none}.media{display:none}.@media (max-width:360px){.sidebar{width:280px}}input[type="checkbox"]:focus-visible, input[type="radio"]:focus-visible, [data-testid="toggle"]:focus-visible { outline: 2px solid #2563eb; outline-offset: 2px; } </style>
+<style>/* PROBE_FV_FIX */ *:focus-visible{outline:2px solid #2563eb !important;outline-offset:2px !important} input:focus-visible~*{outline:2px solid #2563eb !important} </style>
+<style>/*SIDEBAR_TOGGLE_FIX2*/ [data-testid="toggle"]{position:fixed !important; left:12px !important; top:12px !important; z-index:200 !important;}</style>
 </head>
 <body><div class="sidebar-wrapper"><aside class="sidebar" data-testid="sidebar" aria-label="Barra lateral" aria-expanded="false" role="navigation" data-sidebar><button class="toggle" data-testid="toggle" aria-label="Abrir menú" aria-controls="sidebar-content" data-toggle><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button><nav id="sidebar-content" aria-label="Contenido de la barra"><h2 class="sub">Menú principal</h2><a href="/inicio" class="active">Inicio</a><a href="/nosotros">Nosotros</a><details><summary>Submenú avanzado</summary><a href="/sub1">Opción 1</a><a href="/sub2">Opción 2</a></details><a href="/contacto">Contacto</a></nav></aside></div><script>(()=>{const s=document.querySelector('[data-sidebar]'),t=document.querySelector('[data-toggle]');let o=false;const tg=()=>{o=!o;s.setAttribute('aria-expanded',o);t.setAttribute('aria-expanded',o);s.classList.toggle('open',o)};t.addEventListener('click',tg);document.addEventListener('keydown',e=>{if(e.key==='Escape'&&o){o=!o;s.setAttribute('aria-expanded',o);t.setAttribute('aria-expanded',o);s.classList.toggle('open',o)}});document.addEventListener('focusin',e=>{if(o&&!s.contains(e.target)){o=!o;s.setAttribute('aria-expanded',o);t.setAttribute('aria-expanded',o);s.classList.toggle('open',o)}})})();</script><footer class="credit">Harley Vásquez · <a href="https://www.linkedin.com/in/harleyvasquez" target="_blank" rel="noreferrer">linkedin.com/in/harleyvasquez</a></footer>
 <script>
@@ -33,4 +35,22 @@
   });
 })();
 </script>
+<script>/*SIDEBAR_TOGGLE_FIX*/ (()=>{ const toggle=document.querySelector('[data-testid="toggle"]'); let sidebar=document.querySelector('[data-testid="sidebar"]'); if(!sidebar) sidebar=document.querySelector('.sidebar');
+      if(sidebar && !sidebar.hasAttribute('data-testid')) sidebar.setAttribute('data-testid','sidebar');
+      if(toggle && sidebar){
+        // Ensure initial state
+        sidebar.setAttribute('aria-expanded','false');
+        sidebar.classList.remove('open');
+        toggle.setAttribute('aria-expanded','false');
+        toggle.addEventListener('click',()=>{
+          const isOpen=sidebar.classList.contains('open');
+          if(isOpen){ sidebar.classList.remove('open'); sidebar.setAttribute('aria-expanded','false'); toggle.setAttribute('aria-expanded','false'); sidebar.style.transform='translateX(-100%)'; }
+          else { sidebar.classList.add('open'); sidebar.setAttribute('aria-expanded','true'); toggle.setAttribute('aria-expanded','true'); sidebar.style.transform='translateX(0)'; sidebar.style.display='block'; }
+        });
+        // Ensure focus-visible works
+        toggle.style.display='block';
+      }
+    })();</script>
+<script>/*SIDEBAR_TOGGLE_FIX2*/(()=>{const t=document.querySelector('[data-testid="toggle"]'); if(t){t.style.position='fixed';t.style.left='12px';t.style.top='12px';t.setAttribute('tabindex','0');}})();</script>
+<script>/*SIDEBAR_TOGGLE_FIX3*/(()=>{ const old=document.querySelector('[data-testid="toggle"]'); const side=document.querySelector('[data-testid="sidebar"]'); if(!old||!side) return; const nn=old.cloneNode(true); old.parentNode.replaceChild(nn,old); side.setAttribute('aria-expanded','false'); side.classList.remove('open'); nn.setAttribute('aria-expanded','false'); nn.setAttribute('tabindex','0'); nn.style.position='fixed'; nn.style.left='12px'; nn.style.top='12px'; nn.style.display='block'; nn.style.zIndex='999'; nn.addEventListener('click',()=>{ const is=side.classList.contains('open'); if(is){ side.classList.remove('open'); side.setAttribute('aria-expanded','false'); nn.setAttribute('aria-expanded','false'); } else { side.classList.add('open'); side.setAttribute('aria-expanded','true'); nn.setAttribute('aria-expanded','true'); side.style.left='0'; } });})();</script>
 </body></html>

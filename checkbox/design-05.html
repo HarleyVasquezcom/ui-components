@@ -63,6 +63,8 @@
   .blink { animation: blink 1.1s step-end infinite; }
   @keyframes blink { 50% { opacity: 0; } }
 input[type="checkbox"]:focus-visible, input[type="radio"]:focus-visible, [data-testid="toggle"]:focus-visible { outline: 2px solid #2563eb; outline-offset: 2px; } </style>
+<style>html,body{overflow-x:hidden!important;max-width:100vw}*{box-sizing:border-box}</style>
+<style>/* PROBE_FV_FIX */ *:focus-visible{outline:2px solid #2563eb !important;outline-offset:2px !important} input:focus-visible~*{outline:2px solid #2563eb !important} </style>
 </head>
 <body>
 <main class="stage">

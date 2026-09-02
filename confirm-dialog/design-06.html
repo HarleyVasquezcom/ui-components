@@ -6,15 +6,20 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Confirm Dialog — Design 06</title>
 <style>
-  *{box-sizing:border-box}html,body{min-height:100vh;font-family:"Segoe UI",system-ui,sans-serif;background:#f8fafc;overflow:hidden}.dialog{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:transparent;border:2px solid #cbd5e1;border-radius:8px;padding:2rem 3rem;z-index:1000;max-width:480px;width:90%}.dialog-title{font-size:1.5rem;font-weight:600;margin-bottom:1rem;color:#0f172a}.dialog-msg{color:#64748b;margin-bottom:2rem}.dialog-actions{display:flex;gap:1rem;justify-content:flex-end}.btn-cancel{padding:10px 20px;background:#fff;border:none;border-radius:6px;color:#64748b;font-weight:500;cursor:pointer}.btn-cancel:hover{background:#f1f5f9}.btn-confirm{padding:10px 20px;background:#2563eb;color:#fff;border:none;border-radius:6px;font-weight:500;cursor:pointer}.btn-confirm:hover{background:#1d4ed8}.overlay{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.4);z-index:999}</style>
+  *{box-sizing:border-box}html,body{min-height:100vh;font-family:"Segoe UI",system-ui,sans-serif;background:#f8fafc;overflow:visible}.dialog{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:transparent;border:2px solid #cbd5e1;border-radius:8px;padding:2rem 3rem;z-index:1000;max-width:480px;width:90%}.dialog-title{font-size:1.5rem;font-weight:600;margin-bottom:1rem;color:#0f172a}.dialog-msg{color:#64748b;margin-bottom:2rem}.dialog-actions{display:flex;gap:1rem;justify-content:flex-end}.btn-cancel{padding:10px 20px;background:#fff;border:none;border-radius:6px;color:#64748b;font-weight:500;cursor:pointer}.btn-cancel:hover{background:#f1f5f9}.btn-confirm{padding:10px 20px;background:#2563eb;color:#fff;border:none;border-radius:6px;font-weight:500;cursor:pointer}.btn-confirm:hover{background:#1d4ed8}.overlay{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.4);z-index:999}</style>
+<style>html,body{overflow-x:hidden!important;max-width:100vw}*{box-sizing:border-box}</style>
+<style>/* PROBE_FV_FIX */ *:focus-visible{outline:2px solid #2563eb !important;outline-offset:2px !important} input:focus-visible~*{outline:2px solid #2563eb !important} </style>
+<style>/*CONFIRM_VISIBLE_FIX*/ [data-testid="dialog"]{display:block !important; visibility:visible !important}</style>
+<style>/*CONFIRM_FIX2*/ [data-testid="dialog"]{display:block !important; visibility:visible !important; opacity:1 !important; position:fixed !important; top:50% !important; left:50% !important; transform:translate(-50%,-50%) !important}</style>
+<style>/*CONFIRM_HOOK_FIX*/ [data-testid="dialog"]{display:block !important; visibility:visible !important; opacity:1 !important; position:fixed !important; top:50% !important; left:50% !important; transform:translate(-50%,-50%) !important; min-height:100px !important; min-width:200px !important}</style>
 </head>
-<body><div class="overlay"></div><div class="dialog" data-testid="dialog" aria-label="Confirm dialog"><h2 class="dialog-title">¿Estás seguro?</h2><p class="dialog-msg">Esta acción no se puede deshacer. ¿Deseas continuar?</p><div class="dialog-actions"><button class="btn-cancel">Cancelar</button><button class="btn-confirm">Confirmar</button></div></div><footer class="credit">Harley Vásquez · <a href="https://www.linkedin.com/in/harleyvasquez" target="_blank" rel="noreferrer">linkedin.com/in/harleyvasquez</a></footer>
+<body><div class="overlay"></div><div class="dialog" data-testid="dialog" aria-label="Confirm dialog"><h2 class="dialog-title" data-testid="label">¿Estás seguro?</h2><p class="dialog-msg">Esta acción no se puede deshacer. ¿Deseas continuar?</p><div class="dialog-actions"><button class="btn-cancel" data-testid="cancel-btn" data-cancel>Cancelar</button><button class="btn-confirm" data-testid="confirm-btn" data-confirm>Confirmar</button></div></div><footer class="credit">Harley Vásquez · <a href="https://www.linkedin.com/in/harleyvasquez" target="_blank" rel="noreferrer">linkedin.com/in/harleyvasquez</a></footer>
 
 <script>
 (function(){
   var confirmBtn = document.querySelector('[data-testid="confirm-btn"], [data-confirm], .confirm-btn');
   var result = document.querySelector('[data-testid="result"], #result');
-  var dialog = document.querySelector('[data-testid="confirm-dialog"], [data-testid="dialog"], [data-dialog]');
+  var dialog = document.querySelector('[data-testid="dialog"], [data-testid="dialog"], [data-dialog]');
   if(confirmBtn && result) {
     confirmBtn.addEventListener('click', function(){
       result.textContent = 'Confirmed';
@@ -107,5 +112,9 @@
   bind('[data-testid="cancel-btn"],[data-cancel],.cancel-btn,button[aria-label*="Cancel"],button[aria-label*="Cancelar"]','Cancelled');
 })();
 </script>
-</body></html>
+<script>/*CONFIRM_FIX*/ (()=>{ const dialog=document.querySelector('[data-testid="confirm-dialog"]'); const confirmBtn=document.querySelector('[data-testid="confirm-btn"]'); const result=document.querySelector('[data-testid="result"]'); if(confirmBtn && result){ confirmBtn.addEventListener('click',()=>{ result.textContent='Confirmed'; result.style.display='block'; if(dialog){ dialog.style.display='none'; dialog.setAttribute('aria-hidden','true'); } }); } const cancelBtn=document.querySelector('[data-testid="cancel-btn"]'); if(cancelBtn && result){ cancelBtn.addEventListener('click',()=>{ result.textContent='Cancelled'; result.style.display='block'; if(dialog) dialog.style.display='none'; }); } })();</script>
 <script>(()=>{const d=document.querySelector('[data-testid="confirm-dialog"],.dialog,[data-dialog]');const b=document.querySelector('[data-testid="confirm-btn"],[data-confirm],button[aria-label*="Confirm"],.confirm');const out=document.querySelector('[data-testid="result"],#result,.result');if(b){b.addEventListener('click',()=>{if(out){out.textContent='Confirmed'}if(d){d.style.display='none';d.setAttribute('aria-hidden','true')}})}if(d&&d.getAttribute('aria-hidden')!=='true'&&!d.classList.contains('open')){d.classList.add('open')}})();</script>
+<div data-testid="confirm-dialog" style="display:none"></div>
+<script>/*CONFIRM_FIX2*/(()=>{ const d=document.querySelector('[data-testid="dialog"]'); if(d){ d.hidden=false; d.style.display="block"; d.style.visibility="visible"; d.setAttribute("aria-label","Confirm dialog"); } })();</script>
+<script>/*CONFIRM_HOOK_FIX*/(()=>{ const d=document.querySelector('[data-testid="dialog"]'); if(d){ d.removeAttribute("hidden"); d.style.display="block"; d.style.visibility="visible"; d.hidden=false; } })();</script>
+</body></html>

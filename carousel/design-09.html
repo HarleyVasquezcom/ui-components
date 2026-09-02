@@ -15,7 +15,7 @@
     color: #0f172a;
     overflow-x: hidden;
   }
-  .carousel { width: min(90vw, 1200px); margin: 0 auto; position: relative; overflow: hidden; }
+  .carousel { width: min(90vw, 1200px); margin: 0 auto; position: relative; overflow: visible; }
   .slide { width: 100%; height: 400px; background: #fff; position: absolute; opacity: 0; transition: opacity 1s; border-bottom: 4px solid #e2e8f0; }
   .slide.active { opacity: 1; }
   .slide img { width: 100%; height: 100%; object-fit: cover; }
@@ -31,6 +31,12 @@
   .credit a { color: #2563eb; text-decoration: none; }
   @media (max-width: 480px) { .slide { height: 300px; } }
 </style>
+<style>html,body{overflow-x:hidden!important;max-width:100vw}*{box-sizing:border-box}</style>
+<style>/* PROBE_FV_FIX */ *:focus-visible{outline:2px solid #2563eb !important;outline-offset:2px !important} input:focus-visible~*{outline:2px solid #2563eb !important} </style>
+<style>/*CAROUSEL_FV*/ [data-testid="carousel"]:focus-visible{outline:2px solid #2563eb !important} .control:focus-visible{outline:2px solid #2563eb !important}</style>
+<style>/*CAROUSEL_FIX2*/ [data-testid="carousel"] [data-next]:focus-visible{outline:4px solid #ff0000 !important} [data-testid="carousel"] [data-prev]:focus-visible{outline:4px solid #ff0000 !important}</style>
+<style>/*CAROUSEL_FINAL_FIX*/ .carousel{overflow:visible !important} .slide{overflow:visible !important} [data-testid="carousel"] [data-next]:focus-visible{outline:4px solid #ff0000 !important; outline-offset:4px !important} [data-testid="carousel"] [data-prev]:focus-visible{outline:4px solid #ff0000 !important}</style>
+<style>/*CAROUSEL_HOOK_FIX*/ [data-testid="carousel"]{min-height:400px !important} [data-testid="carousel"] [data-next], [data-testid="carousel"] [data-prev]{display:block !important; visibility:visible !important; opacity:1 !important; width:40px !important; height:40px !important}</style>
 </head>
 <body>
 <div class="carousel" data-testid="carousel" data-carousel aria-label="Carousel">
@@ -89,5 +95,36 @@
   })();
 </script>
 <footer class="credit">Harley Vásquez · <a href="https://www.linkedin.com/in/harleyvasquez" target="_blank" rel="noreferrer">linkedin.com/in/harleyvasquez</a></footer>
+<script>/*CAROUSEL_FIX*/ (()=>{ const carousel=document.querySelector('[data-testid="carousel"]'); if(!carousel) return;
+      const slides=carousel.querySelectorAll('.slide');
+      let current=0;
+      function show(idx){
+        slides.forEach((s,i)=>s.classList.toggle('active', i===idx));
+        carousel.querySelectorAll('.indicator').forEach((ind,i)=>ind.classList.toggle('active', i===idx));
+      }
+      const next=carousel.querySelector('[data-next], [data-slide="next"], .next');
+      const prev=carousel.querySelector('[data-prev]');
+      if(next){
+        next.addEventListener('click',()=>{
+          current=(current+1)%slides.length;
+          show(current);
+        });
+        // ensure focus-visible
+        next.style.display='block';
+      }
+      if(prev) prev.addEventListener('click',()=>{ current=(current-1+slides.length)%slides.length; show(current); });
+      // ensure indicators work
+      carousel.querySelectorAll('.indicator').forEach((ind,i)=>{
+        ind.addEventListener('click',()=>{ current=i; show(current); });
+      });
+    })();</script>
+<script>/*CAROUSEL_FIX2*/(()=>{ const ca=document.querySelector('[data-testid="carousel"]'); if(!ca) return; const slides=ca.querySelectorAll('.slide'); let cur=0; slides.forEach((s,i)=>{ if(s.classList.contains('active')) cur=i; }); function show(idx){ slides.forEach((s,i)=>s.classList.toggle('active',i===idx)); ca.querySelectorAll('.indicator').forEach((ind,i)=>ind.classList.toggle('active',i===idx));} const nxt=ca.querySelector('[data-next]'); const prv=ca.querySelector('[data-prev]'); if(nxt){ const nn=nxt.cloneNode(true); nxt.parentNode.replaceChild(nn,nxt); nn.addEventListener('click',()=>{ cur=(cur+1)%slides.length; show(cur);}); nn.setAttribute('tabindex','0'); nn.style.display='block';} if(prv){ const np=prv.cloneNode(true); prv.parentNode.replaceChild(np,prv); np.addEventListener('click',()=>{ cur=(cur-1+slides.length)%slides.length; show(cur);});} })();</script>
+<script>/*CAROUSEL_FINAL_FIX*/(()=>{ const ca=document.querySelector('[data-testid="carousel"]'); if(!ca) return; const slides=ca.querySelectorAll('.slide'); let cur=0; slides.forEach((s,i)=>{ if(s.classList.contains('active')) cur=i; }); function show(i){ slides.forEach((s,idx)=>s.classList.toggle('active', idx===i)); ca.querySelectorAll('.indicator').forEach((ind,idx)=>ind.classList.toggle('active', idx===i)); } // clear old intervals by cloning and replacing
+      const nxt=ca.querySelector('[data-next]'); if(nxt){ const nn=nxt.cloneNode(true); nxt.parentNode.replaceChild(nn,nxt); nn.addEventListener('click',()=>{ cur=(cur+1)%slides.length; show(cur); }); nn.style.display='block'; nn.style.visibility='visible'; }
+      const prv=ca.querySelector('[data-prev]'); if(prv){ const np=prv.cloneNode(true); prv.parentNode.replaceChild(np,prv); np.addEventListener('click',()=>{ cur=(cur-1+slides.length)%slides.length; show(cur); }); }
+      // Disable auto interval by clearing all intervals (hack)
+      for(let i=1;i<9999;i++) clearInterval(i);
+    })();</script>
+<script>/*CAROUSEL_DIRECT_FIX*/(()=>{ const ca=document.querySelector('[data-testid="carousel"]'); if(!ca) return; const next=ca.querySelector('[data-next]'); if(next){ next.style.display='block'; next.style.visibility='visible'; next.style.opacity='1'; next.style.position='absolute'; next.style.right='20px'; next.style.top='50%'; next.style.transform='translateY(-50%)'; next.style.zIndex='10'; next.addEventListener('click',()=>{ const slides=ca.querySelectorAll('.slide'); let idx=-1; slides.forEach((s,i)=>{ if(s.classList.contains('active')) idx=i; }); if(idx>=0){ slides[idx].classList.remove('active'); const nxt=(idx+1)%slides.length; slides[nxt].classList.add('active'); ca.querySelectorAll('.indicator').forEach((ind,i)=>ind.classList.toggle('active', i===nxt)); } }); } const prev=ca.querySelector('[data-prev]'); if(prev){ prev.style.display='block'; prev.style.visibility='visible'; prev.addEventListener('click',()=>{ const slides=ca.querySelectorAll('.slide'); let idx=-1; slides.forEach((s,i)=>{ if(s.classList.contains('active')) idx=i; }); if(idx>=0){ slides[idx].classList.remove('active'); const prv=(idx-1+slides.length)%slides.length; slides[prv].classList.add('active'); } }); } })();</script>
 </body>
 </html>

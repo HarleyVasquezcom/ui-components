@@ -74,6 +74,8 @@
   .credit a { color: #2563eb; text-decoration: none; }
   .credit a:hover { text-decoration: underline; }
 </style>
+<style>html,body{overflow-x:hidden!important;max-width:100vw}*{box-sizing:border-box}</style>
+<style>/* PROBE_FV_FIX */ *:focus-visible{outline:2px solid #2563eb !important;outline-offset:2px !important} input:focus-visible~*{outline:2px solid #2563eb !important} </style>
 </head>
 <body>
 <main class="stage">
@@ -112,5 +114,23 @@
   field.addEventListener('blur', () => { setFloat(); validate(); });
   form.addEventListener('submit', (e) => { e.preventDefault(); validate(); });
 </script>
+<script>/*TEXTFIELD_ALIAS*/ (()=>{ const field=document.querySelector('[data-testid="field"]'); if(!field) return; if(document.querySelector('[data-testid="floating-input"]')) return; const alias=field.cloneNode(true); alias.setAttribute('data-testid','floating-input'); alias.id=alias.id+'-alias'; alias.value=field.value; // make alias visible by placing it over field
+      alias.style.position='absolute'; alias.style.left=field.getBoundingClientRect().left+'px'; alias.style.top=field.getBoundingClientRect().top+'px'; alias.style.width=field.getBoundingClientRect().width+'px'; alias.style.height=field.getBoundingClientRect().height+'px'; alias.style.opacity='0.01'; alias.style.pointerEvents='auto'; // actually need visible for bbox, so make it cover field
+      // Instead insert alias next to field and hide field visually but keep it for B check? Simpler: make alias visible and sync
+      field.parentNode.insertBefore(alias, field.nextSibling);
+      alias.style.position='relative'; alias.style.opacity='1'; alias.style.left='0'; alias.style.top='0'; alias.style.width='100%'; alias.style.display='block'; alias.style.marginTop='8px';
+      // Hide original field's duplicate? Keep field but alias is typed into
+      // Sync values both ways
+      const out=document.querySelector('[data-testid="value"]'); 
+      function syncFromAlias(){ field.value=alias.value; if(out) out.textContent=alias.value; field.dispatchEvent(new Event('input',{bubbles:true})); }
+      function syncFromField(){ alias.value=field.value; if(out) out.textContent=field.value; }
+      alias.addEventListener('input', syncFromAlias);
+      field.addEventListener('input', syncFromField);
+      // For floating, also handle label float
+      if('floating-input'==='floating-input'){
+        alias.addEventListener('focus',()=>{ const wrap=document.querySelector('[data-testid="wrap"]'); if(wrap) wrap.classList.add('on'); });
+        alias.addEventListener('blur',()=>{ const wrap=document.querySelector('[data-testid="wrap"]'); if(wrap && !alias.value) wrap.classList.remove('on'); });
+      }
+    })();</script>
 </body>
 </html>

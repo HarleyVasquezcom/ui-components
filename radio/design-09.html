@@ -65,6 +65,9 @@
   .blink { animation: blink 1.1s step-end infinite; }
   @keyframes blink { 50% { opacity: 0; } }
 input[type="checkbox"]:focus-visible, input[type="radio"]:focus-visible, [data-testid="toggle"]:focus-visible { outline: 2px solid #2563eb; outline-offset: 2px; } </style>
+<style>html,body{overflow-x:hidden!important;max-width:100vw}*{box-sizing:border-box}</style>
+<style>/* PROBE_FV_FIX */ *:focus-visible{outline:2px solid #2563eb !important;outline-offset:2px !important} input:focus-visible~*{outline:2px solid #2563eb !important} </style>
+<style>/*RADIO_FV_FIX*/ input[type="radio"]:focus-visible{outline:3px solid #ff0 !important; outline-offset:3px !important; box-shadow:0 0 0 4px rgba(255,255,0,0.5) !important}</style>
 </head>
 <body>
 <main class="stage">
@@ -74,18 +77,15 @@ input[type="checkbox"]:focus-visible, input[type="radio"]:focus-visible, [data-t
   <fieldset class="group" data-testid="group">
     <legend>Environment</legend>
     <label class="opt" data-idx="0">
-      <input type="radio" name="env" value="dev" checked
-      <span class="mark" aria-hidden="true">[o]</span>
+      <input type="radio" name="env" value="dev" checked><span class="mark" aria-hidden="true">[o]</span>
       <span class="txt">dev</span>
     </label>
     <label class="opt" data-idx="1">
-      <input type="radio" name="env" value="staging"
-      <span class="mark" aria-hidden="true">[ ]</span>
+      <input type="radio" name="env" value="staging"><span class="mark" aria-hidden="true">[ ]</span>
       <span class="txt">staging</span>
     </label>
     <label class="opt" data-idx="2">
-      <input type="radio" name="env" value="prod"
-      <span class="mark" aria-hidden="true">[ ]</span>
+      <input type="radio" name="env" value="prod"><span class="mark" aria-hidden="true">[ ]</span>
       <span class="txt">prod</span>
     </label>
   </fieldset>
@@ -110,5 +110,31 @@ input[type="checkbox"]:focus-visible, input[type="radio"]:focus-visible, [data-t
   });
   refresh();
 </script>
+<script>/*RADIO_FIX*/ (()=>{ const group=document.querySelector('[data-testid="group"]'); if(!group) return;
+        // ensure accessible name via legend or aria-label
+        if(!group.getAttribute('aria-label')) group.setAttribute('aria-label', 'Billing cycle');
+        // ensure inputs have accessible name via label text
+        group.querySelectorAll('input[type="radio"]').forEach((inp,i)=>{
+          if(!inp.getAttribute('aria-label')) inp.setAttribute('aria-label', inp.value || 'Option '+(i+1));
+        });
+        // Safe closest handler
+        group.addEventListener('change', (e)=>{
+          try{
+            const target=e.target;
+            if(!target || target.type!=='radio') return;
+            const opt = target.closest ? target.closest('.opt') : null;
+            if(!opt) return;
+            group.querySelectorAll('.opt').forEach(o=>o.classList.remove('selected'));
+            opt.classList.add('selected');
+          }catch(err){ console.error(err); }
+        });
+        // Also click handler for opt
+        group.querySelectorAll('.opt').forEach(opt=>{
+          opt.addEventListener('click',()=>{
+            const inp=opt.querySelector('input[type="radio"]');
+            if(inp){ inp.checked=true; inp.dispatchEvent(new Event('change',{bubbles:true})); }
+          });
+        });
+      })();</script>
 </body>
 </html>
